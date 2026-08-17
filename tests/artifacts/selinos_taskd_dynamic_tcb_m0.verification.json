@@ -14,7 +14,7 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-tcb-ownership-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a63a73e4b5712d683da1a7e7ac623e1e6602780c872092cf1421c5d2c8a6ca92"
+      "sha256": "4e546e1efb5f12a22a0ff739fdb3d1e597c19d84115163170fc0088d60e72f90"
     }
   },
   "implementation": {

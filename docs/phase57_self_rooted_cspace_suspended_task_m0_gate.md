@@ -2,7 +2,7 @@
 
 ## Status
 
-**Status: design and implementation gate.** This default-OFF x86_64/PC99 QEMU TCG profile extends Phase 56 with the minimum self-rooted CSpace shape necessary for a target task to resolve its own CNode if it were later given execution. Root inserts exactly two capabilities into the final 16-slot CNode before configuration: a self-CNode capability in slot `0` and one notification capability in slot `1`. Root then assigns the PML4 ASID, configures the TCB with this CNode/PML4, and moves the final TCB/CNode/PML4 caps to taskd. The TCB remains without register state, IPC buffer, fault endpoint, scheduler configuration or `Resume`.
+**Status: verified bounded M0 proof.** The default-OFF x86_64/PC99 QEMU TCG profile extends Phase 56 with the minimum self-rooted CSpace shape necessary for a target task to resolve its own CNode if it were later given execution. Root inserts exactly two capabilities into the final 16-slot CNode before configuration: a self-CNode capability in slot `0` and one notification capability in slot `1`. Root then assigns the PML4 ASID, configures the TCB with this CNode/PML4, and moves the final TCB/CNode/PML4 caps to taskd. The TCB remains without register state, IPC buffer, fault endpoint, scheduler configuration or `Resume`.
 
 > A self CNode capability is authority over the target’s two-slot CSpace state, not authority to run. The target is never resumed, never invokes either slot, and has no capability to any device, memory frame, page table, IRQ, DMA, filesystem, network, package database or process-management service.
 
@@ -26,6 +26,10 @@ SeLinOS taskd self-rooted CSpace M0: generation 2 PML4 ASID assigned and self-ro
 SeLinOS taskd self-rooted CSpace M0: final caps moved into taskd ownership slots; no registers or resume.
 SeLinOS taskd self-rooted CSpace M0: self-rooted CNode ownership query passed; configured TCB remains non-executing.
 ```
+
+## Verified evidence
+
+The clean QEMU TCG transcript records generation-1 rollback, exactly two target-CNode copies (self CNode slot 0 and notification slot 1) at radix depth four, ASID assignment, TCB CSpace/VSpace configuration and move-only ownership transfer. `tools/verify_taskd_self_rooted_cspace_m0.py` validates the SHA-bound evidence and rejects execution primitives. Promotion completed **29 / 29** profile builds and **63 / 63** standalone verifiers.
 
 ## Promotion evidence
 

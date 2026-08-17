@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "51c24885ffe2f173a2b4969f523c84fde04cedb90a59df744efa58fc09b3c3d3"
+    "sha256": "a8d1626a2d26e935ef0778422dd01dc619622668636e9419ffc07b401c354680"
   },
   "probe_source": {
     "path": "src/projects/helixos/drivers/linux_syscall_probe.c",

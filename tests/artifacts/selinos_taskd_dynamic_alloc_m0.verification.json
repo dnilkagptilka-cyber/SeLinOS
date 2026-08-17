@@ -14,7 +14,7 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-allocation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "9366b7af88d83f73cdc5e5b552e3f4b5b1f0efe2f94be730dd10d941b2ebecd6"
+      "sha256": "4e3d99b349fa21f71ef3a77502e898310f835c5d7ab59c76adfc88d5d93f0f38"
     }
   },
   "implementation": {

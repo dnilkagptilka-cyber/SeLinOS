@@ -14,7 +14,7 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-cspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "3521fb8278491b54691c0db2457eba4a057cacf19991de70eb867fc44f8c51a1"
+      "sha256": "06f3e058f4d03e3c0d42c0d373c45e7f582285ca8079bf5d61ae01821396813e"
     }
   },
   "implementation": {

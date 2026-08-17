@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build-root-construct-m1/images/selinos-root-image-x86_64-pc99",
-    "sha256": "c370e65c929551225aad1e637b13999bcc8e39241a60a5910d3c14314a438772"
+    "sha256": "2ad5f2e499c85fb36247a417c273586c56c99c0301ad0b23673e0b71a532efe7"
   },
   "implementation": {
     "root_adapter": {

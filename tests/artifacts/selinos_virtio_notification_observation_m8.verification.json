@@ -21,7 +21,7 @@
     },
     "root_image": {
       "path": "build-virtio-notification-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "154dd760355cb5181190116bf96c75a14d38f91d3cd1db61ea71687571037c92"
+      "sha256": "f84e6d8db7def32d0a3c496ecd912181d1f5adb0f61474e58ea98b224b28d11f"
     }
   },
   "implementation": {

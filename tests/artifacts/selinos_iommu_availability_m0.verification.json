@@ -16,7 +16,7 @@
     },
     "root_image": {
       "path": "build-iommu-availability-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "11c936e0b724b6385d715b75400d98898e9f829d010ee122075e4eedbb0cf25f"
+      "sha256": "7291e42fcdfe38f0eae6e85959136f49657398d84128f028150d9a14aa441625"
     }
   },
   "implementation": {

@@ -15,7 +15,7 @@
   },
   "image": {
     "path": "build-virtio-driver-ready-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "90feab03fe571730a7af354bff9c37272847f7e7effdc7eeb64d03e758a8626f"
+    "sha256": "36d32fb81528576393014e9d2d010d154ca48c1bd28f82f31da9cab2c0981056"
   },
   "implementation": {
     "pci_helper": {

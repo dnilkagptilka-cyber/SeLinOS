@@ -17,7 +17,7 @@
     },
     "root_image": {
       "path": "build-wx-nx-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a4a49ba65939fe1650ba2c00e0d7c796f9488605c4bb78166aac0bfb61a7327d"
+      "sha256": "24cc00e64333d33475444a44dbf27c94fd0853e419977bb97542893e9d41d019"
     }
   },
   "implementation": {

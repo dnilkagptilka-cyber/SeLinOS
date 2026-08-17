@@ -39,7 +39,7 @@
     },
     "gate": {
       "path": "docs/phase57_self_rooted_cspace_suspended_task_m0_gate.md",
-      "sha256": "1fff6f608939aa0e2420c88ded5894baf4bdf247126a5be65e12786278c35570"
+      "sha256": "2aa577ee25e2dc2d4139477afe5b2636e9c40d98f77111320cceefca9171957a"
     }
   },
   "runtime": {

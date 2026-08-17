@@ -14,7 +14,7 @@
   },
   "image": {
     "path": "build-e1000-bar-range-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "31f406de6725709903f1e38bff22ff6e6d556a03f3465b2802d99481c9d8dc9d"
+    "sha256": "7dca97c8caf48a070e61825a96a7742fc34691510001db6534c0f4767082176c"
   },
   "implementation": {
     "pci_source": {

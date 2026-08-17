@@ -26,7 +26,7 @@
     },
     "root_image": {
       "path": "build-virtio-queue-enable-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "062aa22b191c0b932f8b342714d0be88a384200f597f5f85e9f99f2f12d05232"
+      "sha256": "3be4428efcd8a68b4d900fa3b6b00e6793d751da9f97ec0493c8a8774042adcd"
     }
   },
   "implementation": {

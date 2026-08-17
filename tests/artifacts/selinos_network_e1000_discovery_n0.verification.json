@@ -13,7 +13,7 @@
   },
   "image": {
     "path": "build-e1000-discovery-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "eeb812cf5c6e93e7e930f7167d039d078026704986c40c5baeb0605051a879b1"
+    "sha256": "8b50fe02dcf338ea38d157a096564050148a2dcb5352a7616bd7d703ffdb5163"
   },
   "implementation": {
     "pci_source": {

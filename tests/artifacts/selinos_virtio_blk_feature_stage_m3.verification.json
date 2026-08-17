@@ -14,7 +14,7 @@
   },
   "image": {
     "path": "build-virtio-feature-stage-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "8608e71721e796c744c2091c5703548ed003cab7221761e76796adb8dbc8e348"
+    "sha256": "20ebd372c90b7c96ea23f12e5385f101acafb40328ae123fe0a01b6db3cd1017"
   },
   "implementation": {
     "pci_helper": {
