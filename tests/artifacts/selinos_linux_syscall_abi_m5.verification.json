@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M5 identity and TID bounded slice",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "syscall_contract": [
+    {
+      "number": 102,
+      "name": "getuid",
+      "result": 0
+    },
+    {
+      "number": 104,
+      "name": "getgid",
+      "result": 0
+    },
+    {
+      "number": 107,
+      "name": "geteuid",
+      "result": 0
+    },
+    {
+      "number": 108,
+      "name": "getegid",
+      "result": 0
+    },
+    {
+      "number": 186,
+      "name": "gettid",
+      "result": 4243
+    },
+    {
+      "number": 218,
+      "name": "set_tid_address",
+      "result": 4243,
+      "input_policy": "nonzero address wholly within a mapped user page; address is neither retained nor written"
+    }
+  ],
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_syscall_abi_m5.boot.log",
+    "sha256": "9ed05b6257bb5493886ffc7e79046884e490296abdc4625abe3d114afea28a27",
+    "required_markers": [
+      "SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.",
+      "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.",
+      "SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: unexpected credential syscall number.",
+      "SeLinOS ABI gateway: expected gettid UnknownSyscall fault.",
+      "SeLinOS ABI gateway: expected set_tid_address UnknownSyscall fault.",
+      "SeLinOS ABI gateway: restricted set_tid_address rejected.",
+      "SeLinOS ABI gateway: Linux syscall ABI probe failed."
+    ]
+  },
+  "not_claimed": [
+    "arch_prctl or ARCH_SET_FS TLS-base setup; pinned UnknownSyscall fault replies expose no FS-base register",
+    "clone, fork, pthread lifecycle, clear_child_tid, futex wakeup or scheduler/task service semantics",
+    "credentials, namespaces, permissions, seccomp or signal delivery",
+    "general Linux syscall ABI or glibc process/thread startup compatibility"
+  ]
+}

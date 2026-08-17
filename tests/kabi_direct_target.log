@@ -1,0 +1,18 @@
+make: Entering directory '/home/ubuntu/selinos-kabi/linux-6.18.44-kabi-config'
+make  -C /home/ubuntu/helixos/tests/kabi_reference_module \
+-f /home/ubuntu/selinos-kabi/linux-6.18.44/Makefile selinos_kabi_probe.ko
+make[1]: Entering directory '/home/ubuntu/helixos/tests/kabi_reference_module'
+make --no-print-directory -C /home/ubuntu/helixos/tests/kabi_reference_module \
+-f /home/ubuntu/selinos-kabi/linux-6.18.44/Makefile selinos_kabi_probe.ko
+make -f /home/ubuntu/selinos-kabi/linux-6.18.44/scripts/Makefile.build obj=. need-builtin=1 need-modorder=1 ./selinos_kabi_probe.o ./selinos_kabi_probe.mod
+{  echo selinos_kabi_probe.o; } > modules.order
+make -f /home/ubuntu/selinos-kabi/linux-6.18.44/scripts/Makefile.modpost
+# MODPOST Module.symvers
+   /home/ubuntu/selinos-kabi/linux-6.18.44-kabi-config/scripts/mod/modpost -M -m -b        -o Module.symvers -T modules.order -i /home/ubuntu/selinos-kabi/linux-6.18.44-kabi-config/Module.symvers -e 
+make -f /home/ubuntu/selinos-kabi/linux-6.18.44/scripts/Makefile.modfinal
+make[3]: *** No rule to make target 'selinos_kabi_probe.ko', needed by '__modfinal'.  Stop.
+make[2]: *** [/home/ubuntu/selinos-kabi/linux-6.18.44/Makefile:2031: single_modules] Error 2
+make[1]: *** [/home/ubuntu/selinos-kabi/linux-6.18.44/Makefile:248: __sub-make] Error 2
+make[1]: Leaving directory '/home/ubuntu/helixos/tests/kabi_reference_module'
+make: *** [/home/ubuntu/selinos-kabi/linux-6.18.44/Makefile:248: __sub-make] Error 2
+make: Leaving directory '/home/ubuntu/selinos-kabi/linux-6.18.44-kabi-config'

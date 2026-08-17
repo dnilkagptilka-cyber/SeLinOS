@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M13 root-tracked ARCH_GET_FS",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false,
+    "kernel_fsgsbase": "msr"
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "accepted_request": "Only arch_prctl(code=ARCH_GET_FS 0x1003, user word in the mapped test page) after the exact M12 ARCH_SET_FS sequence is accepted.",
+    "state": "The returned value is only root\u2019s per-probe `probe_tls_base`, recorded after successful M12 seL4_TCB_SetTLSBase to the fixed anonymous test-page address.",
+    "probe": "The isolated probe verifies zero return and compares the returned word against its retained mapped-page address before its fs:0 test.",
+    "negative_scope": "This does not read arbitrary remote TCB state and does not support general ARCH_GET_FS, GS, clone inheritance, ELF TLS or dynamic linker semantics."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_tls_arch_get_fs_m13.boot.log",
+    "sha256": "0ccb2ced952f786da54d1ec6eed8c912beb9222badebdff6bd6521bba1720b1e",
+    "required_markers": [
+      "SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.",
+      "SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: restricted ARCH_GET_FS rejected.",
+      "general remote TLS introspection enabled",
+      "dynamic TLS enabled"
+    ]
+  },
+  "not_claimed": [
+    "general ARCH_GET_FS or remote TCB FS-base read capability",
+    "arbitrary TLS base state, GS base, clone/fork inheritance or cross-thread TLS",
+    "ELF TLS relocations, dynamic linker, glibc or general Linux runtime compatibility",
+    "dpkg, apt, package installation or repository access"
+  ]
+}

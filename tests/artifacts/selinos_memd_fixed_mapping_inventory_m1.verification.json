@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS memd fixed mapping inventory reservation M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "memd": {
+      "path": "src/projects/helixos/servers/memd_m1.c",
+      "sha256": "dac847709dea84b58a47962fd50988859b44469e9ba82df0b00d724963f4fba1"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/memd_m1_probe.c",
+      "sha256": "71354c5e5c4c2926492897c4db0b74a36dc0f5c11011b88f4f819cae2e7ac5f5"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_memd_m1_protocol.h",
+      "sha256": "099e78b26e9634d31fa9a979081bfbe7b6403a34863839977b10419320fefaea"
+    }
+  },
+  "contract": {
+    "request": "Only a two-word RESERVE_FIXED_PLAN request for slot 1 is accepted.",
+    "state": "The first exact request transitions memd-local state from FREE to RESERVED; the second exact request returns EBUSY and leaves state RESERVED.",
+    "authority": "Root delegates only the client endpoint to memd and its probe. Memd receives no allocator, VSpace, page-table, frame, mapping, task, device, IRQ, DMA, PCI, I/O or IOSpace authority."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_memd_fixed_mapping_inventory_m1.boot.log",
+    "sha256": "a887996d3efceaa28adee029f8442b8b67e855dc37632206748162fccb1bcf14",
+    "required_markers": [
+      "SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.",
+      "SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.",
+      "SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.",
+      "SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS memd M1: malformed fixed-plan reservation rejected.",
+      "SeLinOS memd M1 probe: fixed-plan reservation sequence rejected."
+    ]
+  },
+  "not_claimed": [
+    "VSpace, page-table, frame, stack, image or mapping allocation",
+    "executable mapping, W^X, native ELF loading or dynamic linker semantics",
+    "capability lease transfer, revocation, reuse, teardown or dynamic task creation",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M12 ARCH_SET_FS mapped-page TLS proof",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false,
+    "kernel_fsgsbase": "msr"
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "accepted_request": "Only arch_prctl(code=ARCH_SET_FS 0x1002, base=the one anonymous mapped test page) is accepted.",
+    "mediation": "Root retains the probe TCB capability and calls seL4_TCB_SetTLSBase(probe.thread.tcb.cptr, base); the TCB capability is never delegated to the probe.",
+    "probe": "After zero result, the isolated probe stores and loads the fixed word TLSSELIN via fs:0 and compares it exactly.",
+    "negative_scope": "ARCH_GET_FS, GS base, arbitrary addresses, clone inheritance, ELF TLS relocation, dynamic linker and glibc TLS semantics are not implemented or claimed."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_tls_arch_prctl_m12.boot.log",
+    "sha256": "3f683469ef08ecd9a7dbf3c9bcec7d063f6370807fb2a8409cf77bf831ba2e16",
+    "required_markers": [
+      "SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.",
+      "SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: restricted ARCH_SET_FS rejected.",
+      "ARCH_GET_FS supported",
+      "dynamic TLS enabled"
+    ]
+  },
+  "not_claimed": [
+    "ARCH_GET_FS, ARCH_SET_GS, ARCH_GET_GS or arbitrary FS base values",
+    "TCB capability delegation to Linux process domains",
+    "clone/fork TLS inheritance, ELF TLS relocations, dynamic linker or glibc compatibility",
+    "general Linux process runtime, dpkg or apt"
+  ]
+}

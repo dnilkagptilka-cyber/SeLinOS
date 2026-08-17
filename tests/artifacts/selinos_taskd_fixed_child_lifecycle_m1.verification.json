@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd fixed-child lifecycle M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "taskd": {
+      "path": "src/projects/helixos/servers/taskd_m1.c",
+      "sha256": "c51c2dff834dc624140a1496adc54f116fc12d2819319acbd3eb6e893e92511e"
+    },
+    "child": {
+      "path": "src/projects/helixos/drivers/task_lifecycle_child.c",
+      "sha256": "689faf172c07311c4057eb1e2a0ab7533e1abe44860dbf7bf09494cc4e8c0fe1"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/task_lifecycle_probe.c",
+      "sha256": "185fa60f0611cd10393ad8e9ede58e457b3efec76432e4935e54cd7f06f83dac"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_m1_protocol.h",
+      "sha256": "040890ecaf45aeb0d06e0a583c4f4d20241b6b355ce2b3f67fb99fdbe33e584b"
+    }
+  },
+  "contract": {
+    "child": "One root-preprovisioned isolated child has taskd-local ID 1.",
+    "request": "The lifecycle probe sends exactly START(1) on its sole client endpoint.",
+    "lifecycle": "taskd validates completion generation 1, invokes Suspend then Resume on its delegated child TCB cap, sends one second start token, validates generation 2, then signals dedicated probe success.",
+    "authority": "taskd receives only the declared fixed child TCB and protocol IPC caps; the proof path has no root runtime child activation or control."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_taskd_fixed_child_lifecycle_m1.boot.log",
+    "sha256": "2a999547cd13748a58b4333b6592f5b40beb6a7102629cf0c9505c2b946a96ca",
+    "required_markers": [
+      "SeLinOS taskd M1: exact START(1) accepted.",
+      "SeLinOS taskd M1: child completion generation 1 validated.",
+      "SeLinOS taskd M1: fixed child TCB suspended and resumed.",
+      "SeLinOS taskd M1: child completion generation 2 validated.",
+      "SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.",
+      "SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS taskd M1: malformed fixed-child request rejected.",
+      "SeLinOS taskd M1: first child completion rejected.",
+      "SeLinOS taskd M1: second child completion rejected.",
+      "SeLinOS taskd M1: fixed child TCB suspend/resume failed.",
+      "SeLinOS task lifecycle M1 probe: taskd reply rejected."
+    ]
+  },
+  "not_claimed": [
+    "Linux clone, fork, pthread or general process-lifecycle semantics",
+    "dynamic child TCB, CSpace, VSpace, stack, register-image or PID allocation",
+    "parent child TID, clear-child-tid, futex exit, wait, signals or task teardown",
+    "shared address spaces, file tables, TLS, credentials, namespaces or scheduler policy",
+    "glibc runtime, dpkg or apt"
+  ]
+}

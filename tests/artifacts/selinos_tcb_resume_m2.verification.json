@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS transferred child TCB single-resume M2",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "taskd": {
+      "path": "src/projects/helixos/servers/taskd_tcb_resume_m2.c",
+      "sha256": "fc05cc66ea10854e99d1f9b726c2f525a7fc0835683b40af427d165fbc60f97e"
+    },
+    "objectd": {
+      "path": "src/projects/helixos/servers/objectd_tcb_resume_m2.c",
+      "sha256": "5222e4a400dc392051ab55264a5807f3090327c3933e8e14152f7f8ed7f29dca"
+    },
+    "child": {
+      "path": "src/projects/helixos/drivers/tcb_resume_m2_child.c",
+      "sha256": "e62af0c1ffe852c02b671f1c2831f9dddd045b1aad56bffc1f2530e0cbed0e2a"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_tcb_resume_m2_probe.c",
+      "sha256": "3ba9329e8cc07cd9e2dc8ab141ab47826d583c4e39d53fb06d235058913483b2"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_tcb_resume_m2_protocol.h",
+      "sha256": "7ed75fd302798003c43edc8991c97b943bd04f142ee2d8781b8505962860bf17"
+    }
+  },
+  "contract": {
+    "child": "Root configures and spawns one fresh child in the suspended state. Taskd receives its TCB cap and invokes exactly one seL4_TCB_Resume.",
+    "completion": "The child has only one completion-send cap and emits exactly (CHILD_RAN, slot=1, generation=1); taskd validates it before probe success.",
+    "authority": "No allocator, child CSpace/VSpace construction, register/stack/TLS setup, additional TCB control, device, IRQ, DMA, PCI, I/O or IOSpace authority is delegated to taskd or objectd."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_tcb_resume_m2.boot.log",
+    "sha256": "c84199ce180c69a0df6c7d2c35a0e276d8f7a818df14267e55943ed7a56ef850",
+    "required_markers": [
+      "SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.",
+      "SeLinOS taskd TCB resume M2: exact slot 1 request accepted.",
+      "SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.",
+      "SeLinOS taskd TCB resume M2: one transferred child TCB resumed.",
+      "SeLinOS TCB resume M2 child: one fixed completion sent.",
+      "SeLinOS taskd TCB resume M2: exact one child completion validated.",
+      "SeLinOS taskd TCB resume M2 probe: one transferred child resume passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS taskd TCB resume M2: malformed client request rejected.",
+      "SeLinOS taskd TCB resume M2: TCB cap reply rejected.",
+      "SeLinOS taskd TCB resume M2: one resume rejected.",
+      "SeLinOS taskd TCB resume M2: child completion rejected."
+    ]
+  },
+  "not_claimed": [
+    "dynamic child creation, child configuration, stack/register/TLS setup, clone flags or client-selected task state",
+    "second resume, suspend, scheduler change, process exit, teardown, release, revocation or reuse",
+    "CSpace/VSpace/page-table/frame/stack/image/mapping allocation or resource lease transfer",
+    "executable mapping, W^X, native ELF loading or dynamic linker semantics",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

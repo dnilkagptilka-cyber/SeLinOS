@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Phase 13 network N1 root-only QEMU e1000 firmware BAR0 range validation",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "fixture": "QEMU e1000 PCI device with firmware-assigned BAR0",
+    "linux_kernel_present": false,
+    "iommu_detected": false
+  },
+  "opt_in": {
+    "cmake_option": "SeLinRootE1000BarRangeProbe=ON",
+    "default_production_option": "OFF"
+  },
+  "image": {
+    "path": "build-e1000-bar-range-probe/images/selinos-root-image-x86_64-pc99",
+    "sha256": "58420b3947803ed750333f978b5b748adc56ff538f19d60f79e0255955679732"
+  },
+  "implementation": {
+    "pci_source": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "pci_contract": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "root_hook": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "cmake_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "identity": {
+    "vendor_id": "8086",
+    "device_id": "100e",
+    "bar_index": 0,
+    "device": "QEMU legacy e1000"
+  },
+  "validated_contract": {
+    "precondition": "N1 re-reads and exact-matches N0 scalar identity before any configuration write.",
+    "bar_policy": "Accept only a non-zero, firmware-assigned, 32-bit memory BAR0.",
+    "sizing_transaction": "Quiesce PCI memory decoding and bus mastering; write all ones only to size BAR0; restore BAR0; read back BAR0; restore PCI command word; read back command word.",
+    "result": "Return scalar paddr, size and bar_index only after overflow-safe 32-bit range validation."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_network_e1000_bar_range_n1.boot.log",
+    "sha256": "58c93c55fa3f3f8294a608fd99fc4444be2a2c428767f61ea915da038b020553",
+    "required_markers": [
+      "SeLinOS network N1: e1000 firmware BAR range validated and restored; no MMIO/IRQ/DMA/NIC authority.",
+      "SeLinOS network N1: no BAR frame, mapping, IRQ, DMA, bus mastering or packet I/O.",
+      "ACPI: 0 IOMMUs detected"
+    ],
+    "forbidden_markers": [
+      "network N1: e1000 firmware BAR range validation failed",
+      "e1000 BAR mapped",
+      "e1000 IRQ granted",
+      "e1000 DMA granted",
+      "NIC driver domain started",
+      "packet transmitted",
+      "IP stack started"
+    ]
+  },
+  "not_claimed": [
+    "BAR frame capability or BAR mapping",
+    "IRQ or DMA authority",
+    "PCI command-register enable or bus-master enable after the exact restore transaction",
+    "NIC driver domain, device reset, transmit or receive descriptors",
+    "Ethernet frames, IP, DNS, TCP, HTTP(S), repository access",
+    "IOMMU or IOSpace containment, time/trust verification, dpkg or apt support"
+  ]
+}

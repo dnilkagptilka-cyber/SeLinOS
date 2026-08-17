@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M15 fixed immutable F_GETFL status",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    },
+    "object_window_guard": {
+      "path": "tools/verify_m15_probe_object_window.py"
+    },
+    "m14_probe_baseline": {
+      "path": "tests/artifacts/selinos_linux_syscall_probe_m14_baseline.o",
+      "sha256": "e52bb32c090211403f10906832e04b1f84dbfa799a2d68bf9644c42df2716cf3",
+      "canonical_source_sha256": "f2ac1a6cd48f13a9771b8205fc2c07a4dbc70e880cb3430d0d51877275636f55"
+    }
+  },
+  "contract": {
+    "request": "Only x86_64 fcntl syscall 72 with RDI=6, RSI=F_GETFL (3), and RDX=0 is accepted.",
+    "result": "The immutable read-only descriptor returns exactly 0.",
+    "isolation": "The root handler performs neither ROMFS IPC nor client-memory mapping nor mutable state change.",
+    "probe_sequencing": "The probe checks the zero result, then explicitly restores FD 6 before the existing M10 fstat request."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_fcntl_getfl_m15.boot.log",
+    "sha256": "abfd166f4fa9c4ff76b4c3477c486d9700a9e8a090319a58896ca4f92d67890c",
+    "required_markers": [
+      "SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.",
+      "SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: expected bounded F_GETFL fault.",
+      "SeLinOS ABI gateway: bounded F_GETFL rejected.",
+      "SeLinOS ABI gateway: bounded version fstat rejected."
+    ]
+  },
+  "not_claimed": [
+    "general fcntl command coverage, descriptor flags or mutable file-status flags",
+    "general VFS, POSIX filesystem or Linux struct file semantics",
+    "host or QEMU file-descriptor state",
+    "glibc runtime, dpkg or apt"
+  ]
+}

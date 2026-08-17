@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "profile": "SeLinOS M3 / bounded dual QEMU edu independent driver bundles",
+  "platform": {
+    "architecture": "x86_64",
+    "machine": "PC99",
+    "emulator": "QEMU TCG",
+    "qemu_devices": [
+      "edu",
+      "edu"
+    ],
+    "pci_id": "1234:11e8"
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_two_edu_m3.log",
+    "sha256": "5f42a8f28b83992de0edb388a5f7b0407a34b2c055791c74ca20097f3723fed1",
+    "required_once": [
+      "SeLinOS M3: multiple QEMU edu functions discovered; independent bundles starting."
+    ],
+    "required_twice": [
+      "SeLinOS M3: independent BAR0, mediated IRQ and DMA lease granted to edu driver domain.",
+      "SeLinOS deviced: QEMU edu PCI ID matched; driver-local probe authorised.",
+      "SeLinOS edu driver: device-token guard checks passed.",
+      "SeLinOS edu driver: mediated 100-byte coherent DMA roundtrip passed.",
+      "SeLinOS dmad: DMA CPU mapping unmapped and child capability revoked.",
+      "SeLinOS KAPI 6.18: deviced-driven QEMU edu remove completed."
+    ]
+  },
+  "capability_boundary": {
+    "driver_has_raw_irqhandler": false,
+    "driver_has_irqcontrol": false,
+    "driver_has_pci_config_io": false,
+    "per_device_bundle": [
+      "deviced",
+      "irqd",
+      "dmad",
+      "driver domain"
+    ],
+    "dma_teardown": "Page_Unmap plus exact driver DMA frame CNode revoke/delete before accepted free reply",
+    "irq_teardown": "exact driver notification CNode revoke/delete before accepted free_irq reply"
+  },
+  "not_claimed": [
+    "general dynamic unbounded multi-device registry",
+    "hotplug or PCI function remove detection",
+    "DMA frame reuse or zeroisation",
+    "IOMMU-backed DMA isolation",
+    "native Linux .ko execution",
+    "general Linux driver-model compatibility"
+  ],
+  "kabi_regression": {
+    "report_path": "tests/artifacts/selinos_kabi_probe-6.18.44.verification.json",
+    "report_sha256": "714f3d1ae292715fb98d0c36caa12f0f810c7b659a2f52e0c1188e50d1e1deb8",
+    "accepted_for_next_loader_stage": true,
+    "version_mismatches": 0
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Phase 13 network N0 root-only QEMU e1000 identity discovery",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "fixture": "QEMU e1000 PCI device",
+    "linux_kernel_present": false
+  },
+  "opt_in": {
+    "cmake_option": "SeLinRootE1000DiscoveryProbe=ON",
+    "default_production_option": "OFF"
+  },
+  "image": {
+    "path": "build-e1000-discovery-probe/images/selinos-root-image-x86_64-pc99",
+    "sha256": "8705055c14fd4ae7bbd3101c52323bdd7a45a5a90d9811325846fca8ef2153e4"
+  },
+  "implementation": {
+    "pci_source": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "pci_contract": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "root_hook": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "cmake_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "identity": {
+    "vendor_id": "8086",
+    "device_id": "100e",
+    "device": "QEMU legacy e1000"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_network_e1000_discovery_n0.boot.log",
+    "sha256": "3ec5060a8bb790a6fdf8a7abd3fac5ecec4e2ba4f78c48017bc8a6acd33a6514",
+    "required_markers": [
+      "SeLinOS network N0: quarantined e1000 PCI identity found; BAR/IRQ/DMA/network authority withheld."
+    ],
+    "forbidden_markers": [
+      "network N0: quarantined e1000 PCI identity not found",
+      "e1000 BAR mapped",
+      "e1000 IRQ granted",
+      "e1000 DMA granted",
+      "NIC driver domain started",
+      "packet transmitted",
+      "IP stack started"
+    ]
+  },
+  "not_claimed": [
+    "BAR mapping or assignment",
+    "PCI command-register mutation or bus-master enable",
+    "IRQ or DMA authority",
+    "NIC driver domain",
+    "Ethernet frames, IP, DNS, TCP, HTTP(S), repository access",
+    "time/trust verification, dpkg or apt support"
+  ]
+}

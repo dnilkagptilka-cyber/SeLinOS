@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS ROMFS CPIO M1 bounded multi-file parser",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "romfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "direct_probe": {
+      "path": "src/projects/helixos/drivers/romfs_probe.c",
+      "sha256": "6cc608b5895691769d38e55c8d03fd7e4d63a1a4d20d4510cdb77296cffbbc11"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    },
+    "archive_interface": {
+      "path": "src/projects/helixos/include/selinos_romfs_archive.h",
+      "sha256": "8a19de62326dfa5854f75af010cb248a4fa068a16b0626d05da70a49a622a3f5"
+    },
+    "embedded_archive": {
+      "path": "src/projects/helixos/servers/romfs_archive.c",
+      "sha256": "c0b52cecc7cc9e0ffe3abc514cf6118497d1d78655fb2f21c6bd13990aaead03"
+    },
+    "archive_generator": {
+      "path": "tools/generate_romfs_cpio_fixture.py",
+      "sha256": "836b85b7818d7bf995e0d06044f472f31b731b7d198c55a5170e5540d6951231"
+    }
+  },
+  "archive_contract": {
+    "format": "uncompressed newc CPIO with 110-byte ASCII-hex headers and four-byte alignment",
+    "files": [
+      {
+        "pathname": "/selinos-release",
+        "content": "SELINOS!",
+        "protocol_fd": 3
+      },
+      {
+        "pathname": "/selinos-banner",
+        "content": "CPIO-OK!",
+        "protocol_fd": 4
+      }
+    ],
+    "trailer": "TRAILER!!! is embedded and parser-bounded",
+    "file_policy": "regular files only; expected content lengths are checked before response"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_romfs_cpio_m1.boot.log",
+    "sha256": "ee7afff10c1b0b7efca485c01bbf90f963b3e563641ba3a56820ff639a102405",
+    "required_markers": [
+      "SeLinOS romfsd: immutable release record service online.",
+      "SeLinOS romfsd: embedded newc CPIO multi-file parser ready.",
+      "SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.",
+      "SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.",
+      "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS romfsd: embedded newc CPIO archive validation failed.",
+      "SeLinOS ROMFS probe: CPIO banner open failed.",
+      "SeLinOS ROMFS probe: CPIO banner read failed.",
+      "SeLinOS ROMFS probe: CPIO banner close failed."
+    ]
+  },
+  "not_claimed": [
+    "client-supplied arbitrary pathname IPC or pathname traversal semantics",
+    "directories, symlinks, hard links, permissions, metadata, write operations or persistent storage",
+    "streaming reads, arbitrary file sizes, concurrent per-client descriptor ownership or general VFS",
+    "general Linux openat/read ABI or dpkg/apt filesystem support"
+  ]
+}

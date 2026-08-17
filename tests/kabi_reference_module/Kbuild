@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: GPL-2.0
+# Consumed only by the pinned Linux Kbuild invocation.
+obj-m += selinos_kabi_probe.o

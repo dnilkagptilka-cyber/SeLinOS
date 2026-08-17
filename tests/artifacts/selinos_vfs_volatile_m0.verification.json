@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS VFS M0 bounded volatile state transaction",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "vfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "vfs_probe": {
+      "path": "src/projects/helixos/drivers/romfs_probe.c",
+      "sha256": "6cc608b5895691769d38e55c8d03fd7e4d63a1a4d20d4510cdb77296cffbbc11"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    },
+    "root_bundle": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    }
+  },
+  "contract": {
+    "object": "One server-owned volatile word at the fixed packed pathname /selinos-state and fixed descriptor 5.",
+    "open": "Only the declared file selector or exact 14-byte packed pathname opens the descriptor.",
+    "read": "Read requires the open descriptor and offset zero, returning exactly one word.",
+    "write": "Write requires exactly three IPC words: opcode, fixed descriptor and complete replacement word. The server commits the replacement only after validation.",
+    "close": "Close clears the server-local open state; later write attempts are rejected.",
+    "backing": "The word is initialized at server boot and is deliberately volatile; no device, DMA frame, block request or persistence abstraction is used."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_vfs_volatile_m0.boot.log",
+    "sha256": "f5af85e7e1f7d4f6f44826881b4ec4659d0a206be9d8d2cf4dffed79ab97f5aa",
+    "required_markers": [
+      "SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.",
+      "SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.",
+      "SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS VFS M0 probe: volatile state open failed.",
+      "SeLinOS VFS M0 probe: malformed volatile write was accepted.",
+      "SeLinOS VFS M0 probe: malformed write changed volatile state.",
+      "SeLinOS VFS M0 probe: volatile write failed.",
+      "SeLinOS VFS M0 probe: volatile read-after-write failed.",
+      "SeLinOS VFS M0 probe: closed volatile FD accepted write.",
+      "persistent storage enabled",
+      "virtio block request issued",
+      "DMA granted"
+    ]
+  },
+  "not_claimed": [
+    "persistent storage, crash recovery, journaling, flush or durability",
+    "block I/O, virtqueue, IRQ, DMA or IOMMU containment",
+    "arbitrary paths, directories, symlinks, metadata, permissions or multi-client descriptor tables",
+    "streaming, partial, append or mmap writes",
+    "POSIX filesystem compatibility, package extraction, dpkg or apt"
+  ]
+}

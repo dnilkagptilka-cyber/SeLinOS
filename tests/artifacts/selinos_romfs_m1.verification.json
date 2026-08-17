@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS ROMFS/VFS foundation M1",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "sources": {
+    "server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/romfs_probe.c",
+      "sha256": "6cc608b5895691769d38e55c8d03fd7e4d63a1a4d20d4510cdb77296cffbbc11"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    }
+  },
+  "capability_contract": {
+    "endpoint_slot": 8,
+    "root_action": "Root allocates one endpoint, copies it only into the dedicated ROMFS server and its one probe CSpace, validates both copied slots, and starts server before probe.",
+    "server_authority": "The server has its own TCB/CSpace/VSpace/fault endpoint plus the ROMFS endpoint; it receives no PCI, IRQ, DMA, device or raw VSpace capability.",
+    "probe_authority": "The probe has its own TCB/CSpace/VSpace/fault endpoint plus the ROMFS endpoint only."
+  },
+  "implemented_contract": {
+    "open": {
+      "operation": 1,
+      "file_id": 1,
+      "returned_fd": 3
+    },
+    "read": {
+      "operation": 2,
+      "fd": 3,
+      "offset": 0,
+      "result": "fixed immutable SeLinOS-ROMFS-M1 record, length 18 and magic SELINOS!"
+    },
+    "close": {
+      "operation": 3,
+      "fd": 3
+    },
+    "negative_guard": {
+      "operation": "read",
+      "fd": 99,
+      "result": "EBADF (9)"
+    }
+  },
+  "required_serial_markers": [
+    "SeLinOS romfsd: immutable release record service online.",
+    "SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.",
+    "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+  ],
+  "forbidden_serial_markers": [
+    "SeLinOS ROMFS: unable to start isolated server/client bundle.",
+    "SeLinOS ROMFS probe: open failed.",
+    "SeLinOS ROMFS probe: immutable read failed.",
+    "SeLinOS ROMFS probe: invalid-FD guard failed.",
+    "SeLinOS ROMFS probe: close failed.",
+    "SeLinOS M0: isolated domain bootstrap FAILED."
+  ],
+  "not_claimed": [
+    "CPIO parsing, pathname parsing, directory traversal, arbitrary files or general VFS namespaces",
+    "User-pointer data transfer, multi-page read, write, persistent storage, mount, permissions or POSIX file descriptors",
+    "Linux open/read/close syscall integration, dynamic linking, glibc, dpkg, apt or existing Linux ELF execution"
+  ]
+}

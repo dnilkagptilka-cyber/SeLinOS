@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS ROMFS syscall bridge M2",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "sources": {
+    "probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    },
+    "gateway": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "romfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "romfs_protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    }
+  },
+  "implemented_contract": {
+    "openat": {
+      "number": 257,
+      "accepted_arguments": {
+        "dirfd": -100,
+        "flags": 0,
+        "mode": 0,
+        "pathname": "/selinos-release"
+      },
+      "result": "fixed descriptor 3 via direct IPC to selinos-romfsd"
+    },
+    "read": {
+      "number": 0,
+      "accepted_arguments": {
+        "fd": 3,
+        "length": 8,
+        "buffer": "caller mapped one-page mmap buffer"
+      },
+      "result": "eight immutable bytes SELINOS! copied through one temporary root mapping"
+    },
+    "close": {
+      "number": 3,
+      "accepted_arguments": {
+        "fd": 3
+      },
+      "result": 0
+    },
+    "pointer_safety": "Gateway snapshots fault MRs, performs ROMFS IPC, obtains only the caller buffer backing frame, duplicate-maps it temporarily, copies one word, unmaps/deletes the duplicate cap, then restores the fault reply frame."
+  },
+  "required_serial_markers": [
+    "SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.",
+    "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.",
+    "SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.",
+    "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+  ],
+  "forbidden_serial_markers": [
+    "SeLinOS ABI gateway: restricted ROMFS openat rejected.",
+    "SeLinOS ABI gateway: restricted ROMFS read rejected.",
+    "SeLinOS ABI gateway: restricted ROMFS close rejected.",
+    "SeLinOS ABI gateway: Linux syscall ABI probe failed.",
+    "SeLinOS M0: isolated domain bootstrap FAILED."
+  ],
+  "not_claimed": [
+    "Arbitrary pathname resolution, directory traversal, CPIO parsing, a file-descriptor table, offsets beyond zero or multi-page transfers",
+    "General Linux openat/read/close semantics, writable storage, VFS permissions, mounts, dynamic linking, glibc, dpkg, apt or existing Linux ELF execution",
+    "A persistent isolated selinos-abi-gated fault dispatcher"
+  ]
+}

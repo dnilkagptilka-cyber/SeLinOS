@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-constructed child completion witness M4",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false,
+    "configuration": "SeLinRootConstructM1Adapter=ON; SeLinRootConstructM2ControlLease=ON; SeLinRootConstructM3SingleResume=ON; SeLinRootConstructM4Completion=ON; lower profiles remain separate"
+  },
+  "image": {
+    "path": "build-root-construct-m4/images/selinos-root-image-x86_64-pc99",
+    "sha256": "6215471de7dbb45559569e8f84e07ec844cec8979c9e223f79c195f012acba85"
+  },
+  "implementation": {
+    "root_m1_adapter": {
+      "path": "src/projects/helixos/src/root_construct_m1.c",
+      "sha256": "bbcfa9e859ba1c467f9f4b35b1cf6e457c75f90ba29f52c48c353be05e70ca33"
+    },
+    "root_m2_lease": {
+      "path": "src/projects/helixos/src/root_construct_m2.c",
+      "sha256": "10c9b2ac03e06352b3b28d86068dff79dd49cc48ba16c7651055e8881d6de87f"
+    },
+    "root_m4_endpoint": {
+      "path": "src/projects/helixos/src/root_construct_m4.c",
+      "sha256": "e30953b76ab00e9b98fe9f7e7dafc59fa2c78762bad6893665208769a8b0f8fc"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "root_main": {
+      "path": "src/projects/helixos/src/main.c",
+      "sha256": "5f2cc7128b3841e3e4d82082be505f0a030b470535f38c2227a316f2dc774ef9"
+    },
+    "taskd_client": {
+      "path": "src/projects/helixos/servers/taskd_root_construct_m4_client.c",
+      "sha256": "caa099ad0686ed46312d1d422b53ad33b2750e301373c1e557522abe3195c328"
+    },
+    "completion_child": {
+      "path": "src/projects/helixos/drivers/root_construct_m4_completion_child.c",
+      "sha256": "46449f70d14c1d2c2fde5a71948c0eb5081fad342ecd6083d8eeec9181b356e6"
+    },
+    "m1_protocol": {
+      "path": "src/projects/helixos/include/selinos_root_construct_m1_protocol.h",
+      "sha256": "a1d4489f24f74b6471ee4e8ee12dc1d40bfbff8ab0e2d469551b204b0443d092"
+    },
+    "m2_protocol": {
+      "path": "src/projects/helixos/include/selinos_root_construct_m2_protocol.h",
+      "sha256": "e6ad0cf6097f1e1edb3234a5d65df57e72175a73f809e1f11fcdb3ddfc5ba42a"
+    },
+    "m3_protocol": {
+      "path": "src/projects/helixos/include/selinos_root_construct_m3_protocol.h",
+      "sha256": "9bbe5a1a94cc1a1835ee811a157d2fdc4751234f473fc599c7dc67b76faa23f6"
+    },
+    "m4_protocol": {
+      "path": "src/projects/helixos/include/selinos_root_construct_m4_protocol.h",
+      "sha256": "c352bd9f1504f605991012136e3872ea3ce1fd713431efc61072dbdcef5b7e59"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "contract": {
+    "topology": "Only root allocates one completion endpoint and copies one cap into the fixed taskd completion slot and one cap into the fixed root-selected child completion slot before suspended spawn.",
+    "action": "Taskd validates M1/M2 provenance, resumes the M4-received child TCB exactly once, then accepts only the exact fixed completion record.",
+    "witness": "The M4 child prints one execution witness, sends exactly one `(CHILD_DONE, slot=1, generation=1)` message and only yields thereafter."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_root_construct_m4.boot.log",
+    "sha256": "78549a9e50a4941ae4d4e6963dbbd6f361203bc892198e74d6a2b305b50a0496",
+    "required_markers": [
+      "SeLinOS root construction M1: isolated taskd request endpoint ready.",
+      "SeLinOS root construction M1: exact fixed request accepted; root constructing.",
+      "SeLinOS root construction M1: one fixed child constructed and spawned suspended; no cap delivered.",
+      "SeLinOS root construction M1: malformed or duplicate request rejected; no allocation.",
+      "SeLinOS root construction M2: one constructed-child TCB control cap delivered; child remains suspended.",
+      "SeLinOS root construction M2: malformed, unavailable or duplicate lease rejected; no cap delivered.",
+      "SeLinOS root construction M4 taskd client: one received-child TCB resumed; waiting for completion.",
+      "SeLinOS root construction M4 completion child: executed after taskd resume.",
+      "SeLinOS root construction M4 completion child: one exact completion sent.",
+      "SeLinOS root construction M4 taskd client: exact one child completion validated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS root construction M1: unable to start taskd adapter client.",
+      "SeLinOS root construction M1: fixed child construction failed; no cap delivered.",
+      "SeLinOS root construction M4 taskd client: M1/M2 provenance transaction rejected.",
+      "SeLinOS root construction M4 taskd client: received-child TCB resume rejected.",
+      "SeLinOS root construction M4 taskd client: child completion rejected.",
+      "SeLinOS root construction M4 completion child: unexpected execution."
+    ]
+  },
+  "not_claimed": [
+    "general IPC namespace, endpoint rights policy, dynamic task allocation, process creation API, generic completion or supervision protocol, second cap transfer, second resume, suspend or scheduler control",
+    "child configuration after construction, IPC retry, arbitrary messages, filesystem, Linux ABI, credentials, namespaces, FD or TLS inheritance, device access or nested child creation",
+    "teardown, cleanup, delete, revoke, unmap, release, reuse, process exit, wait, signals or futex lifecycle",
+    "Linux clone, fork, pthread, executable mapping, W^X, native ELF loading, dynamic linker semantics, glibc runtime, dpkg or apt"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-only x86 IOMMU bootinfo availability M0",
+  "profile": {
+    "build_directory": "build-iommu-availability-probe",
+    "cmake_option": "SeLinRootIommuAvailabilityProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG instruction-count mode, x86_64/PC99",
+    "kernel_iommu_config": "KernelIOMMU=ON",
+    "observed_numIOPTLevels": 0,
+    "classification": "containment blocker; no IOSpace or DMA authority"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-iommu-availability-probe/images/kernel-x86_64-pc99",
+      "sha256": "f855713093d0eeff179ad857e47fe5adf6ec7783efc4e55adf6c4b310cbe03f6"
+    },
+    "root_image": {
+      "path": "build-iommu-availability-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "e3bc640797ec761e26cbc03aa7593252a26d093f811e697a8cb3859ea36d6097"
+    }
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    },
+    "phase_design_gate": {
+      "path": "docs/phase49_x86_iommu_availability_m0_gate.md",
+      "sha256": "63d2c3b87ebbd5d36356b9365e4ed1a399610bc1140ac671bf5eebace196eec1"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_iommu_availability_m0.boot.log",
+    "sha256": "78dbd379d656d2c834d4e48c253e85798ce7fe441620456617e0b00d4cb23e76",
+    "required_markers": [
+      "SeLinOS IOMMU M0: numIOPTLevels=0; QEMU containment blocker observed.",
+      "qemu_status=124"
+    ],
+    "forbidden_markers": [
+      "SeLinOS IOMMU M0: bootinfo unavailable; containment authority withheld.",
+      "SeLinOS IOMMU M0: numIOPTLevels>0 observed; no IOSpace or DMA authority granted."
+    ]
+  },
+  "not_claimed": [
+    "IOMMU configuration, IOSpace allocation, PCI requester assignment, translation mapping, fault handling, DMA behavior or containment, device authority, storage I/O, persistent VFS, Linux KAPI compatibility, dpkg or apt"
+  ]
+}

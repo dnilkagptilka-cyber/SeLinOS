@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS suspended child TCB control lease M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "taskd": {
+      "path": "src/projects/helixos/servers/taskd_tcb_lease_m1.c",
+      "sha256": "8dfb94f8a70be9b1f763ee8f4dcdac338c11ebc70b45090956a8160050685252"
+    },
+    "objectd": {
+      "path": "src/projects/helixos/servers/objectd_tcb_lease_m1.c",
+      "sha256": "c1e9bc42ca3bc1feeb4f640b15470cd91fad7913446992b01d0aee0d4cfa1da4"
+    },
+    "suspended_child": {
+      "path": "src/projects/helixos/drivers/tcb_lease_suspended_child.c",
+      "sha256": "bba3503917beb8b2c36cdf7f1a5bc2b24b14f03ad7b8c1f39645aba1eb3cb79c"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_tcb_lease_m1_probe.c",
+      "sha256": "d9a822f37966047a2e5efdcb39daeb3cb96d3c1d35c6892c1891e8203cccd004"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_tcb_lease_m1_protocol.h",
+      "sha256": "0fccd86d1422af2a225c588e43c2d424c9c79cdd59bc100160f0a6ed2f2417b5"
+    }
+  },
+  "contract": {
+    "child": "Root configures one separate inert child process but never spawns it; the child remains suspended throughout the proof.",
+    "transfer": "Objectd returns exactly one copy of that child TCB cap. Taskd receives it at a predeclared CSpace path, validates exact reply shape and does not invoke the cap.",
+    "authority": "No allocator, object creation, CSpace/VSpace construction, mapping, device, IRQ, DMA, PCI, I/O or IOSpace authority is delegated to the new services."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_tcb_control_lease_m1.boot.log",
+    "sha256": "846c78a66b70129949fc164ae4f16e8b39a9d5f7a77df965ffd2067cd7766309",
+    "required_markers": [
+      "SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.",
+      "SeLinOS taskd TCB lease M1: exact slot 1 request accepted.",
+      "SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.",
+      "SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.",
+      "SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS TCB lease M1 child: unexpected execution.",
+      "SeLinOS taskd TCB lease M1: malformed client request rejected.",
+      "SeLinOS taskd TCB lease M1: TCB cap reply rejected."
+    ]
+  },
+  "not_claimed": [
+    "TCB allocation, TCB configuration, TCB suspend/resume, register/TLS setup, scheduling or any other TCB-cap exercise",
+    "dynamic child creation, child start, teardown, release, revocation or reuse",
+    "CSpace/VSpace/page-table/frame/stack/image/mapping allocation or lease transfer",
+    "executable mapping, W^X, native ELF loading or dynamic linker semantics",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

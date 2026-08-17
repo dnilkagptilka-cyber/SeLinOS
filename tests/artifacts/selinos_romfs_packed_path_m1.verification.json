@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS ROMFS bounded packed client pathname M1",
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "romfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "direct_probe": {
+      "path": "src/projects/helixos/drivers/romfs_probe.c",
+      "sha256": "6cc608b5895691769d38e55c8d03fd7e4d63a1a4d20d4510cdb77296cffbbc11"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    }
+  },
+  "contract": {
+    "operation": "OPEN_PATH",
+    "message_words": 4,
+    "encoding": "length plus two big-endian packed 64-bit words",
+    "accepted_length_range": [
+      1,
+      16
+    ],
+    "accepted_runtime_path": "/selinos-banner",
+    "result_fd": 4,
+    "rejected_by_design": [
+      "user pointers",
+      "NUL bytes",
+      "spaces/nonprintable bytes",
+      "unknown names",
+      "path traversal",
+      "directories",
+      "symlinks"
+    ]
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_romfs_packed_path_m1.boot.log",
+    "sha256": "92c046d34ed6638d3143175f4f38efaff8b89f81f4675d89ca47dda00822e1de",
+    "required_markers": [
+      "SeLinOS ROMFS probe: bounded packed client pathname lookup passed.",
+      "SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.",
+      "SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ROMFS probe: CPIO banner open failed.",
+      "SeLinOS ROMFS probe: CPIO banner read failed.",
+      "SeLinOS ROMFS probe: CPIO banner close failed."
+    ]
+  }
+}

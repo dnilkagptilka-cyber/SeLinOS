@@ -1,0 +1,9 @@
+# HelixOS official source lock
+# Source manifest: seL4/sel4test-manifest default.xml, retrieved 2026-08-13
+1326364bc9135d9445d936ebc01e38a402c1f4c6  kernel/seL4
+5b3c81127b191232489df09a59b22edead1c9db7  projects/sel4_projects_libs
+6e55b3c62687779692150e1de411ce61b9d2919a  projects/util_libs
+7dd5ba144b1fecf1358a12d2bef3eb365aab35c7  tools/seL4_tools
+86489cf6efab9f314964e79468c036e9035394c7  projects/sel4runtime
+b0005f86fecbd6d0257b15363a5b013446914265  projects/musllibc
+d8abd95e7114c852f6636e3084eb1f66091a75ee  projects/seL4_libs

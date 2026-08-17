@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "profile": "SeLinOS Driver-runtime M1 / QEMU edu",
+  "platform": {
+    "architecture": "x86_64",
+    "machine": "PC99",
+    "emulator": "QEMU TCG",
+    "device": "edu",
+    "pci_id": "1234:11e8"
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "runtime_evidence": {
+    "qemu_edu_log": {
+      "path": "tests/artifacts/selinos_dma_irq_m1.log",
+      "sha256": "03370ca3e682bf4214a8676702dde68d6c0263ea24c6518b59aebc91846d88d0",
+      "required_markers": [
+        "SeLinOS deviced: mediated QEMU edu PCI registry online.",
+        "SeLinOS deviced: QEMU edu PCI ID matched; driver-local probe authorised.",
+        "SeLinOS KAPI 6.18: deviced matched QEMU edu; local probe completed.",
+        "SeLinOS KAPI 6.18: deviced-driven QEMU edu remove completed.",
+        "SeLinOS dmad: QEMU edu DMA lifecycle service online.",
+        "SeLinOS dmad: DMA CPU mapping unmapped and child capability revoked.",
+        "SeLinOS edu driver: DMA revocation guard passed.",
+        "SeLinOS irqd: driver IRQ registration accepted.",
+        "SeLinOS edu driver: KAPI request_irq and dma_alloc_coherent passed.",
+        "SeLinOS edu driver: KAPI guard checks passed.",
+        "SeLinOS edu driver: device-token guard checks passed.",
+        "SeLinOS edu driver: mediated 100-byte coherent DMA roundtrip passed.",
+        "SeLinOS edu driver: mediated IRQ raise/wait/device-ack passed.",
+        "SeLinOS irqd: driver notification revoked and registration released."
+      ]
+    },
+    "baseline_log": {
+      "path": "tests/artifacts/selinos_m1_baseline.log",
+      "sha256": "9ed05b6257bb5493886ffc7e79046884e490296abdc4625abe3d114afea28a27",
+      "required_markers": [
+        "SeLinOS M0: QEMU edu PCI function not present.",
+        "SeLinOS deviced: no PCI device record was issued; registry dormant.",
+        "SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.",
+        "SeLinOS M0: twelve isolated service domains started.",
+        "modld: integrity, KABI CRC and non-executing relocation passed.",
+        "SeLinOS modexec: init_module and cleanup_module completed.",
+        "SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven."
+      ]
+    }
+  },
+  "kapi_covered": {
+    "request_irq": "single pre-bound request endpoint; KAPI attaches the current opaque deviced token and receives a synchronous accepted reply from selinos-irqd",
+    "free_irq": "single-device synchronous irqd unregister IPC; irqd revokes and deletes the exact driver notification capability before accepted reply",
+    "dma_set_mask_and_coherent": "single pre-granted QEMU edu 28-bit lease",
+    "dma_alloc_coherent": "one 256-byte sub-lease of a root-issued mapped frame",
+    "negative_policy_checks": "forged device-token IRQ and DMA requests, duplicate IRQ registration, untrusted device, oversized mask, second allocation and invalid free are rejected in the self-authored QEMU edu driver",
+    "dma_free_coherent": "exact-tuple plus opaque deviced-token synchronous dmad release IPC; dmad invokes Page_Unmap then revokes and deletes the exact driver DMA frame capability before accepted reply; no IOMMU containment or frame reuse yet"
+  },
+  "capability_boundary": {
+    "driver_has_raw_irqhandler": false,
+    "irqhandler_owner": "selinos-irqd",
+    "driver_has_pci_config_io": false,
+    "driver_has_irqcontrol": false,
+    "dma_lease_paddr": "0x02000000",
+    "dma_address_mask": "0x0fffffff"
+  },
+  "not_claimed": [
+    "IOMMU-backed DMA isolation",
+    "dynamic multi-device irqd registry",
+    "dynamic dmad allocator",
+    "real Linux .ko execution or module loader integration",
+    "general Linux driver-model compatibility"
+  ],
+  "kabi_regression": {
+    "report_path": "tests/artifacts/selinos_kabi_probe-6.18.44.verification.json",
+    "report_sha256": "714f3d1ae292715fb98d0c36caa12f0f810c7b659a2f52e0c1188e50d1e1deb8",
+    "accepted_for_next_loader_stage": true,
+    "version_mismatches": 0
+  }
+}

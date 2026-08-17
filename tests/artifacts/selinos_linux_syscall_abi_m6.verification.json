@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS fault-mediated Linux syscall ABI M6 deterministic time/resource/non-blocking futex",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "clock_gettime": "Only CLOCK_MONOTONIC (1) with the one mapped anonymous test page is accepted; it returns the fixed timespec {1234, 0}.",
+    "getrlimit": "Only RLIMIT_NOFILE (7) with a fixed offset in the mapped test page is accepted; it returns {64, 64}.",
+    "futex_wait": "Only a mapped user word, FUTEX_WAIT operation zero, expected value one, and zero timeout/bitset parameters are accepted. It returns -EAGAIN immediately and never blocks.",
+    "futex_wake": "Only that mapped user word, FUTEX_WAKE operation one, wake count one, and zero extra parameters are accepted. It returns zero and creates no waiter or scheduler state.",
+    "reply_encoding": "The probe verifies the negative futex result through EAX, matching the observed UnknownSyscall reply return lane."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_syscall_abi_m6.boot.log",
+    "sha256": "dd59c77721b70349c22cfb2f5b8b3cb472afa359749a0833eaf711208f8a0703",
+    "required_markers": [
+      "SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.",
+      "SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.",
+      "SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: deterministic clock_gettime rejected.",
+      "SeLinOS ABI gateway: deterministic getrlimit rejected.",
+      "SeLinOS ABI gateway: bounded futex wait rejected.",
+      "SeLinOS ABI gateway: bounded futex wake rejected.",
+      "futex waiter queued",
+      "futex blocking enabled",
+      "TLS enabled",
+      "clone lifecycle enabled"
+    ]
+  },
+  "not_claimed": [
+    "real-time, wall-clock, configurable or monotonic clock semantics",
+    "general resource limits or ABI-complete rlimit behavior",
+    "blocking futex waits, waiter queues, timeouts, PI, requeue, robust lists or scheduler semantics",
+    "TLS, ARCH_SET_FS, clone, thread lifecycle, signals or general Linux process ABI",
+    "glibc, dynamic linker, dpkg or apt support"
+  ]
+}

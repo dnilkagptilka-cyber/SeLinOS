@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-only virtio-blk queue-enable/read-back/reset M7",
+  "profile": {
+    "build_directory": "build-virtio-queue-enable-probe",
+    "cmake_option": "SeLinRootVirtioBlkQueueEnableProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG instruction-count mode with virtio-blk-pci,drive=selinosblk,disable-legacy=on",
+    "device_identity": "1af4:1042",
+    "common_configuration_bar": "QEMU fixture BAR4: 64-bit prefetchable memory",
+    "iommu_platform": false,
+    "ats": false,
+    "driver_features": "zero; no feature selector or driver-feature register write",
+    "queue_index": 0,
+    "maximum_queue_size_required": "non-zero",
+    "programmed_queue_size": 1,
+    "queue_enable_before": 0,
+    "queue_enable_enabled": 1,
+    "queue_enable_after_reset": 0,
+    "queue_memory": "one ordinary root-owned 4 KiB frame; zero-filled unpublished one-slot split-ring layout",
+    "final_device_status": 0
+  },
+  "images": {
+    "kernel": {
+      "path": "build-virtio-queue-enable-probe/images/kernel-x86_64-pc99",
+      "sha256": "9852241d15e2ec81e8e99fd5f89203665178392d532f50e9d2070177a5f2352e"
+    },
+    "root_image": {
+      "path": "build-virtio-queue-enable-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "c5ab146f70fac5374bdf3dc0e4a16755d07bb3139e63eaec1ad16ff79ff3ec06"
+    }
+  },
+  "implementation": {
+    "pci_helper": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "pci_header": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "root_main": {
+      "path": "src/projects/helixos/src/main.c",
+      "sha256": "5f2cc7128b3841e3e4d82082be505f0a030b470535f38c2227a316f2dc774ef9"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    },
+    "phase_design_gate": {
+      "path": "docs/phase45_virtio_blk_queue_enable_m7_gate.md",
+      "sha256": "9bf0481aeae3ad7ad6b62e8cd9192bb7d02d6cda481ef67fded7ac0d9d57633f"
+    }
+  },
+  "fixture": {
+    "path": "tests/artifacts/selinos_virtio_queue_enable_m7.raw",
+    "sha256": "2daeb1f36095b44b318410b3f4e8b5d989dcc7bb023d1426c492dab0a3053e74",
+    "role": "disposable all-zero raw 8 MiB backing file; no notification or block request is issued"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_virtio_queue_enable_m7.boot.log",
+    "sha256": "865eaf52528be6243af00e68f98ad4cfe8d23ace82139ae84488d7fb25a9d110",
+    "required_markers": [
+      "SeLinOS storage M7: queue_enable one read-back then reset-to-zero passed.",
+      "SeLinOS storage M7: no notify, IRQ, PCI-command write, block I/O or DMA/containment claim.",
+      "qemu_status=124"
+    ],
+    "forbidden_markers": [
+      "SeLinOS storage M7: root-only queue-enable/reset stage failed; authority withheld.",
+      "SeLinOS storage M6: root-only disabled queue-layout stage failed; authority withheld.",
+      "SeLinOS storage M5: root-only virtio queue-zero observation failed; authority withheld."
+    ]
+  },
+  "validated_contract": {
+    "status_sequence": "0 -> ACKNOWLEDGE -> ACKNOWLEDGE|DRIVER -> ACKNOWLEDGE|DRIVER|FEATURES_OK -> ACKNOWLEDGE|DRIVER|FEATURES_OK|DRIVER_OK -> queue_select=0/read non-zero maximum/write-read size=1/write-read three address pairs/read queue_enable=0/write-read queue_enable=1 -> device reset 0/read queue_enable=0",
+    "layout": "one 4 KiB ordinary root frame; zero-filled descriptor at +0, driver area at +16 and device area at +24; no descriptor is published",
+    "enable_policy": "one queue_enable=1 write with exact read-back; no queue_enable=0 write; reset requires the final zero read-back",
+    "mapping": "temporary root-only common MMIO and root RAM mappings; reservations and both frames are released on every return",
+    "authority": "no copied capability, driver domain, notification, interrupt, PCI-command write, bus-mastering write, IOSpace/DMA authority or containment claim"
+  },
+  "not_claimed": [
+    "usable or safe virtqueue, notification, descriptor publication, ISR/IRQ, PCI bus mastering, DMA behavior or containment, IOMMU/IOSpace policy, hardware safety, block request, block read/write/flush or retained queue state",
+    "persistent VFS, filesystem, storage server, Linux block/KAPI compatibility, Linux kernel, native Linux module execution, clone/fork/pthread, ELF runtime, dpkg or apt",
+    "general queue lifecycle, different queue index, packed virtqueue, device feature negotiation or validation outside the named x86_64/PC99 QEMU TCG fixture"
+  ]
+}

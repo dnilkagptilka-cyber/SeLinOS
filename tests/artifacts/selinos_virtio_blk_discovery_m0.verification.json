@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-only QEMU virtio-blk PCI identity discovery M0",
+  "profile": {
+    "build_directory": "build-virtio-discovery-probe",
+    "cmake_option": "SeLinRootVirtioBlkDiscoveryProbe=ON",
+    "qemu_device": "virtio-blk-pci,drive=selinosblk,disable-legacy=on",
+    "qemu_disk": "disposable raw 8 MiB file",
+    "machine": "x86_64 PC99 QEMU TCG instruction-count mode"
+  },
+  "image": {
+    "path": "build-virtio-discovery-probe/images/selinos-root-image-x86_64-pc99",
+    "sha256": "c455c6a3195b102a7332281fe16400329d077d514cc4ad94106c5f9fd244154f"
+  },
+  "implementation": {
+    "pci_source": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "root_bootstrap": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "pci_contract": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "cmake_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "identity": {
+    "vendor_id": "1af4",
+    "device_id": "1042",
+    "kind": "modern QEMU virtio block"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_virtio_blk_discovery_m0.boot.log",
+    "sha256": "288d45d2fa430e73b8b3c236239474c42b0527d11c4ccdfa5424e36dc6dcad8e",
+    "required_markers": [
+      "SeLinOS storage M0: quarantined modern virtio-blk PCI identity found; authority withheld."
+    ],
+    "forbidden_markers": [
+      "storage M0: quarantined virtio-blk PCI identity not found",
+      "virtio BAR mapped",
+      "virtio DMA granted",
+      "virtio IRQ granted",
+      "storage driver domain started"
+    ]
+  },
+  "not_claimed": [
+    "BAR assignment or mapping",
+    "PCI command register mutation",
+    "virtio device reset/status/feature negotiation",
+    "virtqueue construction",
+    "IRQ issue",
+    "DMA lease",
+    "block read or write",
+    "storage service domain",
+    "persistent filesystem",
+    "dpkg or apt support"
+  ]
+}

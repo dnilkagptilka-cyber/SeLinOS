@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M10 FD 6 probe-local fstat record",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "accepted_request": "Only fstat(fd=6, one mapped user page) after the exact immutable /selinos-version open is accepted.",
+    "record_layout": "At user buffer offset 0 root writes u64 magic SELSTAT0 (0x53454c5354415430); at offset 8 it writes u64 immutable payload size 8; syscall result is zero.",
+    "negative_scope": "This is a SeLinOS probe-local two-word record, not Linux struct stat or statx. It provides no general descriptor, metadata, timestamp, permission, ownership, device, directory or persistent filesystem semantics."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_fstat_record_m10.boot.log",
+    "sha256": "375ac5c032268677b46ce750a71852c1e208c32b3ded15762d48ab2720a0bed3",
+    "required_markers": [
+      "SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.",
+      "SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: bounded version fstat rejected.",
+      "Linux struct stat compatibility enabled",
+      "general metadata API enabled"
+    ]
+  },
+  "not_claimed": [
+    "Linux struct stat, statx or libc ABI compatibility",
+    "arbitrary file descriptors, dynamic descriptor table or post-close behavior",
+    "metadata, timestamps, permissions, ownership, device nodes, directories or symlinks",
+    "persistent filesystem, general VFS, package state database, dpkg or apt"
+  ]
+}

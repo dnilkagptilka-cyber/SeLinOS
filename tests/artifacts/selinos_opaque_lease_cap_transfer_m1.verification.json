@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS opaque lease capability transfer M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "taskd": {
+      "path": "src/projects/helixos/servers/taskd_opaque_lease_m1.c",
+      "sha256": "41f1c2898ea4d18e231e1b1b9403380eec2bb758656915c334a7c3206da03a6c"
+    },
+    "objectd": {
+      "path": "src/projects/helixos/servers/objectd_opaque_lease_m1.c",
+      "sha256": "c06d3881f36607e816449ae18720a2f44855b1c5b99542490a51e60eafc278cd"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_opaque_lease_m1_probe.c",
+      "sha256": "188b99581a3be05eaaeea1e3ab1530aa8aff666605c701a7f0267f1b15346d75"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_opaque_lease_m1_protocol.h",
+      "sha256": "92bf7c31566327a04cafddc8610350d0c5178980684634a6d88b676905d77d36"
+    }
+  },
+  "contract": {
+    "request": "The probe may send only the exact two-word opaque-token request for slot 1.",
+    "transfer": "Objectd returns exactly one root-preprovisioned notification cap; taskd configures a predeclared CNode receive path, validates an exact one-extra-cap reply and signals success.",
+    "authority": "The token is an opaque notification cap. No object, TCB, CSpace, VSpace, page table, frame, stack, mapping, device or allocator capability is transferred."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_opaque_lease_cap_transfer_m1.boot.log",
+    "sha256": "6c3712b5d6e5d60c410057975045fe1c4a40bb227c42f52d1590b28b9649e361",
+    "required_markers": [
+      "SeLinOS taskd opaque lease M1: exact slot 1 request accepted.",
+      "SeLinOS objectd opaque lease M1: one notification token transferred to taskd.",
+      "SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.",
+      "SeLinOS taskd opaque lease M1 probe: fixed token transfer passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS taskd opaque lease M1: malformed client request rejected.",
+      "SeLinOS taskd opaque lease M1: reply label or length rejected.",
+      "SeLinOS taskd opaque lease M1: reply extra-cap count rejected.",
+      "SeLinOS taskd opaque lease M1: reply status rejected."
+    ]
+  },
+  "not_claimed": [
+    "actual resource, object, TCB, CSpace, VSpace, page-table, frame, stack or mapping lease transfer",
+    "dynamic child creation, child configuration, start, resume, teardown, release or reuse",
+    "executable mapping, W^X, native ELF loading or dynamic linker semantics",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

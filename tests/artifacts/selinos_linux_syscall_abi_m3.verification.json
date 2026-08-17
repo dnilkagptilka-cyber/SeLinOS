@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M3",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "probe_source": {
+    "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+    "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+  },
+  "gateway_source": {
+    "path": "src/projects/helixos/src/domain_manager.c",
+    "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+  },
+  "implemented_contract": {
+    "getpid": {
+      "number": 39,
+      "test_return": 4242
+    },
+    "write": {
+      "number": 1,
+      "allowed_fds": [
+        1,
+        2
+      ],
+      "maximum_bytes": 127,
+      "single_user_page_only": true
+    },
+    "mmap": {
+      "number": 9,
+      "accepted_arguments": {
+        "address_hint": 0,
+        "length": 4096,
+        "prot": 3,
+        "flags": 34,
+        "fd": -1,
+        "offset": 0
+      },
+      "result": "Exactly one read/write anonymous 4 KiB page is allocated at fixed development address 0x70000000 in the probe VSpace.",
+      "userspace_proof": "The probe writes byte 0x5a through the returned RAX address and reaches the next mediated syscall without a VM fault."
+    },
+    "read": {
+      "number": 0,
+      "accepted_arguments": {
+        "fd": 0,
+        "buffer": 0,
+        "length": 0
+      },
+      "result": 0,
+      "meaning": "Narrow EOF stub only; it does not transfer data."
+    },
+    "exit": {
+      "number": 60,
+      "accepted_status": 0,
+      "replied": false
+    }
+  },
+  "required_serial_markers": [
+    "SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.",
+    "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.",
+    "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+  ],
+  "forbidden_serial_markers": [
+    "SeLinOS ABI gateway: restricted anonymous mmap rejected.",
+    "SeLinOS ABI gateway: restricted EOF read rejected.",
+    "SeLinOS ABI gateway: Linux syscall ABI probe failed.",
+    "SeLinOS M0: isolated domain bootstrap FAILED."
+  ],
+  "not_claimed": [
+    "General mmap address selection, page counts, flags, protection changes, munmap or shared mappings",
+    "A data-transferring read implementation or general file descriptor table",
+    "brk, process creation, signals, VFS, ELF dynamic linking, glibc, networking, dpkg or apt",
+    "A persistent isolated selinos-abi-gated fault dispatcher",
+    "Execution of existing Linux ELF applications"
+  ]
+}

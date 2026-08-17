@@ -1,0 +1,44 @@
+
+Relocation section '.rela.init.text' at offset 0xf58 contains 3 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000017  000000040000000b R_X86_64_32S           0000000000000000 .rodata.str1.8 + 0
+000000000000001c  0000002f00000004 R_X86_64_PLT32         0000000000000000 _printk - 4
+0000000000000023  0000003200000004 R_X86_64_PLT32         0000000000000000 __x86_return_thunk - 4
+
+Relocation section '.rela.exit.text' at offset 0xfa0 contains 2 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000017  000000040000000b R_X86_64_32S           0000000000000000 .rodata.str1.8 + 40
+000000000000001c  0000002f00000004 R_X86_64_PLT32         0000000000000000 _printk - 4
+
+Relocation section '.rela.return_sites' at offset 0xfd0 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000000200000002 R_X86_64_PC32          0000000000000000 .init.text + 22
+
+Relocation section '.rela.call_sites' at offset 0xfe8 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000000200000002 R_X86_64_PC32          0000000000000000 .init.text + 1b
+
+Relocation section '.rela.orc_unwind_ip' at offset 0x1000 contains 4 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000000200000002 R_X86_64_PC32          0000000000000000 .init.text + 0
+0000000000000004  0000000200000002 R_X86_64_PC32          0000000000000000 .init.text + 27
+0000000000000008  0000000300000002 R_X86_64_PC32          0000000000000000 .exit.text + 0
+000000000000000c  0000000300000002 R_X86_64_PC32          0000000000000000 .exit.text + 20
+
+Relocation section '.rela__patchable_function_entries' at offset 0x1060 contains 2 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000000200000001 R_X86_64_64            0000000000000000 .init.text + 0
+0000000000000008  0000000300000001 R_X86_64_64            0000000000000000 .exit.text + 0
+
+Relocation section '.rela.exit.data' at offset 0x1090 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000002d00000001 R_X86_64_64            0000000000000010 cleanup_module + 0
+
+Relocation section '.rela.init.data' at offset 0x10a8 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000000  0000002e00000001 R_X86_64_64            0000000000000010 init_module + 0
+
+Relocation section '.rela.gnu.linkonce.this_module' at offset 0x10c0 contains 2 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000138  0000002e00000001 R_X86_64_64            0000000000000010 init_module + 0
+0000000000000480  0000002d00000001 R_X86_64_64            0000000000000010 cleanup_module + 0

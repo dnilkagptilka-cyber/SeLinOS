@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root construction-request dispatch M0",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "root_main": {
+      "path": "src/projects/helixos/src/main.c",
+      "sha256": "5f2cc7128b3841e3e4d82082be505f0a030b470535f38c2227a316f2dc774ef9"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/root_dispatch_m0_probe.c",
+      "sha256": "b0aa5d574d3237b031ecd155d9a9a0f531bfa3efb90171bd5487ab80003119cd"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_root_dispatch_m0_protocol.h",
+      "sha256": "dec90f1953cb597c85b9c844d1ef42aede48233da94bd9d341a2e4eb8b220b77"
+    }
+  },
+  "contract": {
+    "topology": "Root retains one construction-status endpoint receive cap; only the dedicated probe receives one fixed endpoint send cap.",
+    "transaction": "Root validates exactly (REQUEST, slot=1, generation=1), replies (READY, slot=1, generation=1) with zero extra caps, then returns to main's idle flow.",
+    "authority": "The dispatch handler contains no allocator, VSpace, process-loader, TCB, untyped, device, IRQ, DMA, PCI, I/O, IOSpace or Linux clone operation."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_root_dispatch_m0.boot.log",
+    "sha256": "14ba13d7360411f06db12c1e79b6adc72a109df87c1a34e9cea9591f796e410e",
+    "required_markers": [
+      "SeLinOS root dispatch M0: isolated request endpoint ready.",
+      "SeLinOS root dispatch M0: exact fixed request accepted.",
+      "SeLinOS root dispatch M0: fixed status reply issued; no child constructed.",
+      "SeLinOS M0: root task entering idle/yield loop.",
+      "SeLinOS root dispatch M0 probe: fixed root status transaction passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS M0: root dispatch M0 transaction FAILED.",
+      "SeLinOS root dispatch M0 probe: fixed reply rejected.",
+      "SeLinOS root construction M1: child constructed."
+    ]
+  },
+  "not_claimed": [
+    "root child construction, dynamic allocation, process-loader invocation, capability delivery or child start",
+    "objectd or memd allocator authority, taskd ownership or a reusable root construction service",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "executable mapping, W^X, native ELF loading, dpkg or apt"
+  ]
+}

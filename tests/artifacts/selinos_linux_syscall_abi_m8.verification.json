@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M8 bounded mprotect/lseek/pread64 proof",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "mprotect": "Accept only mprotect(SELINOS_LINUX_MMAP_ADDRESS, 4096, PROT_READ|PROT_WRITE) for the existing isolated mapped page; return zero as an acknowledgement without changing mapping permissions.",
+    "lseek": "Accept only lseek(fd=5, offset=0, SEEK_SET) and return zero; it is a stateless no-op because the server has no cursor state.",
+    "pread64": "Accept only pread64(fd=5, mapped one-page buffer, count=8, offset=0); root reads existing volatile state through ROMFS IPC, copies exactly one word and returns eight.",
+    "negative_scope": "No arbitrary mprotect, page permission transition, unmap/remap, seek cursor, partial I/O, nonzero offset, immutable-FD pread or general file descriptor semantics are provided."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_syscall_abi_m8.boot.log",
+    "sha256": "7611997f52bd9ea4e7d0606cb98406627c26f4d664e7b5d2d5afa2bc60fba061",
+    "required_markers": [
+      "SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.",
+      "SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.",
+      "SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: bounded mprotect rejected.",
+      "SeLinOS ABI gateway: bounded lseek rejected.",
+      "SeLinOS ABI gateway: bounded volatile pread64 rejected.",
+      "general mprotect enabled",
+      "VFS cursor enabled",
+      "network authority granted"
+    ]
+  },
+  "not_claimed": [
+    "general mprotect or W^X enforcement",
+    "page permission transition, mremap, munmap or general virtual memory management",
+    "stateful lseek cursor, nonzero seek offsets or general file positions",
+    "pread64 on arbitrary FDs, arbitrary offsets, partial I/O or multi-page buffers",
+    "TLS/ARCH_SET_FS, clone, blocking futexes, signals, ELF dynamic linking or general glibc ABI",
+    "persistent filesystem, network stack, package retrieval, dpkg or apt"
+  ]
+}

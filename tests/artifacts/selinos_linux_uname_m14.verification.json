@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M14 fixed x86_64 uname record",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "layout": "One x86_64 utsname-layout record of six 65-byte NUL-terminated fields (390 bytes) is copied only to the single mapped ABI probe page.",
+    "values": [
+      "Linux",
+      "selinos",
+      "6.18.44-selinos",
+      "SeLinOS ABI M14",
+      "x86_64",
+      "localdomain"
+    ],
+    "negative_scope": "The record is fixed and has no mutable hostname, UTS namespace, host/QEMU identity, general kernel-personality or package-runtime semantics."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_uname_m14.boot.log",
+    "sha256": "e51e1c30a7cd0c0f894364bf7feb0d275a728294294b03cf3fc2747a3d45f847",
+    "required_markers": [
+      "SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: restricted uname rejected.",
+      "host uname exposed",
+      "UTS namespace enabled"
+    ]
+  },
+  "not_claimed": [
+    "host or QEMU system identity",
+    "sethostname, UTS namespaces or mutable uname fields",
+    "general kernel personality, glibc runtime, dpkg or apt"
+  ]
+}

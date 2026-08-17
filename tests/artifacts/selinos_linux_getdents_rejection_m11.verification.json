@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M11 getdents64 fail-closed rejection",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "accepted_request": "Only getdents64(fd=6, non-zero mapped-probe address, count=32) in the fixed test sequence is accepted.",
+    "result": "The request returns -ENOTDIR (negative 20) with no user-buffer access and no VFS IPC.",
+    "negative_scope": "M11 creates no directory FD, cursor, linux_dirent64 payload, pathname traversal, directory metadata, CPIO directory interpretation or POSIX directory semantics."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_getdents_rejection_m11.boot.log",
+    "sha256": "a1782343dfb431e98d2a19f11012d942a2fdb2b20638b286d46699324d8e0f6d",
+    "required_markers": [
+      "SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.",
+      "SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: bounded getdents64 rejected request shape.",
+      "directory entries returned",
+      "directory service enabled"
+    ]
+  },
+  "not_claimed": [
+    "directory FD, cursor, linux_dirent64 data or readdir compatibility",
+    "directory traversal, path resolution, metadata or CPIO directory support",
+    "arbitrary descriptors, general VFS, persistent filesystem, package state database",
+    "dpkg, apt, Linux package installation or package repository access"
+  ]
+}

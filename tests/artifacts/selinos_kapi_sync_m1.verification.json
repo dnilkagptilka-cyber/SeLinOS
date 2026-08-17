@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux KAPI Phase 6 M1 bounded synchronization shims",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false,
+    "device": "QEMU edu 1234:11e8"
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "kapi_core": {
+      "path": "src/projects/helixos/kapi/src/kapi_core.c",
+      "sha256": "fcb493689b6d7514e97c85fcde00b3544399c1ae02bd4c39be1e0674b2273133"
+    },
+    "driver_probe": {
+      "path": "src/projects/helixos/drivers/edu_kapi_probe.c",
+      "sha256": "cd26cce5efc51b0d1057a201cdbc0bd0ffa0f3fce8146bb4891ba0986c74a607"
+    },
+    "completion_header": {
+      "path": "src/projects/helixos/kapi/include/linux/completion.h",
+      "sha256": "071911d122114e12a41eb1f59be415834d78987cbb4f478555a4ccd323041ea5"
+    },
+    "workqueue_header": {
+      "path": "src/projects/helixos/kapi/include/linux/workqueue.h",
+      "sha256": "47d80a47b16e9918c7d5a259365349706e4260f5037e495723168e9bdad28651"
+    },
+    "timer_header": {
+      "path": "src/projects/helixos/kapi/include/linux/timer.h",
+      "sha256": "e61c82fbc7b3a75a0d033b09121e8a695b9b34efa7527ef9d05f6b1c58eec948"
+    },
+    "spinlock_header": {
+      "path": "src/projects/helixos/kapi/include/linux/spinlock.h",
+      "sha256": "4e1e2f8a27698d0d7772708f7e7fa92d9e45c7a59b3d3fb93a8106226a6d8766"
+    },
+    "types_header": {
+      "path": "src/projects/helixos/kapi/include/linux/types.h",
+      "sha256": "a8c4c7a14f1562e1053793828178d1368741b2dc7040e05acb00495ded1dd11e"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_kapi_sync_m1.boot.log",
+    "sha256": "25bb3a780592c41f4aae4852bab0edba814edf04aa31bfe9452ba27817dd53c9",
+    "required_markers": [
+      "SeLinOS edu driver: Phase 6 completion/work/timer/spinlock shim checks passed.",
+      "SeLinOS edu driver: mediated 100-byte coherent DMA roundtrip passed.",
+      "SeLinOS irqd: driver notification revoked and registration released.",
+      "SeLinOS KAPI 6.18: deviced-driven QEMU edu remove completed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS edu driver: Phase 6 KAPI synchronization shim checks failed.",
+      "SeLinOS KAPI 6.18: deviced registration/probe failed."
+    ]
+  },
+  "bounded_contract": {
+    "completion": "A completion counter is consumed only by a non-blocking wait; timeout is not slept or scheduled.",
+    "workqueue": "Accepted work invokes its callback synchronously in the submitting isolated driver domain.",
+    "timer": "A timer records one pending deadline and supports cancellation; no clock service dispatches its callback.",
+    "spinlock": "Lock state is single-driver-domain bookkeeping; it does not mask IRQs, disable preemption or supply SMP mutual exclusion."
+  },
+  "not_claimed": [
+    "Linux scheduler, sleeping waits, worker threads or asynchronous workqueues",
+    "timer tick, timekeeping, timer callback dispatch or timeout expiry",
+    "SMP-safe locks, IRQ masking, preemption control or lock dependency checking",
+    "general Linux driver-model compatibility, native Linux module execution, network stack or NIC delegation"
+  ]
+}

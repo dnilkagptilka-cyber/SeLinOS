@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS persistent root construction context M0",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    }
+  },
+  "contract": {
+    "lifetime": "Root simple, VKA and VSpace descriptors have static root-private storage and bootstrap rejects a second initialization.",
+    "scope": "Existing bootstrap callers continue to receive explicit root pointers. Persistent-context M0 itself adds no construction authority; later root-dispatch work is separately evidenced. Post-bootstrap child construction, allocator accessors and child-cap delivery remain absent.",
+    "authority": "Only root holds the persistent descriptors; no non-root CSpace receives access to VKA, loader VSpace or the root CNode."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_persistent_root_context_m0.boot.log",
+    "sha256": "14ba13d7360411f06db12c1e79b6adc72a109df87c1a34e9cea9591f796e410e",
+    "required_markers": [
+      "SeLinOS M0: seL4 root task started.",
+      "SeLinOS M0: capability policy validation passed.",
+      "SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.",
+      "SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.",
+      "SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.",
+      "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+    ],
+    "forbidden_markers": [
+      "SeLinOS M0: root construction context reinitialization rejected.",
+      "SeLinOS M0: unable to start root construction adapter.",
+      "SeLinOS root construction M1: child constructed."
+    ]
+  },
+  "not_claimed": [
+    "runtime child construction, dynamic allocation, capability lease or child start",
+    "construction-request handling that invokes allocator, loader or child-control operations",
+    "objectd or memd allocator authority",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "executable mapping, W^X, native ELF loading, dpkg or apt"
+  ]
+}

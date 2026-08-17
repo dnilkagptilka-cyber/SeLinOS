@@ -1,0 +1,135 @@
+README.md:13:> **Driver-runtime M1:** QEMU edu получает BAR0, mediated IRQ delivery и одну explicit 28-bit DMA frame lease. Изолированный `helix-irqd` удерживает `IRQHandler` и выполняет kernel acknowledgement только после device-level acknowledgement от driver domain. 100-byte `RAM → EDU → RAM` roundtrip, single-binding KAPI `request_irq()`/`free_irq()` lifecycle и pre-granted KAPI `dma_alloc_coherent()` lease подтверждены. Это QEMU test-only profile с single-lease `dmad` release acknowledgement, но **без IOMMU DMA containment**, dynamic `dmad` allocator или general KAPI RPC runtime; подробности: [`docs/m1_mediated_irq_dma.md`](docs/m1_mediated_irq_dma.md).
+README.md:15:Образ `images/helixos-root-image-x86_64-pc99` собирается из закреплённых официальных исходников seL4 и запускается в QEMU TCG. Root task содержит CPIO с десятью ELF: семью постоянными service domains (включая KAPI edu probe), отдельными `helix-irqd` и `helix-dmad`, а также QEMU edu MMIO driver image и создаёт/возобновляет каждый домен через `sel4utils_configure_process()` и `sel4utils_spawn_process_v()`.
+README.md:26:| `helix-irqd` | Mediated QEMU edu hardware IRQ acknowledgement | Отдельный TCB/CSpace/VSpace; scoped IRQHandler только при наличии edu | Single-binding KAPI `request_irq()`/`free_irq()` lifecycle проверен; general multi-device RPC ещё не реализован |
+README.md:27:| `helix-dmad` | Scoped release acknowledgement единственной QEMU edu DMA lease | Отдельный TCB/CSpace/VSpace; endpoint только для driver domain | Single-lease KAPI `dma_free_coherent()` lifecycle проверен; dynamic allocator и revocation ещё не реализованы |
+README.md:60:cd helixos
+README.md:70:cd helixos/build
+README.md:82:cd helixos
+README.md:94:| Root task и policy | [`src/projects/helixos/src/`](src/projects/helixos/src/) |
+README.md:95:| Отдельные CPIO service ELF | [`src/projects/helixos/servers/service.c`](src/projects/helixos/servers/service.c) |
+README.md:97:| Build image | `build/images/helixos-root-image-x86_64-pc99` |
+README.md:117:| M3 | `libhelix`: `exit`, `write`, `read`, `getpid`, `gettid`, `brk`, anonymous `mmap` | Только программы, собранные для SeLinOS |
+README.md:129:Код, написанный для SeLinOS в `src/projects/helixos/`, лицензирован MIT. Внешние исходники остаются в исходных лицензиях seL4-проектов; их точные commits перечислены в `sources.lock`.
+docs/architecture.md:1:# HelixOS: архитектура стартовой многосерверной ОС на seL4
+docs/architecture.md:11:HelixOS — новая многосерверная ОС, построенная поверх одного экземпляра seL4. Микроядро оставляет в привилегированном режиме механизмы планирования, виртуальной памяти, IPC, прерываний и capabilities. Все высокоуровневые функции ОС — процессы, виртуальная память пользовательских задач, файловые объекты, консоль, ABI-переходник и впоследствии сеть — работают как независимые пользовательские домены.
+docs/architecture.md:13:> **Цель проекта — эволюционно реализуемый Linux x86_64 ABI-слой без Linux-ядра.** Первый исполняемый этап обеспечивает нативную POSIX-подсистему для программ, собранных под HelixOS с `libhelix`. Он не обещает немедленный запуск произвольного, непересобранного Linux ELF, `apt` или всех Debian-пакетов.
+docs/architecture.md:19:Каждый исполняемый домен HelixOS имеет отдельный **TCB**, корневой **CSpace** и отдельный корневой **VSpace**. Это сильнее обычной модели POSIX-потоков: виртуальная память и полномочия не разделяются неявно. Общие страницы допускаются только как явно созданные и выданные frame capabilities. Каждый домен также получает отдельный IPC buffer и endpoint для faults.
+docs/architecture.md:21:| Свойство | Механизм seL4 | Политика HelixOS v0.1 |
+docs/architecture.md:45:  R --> A[abi-gated: libhelix syscall services]
+docs/architecture.md:50:  L[Helix application + libhelix] --> A
+docs/architecture.md:98:`libhelix` является thin user-space ABI library. На первом этапе она предоставляет C/POSIX-обёртки и вызывает `abi-gated` через seL4 IPC. Это не glibc и не использует Linux kernel. Для каждого вызова library возвращает обычный C-результат, выставляя `errno`; внутри IPC raw-результат имеет Linux-подобное значение: неотрицательное — успех, отрицательное — `-errno`.
+docs/architecture.md:129:4. `rootd` запускает `init`, статически собранный с `libhelix`.
+docs/architecture.md:130:5. `init` выполняет `write(1, "HelixOS...", ...)`; `abi-gated` направляет его в console path.
+docs/architecture.md:149:| M1 | `libhelix`: console, PID/TID, exit, anonymous memory | dynamic linker, `fork`, `apt` |
+docs/architecture.md:150:| M2 | read-only initramfs VFS и статические программы под HelixOS | Debian packages |
+docs/architecture.md:158:seL4 имеет доказательства для конкретных конфигураций ядра, но они не автоматически доказывают безопасность `rootd`, `objectd`, `abi-gated`, драйверов, файловой системы, Linux ABI or future package manager. HelixOS не заявляет «полную формальную верификацию ОС» до тех пор, пока не будет отдельно доказан и/или тщательно проверен весь user-space TCB. Никакое изменение исходного seL4 не будет вноситься в MVP.
+docs/research_notes.md:1:# Исследование архитектурных основ HelixOS
+docs/research_notes.md:15:> Архитектурное решение: каждый новый пользовательский домен HelixOS будет включать как минимум отдельные `TCB`, корневой `CNode/CSpace`, корневой объект `VSpace`, IPC-buffer frame и fault endpoint. Общий CSpace или VSpace по умолчанию не допускается.
+docs/research_notes.md:17:| Объект seL4 | Назначение в HelixOS | Кто выдаёт capability |
+docs/research_notes.md:87:> Проектное следствие: HelixOS должен сначала обеспечить точную машинную x86_64-конвенцию для входа `syscall` и правила успешного/ошибочного возврата, а затем по одному реализовывать смысл конкретных номеров. Нереализованные номера первоначально возвращают `-ENOSYS`; нельзя подменять их фиктивным успехом.
+docs/research_notes.md:91:| Элемент | Принятое правило HelixOS ABI v0 | Замечание |
+docs/research_notes.md:120:| Вариант | Совместимость с непересобранными Linux ELF | Влияние на seL4 / риск | Решение для HelixOS |
+docs/research_notes.md:122:| Адаптированная libc (`libhelix`) выполняет seL4 IPC | Только приложения, пересобранные для HelixOS | Ядро не изменяется; хороший старт сервисов | Использовать для загрузочной системы и первых тестов |
+docs/research_notes.md:129:Начальный MVP сохраняет исходный seL4 без модификации ядра. Он предоставляет нативную многосерверную POSIX-подсистему и thin `libhelix` для программ, собранных под HelixOS. Техническая спецификация Linux x86_64 ABI остаётся целью; первая честно реализованная граница — source/API compatibility для ограниченного подмножества, а не неподтверждённая бинарная совместимость каждого существующего ELF.
+docs/research_notes.md:145:> Проектное решение: HelixOS использует выделенное source tree `/home/ubuntu/helixos/src`, отдельную `/home/ubuntu/helixos/build`, CMake + Ninja, официальный `seL4_tools/cmake-tool` и закреплённый tag seL4 `16.0.0` (`6e7c3b733d296cfd88d5fbf635c96e447a882374`), обнаруженный в официальном Git ref list. Сам tag kernel недостаточен: revisions `cmake-tool`, `elfloader`, `sel4runtime`, `util_libs` и user libraries должны быть явно закреплены в lockfile после проверки взаимной совместимости.
+docs/profiles/SELINOS_LINUX_BASELINE_6_18_44.md:62:cd helixos
+docs/kabi_m1_module_fixture.md:43:`src/projects/helixos/kabi/src/selinos_kabi_module.c` — freestanding buffer parser, предназначенный для будущего user-space `selmod` service. Он принимает полный byte buffer; проверяет ELF magic, разрядность, endianness, `ET_REL`, `EM_X86_64`, таблицу секций, `.modinfo`, наличие `license`, соответствие `vermagic`, символы и секции перемещений. Он **не исполняет** module code и не выдаёт никакие device capabilities.
+docs/m1_mediated_irq_dma.md:12:| `helix-irqd` | Одна hardware notification, один scoped `IRQHandler`, completion endpoint и driver notification | `IRQControl`, PCI config I/O, BAR0 и DMA allocator |
+docs/m1_mediated_irq_dma.md:19:Self-authored QEMU edu driver теперь вызывает стандартную Linux-shaped пару `request_irq()` / `free_irq()` из SeLinOS KAPI. Перед этим domain runtime binds only its three pre-granted transport capabilities through private `selinos_kapi_bind_irq()`. Вызов `request_irq()` выполняет synchronous `seL4_Call` в отдельный irqd request endpoint с фиксированным registration message и IRQ line; `helix-irqd` validates request и возвращает accepted reply, после чего KAPI сохраняет handler и `dev_id`. При notification `selinos_kapi_dispatch_one_irq()` вызывает зарегистрированный handler, а после его device-level BAR acknowledgement отправляет completion в `helix-irqd`. Таким образом, transport completion не остаётся в коде driver, а KAPI handler получает привычную форму `irq_handler_t(int, void *)`.
+docs/m1_mediated_irq_dma.md:21:Это всё ещё **одна статическая binding на domain**, не general multi-device IRQ allocator: registration IPC существует, но привязан к единственному заранее выданному endpoint и не является динамическим irqd registry. `free_irq()` посылает distinct badged control notification, получает synchronous unregister reply от `helix-irqd` и лишь затем снимает локальный handler registration; QEMU evidence подтверждает `driver IRQ registration released`. KAPI по-прежнему не поддерживает shared IRQ, mask/unmask semantics или capability revoke.
+docs/m1_mediated_irq_dma.md:35:После hardware interrupt `helix-irqd` ожидает driver completion. Драйвер сначала очищает device interrupt status через BAR0 `0x64`, затем синхронно отправляет фиксированное completion сообщение. Лишь после этого `helix-irqd` делает `seL4_IRQHandler_Ack()`. Следовательно, драйверный домен не владеет kernel IRQ acknowledgement capability, а unacknowledged/malformed completion не приводит к автоматическому повторному разрешению IRQ.
+docs/m1_mediated_irq_dma.md:43:| Полная сборка | `cd build && ninja` | Образ `images/helixos-root-image-x86_64-pc99` с `helix-irqd` и обновлённым driver ELF |
+docs/phase4_dmad_revocation_design.md:5:Current M1 has a **single pre-granted QEMU edu lease**. `dma_free_coherent()` now performs a scoped synchronous release IPC with `helix-dmad`, but the service only records acceptance. It does **not** unmap the driver CPU mapping, delete the delegated frame capability, revoke capability descendants, or protect device DMA with an IOMMU. This document defines the next implementation target without overstating the current evidence.
+docs/phase4_dmad_revocation_design.md:23:The current generated `libsel4` interface exposes `seL4_X86_Page_Unmap`, `seL4_CNode_Delete` and `seL4_CNode_Revoke`. Their future use needs explicit ownership of the driver VSpace capability and delegated CSpace derivation; the current release-only M1 does not grant this authority to `helix-dmad`. `sel4utils_process_t` records the process VSpace, CSpace object and allocation ownership after `sel4utils_configure_process()`, so trusted lifecycle code must retain an authoritative process/lease record rather than accept VSpace or CSpace pointers from the driver.[5]
+tests/kabi_direct_target.log:2:make  -C /home/ubuntu/helixos/tests/kabi_reference_module \
+tests/kabi_direct_target.log:4:make[1]: Entering directory '/home/ubuntu/helixos/tests/kabi_reference_module'
+tests/kabi_direct_target.log:5:make --no-print-directory -C /home/ubuntu/helixos/tests/kabi_reference_module \
+tests/kabi_direct_target.log:16:make[1]: Leaving directory '/home/ubuntu/helixos/tests/kabi_reference_module'
+tests/artifacts/selinos_kabi_probe-6.18.44.inspection.txt:2:filename:       /home/ubuntu/helixos/tests/artifacts/selinos_kabi_probe-6.18.44.ko
+tests/artifacts/selinos_kabi_probe-6.18.44.inspection.txt:47:a4c3a6614e39191af7071ba320b2aac4ae303a9ac815c2cd4d86d2e1575a723d  /home/ubuntu/helixos/tests/artifacts/selinos_kabi_probe-6.18.44.ko
+tests/artifacts/selinos_driver_runtime_m1.verification.json:12:    "path": "build/images/helixos-root-image-x86_64-pc99",
+tests/artifacts/selinos_driver_runtime_m1.verification.json:40:    "request_irq": "single pre-bound request endpoint; synchronous accepted reply from helix-irqd",
+tests/artifacts/selinos_driver_runtime_m1.verification.json:49:    "irqhandler_owner": "helix-irqd",
+src/projects/helixos/src/cap_policy.c:2:#include "helix_bootstrap.h"
+src/projects/helixos/src/cap_policy.c:9:static const helix_domain_policy_t policies[] = {
+src/projects/helixos/src/cap_policy.c:75:size_t helix_policy_count(void)
+src/projects/helixos/src/cap_policy.c:80:const helix_domain_policy_t *helix_policy_for(helix_domain_kind_t kind)
+src/projects/helixos/src/cap_policy.c:82:    for (size_t index = 0; index < helix_policy_count(); ++index) {
+src/projects/helixos/src/cap_policy.c:90:bool helix_capability_policy_selftest(void)
+src/projects/helixos/src/cap_policy.c:92:    const helix_domain_policy_t *root = helix_policy_for(HELIX_DOMAIN_ROOT);
+src/projects/helixos/src/cap_policy.c:93:    const helix_domain_policy_t *objectd = helix_policy_for(HELIX_DOMAIN_OBJECTD);
+src/projects/helixos/src/cap_policy.c:94:    const helix_domain_policy_t *taskd = helix_policy_for(HELIX_DOMAIN_TASKD);
+src/projects/helixos/src/cap_policy.c:95:    const helix_domain_policy_t *memd = helix_policy_for(HELIX_DOMAIN_MEMD);
+src/projects/helixos/src/cap_policy.c:96:    const helix_domain_policy_t *console = helix_policy_for(HELIX_DOMAIN_CONSOLED);
+src/projects/helixos/src/cap_policy.c:97:    const helix_domain_policy_t *abi_gate = helix_policy_for(HELIX_DOMAIN_ABI_GATE);
+src/projects/helixos/src/cap_policy.c:98:    const helix_domain_policy_t *application = helix_policy_for(HELIX_DOMAIN_APPLICATION);
+src/projects/helixos/src/bootstrap.c:4:#include "helix_bootstrap.h"
+src/projects/helixos/src/bootstrap.c:6:bool helix_bootstrap_prepare(void)
+src/projects/helixos/src/bootstrap.c:21:           helix_capability_policy_selftest();
+src/projects/helixos/src/main.c:5:#include "helix_bootstrap.h"
+src/projects/helixos/src/main.c:13:static void helix_exit(int code)
+src/projects/helixos/src/main.c:25:    sel4runtime_set_exit(helix_exit);
+src/projects/helixos/src/main.c:28:    seL4_DebugNameThread(seL4_CapInitThreadTCB, "helixos-rootd");
+src/projects/helixos/src/main.c:33:    if (!helix_bootstrap_prepare()) {
+src/projects/helixos/src/main.c:35:        helix_exit(1);
+src/projects/helixos/src/main.c:41:    if (!helix_domain_manager_start()) {
+src/projects/helixos/src/main.c:43:        helix_exit(2);
+src/projects/helixos/src/main.c:48:        helix_exit(3);
+src/projects/helixos/src/domain_manager.c:10:#include "helix_bootstrap.h"
+src/projects/helixos/src/domain_manager.c:82:bool helix_domain_manager_start(void)
+src/projects/helixos/src/domain_manager.c:103:    if (!start_one_service(&vka, &vspace, "helix-objectd", "helix-objectd")) {
+src/projects/helixos/src/domain_manager.c:107:    if (!start_one_service(&vka, &vspace, "helix-taskd", "helix-taskd")) {
+src/projects/helixos/src/domain_manager.c:111:    if (!start_one_service(&vka, &vspace, "helix-memd", "helix-memd")) {
+src/projects/helixos/src/domain_manager.c:115:    if (!start_one_service(&vka, &vspace, "helix-romfsd", "helix-romfsd")) {
+src/projects/helixos/src/domain_manager.c:119:    if (!start_one_service(&vka, &vspace, "helix-consoled", "helix-consoled")) {
+src/projects/helixos/src/domain_manager.c:123:    if (!start_one_service(&vka, &vspace, "helix-abi-gated", "helix-abi-gated")) {
+src/projects/helixos/src/selinos_edu_domain.c:132:    char *argv[] = {"helix-dmad", NULL};
+src/projects/helixos/src/selinos_edu_domain.c:134:    if (sel4utils_configure_process(&dmad, vka, root_vspace, "helix-dmad") != 0) {
+src/projects/helixos/src/selinos_edu_domain.c:144:    seL4_DebugNameThread(dmad.thread.tcb.cptr, "helix-dmad");
+src/projects/helixos/src/selinos_edu_domain.c:156:    char *argv[] = {"helix-irqd", NULL};
+src/projects/helixos/src/selinos_edu_domain.c:158:    if (sel4utils_configure_process(&irqd, vka, root_vspace, "helix-irqd") != 0) {
+src/projects/helixos/src/selinos_edu_domain.c:183:    seL4_DebugNameThread(irqd.thread.tcb.cptr, "helix-irqd");
+src/projects/helixos/include/helix_bootstrap.h:15:typedef enum helix_domain_kind {
+src/projects/helixos/include/helix_bootstrap.h:23:} helix_domain_kind_t;
+src/projects/helixos/include/helix_bootstrap.h:25:typedef struct helix_domain_policy {
+src/projects/helixos/include/helix_bootstrap.h:26:    helix_domain_kind_t kind;
+src/projects/helixos/include/helix_bootstrap.h:33:} helix_domain_policy_t;
+src/projects/helixos/include/helix_bootstrap.h:36:bool helix_bootstrap_prepare(void);
+src/projects/helixos/include/helix_bootstrap.h:42:bool helix_capability_policy_selftest(void);
+src/projects/helixos/include/helix_bootstrap.h:50:bool helix_domain_manager_start(void);
+src/projects/helixos/include/helix_bootstrap.h:53:const helix_domain_policy_t *helix_policy_for(helix_domain_kind_t kind);
+src/projects/helixos/include/helix_bootstrap.h:56:size_t helix_policy_count(void);
+src/projects/helixos/CMakeLists.txt:3:project(helixos-root C)
+src/projects/helixos/CMakeLists.txt:19:    HelixBootDiagnostics
+src/projects/helixos/CMakeLists.txt:25:add_config_library(helixos-root "${configure_string}")
+src/projects/helixos/CMakeLists.txt:40:function(helix_add_service target_name service_label)
+src/projects/helixos/CMakeLists.txt:47:helix_add_service(helix-objectd "objectd")
+src/projects/helixos/CMakeLists.txt:48:helix_add_service(helix-taskd "taskd")
+src/projects/helixos/CMakeLists.txt:49:helix_add_service(helix-memd "memd")
+src/projects/helixos/CMakeLists.txt:50:helix_add_service(helix-romfsd "romfsd")
+src/projects/helixos/CMakeLists.txt:51:helix_add_service(helix-consoled "consoled")
+src/projects/helixos/CMakeLists.txt:52:helix_add_service(helix-abi-gated "abi-gated")
+src/projects/helixos/CMakeLists.txt:54:add_executable(helix-irqd EXCLUDE_FROM_ALL servers/irqd.c)
+src/projects/helixos/CMakeLists.txt:55:target_include_directories(helix-irqd PRIVATE include)
+src/projects/helixos/CMakeLists.txt:56:target_link_libraries(helix-irqd PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+src/projects/helixos/CMakeLists.txt:57:target_compile_options(helix-irqd PRIVATE -Wall -Wextra -Werror -g)
+src/projects/helixos/CMakeLists.txt:59:add_executable(helix-dmad EXCLUDE_FROM_ALL servers/dmad.c)
+src/projects/helixos/CMakeLists.txt:60:target_include_directories(helix-dmad PRIVATE include)
+src/projects/helixos/CMakeLists.txt:61:target_link_libraries(helix-dmad PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+src/projects/helixos/CMakeLists.txt:62:target_compile_options(helix-dmad PRIVATE -Wall -Wextra -Werror -g)
+src/projects/helixos/CMakeLists.txt:77:    "$<TARGET_FILE:helix-objectd>"
+src/projects/helixos/CMakeLists.txt:78:    "$<TARGET_FILE:helix-taskd>"
+src/projects/helixos/CMakeLists.txt:79:    "$<TARGET_FILE:helix-memd>"
+src/projects/helixos/CMakeLists.txt:80:    "$<TARGET_FILE:helix-romfsd>"
+src/projects/helixos/CMakeLists.txt:81:    "$<TARGET_FILE:helix-consoled>"
+src/projects/helixos/CMakeLists.txt:82:    "$<TARGET_FILE:helix-abi-gated>"
+src/projects/helixos/CMakeLists.txt:83:    "$<TARGET_FILE:helix-irqd>"
+src/projects/helixos/CMakeLists.txt:84:    "$<TARGET_FILE:helix-dmad>"
+src/projects/helixos/CMakeLists.txt:88:MakeCPIO(helix_services_archive.o "${HELIX_SERVICE_IMAGES}")
+src/projects/helixos/CMakeLists.txt:91:    helixos-root
+src/projects/helixos/CMakeLists.txt:99:    helix_services_archive.o
+src/projects/helixos/CMakeLists.txt:102:target_include_directories(helixos-root PRIVATE include)
+src/projects/helixos/CMakeLists.txt:104:    helixos-root
+src/projects/helixos/CMakeLists.txt:119:        helixos-root_Config
+src/projects/helixos/CMakeLists.txt:121:target_compile_options(helixos-root PRIVATE -Wall -Wextra -Wno-error=unused-parameter -Werror -g)
+src/projects/helixos/CMakeLists.txt:124:DeclareRootserver(helixos-root)

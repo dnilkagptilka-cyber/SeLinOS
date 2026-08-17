@@ -1,0 +1,1 @@
+Phase 50 focused evidence verified; full regression pending after default-profile guard fix.

@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-held fixed-child construction adapter M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false,
+    "configuration": "SeLinRootConstructM1Adapter=ON; default production M0 profile remains separate"
+  },
+  "image": {
+    "path": "build-root-construct-m1/images/selinos-root-image-x86_64-pc99",
+    "sha256": "19aad5d37cadd37e3a1fb069e044ff4119020aa078525988713a96c2f7e9fed2"
+  },
+  "implementation": {
+    "root_adapter": {
+      "path": "src/projects/helixos/src/root_construct_m1.c",
+      "sha256": "bbcfa9e859ba1c467f9f4b35b1cf6e457c75f90ba29f52c48c353be05e70ca33"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "root_main": {
+      "path": "src/projects/helixos/src/main.c",
+      "sha256": "5f2cc7128b3841e3e4d82082be505f0a030b470535f38c2227a316f2dc774ef9"
+    },
+    "taskd_client": {
+      "path": "src/projects/helixos/servers/taskd_root_construct_m1_client.c",
+      "sha256": "03e1953383003cc9df610e522a1a8c812ba8a29051766051c65ce7985c46d995"
+    },
+    "child": {
+      "path": "src/projects/helixos/drivers/root_construct_m1_inert_child.c",
+      "sha256": "31a4375beeed5cac34678b04d030d252ed56d36152fa738b3ac88c1859e9bad8"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_root_construct_m1_protocol.h",
+      "sha256": "a1d4489f24f74b6471ee4e8ee12dc1d40bfbff8ab0e2d469551b204b0443d092"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "contract": {
+    "construction": "Only root retains the persistent VKA and loader VSpace, accepts one exact fixed request and invokes sel4utils_configure_process for one compile-time inert child image.",
+    "state": "The root-local state advances FREE to ROOT_CONSTRUCTING to ROOT_CONSTRUCTED. A later duplicate receives REJECTED without allocation; no free/reset, rollback, cleanup or reuse is claimed.",
+    "child": "The child is spawned suspended with the fixed root-selected image and is not given a start claim.",
+    "delegation": "The taskd adapter client has exactly one endpoint send cap and receives status only. It receives no child TCB, CSpace, VSpace, fault endpoint, frame, mapping or allocator capability."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_root_construct_m1.boot.log",
+    "sha256": "b8a9cbbbfea496d89239ad85ca50c349c12745430b7bc48b0c5621ef91911189",
+    "required_markers": [
+      "SeLinOS root construction M1: isolated taskd request endpoint ready.",
+      "SeLinOS root construction M1: root entering dedicated blocking construction loop.",
+      "SeLinOS root construction M1: exact fixed request accepted; root constructing.",
+      "SeLinOS root construction M1: one fixed child constructed and spawned suspended; no cap delivered.",
+      "SeLinOS root construction M1: malformed or duplicate request rejected; no allocation.",
+      "SeLinOS root construction M1 taskd client: fixed construction and duplicate refusal passed; no child cap received."
+    ],
+    "forbidden_markers": [
+      "SeLinOS root construction M1: unable to start taskd adapter client.",
+      "SeLinOS root construction M1: fixed child construction failed; no cap delivered.",
+      "SeLinOS root construction M1 taskd client: construction reply rejected.",
+      "SeLinOS root construction M1 taskd client: duplicate refusal rejected.",
+      "SeLinOS root construction M1 inert child: unexpected execution."
+    ]
+  },
+  "not_claimed": [
+    "general task construction, multiple slots, arbitrary request parameters or client-selected image, stack, register, TLS, clone, scheduler, credential, VFS or device state",
+    "child capability delivery, child start, TCB control, teardown, rollback, delete, revoke, unmap, release or reuse",
+    "non-root VKA, loader VSpace, root CNode, CSpace, VSpace, fault endpoint, frame or mapping authority",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "executable mapping, W^X, native ELF loading, dynamic linker semantics, glibc runtime, dpkg or apt",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority"
+  ]
+}

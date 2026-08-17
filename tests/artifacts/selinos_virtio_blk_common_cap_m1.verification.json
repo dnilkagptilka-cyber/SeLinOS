@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-only modern virtio-blk common-capability inspection M1",
+  "profile": {
+    "build_directory": "build-virtio-capability-probe",
+    "cmake_option": "SeLinRootVirtioBlkCapabilityProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG direct command with virtio-blk-pci,disable-legacy=on",
+    "device_identity": "1af4:1042"
+  },
+  "image": {
+    "path": "build-virtio-capability-probe/images/selinos-root-image-x86_64-pc99",
+    "sha256": "6cedfc31e5fdf0836483d6086d3a9871c55ffab713837c3afe6b0a352dc69fa7"
+  },
+  "implementation": {
+    "pci_parser": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "pci_contract": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "root_hook": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "cmake_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_virtio_blk_common_cap_m1.boot.log",
+    "sha256": "3954387e953ca1e1a18d8ebb0eed1d01b0c647e3ca4cebaa32339e6f3ad19292",
+    "required_markers": [
+      "SeLinOS storage M1: quarantined virtio common capability metadata validated; BAR/feature/queue/IRQ/DMA authority withheld."
+    ],
+    "forbidden_markers": [
+      "inspection failed",
+      "virtio BAR mapped",
+      "virtio feature negotiated",
+      "virtio queue created",
+      "virtio DMA granted",
+      "storage driver domain started"
+    ]
+  },
+  "not_claimed": [
+    "BAR read or mapping",
+    "PCI command mutation",
+    "virtio status or feature negotiation",
+    "virtqueue creation",
+    "IRQ capability",
+    "DMA lease",
+    "block reads or writes",
+    "storage domain",
+    "persistent filesystem",
+    "dpkg or apt"
+  ]
+}

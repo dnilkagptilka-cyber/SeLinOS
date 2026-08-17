@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M2",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "probe_source": {
+    "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+    "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+  },
+  "gateway_source": {
+    "path": "src/projects/helixos/src/domain_manager.c",
+    "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+  },
+  "implemented_contract": {
+    "getpid": {
+      "number": 39,
+      "test_return": 4242
+    },
+    "write": {
+      "number": 1,
+      "allowed_fds": [
+        1,
+        2
+      ],
+      "maximum_bytes": 127,
+      "single_user_page_only": true,
+      "transfer": "Root obtains only the backing frame cap for the requested probe page, maps a duplicate temporarily, copies exactly requested bytes, then unmaps and deletes the duplicate before reply."
+    },
+    "exit": {
+      "number": 60,
+      "accepted_status": 0,
+      "effect": "The test process remains stopped after the verified exit fault; no return reply is issued."
+    },
+    "return_protocol": "Fault reply updates RAX and FaultIP in the first 16 x86_64 UnknownSyscall registers while preserving RSP, RFLAGS and TLS state."
+  },
+  "required_serial_markers": [
+    "SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.",
+    "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.",
+    "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+  ],
+  "forbidden_serial_markers": [
+    "SeLinOS ABI gateway: Linux syscall ABI probe failed.",
+    "SeLinOS ABI gateway: restricted Linux write rejected.",
+    "SeLinOS M0: isolated domain bootstrap FAILED."
+  ],
+  "not_claimed": [
+    "M2 getpid/write/exit evidence is subsumed by the current M3 mmap/read expansion; it remains a constrained baseline, not a persistent isolated selinos-abi-gated dispatcher.",
+    "General user-address-space access or arbitrary multi-page buffer transfer",
+    "brk, file descriptors beyond stdout/stderr, VFS, dynamic linking, glibc, networking, dpkg or apt",
+    "Execution of existing Linux ELF applications"
+  ]
+}

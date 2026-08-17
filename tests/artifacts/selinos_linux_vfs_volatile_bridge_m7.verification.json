@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux-to-volatile-VFS bridge M7",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG instruction-count mode",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_dispatcher": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    },
+    "vfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    }
+  },
+  "contract": {
+    "invalid_open": "The fixed non-matching `/selinos-statu` pathname is bounded-copied, NUL-checked and returns -ENOENT before any server OPEN_PATH IPC.",
+    "open": "Only exact NUL-terminated `/selinos-state` with AT_FDCWD and zero flags/mode is accepted. Root passes only its two packed scalar words to the isolated server and receives fixed FD 5.",
+    "read": "Only FD 5, exactly eight bytes and one mapped destination page are accepted; root maps that one user page temporarily, copies one server word, then unmaps/deletes the duplicate cap.",
+    "write": "Only FD 5, exactly the fixed eight-byte `STATEM0!` payload and one mapped user page are accepted; root copies the word locally and sends no client capability to the server.",
+    "lifecycle": "The server resets the single volatile word on every fixed open. The probe reads BOOTM0!!, writes STATEM0!, reads it back, closes FD 5, then observes -EBADF for a post-close write."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_vfs_volatile_bridge_m7.boot.log",
+    "sha256": "5d3d142421ef192b536e895cee2cf5ab0740789747d86baf37be71561d32acac",
+    "required_markers": [
+      "SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.",
+      "SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.",
+      "SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated."
+    ],
+    "forbidden_markers": [
+      "malformed volatile openat guard failed",
+      "volatile openat rejected",
+      "volatile initial read rejected",
+      "volatile write rejected",
+      "volatile read-back rejected",
+      "volatile close rejected",
+      "closed volatile write guard failed",
+      "persistent storage enabled",
+      "storage driver domain started",
+      "virtio DMA granted"
+    ]
+  },
+  "not_claimed": [
+    "persistent data, block I/O, device mapping, virtqueues, IRQs or DMA",
+    "arbitrary pathnames, directory traversal, permissions, mounts, metadata or POSIX filesystem semantics",
+    "general Linux file descriptors, offsets, partial I/O, multi-page I/O, multi-client sharing, clone inheritance or cleanup semantics",
+    "TLS, scheduler, blocking futexes, glibc, dynamic linker, dpkg or apt"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS objectd fixed inventory reservation M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "objectd": {
+      "path": "src/projects/helixos/servers/objectd_m1.c",
+      "sha256": "5c3c3bc28e58d77b0ad3241bbf263e4fd7ba5469e23c37ff0136c546a434d353"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/objectd_m1_probe.c",
+      "sha256": "f4f706d2e2066b47425eb02416ab01e672aa056f430358875f2ad7efde11776d"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_objectd_m1_protocol.h",
+      "sha256": "59393a1d9c2580700530aed03d1a2810de86a0327f9b56a4077566320b415adf"
+    }
+  },
+  "contract": {
+    "request": "Only a two-word RESERVE request for slot 1 is accepted.",
+    "state": "The first exact request transitions objectd-local state from FREE to RESERVED; the second exact request returns EBUSY and leaves state RESERVED.",
+    "authority": "Root delegates only the client endpoint to objectd and its probe. Objectd receives no allocator, task object, VSpace, device, IRQ, DMA, PCI, I/O or IOSpace authority."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_objectd_fixed_inventory_m1.boot.log",
+    "sha256": "e46ece7d90a13b9b562414bbd4852088e97058b99cfc553ba6aa4ad5aa709e08",
+    "required_markers": [
+      "SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.",
+      "SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.",
+      "SeLinOS objectd M1: fixed inventory reservation-state proof passed.",
+      "SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS objectd M1: malformed reservation rejected.",
+      "SeLinOS objectd M1 probe: reservation sequence rejected."
+    ]
+  },
+  "not_claimed": [
+    "TCB, CSpace, VSpace, endpoint, notification or fault-endpoint allocation",
+    "capability lease transfer, revocation, reuse, teardown or dynamic task creation",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

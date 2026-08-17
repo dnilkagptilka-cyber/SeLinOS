@@ -1,0 +1,47 @@
+--- modinfo ---
+filename:       /home/ubuntu/helixos/tests/artifacts/selinos_kabi_probe-6.18.44.ko
+description:    Version-pinned Linux 6.18.44 KABI parser fixture
+author:         SeLinOS project
+license:        GPL
+depends:        
+intree:         Y
+name:           selinos_kabi_probe
+retpoline:      Y
+vermagic:       6.18.44 SMP preempt mod_unload modversions 
+--- undefined symbols ---
+
+__x86_return_thunk
+_printk
+--- versions section ---
+
+Hex dump of section '__versions':
+  0x00000000 7e3a2c12 00000000 5f707269 6e746b00 ~:,....._printk.
+  0x00000010 00000000 00000000 00000000 00000000 ................
+  0x00000020 00000000 00000000 00000000 00000000 ................
+  0x00000030 00000000 00000000 00000000 00000000 ................
+  0x00000040 ca39825b 00000000 5f5f7838 365f7265 .9.[....__x86_re
+  0x00000050 7475726e 5f746875 6e6b0000 00000000 turn_thunk......
+  0x00000060 00000000 00000000 00000000 00000000 ................
+  0x00000070 00000000 00000000 00000000 00000000 ................
+  0x00000080 ad2cfc3c 00000000 6d6f6475 6c655f6c .,.<....module_l
+  0x00000090 61796f75 74000000 00000000 00000000 ayout...........
+  0x000000a0 00000000 00000000 00000000 00000000 ................
+  0x000000b0 00000000 00000000 00000000 00000000 ................
+
+--- relevant sections ---
+  [ 3] .rela.init.text   RELA            0000000000000000 000f58 000048 18   I 32   2  8
+  [ 5] .rela.exit.text   RELA            0000000000000000 000fa0 000030 18   I 32   4  8
+  [ 7] .modinfo          PROGBITS        0000000000000000 000109 0000cb 00   A  0   0  1
+  [ 9] .rela.return_sites RELA            0000000000000000 000fd0 000018 18   I 32   8  8
+  [11] .rela.call_sites  RELA            0000000000000000 000fe8 000018 18   I 32  10  8
+  [14] .rela.orc_unwind_ip RELA            0000000000000000 001000 000060 18   I 32  13  8
+  [18] __versions        PROGBITS        0000000000000000 000280 0000c0 00   A  0   0 32
+  [21] .rela__patchable_function_entries RELA            0000000000000000 001060 000030 18   I 32  20  8
+  [24] .rela.exit.data   RELA            0000000000000000 001090 000018 18   I 32  23  8
+  [26] .rela.init.data   RELA            0000000000000000 0010a8 000018 18   I 32  25  8
+  [28] .rela.gnu.linkonce.this_module RELA            0000000000000000 0010c0 000030 18   I 32  27  8
+  [32] .symtab           SYMTAB          0000000000000000 0008d0 0004c8 18     33  44  8
+  [33] .strtab           STRTAB          0000000000000000 000d98 0001bd 00      0   0  1
+  [34] .shstrtab         STRTAB          0000000000000000 0010f0 00015f 00      0   0  1
+--- sha256 ---
+a4c3a6614e39191af7071ba320b2aac4ae303a9ac815c2cd4d86d2e1575a723d  /home/ubuntu/helixos/tests/artifacts/selinos_kabi_probe-6.18.44.ko

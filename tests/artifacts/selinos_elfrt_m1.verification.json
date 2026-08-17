@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS ELF runtime parser M1",
+  "scope": "Freestanding non-executing ELF64/x86_64 ET_EXEC and ET_DYN metadata parser",
+  "sources": {
+    "interface": {"path": "src/projects/helixos/elfrt/include/selinos_elfrt.h", "sha256": "fe7f682a30bcf2aa3081a32ea112dfa0d712231a84300257d485ecce8ba1d92b"},
+    "parser": {"path": "src/projects/helixos/elfrt/src/selinos_elfrt.c", "sha256": "3b7477d00f988abbacb3b10fe79a15f797af0196be2f0a442e188ddcaed5c65f"},
+    "fixture_source": {"path": "tests/elfrt_fixture.c", "sha256": "45a20b3401146222d4765a5254ede07757e09a623c28f2fcb48cd3644b4ba403"},
+    "test_source": {"path": "tests/elfrt_m1_test.c", "sha256": "87cb0e70b79d92b485440c340ce9c9403643756a4170be52394f57ba05cdbe49"},
+    "interpreter_fixture_source": {"path": "tests/elfrt_interp_fixture.c", "sha256": "8ae4abdb125501c0015b4f598a221cf20195bb7358f7be663078cdc47f5666f9"}
+  },
+  "artifacts": {
+    "et_dyn_fixture": {"path": "tests/artifacts/elfrt_m1/libselinos_elfrt_fixture.so", "sha256": "32906b66ac1fbe410df51b99630df32c41bc56e36d32587d88ff7c289dff8068"},
+    "interpreter_fixture": {"path": "tests/artifacts/elfrt_m1/selinos_elfrt_interp_fixture", "sha256": "f351a6e1be0101f15280558e3ccdebe18e26d631f2bafe70dd2344242acad11f"},
+    "host_test": {"path": "tests/artifacts/elfrt_m1/elfrt_m1_test", "sha256": "6af5476b18e322ed662e1792ec270c0038799b27d186dadd0fcdfd32f33e6cf1"}
+  },
+  "accepted": [
+    "ELF64 little-endian x86_64 ET_EXEC or ET_DYN header",
+    "bounded program-header table and PT_LOAD ranges with file/memory and alignment checks",
+    "bounded PT_INTERP policy check with real PIE fixture: reject when policy disabled and accept metadata only when enabled",
+    "bounded PT_DYNAMIC tags: DT_STRTAB, DT_STRSZ, DT_NEEDED, DT_RELA, DT_TEXTREL and DT_FLAGS; initial-load policy rejects detected text relocation and writable-executable segment states",
+    "real host-built ET_DYN fixture with one or more DT_NEEDED entries"
+  ],
+  "rejected_or_not_implemented": [
+    "truncated ELF input and malformed range/table/string metadata",
+    "ELF mapping, process creation, BSS mapping, relocations, symbol resolution, dependency loading, PT_INTERP invocation, constructors or code execution",
+    "Linux/glibc compatibility, a dynamic linker, networking, dpkg, apt or existing Linux package execution"
+  ],
+  "required_output": "SeLinOS ELFRT M1: ET_DYN, PT_INTERP and initial W^X policy paths verified."
+}

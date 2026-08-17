@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS root-only modern virtio-blk BAR validation and feature observation M2",
+  "profile": {
+    "build_directory": "build-virtio-bar-feature-probe",
+    "cmake_option": "SeLinRootVirtioBlkBarFeatureProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG instruction-count mode with virtio-blk-pci,disable-legacy=on",
+    "device_identity": "1af4:1042",
+    "common_configuration_bar": "QEMU fixture BAR4: 64-bit prefetchable memory",
+    "iommu_platform": false,
+    "ats": false
+  },
+  "image": {
+    "path": "build-virtio-bar-feature-probe/images/selinos-root-image-x86_64-pc99",
+    "sha256": "bda9b6282a7b57cb3d8c4085d852746d55af73957b507830620e0020e24297fe"
+  },
+  "implementation": {
+    "pci_root_helper": {
+      "path": "src/projects/helixos/src/selinos_pci.c",
+      "sha256": "bca221d38d0b2229e8578e510fedc4bab5875e84bc86ddda33c2e40b841cda01"
+    },
+    "pci_contract": {
+      "path": "src/projects/helixos/include/selinos_pci.h",
+      "sha256": "8b229fae9934936eec9a04984b23b68bd41ede1a86dca46d7a9d06ded2f9a4fa"
+    },
+    "root_hook": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "cmake_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_virtio_blk_bar_feature_m2.boot.log",
+    "sha256": "6b36e2b360af7b65d504b8f39a9d491cc9382354c2718a711cae3af5eaed5279",
+    "required_markers": [
+      "SeLinOS storage M2: root-only uncached common-config feature observation passed; authority withheld.",
+      "SeLinOS storage M2: no BAR cap delegation, feature acceptance, status write, queue, IRQ, DMA or block I/O."
+    ],
+    "forbidden_markers": [
+      "SeLinOS storage M2: quarantined virtio BAR/feature observation failed; authority withheld.",
+      "virtio BAR mapped to driver",
+      "virtio feature accepted",
+      "virtio status write",
+      "virtio queue created",
+      "virtio DMA granted",
+      "virtio block request issued",
+      "storage driver domain started"
+    ]
+  },
+  "validated_contract": {
+    "pci_bar": "Root probes an already assigned 32-bit or 64-bit memory BAR with memory decoding and bus mastering quiesced; it restores every BAR word and command bits before accepting scalar bounds.",
+    "mmio": "Root allocates exactly one validated physical page, reserves and maps it uncached and read-only in the root VSpace, then performs only volatile reads of device_feature_select and device_feature.",
+    "teardown": "The root unmaps with VSPACE_PRESERVE, frees the reservation and frees the root-owned VKA frame before return; no frame cap is copied outside root.",
+    "feature_window": "Only the device's current selected 32-bit feature window is observed; M2 performs no selector write and therefore does not claim complete feature enumeration."
+  },
+  "not_claimed": [
+    "BAR or frame-cap delegation to a driver domain",
+    "feature selector write, accepted-feature write or FEATURES_OK",
+    "virtio status mutation, reset, ACKNOWLEDGE, DRIVER or DRIVER_OK",
+    "full feature enumeration",
+    "virtqueue creation, notification, interrupt acknowledgement or IRQ capability",
+    "DMA lease, IOMMU containment, descriptor buffers or block request",
+    "storage driver domain, writable filesystem, persistent storage, dpkg or apt"
+  ]
+}

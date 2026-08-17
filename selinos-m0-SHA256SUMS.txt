@@ -1,0 +1,2 @@
+6c831af4869299d96d7e22820d38028046178870d990677448678b579c99bdc9  selinos-m0-source.tar.gz
+6d7ff4acc96341da832b46b6e7151f14bf0cead1c1fa6a02bfb01a9a9bf0306a  build/images/selinos-m0-root-image-x86_64-pc99

@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Phase 43 x86_64 execute-disable fixed-page mapping M0",
+  "profile": {
+    "build_directory": "build-wx-nx-probe",
+    "cmake_option": "SeLinX86NxMappingProbe=ON",
+    "kernel_commit": "1326364bc9135d9445d936ebc01e38a402c1f4c6",
+    "architecture": "x86_64/PC99",
+    "qemu": "QEMU 8.2.2 TCG instruction-count mode, CPU max, 1 GiB RAM",
+    "test_virtual_address": "0x70000000",
+    "extension": "local default-OFF x86 execute-disable VM attribute at bit 3"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-wx-nx-probe/images/kernel-x86_64-pc99",
+      "sha256": "e52eba2d35f66046381604c8a2c4576e6ea08340de6187e71837b47c4cf50dd1"
+    },
+    "root_image": {
+      "path": "build-wx-nx-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "c539914517dfa4ef3f1c60ea3e8bd65271f2b68062f51366a156a4847d3d7696"
+    }
+  },
+  "implementation": {
+    "x86_64_vm_attributes": {
+      "path": "src/kernel/include/arch/x86/arch/64/mode/object/structures.bf",
+      "sha256": "e620aeccfe5462c3ef53856f407339abf9b389688ae470182082dbc9b3590b67"
+    },
+    "x86_32_vm_attributes": {
+      "path": "src/kernel/include/arch/x86/arch/32/mode/object/structures.bf",
+      "sha256": "7c9a47a01fc512ceac529b4baaaaaff61a72789d6e02b70691874cf04a3b29e0"
+    },
+    "public_x86_types": {
+      "path": "src/kernel/libsel4/arch_include/x86/sel4/arch/types.h",
+      "sha256": "917dc147c8009eb7d08ad0e30d95f7ad9ab883501992ee78091115f194233855"
+    },
+    "x86_64_leaf_constructors": {
+      "path": "src/kernel/src/arch/x86/64/kernel/vspace.c",
+      "sha256": "4db189604257215f038a9f0881838698ebe25918a427519f282196f57c6be084"
+    },
+    "common_x86_frame_decoder": {
+      "path": "src/kernel/src/arch/x86/kernel/vspace.c",
+      "sha256": "777a4c4d74634ba6fb0bb10324529f60e2c0617690736a53fe0e77f31cd319ee"
+    },
+    "attribute_aware_mapper_header": {
+      "path": "src/projects/seL4_libs/libsel4utils/include/sel4utils/mapping.h",
+      "sha256": "d257ded085faa01acf47cdb8596d40dd04eb5be49c51b56a14966b5b8f2ccfe9"
+    },
+    "attribute_aware_mapper": {
+      "path": "src/projects/seL4_libs/libsel4utils/src/mapping.c",
+      "sha256": "9ad36739ae91668ad6deb2cb7bbe115b18f1cb39c72dbafba1294611af67572e"
+    },
+    "root_nx_probe": {
+      "path": "src/projects/helixos/src/x86_nx_mapping_probe.c",
+      "sha256": "0cf8b9607bdc807ecf25db4919e2dd537600e5b107cce7ab71817796f8f1f58c"
+    },
+    "child_nx_probe": {
+      "path": "src/projects/helixos/drivers/x86_nx_mapping_probe_child.c",
+      "sha256": "7a4719c9090c9311220b98bf1639e00ef92892af483b13c2323e52bfb6d3301b"
+    },
+    "probe_interface": {
+      "path": "src/projects/helixos/include/selinos_x86_nx_probe.h",
+      "sha256": "172fda6bbd037e869ed9c8455cc6312f971ed5813a19946e55cf2338bd4769f0"
+    },
+    "probe_protocol": {
+      "path": "src/projects/helixos/include/selinos_x86_nx_probe_protocol.h",
+      "sha256": "e08ec5ffbf22831149e50de1008c013f7c8ec74a7754e89ebd4e306e3cbed2ad"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    },
+    "phase_design_gate": {
+      "path": "docs/phase43_x86_64_nx_mapping_extension_gate.md",
+      "sha256": "c8cc9cd13f282c2091df0c5eb733f7bd1b155739e1f9a4d22880426a2e03a82d"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_x86_nx_mapping_m0.boot.log",
+    "sha256": "404c6ad868897c6808ffc4aa2590c08ee1026e1ac85096bfc37fc62c2a66caae",
+    "required_markers": [
+      "SeLinOS NX probe child: attempting one fixed indirect call.",
+      "SeLinOS W^X NX: execute-disabled child produced fixed instruction fault.",
+      "SeLinOS W^X NX: executable control returned fixed witness.",
+      "SeLinOS W^X NX: paired fixed mapping proof passed; no ELF execution."
+    ],
+    "forbidden_markers": [
+      "SeLinOS W^X NX: isolated mapping proof failed.",
+      "SeLinOS W^X NX: execute-disabled fault witness failed.",
+      "SeLinOS W^X NX: executable remap failed.",
+      "SeLinOS W^X NX: executable control witness failed."
+    ]
+  },
+  "validated_contract": {
+    "representation": "both x86 vm_attributes bitfields place x86ExecuteDisable at bit 3 while retaining PAT/PCD/PWT at bits 2/1/0",
+    "x86_64_leaves": "the 4 KiB PTE, 2 MiB PDE and 1 GiB PDPTE leaf constructors each source xd from vm_attributes_get_x86ExecuteDisable(vm_attr)",
+    "x86_32_policy": "the common decoder rejects x86ExecuteDisable with seL4_InvalidArgument before mapping when CONFIG_ARCH_X86_64 is absent",
+    "runtime_sequence": "suspended child gets a clean copied frame mapped NX at 0x70000000; root writes only ret through a temporary alias; child receives an instruction VMFault; root removes its alias, unmaps and remaps the child frame executable, replies, and receives one fixed success word",
+    "cleanup": "the child is suspended; the mapped child frame cap, copied cap slot, root alias, frame and endpoint are released on exit"
+  },
+  "not_claimed": [
+    "general executable mappings, W^X-safe ELF loader policy, PT_LOAD mapping, relocation, dynamic linking, ELF TLS, Linux process launch or native Linux module execution",
+    "Linux kernel, Linux VM, LKL, Linux internal API/KABI completeness, Linux driver-model completeness, clone/fork/pthread, persistent VFS, DMA, IOMMU containment, network stack, package trust, dpkg or apt",
+    "hardware validation outside the bounded x86_64/PC99 QEMU TCG fixed-page proof"
+  ]
+}

@@ -1,0 +1,54 @@
+# Reproducible CMake/Ninja build output; regenerate from tracked sources and profiles.
+/build*/
+
+# Bootstrapped upstream source caches and detached worktrees; restore with bootstrap_sources.sh and sources.lock.
+/.source-cache/
+/_references/
+/_upstream_manifest/
+/src/kernel/
+/src/tools/seL4/
+/src/projects/musllibc/
+/src/projects/seL4_libs/
+/src/projects/sel4runtime/
+/src/projects/util_libs/
+/src/projects/sel4_projects_libs/
+
+# Ephemeral root-level QEMU/build logs and source archives. Selected SHA-bound JSON evidence and gate documentation remain tracked.
+/*.log
+/*.tar.gz
+
+# Python and editor by-products.
+__pycache__/
+*.py[cod]
+*.swp
+*~
+
+# Generated verifier and QEMU logs retained only in the local evidence workspace.
+/tests/artifacts/*.log
+/tests/artifacts/*.raw
+/tests/artifacts/*.tmp
+
+# Generated Linux Kbuild products; preserve Kbuild, Makefile and source fixtures.
+*.o
+*.ko
+*.mod
+*.mod.c
+*.cmd
+*.a
+*.so
+Module.symvers
+modules.order
+.tmp_versions/
+
+# Host-side test executables built from the tracked test sources.
+/tests/kabi_module_execution_test
+/tests/kabi_module_parser_test
+/tests/elfrt_fixture
+/tests/elfrt_interp_fixture
+/tests/elfrt_m1_test
+
+# Generated binary evidence fixtures; retain paired JSON manifests and text inspection output instead.
+/tests/artifacts/elfrt_m1/elfrt_m1_test
+/tests/artifacts/elfrt_m1/selinos_elfrt_interp_fixture
+/tests/artifacts/*.ko
+/tests/artifacts/*.o

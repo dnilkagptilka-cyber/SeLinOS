@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd dynamic allocation prerequisite M0",
+  "profile": {
+    "build_directory": "build-taskd-dynamic-allocation-probe",
+    "cmake_option": "SeLinTaskdDynamicAllocationProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "one status-only slot: reserve generation 1, duplicate EBUSY, release generation 1, reserve generation 2"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-dynamic-allocation-probe/images/kernel-x86_64-pc99",
+      "sha256": "6a8a1421b5512bea30d073aa1cf7a078cfe6d93116c45ad32d221c302a26d254"
+    },
+    "root_image": {
+      "path": "build-taskd-dynamic-allocation-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "63ae4f5561e4f5dcc118df59525b8d2e1a84903be6d936492bb8aaf08bbe047b"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "362da24b06166de2a5712e7a843286a7d0d8b41b5053a63c8fd9d4f468a46cb5"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_dynamic_alloc_m0_protocol.h",
+      "sha256": "cb5ffd92374c14a53a60e9698733ed878ac8515e8fcbb410e4e6ddf100711942"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_dynamic_alloc_m0.c",
+      "sha256": "0568ec3bd246f34ce7c9b4e3b0e3da8ccbbb1b5fa1fd0efc8ad48d14cc472762"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_dynamic_alloc_m0_probe.c",
+      "sha256": "46e5cc73c8eb86b2f678f7dcbca867dfe22d2ab44c9f96d4e18febf138a8efe4"
+    },
+    "gate": {
+      "path": "docs/phase50_dynamic_task_allocation_prerequisite_m0_gate.md",
+      "sha256": "3bb4475956222777652330881d02647b43efbaa455f722a5d2c390a3a8664392"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_dynamic_alloc_m0.boot.log",
+    "sha256": "9bd273180e59d4cb358ce7d2a7b3bc263312de6c44349069d019a3cea925df63",
+    "required_markers": [
+      "SeLinOS taskd dynamic M0: allocator reserve/release prerequisite passed.",
+      "SeLinOS taskd dynamic M0: no TCB/CSpace/VSpace or Linux process created.",
+      "SeLinOS taskd dynamic M0: reserve/reject/release/re-reserve passed; no task created.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "TCB, CSpace, VSpace, endpoint or frame lifecycle; child creation or execution; clone, fork, vfork, pthread, PID/TID, TLS, scheduling, signals, wait/reap, Linux process ABI, ELF runtime, dpkg or apt"
+  ]
+}

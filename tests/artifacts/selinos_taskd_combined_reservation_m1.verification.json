@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd combined reservation state M1",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "taskd": {
+      "path": "src/projects/helixos/servers/taskd_reservation_m1.c",
+      "sha256": "1d7c3e07d68ca9313277cbe89db97fce98f48725cadfe1861089499f82a45ac9"
+    },
+    "objectd": {
+      "path": "src/projects/helixos/servers/objectd_reservation_m2.c",
+      "sha256": "7c28081bddd56e57ebaf7520b6dc957d71f04f328344b8836951a08ffe79aef1"
+    },
+    "memd": {
+      "path": "src/projects/helixos/servers/memd_reservation_m2.c",
+      "sha256": "260e0edd374f630b7a7c768d2829709f8b95e138552ad4c8dd0f88e99287d69b"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_reservation_m1_probe.c",
+      "sha256": "d85de014e0d8a5e8fa141e0488f8f35ac04772266b86d4c8959500e5a8b83726"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_reservation_m1_protocol.h",
+      "sha256": "dd4ac2d85f8845d98bbfed320514980fa438e31f8410825fbc7343338a61370c"
+    }
+  },
+  "contract": {
+    "request": "The probe can send only the exact two-word RESERVE_BUNDLES request for slot 1.",
+    "result": "Taskd reports success only after separately validating status-only objectd and memd reservation replies for slot 1.",
+    "authority": "Taskd receives only one probe endpoint, two downstream endpoints and one success notification; no object, mapping, child TCB, VKA, VSpace, device or other lease capability is transferred."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_taskd_combined_reservation_m1.boot.log",
+    "sha256": "dfebf3b340a2bc6c4914254910c9301efa57874a31d0683693a4758bd072e789",
+    "required_markers": [
+      "SeLinOS taskd reservation M1: exact combined slot 1 request accepted.",
+      "SeLinOS objectd reservation M2: status-only slot 1 reservation returned.",
+      "SeLinOS taskd reservation M1: objectd status-only reservation validated.",
+      "SeLinOS memd reservation M2: status-only slot 1 reservation returned.",
+      "SeLinOS taskd reservation M1: memd status-only reservation validated.",
+      "SeLinOS taskd reservation M1: both status-only reservations pending; no task created.",
+      "SeLinOS taskd reservation M1 probe: combined status-only reservation passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS taskd reservation M1: malformed combined request rejected.",
+      "SeLinOS taskd reservation M1: object reservation rejected.",
+      "SeLinOS taskd reservation M1: mapping reservation rejected."
+    ]
+  },
+  "not_claimed": [
+    "object, capability, TCB, CSpace, VSpace, page-table, frame, stack or mapping lease transfer",
+    "dynamic child creation, child configuration, start, resume, teardown, release or reuse",
+    "executable mapping, W^X, native ELF loading or dynamic linker semantics",
+    "Linux clone, fork, pthread, process exit, wait, signal or futex semantics",
+    "device, IRQ, DMA, PCI, I/O or IOSpace authority",
+    "glibc runtime, dpkg or apt"
+  ]
+}

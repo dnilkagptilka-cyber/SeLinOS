@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux KAPI M2 fail-closed ioremap guard",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode with QEMU edu fixture",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "io_contract": {
+      "path": "src/projects/helixos/kapi/include/linux/io.h",
+      "sha256": "2949851b2b941f59151a71d8f47bc110da7f324cbc7f169810858b7943f3b6eb"
+    },
+    "kapi_core": {
+      "path": "src/projects/helixos/kapi/src/kapi_core.c",
+      "sha256": "fcb493689b6d7514e97c85fcde00b3544399c1ae02bd4c39be1e0674b2273133"
+    },
+    "isolated_edu_probe": {
+      "path": "src/projects/helixos/drivers/edu_kapi_probe.c",
+      "sha256": "cd26cce5efc51b0d1057a201cdbc0bd0ffa0f3fce8146bb4891ba0986c74a607"
+    }
+  },
+  "contract": {
+    "ioremap": "For every physical address and size, canonical ioremap returns NULL before any seL4 operation; it does not allocate a device frame, map a VSpace range or return a register address.",
+    "iounmap": "iounmap accepts the NULL result as a no-op and does not revoke or unmap any device resource.",
+    "probe_order": "The EDU probe validates its scalar BAR metadata, proves ioremap returns NULL and calls iounmap(NULL) before pci_enable_device, pci_set_master, request_irq or DMA setup.",
+    "irq_boundary": "Existing token-bound EDU request_irq/free_irq behavior is unchanged; M2 does not implement a success-returning IRQ stub and does not grant a new IRQ authority."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_kapi_m2_ioremap_failclosed.boot.log",
+    "sha256": "0470037f20d8981cecce004397a24ca671741a9fb1c60e242c11c6b9d4e44ef1",
+    "required_markers": [
+      "SeLinOS edu driver: KAPI M2 ioremap fails closed; no MMIO authority.",
+      "SeLinOS edu driver: KAPI request_irq and dma_alloc_coherent passed."
+    ],
+    "forbidden_markers": [
+      "SeLinOS edu driver: KAPI M2 no-authority ioremap guard failed.",
+      "KAPI M2 device frame mapped",
+      "KAPI M2 IRQ granted",
+      "KAPI M2 DMA granted"
+    ]
+  },
+  "not_claimed": [
+    "device frame capability, MMIO VSpace mapping or cache-attribute policy",
+    "MMIO register access through ioremap or iounmap resource teardown",
+    "canonical request_irq/free_irq stub, new IRQ number or new interrupt authority",
+    "NIC/storage authority, IOMMU/IOSpace containment, DMA or bus mastering by this M2 guard",
+    "Linux driver completeness, package execution, dpkg or apt"
+  ]
+}

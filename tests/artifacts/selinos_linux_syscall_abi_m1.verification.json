@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS Linux syscall ABI M1",
+  "platform": {
+    "architecture": "x86_64",
+    "emulator": "QEMU TCG",
+    "microkernel": "seL4",
+    "linux_kernel_present": false
+  },
+  "probe_source": {
+    "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+    "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+  },
+  "gateway_source": {
+    "path": "src/projects/helixos/src/domain_manager.c",
+    "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+  },
+  "contract": {
+    "fault_type": "seL4_Fault_UnknownSyscall",
+    "linux_syscall_number_register": "RAX",
+    "implemented_linux_syscall": {
+      "name": "getpid",
+      "number": 39,
+      "deterministic_test_return": 4242
+    },
+    "return_mechanism": "A 16-register x86_64 fault reply updates RAX and FaultIP while preserving faulted RSP/RFLAGS and TLS state.",
+    "user_continuation_proof": "The current M2 probe compares RAX with 4242 before issuing a bounded write and verified exit; this M1 getpid proof is therefore retained as a subsumed baseline."
+  },
+  "required_serial_markers": [
+    "SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.",
+    "SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured."
+  ],
+  "forbidden_serial_markers": [
+    "SeLinOS ABI gateway: Linux syscall ABI probe failed.",
+    "SeLinOS M0: isolated domain bootstrap FAILED."
+  ],
+  "limitations": [
+    "M1 getpid evidence is subsumed by the stronger current M2 getpid/write/exit probe; it is not a general Linux userspace ABI.",
+    "The temporary gateway runs in the root task and is not yet the persistent isolated selinos-abi-gated server.",
+    "No read, brk, mmap, VFS, dynamic linker, glibc, network, dpkg, or apt compatibility is claimed."
+  ]
+}

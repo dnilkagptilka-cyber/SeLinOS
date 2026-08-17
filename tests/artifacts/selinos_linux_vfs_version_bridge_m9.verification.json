@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS immutable VFS M9 exact Linux version bridge",
+  "platform": {
+    "architecture": "x86_64 PC99",
+    "emulator": "QEMU TCG instruction-count mode",
+    "linux_kernel_present": false
+  },
+  "image": {
+    "path": "build/images/selinos-root-image-x86_64-pc99",
+    "sha256": "1b468e69cccbafe0c0bbadec932ddb557538616bd23d6e5fee1ebf61cc2826f0"
+  },
+  "implementation": {
+    "cpio_generator": {
+      "path": "tools/generate_romfs_cpio_fixture.py",
+      "sha256": "836b85b7818d7bf995e0d06044f472f31b731b7d198c55a5170e5540d6951231"
+    },
+    "generated_archive": {
+      "path": "src/projects/helixos/servers/romfs_archive.c",
+      "sha256": "c0b52cecc7cc9e0ffe3abc514cf6118497d1d78655fb2f21c6bd13990aaead03"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_romfs_protocol.h",
+      "sha256": "6b21d2aee54d546a4cd0bfbb0faa12aa8b8d737b6f41b4b0b4625481c533d973"
+    },
+    "romfs_server": {
+      "path": "src/projects/helixos/servers/romfsd.c",
+      "sha256": "80c2f915417f863927ea274a2e6927bd1e0c9d596cd7e55d8524532fda36f43a"
+    },
+    "root_bridge": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "803fff13d5b537af6a766af65893593bbf128fc3f68cc0674a1cc30aa7a1070e"
+    },
+    "isolated_probe": {
+      "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
+      "sha256": "f0f7f78dbd6b91d11aaf82dd2fb628a0ef62f02b5384a5c64722d000f1a4c177"
+    }
+  },
+  "contract": {
+    "archive": "The generated newc archive contains exactly one added regular member `/selinos-version` with the fixed eight-byte payload `SELINOS9`.",
+    "romfs": "romfsd self-checks and exposes the record through fixed selector 4 and fixed FD 6; packed pathname routing remains capped at 16 printable bytes.",
+    "linux_bridge": "The isolated Linux probe proves exact `openat(AT_FDCWD, /selinos-version, 0, 0) -> 6`, `read(6, mapped_one_page, 8) -> 8`, payload `SELINOS9`, then `close(6) -> 0`.",
+    "negative_scope": "No arbitrary pathname, directory enumeration, metadata, seek, persistent write, multi-page stream, dynamic FD allocation or POSIX filesystem semantics are provided."
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_linux_vfs_version_bridge_m9.boot.log",
+    "sha256": "b6d6d28202b0b74809100d3211af828fab3c26242d3e873cf8961a56b5736dfa",
+    "required_markers": [
+      "SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.",
+      "SeLinOS romfsd: immutable release and version records service online.",
+      "SeLinOS romfsd: embedded newc CPIO multi-file parser ready."
+    ],
+    "forbidden_markers": [
+      "SeLinOS ABI gateway: restricted version openat rejected.",
+      "SeLinOS ABI gateway: restricted version read rejected.",
+      "SeLinOS ABI gateway: restricted version close rejected.",
+      "directory enumeration enabled",
+      "persistent VFS write enabled",
+      "package manager started"
+    ]
+  },
+  "not_claimed": [
+    "arbitrary pathname or dynamic file descriptor support",
+    "directories, metadata, symlinks, permissions or POSIX filesystem semantics",
+    "seek/cursor semantics, arbitrary offsets, partial or multi-page stream I/O",
+    "persistent writes, package state database, package extraction or maintainer scripts",
+    "TLS, dynamic linker, general Linux user-space ABI, dpkg or apt"
+  ]
+}
