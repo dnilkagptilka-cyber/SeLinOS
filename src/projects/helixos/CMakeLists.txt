@@ -177,6 +177,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdSelfRootedCspaceProbe
+    SELINOS_TASKD_SELF_ROOTED_CSPACE_PROBE
+    "Enable self-rooted two-cap CSpace configured non-executing taskd proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -352,6 +359,16 @@ add_executable(selinos-taskd-populated-cspace-m0-probe EXCLUDE_FROM_ALL drivers/
 target_include_directories(selinos-taskd-populated-cspace-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-populated-cspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-populated-cspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-self-rooted-cspace-m0 EXCLUDE_FROM_ALL servers/taskd_self_rooted_cspace_m0.c)
+target_include_directories(selinos-taskd-self-rooted-cspace-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-self-rooted-cspace-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-self-rooted-cspace-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-self-rooted-cspace-m0-probe EXCLUDE_FROM_ALL drivers/taskd_self_rooted_cspace_m0_probe.c)
+target_include_directories(selinos-taskd-self-rooted-cspace-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-self-rooted-cspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-self-rooted-cspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
