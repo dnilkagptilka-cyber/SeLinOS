@@ -18,6 +18,7 @@
 #include "selinos_memd_m1_protocol.h"
 #include "selinos_taskd_reservation_m1_protocol.h"
 #include "selinos_taskd_dynamic_alloc_m0_protocol.h"
+#include "selinos_taskd_dynamic_tcb_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -434,9 +435,10 @@ static bool initialise_root_environment(simple_t *simple, vka_t *vka, vspace_t *
         return false;
     }
 
-    bootstrap_configure_virtual_pool(allocman, virtual_pool,
-                                     SELINOS_ALLOCATOR_VIRTUAL_POOL_SIZE,
-                                     simple_get_pd(simple));
+        bootstrap_configure_virtual_pool(allocman, virtual_pool,
+                                      SELINOS_ALLOCATOR_VIRTUAL_POOL_SIZE,
+                                      simple_get_pd(simple));
+
     return true;
 }
 
@@ -1722,6 +1724,74 @@ static bool start_taskd_dynamic_alloc_m0_bundle(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_TASKD_DYNAMIC_TCB_OWNERSHIP_PROBE
+static bool start_taskd_dynamic_tcb_m0_bundle(vka_t *vka, vspace_t *vspace)
+{
+    sel4utils_process_t taskd;
+    sel4utils_process_t probe;
+    vka_object_t endpoint;
+    vka_object_t success;
+    vka_object_t target_tcb;
+    cspacepath_t root_target_path;
+    seL4_CPtr root_target_slot;
+    seL4_CPtr taskd_endpoint_slot;
+    seL4_CPtr taskd_target_tcb_slot;
+    seL4_CPtr probe_endpoint_slot;
+    seL4_CPtr probe_success_slot;
+    seL4_Word badge = 0u;
+    char *taskd_argv[] = {"selinos-taskd-dynamic-tcb-m0", NULL};
+    char *probe_argv[] = {"selinos-taskd-dynamic-tcb-m0-probe", NULL};
+
+    if (sel4utils_configure_process(&taskd, vka, vspace,
+                                    "selinos-taskd-dynamic-tcb-m0") != 0) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: taskd scaffolding configuration rejected.\n");
+        return false;
+    }
+    if (sel4utils_configure_process(&probe, vka, vspace,
+                                    "selinos-taskd-dynamic-tcb-m0-probe") != 0) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: probe scaffolding configuration rejected.\n");
+        return false;
+    }
+    if (vka_alloc_endpoint(vka, &endpoint) != seL4_NoError) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: endpoint allocation rejected.\n");
+        return false;
+    }
+    if (vka_alloc_notification(vka, &success) != seL4_NoError) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: notification allocation rejected.\n");
+        return false;
+    }
+    if (vka_alloc_tcb(vka, &target_tcb) != seL4_NoError) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: target TCB allocation rejected.\n");
+        return false;
+    }
+
+    taskd_endpoint_slot = sel4utils_copy_cap_to_process(&taskd, vka, endpoint.cptr);
+    probe_endpoint_slot = sel4utils_copy_cap_to_process(&probe, vka, endpoint.cptr);
+    probe_success_slot = sel4utils_copy_cap_to_process(&probe, vka, success.cptr);
+    root_target_slot = target_tcb.cptr;
+    vka_cspace_make_path(vka, root_target_slot, &root_target_path);
+    taskd_target_tcb_slot = sel4utils_move_cap_to_process(&taskd, root_target_path, vka);
+    if (taskd_endpoint_slot != SELINOS_TASKD_DYNAMIC_TCB_M0_SERVER_ENDPOINT_SLOT ||
+        taskd_target_tcb_slot != SELINOS_TASKD_DYNAMIC_TCB_M0_TARGET_TCB_SLOT ||
+        probe_endpoint_slot != SELINOS_TASKD_DYNAMIC_TCB_M0_PROBE_ENDPOINT_SLOT ||
+        probe_success_slot != SELINOS_TASKD_DYNAMIC_TCB_M0_PROBE_SUCCESS_NOTIFY_SLOT) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: ownership-cap move or slot validation rejected.\n");
+        return false;
+    }
+
+    if (sel4utils_spawn_process_v(&taskd, vka, vspace, 1, taskd_argv, 1) != 0) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: taskd scaffolding spawn rejected.\n");
+        return false;
+    }
+    if (sel4utils_spawn_process_v(&probe, vka, vspace, 1, probe_argv, 1) != 0) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: probe scaffolding spawn rejected.\n");
+        return false;
+    }
+    (void)seL4_Wait(success.cptr, &badge);
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -1745,6 +1815,15 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS taskd dynamic M0: allocator reserve/release prerequisite passed.\n");
     debug_puts("SeLinOS taskd dynamic M0: no TCB/CSpace/VSpace or Linux process created.\n");
+#endif
+
+#if CONFIG_SELINOS_TASKD_DYNAMIC_TCB_OWNERSHIP_PROBE
+    if (!start_taskd_dynamic_tcb_m0_bundle(vka, vspace)) {
+        debug_puts("SeLinOS taskd dynamic TCB M0: allocation/move prerequisite failed; target authority withheld.\n");
+        return false;
+    }
+    debug_puts("SeLinOS taskd dynamic TCB M0: target TCB allocated then moved into taskd ownership slot.\n");
+    debug_puts("SeLinOS taskd dynamic TCB M0: move helper released root source slot; target TCB remains unconfigured, unmapped and unresumed.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE

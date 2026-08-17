@@ -135,6 +135,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdDynamicTcbOwnershipProbe
+    SELINOS_TASKD_DYNAMIC_TCB_OWNERSHIP_PROBE
+    "Enable taskd-owned dynamically allocated inert TCB proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -250,6 +257,16 @@ add_executable(selinos-taskd-dynamic-alloc-m0-probe EXCLUDE_FROM_ALL drivers/tas
 target_include_directories(selinos-taskd-dynamic-alloc-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-dynamic-alloc-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-dynamic-alloc-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-dynamic-tcb-m0 EXCLUDE_FROM_ALL servers/taskd_dynamic_tcb_m0.c)
+target_include_directories(selinos-taskd-dynamic-tcb-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-dynamic-tcb-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-dynamic-tcb-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-dynamic-tcb-m0-probe EXCLUDE_FROM_ALL drivers/taskd_dynamic_tcb_m0_probe.c)
+target_include_directories(selinos-taskd-dynamic-tcb-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-dynamic-tcb-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-dynamic-tcb-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -506,6 +523,11 @@ if(SeLinTaskdDynamicAllocationProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-dynamic-alloc-m0>"
         "$<TARGET_FILE:selinos-taskd-dynamic-alloc-m0-probe>")
+endif()
+if(SeLinTaskdDynamicTcbOwnershipProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-dynamic-tcb-m0>"
+        "$<TARGET_FILE:selinos-taskd-dynamic-tcb-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

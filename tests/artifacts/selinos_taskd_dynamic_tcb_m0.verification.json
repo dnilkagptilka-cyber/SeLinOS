@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned dynamic TCB allocation M0",
+  "profile": {
+    "build_directory": "build-taskd-dynamic-tcb-ownership-probe",
+    "cmake_option": "SeLinTaskdDynamicTcbOwnershipProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root allocates one inert TCB, moves its cap into taskd slot 9, taskd returns one ownership witness then rejects a duplicate query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-dynamic-tcb-ownership-probe/images/kernel-x86_64-pc99",
+      "sha256": "faa4c8884960e002606836dad93f1aa09d7d891eb83ce4c2fc22ac9e575318dc"
+    },
+    "root_image": {
+      "path": "build-taskd-dynamic-tcb-ownership-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f8b6a6e051f2724f31c193178e9acd4b4c7ddb94b8b399a6c7aec11408ca9104"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "ed5b8f90b0bdb0ee0a6147515328fcb3db290f335f4c374d6a34a2eed6ec94e9"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "b0c35db6090b29caa47f93a93427a10c52bb50a3c7e99b7211d9338f9908c0b1"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_dynamic_tcb_m0_protocol.h",
+      "sha256": "08e511ab50f274ffb2e1a841db9238fadc0bc0a732fc842b64e29bdb64cbad85"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_dynamic_tcb_m0.c",
+      "sha256": "4e86eed4d6d4d3a1e6fd057241576c023ecee9647a074d750ff3484055486bf7"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_dynamic_tcb_m0_probe.c",
+      "sha256": "bb1dd8e6d03213a56421c9b214d6c689dca6f7314860ba5c5864d50213bc866a"
+    },
+    "gate": {
+      "path": "docs/phase51_dynamic_tcb_ownership_m0_gate.md",
+      "sha256": "8f8230bd6d7cd6945743370718322c958a1c971b894406fc6d73369fcdedd3ee"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_dynamic_tcb_m0.boot.log",
+    "sha256": "b0fd17bd7e7fce9112834f00e7d573d19c7acd7f5dc562eac8c9848aab9bd9dc",
+    "required_markers": [
+      "SeLinOS taskd dynamic TCB M0: taskd ownership witness issued; target TCB not invoked.",
+      "SeLinOS taskd dynamic TCB M0: target TCB allocated then moved into taskd ownership slot.",
+      "SeLinOS taskd dynamic TCB M0: move helper released root source slot; target TCB remains unconfigured, unmapped and unresumed.",
+      "SeLinOS taskd dynamic TCB M0: ownership query passed; one target TCB owned by taskd; no target executed.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "dynamic CSpace/VSpace construction, target TCB configuration or resume, target execution, thread scheduling, clone, fork, vfork, pthread, PID/TID, TLS, signals, wait/reap, execve, ELF runtime, filesystems, storage, networking, Linux driver execution, dpkg or apt"
+  ]
+}

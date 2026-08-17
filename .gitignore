@@ -23,8 +23,10 @@ __pycache__/
 *.swp
 *~
 
-# Generated verifier and QEMU logs retained only in the local evidence workspace.
+# Generated verifier and QEMU logs remain local, except named boot transcripts
+# referenced by SHA-bound evidence records.
 /tests/artifacts/*.log
+!/tests/artifacts/selinos_taskd_dynamic_tcb_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 
