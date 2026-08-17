@@ -156,6 +156,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdInertBundleRollbackProbe
+    SELINOS_TASKD_INERT_BUNDLE_ROLLBACK_PROBE
+    "Enable taskd-owned inert TCB/CNode/PML4 bundle rollback proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -301,6 +308,16 @@ add_executable(selinos-taskd-dynamic-vspace-m0-probe EXCLUDE_FROM_ALL drivers/ta
 target_include_directories(selinos-taskd-dynamic-vspace-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-dynamic-vspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-dynamic-vspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-inert-bundle-m0 EXCLUDE_FROM_ALL servers/taskd_inert_bundle_m0.c)
+target_include_directories(selinos-taskd-inert-bundle-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-inert-bundle-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-inert-bundle-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-inert-bundle-m0-probe EXCLUDE_FROM_ALL drivers/taskd_inert_bundle_m0_probe.c)
+target_include_directories(selinos-taskd-inert-bundle-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-inert-bundle-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-inert-bundle-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -572,6 +589,11 @@ if(SeLinTaskdDynamicVspaceRollbackProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-dynamic-vspace-m0>"
         "$<TARGET_FILE:selinos-taskd-dynamic-vspace-m0-probe>")
+endif()
+if(SeLinTaskdInertBundleRollbackProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-inert-bundle-m0>"
+        "$<TARGET_FILE:selinos-taskd-inert-bundle-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

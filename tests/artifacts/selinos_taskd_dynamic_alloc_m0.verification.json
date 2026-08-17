@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-allocation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "23601e0592bfed9cecf725089e7c6cefc210a114f7b73612c52a8d7b5ef3f39d"
+      "sha256": "c57abaf617fe964f5c1fd1444962f4e15dd43324d36c13a69571ff2f75a17346"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "107784836b883ce57a6f8703bec2c2f094a8cd0223a6ff72bdc915c620a0c16e"
+      "sha256": "977e81701d026553329026439ba67adba4dd7886d76d10510df692de5596737a"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9701c13df555860c37021cd46694b00b1600cd07ef2c29c794921da901cb8250"
+      "sha256": "6a9e8925c39c318e2a114adf79cb594d1d917378232d40e554e21d89fb68aad5"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_alloc_m0_protocol.h",

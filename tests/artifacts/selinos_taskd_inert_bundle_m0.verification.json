@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned inert TCB/CNode/PML4 bundle rollback and ownership M0",
+  "profile": {
+    "build_directory": "build-taskd-inert-bundle-rollback-probe",
+    "cmake_option": "SeLinTaskdInertBundleRollbackProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root allocates then frees rejected TCB/CNode/PML4 generation 1 before delegation, allocates generation 2, moves all three caps to taskd and validates one owned then rejected query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-inert-bundle-rollback-probe/images/kernel-x86_64-pc99",
+      "sha256": "e3788ae1bef265266fbc7506fec4a4f48dea0ab8cd8b4afa93931a8b88c584bf"
+    },
+    "root_image": {
+      "path": "build-taskd-inert-bundle-rollback-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "06610ec1ab3e4c395bd9ff1ae546077b97d4d7c3e40e657e725020b6c50cb788"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "977e81701d026553329026439ba67adba4dd7886d76d10510df692de5596737a"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "6a9e8925c39c318e2a114adf79cb594d1d917378232d40e554e21d89fb68aad5"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_inert_bundle_m0_protocol.h",
+      "sha256": "56e76c2b78c40152cf17f3f42096961da5f66e40bffea6a069b0b1e9c89841fe"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_inert_bundle_m0.c",
+      "sha256": "ad32a419e400269dd27242d638c3d4d4ea0c74a79262b76736a749f01d7d86c3"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_inert_bundle_m0_probe.c",
+      "sha256": "edc628251f519abbd6de6fef210f9269c175242da87c5e1e5e85bb594236963e"
+    },
+    "gate": {
+      "path": "docs/phase54_inert_task_resource_bundle_m0_gate.md",
+      "sha256": "85b753ae798c86a32153bfe74c485c5843d154a48c78983d092b4e0651fca0d5"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_inert_bundle_m0.boot.log",
+    "sha256": "c26c3f20cd5ce711a8f3926411c0138dd354c0e4db50953a88f92bba4b202810",
+    "required_markers": [
+      "SeLinOS taskd inert bundle M0: taskd ownership witness issued; no final resource invoked.",
+      "SeLinOS taskd inert bundle M0: root rolled back rejected TCB/CNode/PML4 generation 1 before delegation.",
+      "SeLinOS taskd inert bundle M0: replacement TCB/CNode/PML4 generation 2 allocated then moved into taskd ownership slots.",
+      "SeLinOS taskd inert bundle M0: final resources remain mutually unlinked, inert and unexecuted.",
+      "SeLinOS taskd inert bundle M0: rollback then bundle ownership query passed; no task constructed.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "task-resource linkage, TCB CSpace/VSpace configuration, ASID assignment, CNode population, page-table/frame allocation, mappings, W^X, ELF runtime, target execution, clone, fork, vfork, pthread, scheduling, filesystems, storage, networking, Linux drivers, dpkg or apt"
+  ]
+}
