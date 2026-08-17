@@ -170,6 +170,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdPopulatedCspaceProbe
+    SELINOS_TASKD_POPULATED_CSPACE_PROBE
+    "Enable one-cap populated CSpace configured non-executing taskd proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -335,6 +342,16 @@ add_executable(selinos-taskd-suspended-linkage-m0-probe EXCLUDE_FROM_ALL drivers
 target_include_directories(selinos-taskd-suspended-linkage-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-suspended-linkage-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-suspended-linkage-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-populated-cspace-m0 EXCLUDE_FROM_ALL servers/taskd_populated_cspace_m0.c)
+target_include_directories(selinos-taskd-populated-cspace-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-populated-cspace-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-populated-cspace-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-populated-cspace-m0-probe EXCLUDE_FROM_ALL drivers/taskd_populated_cspace_m0_probe.c)
+target_include_directories(selinos-taskd-populated-cspace-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-populated-cspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-populated-cspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -616,6 +633,11 @@ if(SeLinTaskdSuspendedLinkageProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-suspended-linkage-m0>"
         "$<TARGET_FILE:selinos-taskd-suspended-linkage-m0-probe>")
+endif()
+if(SeLinTaskdPopulatedCspaceProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-populated-cspace-m0>"
+        "$<TARGET_FILE:selinos-taskd-populated-cspace-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

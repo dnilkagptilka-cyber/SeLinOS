@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned one-cap populated CSpace configured non-executing task M0",
+  "profile": {
+    "build_directory": "build-taskd-populated-cspace-probe",
+    "cmake_option": "SeLinTaskdPopulatedCspaceProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root rolls back generation-1 TCB/CNode/PML4, allocates generation 2, copies one notification into target CNode slot 1 at its CNode radix depth, assigns PML4 ASID, configures TCB, moves final caps to taskd and validates one owned then rejected query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-populated-cspace-probe/images/kernel-x86_64-pc99",
+      "sha256": "17a79cb52f339b2ab083c42533d02ffe9569f15feaf93c7f55017e000fccbad3"
+    },
+    "root_image": {
+      "path": "build-taskd-populated-cspace-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "6960675390a4d96a2279a5eb18b7fc6ca0d3298aa88462fce9a9a37bcd6e196e"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "702f37f89025366bb07ececba352fc7a63cf28c7997b0792b36d91e5f6f212e0"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "fbf9eb3893f14778648d27c5eb0e6cf73f0f42ffa9bf44dcba381c7b94c0a4d6"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_populated_cspace_m0_protocol.h",
+      "sha256": "4d39db2f2607a87521b2f3c93bf7eca2c52ce038f04d7c9be8990e76c5d6e512"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_populated_cspace_m0.c",
+      "sha256": "edd85c9d83bb42d275086637c54dde50d08d2278cae0819c3bff890845bc4d51"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_populated_cspace_m0_probe.c",
+      "sha256": "8ded66e5394432b44c8afd14cc6d5a8ff9afa0435cfeeca79306db53c353fe2a"
+    },
+    "gate": {
+      "path": "docs/phase56_populated_cspace_suspended_task_m0_gate.md",
+      "sha256": "eac3bdad3fb4e83611d4772de34ec68da1e695b63ccf6626c7872cf20d5c55e7"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_populated_cspace_m0.boot.log",
+    "sha256": "a223507f3dcc41654fc0b60abafb462ff83a700815b6e8e779ba0d0bcd95e0e8",
+    "required_markers": [
+      "SeLinOS taskd populated CSpace M0: ownership witness issued; target resources not invoked.",
+      "SeLinOS taskd populated CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.",
+      "SeLinOS taskd populated CSpace M0: one notification cap inserted into final CNode slot 1.",
+      "SeLinOS taskd populated CSpace M0: generation 2 PML4 ASID assigned and populated CSpace configured.",
+      "SeLinOS taskd populated CSpace M0: final caps moved into taskd ownership slots; no registers or resume.",
+      "SeLinOS taskd populated CSpace M0: populated-CNode ownership query passed; configured TCB remains non-executing.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "initial CSpace ABI, IPC buffer, target notification invocation, registers, resume, execution, post-configuration rollback, ASID recycle, mappings, W^X, ELF runtime, clone, fork, pthread, filesystems, storage, networking, Linux drivers, dpkg or apt"
+  ]
+}
