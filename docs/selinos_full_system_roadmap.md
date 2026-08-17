@@ -1,0 +1,122 @@
+# SeLinOS: Git-first roadmap to evidence-backed Debian/Ubuntu compatibility
+
+**Author:** Manus AI
+
+**Status:** living engineering roadmap
+**Scope:** x86_64/PC99, seL4 as the sole privileged kernel, native Linux ABI/KABI-oriented user-space services, QEMU TCG-first evidence. No Linux kernel, Linux VM, LKL, or claim that a package works without a reproducible test.
+
+## 1. Objective and definition of success
+
+SeLinOS is intended to become a secure, performant, multi-server operating system in which seL4 is the only privileged kernel and each OS service or application execution context receives a separately constructed TCB, CSpace, and VSpace. The target is not merely to parse a `.deb` file: it is to run selected native amd64 Debian/Ubuntu packages through a verified `apt`/`dpkg` substrate, preserving package trust and isolating the authority of storage, network, loader, package-management and driver domains.
+
+A literal universal statement that **every** Debian/Ubuntu package will run cannot be made honestly in advance. Debian packages can execute arbitrary maintainer scripts during install, upgrade and removal, and those scripts may rely on daemons, kernel APIs, filesystem features, devices or privilege models that have not yet been implemented. Debian policy describes `preinst`, `postinst`, `prerm`, and `postrm` scripts and their error/recovery behaviour; therefore a package is compatible only after its complete install, run, upgrade/remove path has been exercised in a named profile.[1] This roadmap makes the universal goal operational: package coverage expands through published, reproducible compatibility profiles, never through unsupported blanket claims.
+
+> **Release criterion.** A SeLinOS compatibility claim must name the exact image, source revisions, QEMU command, package repository snapshot, package version and architecture, test transcript, verifier, SHA-256 bindings, expected security authority graph, and explicitly excluded behaviour.
+
+| Compatibility tier | Meaning | Claim policy |
+|---|---|---|
+| **T0 — ABI microproof** | One bounded syscall, loader, VFS, IPC, device or allocator transaction works in a default-OFF probe. | Existing foundation only; never describe as application support. |
+| **T1 — hosted ELF program** | A statically or dynamically linked amd64 program launches in an isolated process domain and passes a named functional test. | Name the executable and test. |
+| **T2 — local `.deb` transaction** | A selected package's control archive, data archive, ownership database and maintainer-script path complete from local media. | Name the exact `.deb`, its scripts and test. |
+| **T3 — authenticated APT transaction** | A signed repository snapshot is fetched, Release metadata and hashes are verified, a dependency plan is resolved, and exact packages are installed. | Name release snapshot, keys, transport and tests. |
+| **T4 — profile compatibility** | A published Debian/Ubuntu workload profile succeeds repeatedly, including install, execution and upgrade/removal recovery cases. | Name all packages and accepted limits. |
+| **T5 — broad distribution coverage** | A continuously measured package corpus passes across defined workload classes and device configurations. | Report percentage and failures; never call it absolute. |
+
+The architectural target is realistic only if every T4/T5 result is decomposed into the lower tiers. A Debian binary package normally contains executables, libraries, configuration and control metadata; it is unpacked by `dpkg`, commonly under an `apt` frontend.[2] That dependency makes loader correctness, POSIX-like filesystem semantics, process lifecycle, time, identity, cryptography and network transport primary prerequisites rather than later polish.
+
+## 2. Non-negotiable safety, performance and reproducibility invariants
+
+SeLinOS uses seL4 capabilities as the authority boundary: a capability is an unforgeable permission to access a kernel object or resource; kernel resources initially belong to the root task and must be explicitly delegated.[3] The root must therefore never act as a permanent all-powerful worker. It will become a short-lived bootstrap and policy authority whose delegated capabilities are recorded, minimally rights-bearing, revocable where the construction protocol permits, and independently audited.
+
+| Invariant | Design rule | Evidence required before promotion |
+|---|---|---|
+| **Least authority** | Every service receives only frame, endpoint, IRQ, I/O-port, notification or CNode authority necessary for its protocol. No ambient root capability enters child CSpaces. | Capability inventory plus negative-path probe proving absence of forbidden authority. |
+| **Construction atomicity** | Dynamic TCB/CSpace/VSpace construction is staged, generation-bound and rollback-safe. A partially built child remains suspended and unreachable from package-facing namespaces. | Failure injection at every acquisition step, resource-ledger equivalence before/after rollback. |
+| **W^X and loader integrity** | No virtual page is writable and executable at the same time. ELF mappings remain non-executable until validation is complete; relocations follow a separately approved write-then-seal protocol. | Page-table and execution-fault witnesses, loader map ledger, negative execution proof. |
+| **DMA containment** | No untrusted storage/NIC driver obtains DMA-capable access until a hardware-backed containment policy is proven in the active profile. | IOMMU/IOSpace proof or an explicit trusted-driver policy; no inferred claim from QEMU presence. |
+| **Package trust** | APT accepts only repositories with a configured key and valid signed Release metadata; unsafe repository overrides are absent from production profiles. | Signature, freshness, hash-chain and rejection tests. |
+| **Failure containment** | Service crash, malformed IPC or hostile package input cannot silently grant new authority, corrupt another service's state or leave package DB ownership ambiguous. | Fuzzing, fault injection, restart and transaction-recovery evidence. |
+| **Performance by measurement** | Optimisations follow baselines. Fast IPC, batching, zero-copy only when ownership and revocation are explicit; no security check is removed for throughput. | Deterministic benchmarks with pinned image/source hashes and regression budgets. |
+| **Reproducibility** | Host build artifacts are excluded from Git; pinned sources, build configuration, source manifests, verifier code and durable evidence are tracked. | Clean checkout build and independent verifier run. |
+
+The current Phase 49 result is a hard safety gate, not an inconvenience: the active QEMU profile observed `numIOPTLevels=0`, so it has not proved the DMA containment required for an untrusted DMA driver. This aligns with seL4's documented proof assumptions: DMA must be off or trusted unless separately constrained by suitable hardware/driver policy.[4] Storage and networking can continue with non-DMA design work and status/notification observations, but neither may be promoted to untrusted-driver persistent I/O on that profile.
+
+## 3. Git-first development policy
+
+The repository root is now a local Git repository on branch `main`. The baseline commit is `4f886e6873f897a16a52f924f6272759f5e53ee8` (`chore: establish verified SeLinOS evidence baseline`). It tracks SeLinOS-controlled source, protocols, documentation, verifiers and portable SHA-bound evidence. It excludes CMake/Ninja outputs, bootstrapped upstream worktrees, local caches, host test binaries and raw QEMU logs. Upstream seL4 ecosystem revisions remain reproducibly described in `sources.lock` and fetched by `bootstrap_sources.sh`.
+
+Every implementation milestone uses an isolated branch named `phaseNN-short-scope`, with small commits that separate contract/documentation, protocol, server/probe, verifier/evidence and compatibility-matrix promotion. Each commit message identifies the evidence gate it affects. A change cannot merge into `main` merely because it compiles: it needs a clean configured build, an isolated QEMU TCG proof, an independent verifier, SHA re-binding and the relevant regression suite. Any unresolved threat-model issue blocks promotion rather than being labelled as a known limitation after merge.
+
+Remote publication is deliberately deferred until the GitHub credential is valid and a named repository is selected. The observed GitHub CLI token was invalid; no remote or push was configured. This keeps the local evidence baseline intact and avoids accidentally creating or exposing a public repository. Once authentication is repaired, the remote should be private by default, protected `main` should require CI, and release tags should be signed or otherwise attestable.
+
+## 4. Delivery sequence
+
+### Workstream A — dynamic isolated task construction (Phases 51–58)
+
+Phase 50 is complete: a default-OFF QEMU profile proved only taskd's status-only `reserve → EBUSY → release → re-reserve` lifecycle with generations 1 then 2. It did not create a TCB, CSpace, VSpace, child execution context or Linux process.
+
+Phase 51 will prove **resource-plan ownership and rollback** for one reservation. It will add no task creation: an owner-labelled reservation ledger must reject stale, duplicate and cross-owner release, and injected failure must return the slot to the exact pre-operation state. The evidence must show no object retype, no CNode mutation, no frame mapping and no child endpoint capability.
+
+Subsequent phases create one object at a time: untyped reservation/retype accounting, empty CNode creation, guarded CSpace installation, VSpace root and page-table setup, non-executable frame mapping, TCB configuration, endpoint-mediated start permission and final resume. Each phase proves construction and teardown symmetry. Only after a suspended-child proof, a bounded register-context proof, and an authority-audit proof may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+
+### Workstream B — executable runtime and Linux process surface (Phases 59–82)
+
+The existing x86_64 NX milestone is a prerequisite, not an ELF loader. SeLinOS must add an ELF64 parser that validates headers, program-header bounds, canonical virtual addresses, alignment, page permissions, segment overlap and integer overflow before mapping. Each `PT_LOAD` region must have a source hash, mapping ledger and W^X transition record. The first T1 program should be a sealed statically linked fixture; later gates add `ET_DYN`, relocations, auxv, argv/envp, TLS, vDSO policy, interpreter handling, libc-required syscall breadth and exec teardown.
+
+Process compatibility then grows vertically around real workloads rather than isolated syscall count: descriptors/dup/pipe, paths and cwd, directory iteration, file metadata, memory mapping/unmapping, poll/epoll, signals, timers, credentials, namespaces policy, process relationships, sockets and `execve`. Each syscall contract must specify copyin/copyout bounds, cancellation/error behaviour and negative tests. A compatibility profile names the exact libc, dynamic linker and test executables used.
+
+### Workstream C — durable filesystem and storage (Phases 83–105)
+
+The storage stack begins only with safe transport. The existing virtio milestones establish device discovery and restricted queue observations but neither descriptor processing nor DMA containment. A production candidate requires either a positive IOMMU proof on a platform/profile that exposes usable I/O page-table levels or a consciously trusted, minimal driver boundary documented outside the untrusted-driver safety claim. It then needs an ownership-safe descriptor allocator, bounce-buffer or mapped-buffer policy, queue completion, interrupt protocol, reset recovery and error injection.
+
+Above it, the VFS must implement stable inodes, directories, hard links/symlinks, metadata, permissions, open-file descriptions, offsets, `fsync`, atomic rename, page cache policy, mounts and crash recovery. A journaled or copy-on-write root filesystem should first support the minimal `dpkg` database paths. Package install atomicity requires a transaction protocol that can reconcile filesystem state, package database state and interrupted maintainer scripts; simple mutable RAM files are never sufficient.
+
+### Workstream D — network, time and cryptographic repository transport (Phases 106–130)
+
+Networking is built as separately constrained NIC, ARP/IPv4/IPv6, routing, DNS, UDP/TCP, resolver and HTTPS/TLS domains. The TCP and TLS stacks need structured fuzzing and deterministic loopback/in-VM test peers before public network use. Entropy, monotonic time, wall clock policy, CA/keyring storage and certificate validation must exist before package acquisition claims.
+
+APT repository support has an explicit trust chain. `apt-secure` checks Release file signatures and then hashes leading to repository metadata and downloaded package files; it refuses unauthenticated archives by default.[5] SeLinOS therefore must prove keyring ownership, signature-algorithm policy, replay/freshness controls, transport certificate verification, Releases/InRelease handling, `Packages` parsing, hash verification and rejection of downgrade/unsigned inputs. An unauthenticated path may exist only as a separately named developer test profile, never as a production default.
+
+### Workstream E — dpkg, apt and workload profiles (Phases 131–165)
+
+The first package milestone is deliberately local and narrow: parse a known `.deb`, verify archive members, extract safe paths, record per-package file ownership and execute an approved test package whose maintainer scripts use only the currently implemented capability profile. The next gates add control fields, version comparison, dependency graph resolution, alternatives, conffile policy, diversions, `Pre-Depends`, replacements/conflicts and failure recovery.
+
+`dpkg` correctness is defined as a state machine, not a successful unpack. Debian policy requires maintainer-script error handling and specifies partially installed and half-configured states through installation, upgrade, configuration and removal flows.[1] Each such state must be replayable after a simulated service loss or power interruption. `apt` then layers index acquisition, solver policy, download cache, authenticated repository handling and handoff to the verified `dpkg` transaction substrate.
+
+The first public profile should be a minimal, immutable package set with signed local repository snapshots and simple dynamically linked command-line programs. Profiles then progress through shell/coreutils-like tools, package-manager self-hosting, developer toolchain, network clients, service managers and desktop stacks. Kernel modules, custom kernel drivers, containers that require Linux namespaces/cgroups, eBPF, GPU stacks and hardware-specific packages remain separate compatibility classes; their status is measured individually.
+
+### Workstream F — Linux KABI, driver domains and hardware portability (continuous)
+
+The Linux 6.18.44 KABI work remains a bounded, version-pinned compatibility programme. It cannot become “all C drivers work” merely by parsing a `.ko`; real support requires a defined symbol/version surface, loader protections, device-model semantics, memory/IRQ/DMA policy, concurrency, timer/workqueue behaviour, power-management policy and hardware test matrices. Any driver domain that can compromise DMA integrity must not receive uncontained authority.
+
+New device support begins with virtual QEMU fixtures, then machine-checkable virtual hardware profiles, then physical hardware. The x86_64/PC99 QEMU TCG configuration remains the functional evidence baseline, but real hardware support requires separate evidence and cannot be inferred from TCG.
+
+## 5. Quality gates and measurement programme
+
+Each milestone produces a gate document, protocol header, server/client implementation, default-OFF CMake profile, QEMU transcript, SHA-bound evidence record, independent verifier and a compatibility-matrix row. The full regression suite runs before promotion; all supported profile images rebuild after changes to shared bootstrap code. Tests are intentionally adversarial: malformed IPC length/labels, stale generations, duplicate releases, capability lookup failures, memory exhaustion, crash/restart at each transaction stage, corrupt filesystem metadata, network replay, invalid signatures and package archive traversal inputs.
+
+Performance work follows functional correctness. Baselines include boot time, IPC latency/throughput, context-switch rates, page-fault cost, filesystem metadata operations, storage/network I/O, `dpkg` transaction time and package dependency-solver time. A proposed optimisation requires a before/after measurement, a formal ownership explanation and a regression threshold. The preferred optimisations are page sharing only with immutable mappings, preallocated per-domain pools, bounded IPC batches, explicit asynchronous notifications, cache-aware worker placement and profile-guided but reproducible builds. Unsafe shortcuts—shared ambient address spaces, permanent root authority, writable executable mappings, unchecked zero-copy DMA, trust-all APT configuration or ignored error recovery—are prohibited.
+
+## 6. Immediate implementation queue
+
+| Priority | Next deliverable | Completion evidence | Explicitly not claimed |
+|---|---|---|---|
+| **P0** | Repair GitHub authentication and attach a named private remote; push only after user-controlled access is valid. | `gh auth status` success, remote URL, protected-branch policy, push receipt. | Remote publication until credential is valid. |
+| **P0** | Phase 51 design gate: one reservation owner/rollback ledger. | Document, protocol constants, stale/cross-owner negative cases, failure-injection model. | TCB/CSpace/VSpace creation. |
+| **P0** | Phase 51 default-OFF QEMU probe and independent verifier. | QEMU transcript, SHA-bound JSON, verifier, full regression and all-profile rebuild. | Thread execution, Linux process lifecycle. |
+| **P1** | Phase 52 untyped/object allocation ledger with symmetric rollback. | Allocation/release accounting and leak-negative proof. | Child execution or Linux `clone`. |
+| **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
+| **P2** | First T1 sealed ELF execution fixture. | W^X mapping, static ELF launch, exit-status, teardown and verifier. | General ELF/dynamic linker compatibility. |
+| **P2** | VFS transaction design for dpkg database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent apt/dpkg claim. |
+
+## 7. Current status boundary
+
+The baseline records 56 standalone verified probes and a successful 22-profile rebuild after Phase 50. This is meaningful progress in evidence infrastructure and primitive OS services, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are dynamic task construction with authority proof, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+
+## References
+
+[1]: https://www.debian.org/doc/debian-policy/ch-maintainerscripts.html "Debian Policy Manual — package maintainer scripts and installation procedure"
+[2]: https://www.debian.org/doc/manuals/debian-faq/pkg-basics.en.html "Debian FAQ — basics of the Debian package management system"
+[3]: https://docs.sel4.systems/Tutorials/capabilities.html "seL4 documentation — capabilities"
+[4]: https://sel4.systems/About/FAQ.html "seL4 FAQ — DMA and proof assumptions"
+[5]: https://manpages.debian.org/unstable/apt/apt-secure.8.en.html "apt-secure(8) — APT archive authentication"
