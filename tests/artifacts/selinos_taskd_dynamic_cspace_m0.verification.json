@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned dynamic CNode rollback and ownership M0",
+  "profile": {
+    "build_directory": "build-taskd-dynamic-cspace-rollback-probe",
+    "cmake_option": "SeLinTaskdDynamicCspaceRollbackProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root allocates then frees rejected CNode generation 1 before delegation, allocates generation 2, moves its cap to taskd and validates one owned then rejected query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-dynamic-cspace-rollback-probe/images/kernel-x86_64-pc99",
+      "sha256": "965a2057d9deed956860af972e1207869bb4173a9510325f734ddf82850e7f97"
+    },
+    "root_image": {
+      "path": "build-taskd-dynamic-cspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "483f77a71c15d07f30c8fbf7bd5fcf681dd69dd6b452527933d2b2772e3f3a91"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "82a34359385235a362d88e13fec5a04f05e5a5f99c9017c8aaf5a628abd5bff4"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "53ba41d23e15721451cfdff4c6b9ee8b5748a5868ebeb0b4ff68c831adc8a1c4"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_dynamic_cspace_m0_protocol.h",
+      "sha256": "1af803cb561961a887f478688eabcd079516fb3f643dbbdaf8f77832d029ec3e"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_dynamic_cspace_m0.c",
+      "sha256": "bd4b8102b9f7fa2a8fa39073927d4c0952e773a912f7cd07495e6aef9e02ebd2"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_dynamic_cspace_m0_probe.c",
+      "sha256": "2e0e2adc6078279709694bbe1bc92a98e381f3735553c3955127e5125366e4ec"
+    },
+    "gate": {
+      "path": "docs/phase52_dynamic_cspace_rollback_m0_gate.md",
+      "sha256": "d7ada1d5ad6a4f2abf355d93f4b70faaea1d6a0663b7785306c96a392c31ec04"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_dynamic_cspace_m0.boot.log",
+    "sha256": "cc6291b4c0f59eabcc29b3f3da328afe6897177f73e3d0d13b9099514565fcb1",
+    "required_markers": [
+      "SeLinOS taskd dynamic CSpace M0: taskd ownership witness issued; final CNode not invoked.",
+      "SeLinOS taskd dynamic CSpace M0: root rolled back rejected CNode generation 1 before delegation.",
+      "SeLinOS taskd dynamic CSpace M0: replacement CNode generation 2 allocated then moved into taskd ownership slot.",
+      "SeLinOS taskd dynamic CSpace M0: final CNode remains empty, inert and is not a TCB CSpace root.",
+      "SeLinOS taskd dynamic CSpace M0: rollback then ownership query passed; no task CSpace configured.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "active task CSpace construction, CNode population, post-delegation rollback or destruction, CSpace reuse, TCB linkage, VSpace allocation, target execution, clone, fork, vfork, pthread, scheduler/process lifecycle, ELF runtime, filesystems, storage, networking, Linux drivers, dpkg or apt"
+  ]
+}
