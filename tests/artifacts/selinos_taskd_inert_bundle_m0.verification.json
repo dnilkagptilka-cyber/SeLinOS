@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-inert-bundle-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "06610ec1ab3e4c395bd9ff1ae546077b97d4d7c3e40e657e725020b6c50cb788"
+      "sha256": "029eea50b49aae282658dc3c32b9cc1cf403635d12fe960796a97ceb6080292a"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "977e81701d026553329026439ba67adba4dd7886d76d10510df692de5596737a"
+      "sha256": "1575f5c3a65ef0843a78eebec5f46e33107744c1181fcbd56c82238cf819a65f"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "6a9e8925c39c318e2a114adf79cb594d1d917378232d40e554e21d89fb68aad5"
+      "sha256": "0faac5425a115b3411aa15702580cde0269ade47b362a340308cf4ea34b5385b"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_inert_bundle_m0_protocol.h",

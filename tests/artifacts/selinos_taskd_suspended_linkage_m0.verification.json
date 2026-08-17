@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned configured but non-executing TCB/CSpace/VSpace linkage M0",
+  "profile": {
+    "build_directory": "build-taskd-suspended-linkage-probe",
+    "cmake_option": "SeLinTaskdSuspendedLinkageProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root rolls back rejected TCB/CNode/PML4 generation 1, allocates generation 2, assigns its PML4 ASID, configures its TCB CSpace/VSpace, moves all final caps to taskd and validates one owned then rejected query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-suspended-linkage-probe/images/kernel-x86_64-pc99",
+      "sha256": "cdffd7eaf840b1c2f6afc712250c10cb2a4813bada3e1b719e1a0faf00b95773"
+    },
+    "root_image": {
+      "path": "build-taskd-suspended-linkage-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "2a98ddd4ddf852f090ac2e6a2f36a23d3b630b9840512812707a8f8c8a86bf56"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "1575f5c3a65ef0843a78eebec5f46e33107744c1181fcbd56c82238cf819a65f"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "0faac5425a115b3411aa15702580cde0269ade47b362a340308cf4ea34b5385b"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_suspended_linkage_m0_protocol.h",
+      "sha256": "9891c289cbc402aea0e2f3758fb35bd07cd2663c06a8e95173f1af20f2e1153f"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_suspended_linkage_m0.c",
+      "sha256": "ef4bc14103832081077e1f3b24a04b9ddfec487b7eb55d80a35ae16d3c006deb"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_suspended_linkage_m0_probe.c",
+      "sha256": "eacebd80331cf1c318531ae232346018dfb275505b5fe8bb2b8b8527f09e5f82"
+    },
+    "gate": {
+      "path": "docs/phase55_suspended_task_linkage_m0_gate.md",
+      "sha256": "c5e63b469baa3886e672d745847310d5b5bd897213c704f07213b7324a14a6a5"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_suspended_linkage_m0.boot.log",
+    "sha256": "d12efd3f0eaadc083fd0d72a8b79aa42c57692830e46d69407328a133d331bc5",
+    "required_markers": [
+      "SeLinOS taskd suspended linkage M0: ownership witness issued; configured TCB not invoked.",
+      "SeLinOS taskd suspended linkage M0: root rolled back rejected TCB/CNode/PML4 generation 1 before configuration.",
+      "SeLinOS taskd suspended linkage M0: generation 2 PML4 ASID assigned and TCB CSpace/VSpace configured.",
+      "SeLinOS taskd suspended linkage M0: configured resource caps moved into taskd ownership slots; no registers or resume.",
+      "SeLinOS taskd suspended linkage M0: linkage ownership query passed; configured TCB remains non-executing.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "post-configuration rollback, ASID recycle/reclaim, CNode population, IPC buffer, fault endpoint, page tables, frames, mappings, W^X, register writes, resume, execution, scheduling, clone, fork, vfork, pthread, filesystems, storage, networking, Linux drivers, dpkg or apt"
+  ]
+}
