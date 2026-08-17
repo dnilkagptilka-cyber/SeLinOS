@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned dynamic VSpace-root rollback and ownership M0",
+  "profile": {
+    "build_directory": "build-taskd-dynamic-vspace-rollback-probe",
+    "cmake_option": "SeLinTaskdDynamicVspaceRollbackProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99",
+    "transaction": "root allocates then frees rejected PML4 generation 1 before delegation, allocates generation 2, moves its cap to taskd and validates one owned then rejected query"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-dynamic-vspace-rollback-probe/images/kernel-x86_64-pc99",
+      "sha256": "8d22c481ffe708e84070a2195475340aef81ad882335104b9e85ce77cbf3a9c1"
+    },
+    "root_image": {
+      "path": "build-taskd-dynamic-vspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f40a40c3137cc7c6bbeb484cea1041c8c29ce350b62c091865f89a98ba77ac53"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "107784836b883ce57a6f8703bec2c2f094a8cd0223a6ff72bdc915c620a0c16e"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "9701c13df555860c37021cd46694b00b1600cd07ef2c29c794921da901cb8250"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_dynamic_vspace_m0_protocol.h",
+      "sha256": "4a0255307c9d654fb93b740f64124dee6989a39921aebb6d11aac850fe67fe05"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_dynamic_vspace_m0.c",
+      "sha256": "7ffbebdcb0447823957d740b879d057d7890a06e578e9491d97525b7b2578f71"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_dynamic_vspace_m0_probe.c",
+      "sha256": "0f78d7461c871708e4935092d4a58b3373f0ec33b953c5d45635f1836115b0ec"
+    },
+    "gate": {
+      "path": "docs/phase53_dynamic_vspace_root_rollback_m0_gate.md",
+      "sha256": "3036ee32e5bf4243ecb71f2d782c05511e47fd3dcfc61745ccde2e3096d0c76d"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_dynamic_vspace_m0.boot.log",
+    "sha256": "b3e0a274f4c2ab702301a5ec883d358b7188141c87142800e1171aee5d97e059",
+    "required_markers": [
+      "SeLinOS taskd dynamic VSpace M0: taskd ownership witness issued; final PML4 not invoked.",
+      "SeLinOS taskd dynamic VSpace M0: root rolled back rejected VSpace root generation 1 before delegation.",
+      "SeLinOS taskd dynamic VSpace M0: replacement VSpace root generation 2 allocated then moved into taskd ownership slot.",
+      "SeLinOS taskd dynamic VSpace M0: final x86_64 PML4 remains inert, unassigned and unmapped.",
+      "SeLinOS taskd dynamic VSpace M0: rollback then ownership query passed; no active VSpace configured.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "ASID assignment, active VSpace hierarchy, PDPT/page-directory/page-table/frame lifecycle, mappings, W^X, ELF runtime, target TCB linkage, execution, clone, fork, vfork, pthread, scheduling, filesystems, storage, networking, Linux drivers, dpkg or apt"
+  ]
+}

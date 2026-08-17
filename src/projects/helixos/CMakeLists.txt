@@ -149,6 +149,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdDynamicVspaceRollbackProbe
+    SELINOS_TASKD_DYNAMIC_VSPACE_ROLLBACK_PROBE
+    "Enable taskd-owned dynamic VSpace-root rollback and ownership proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -284,6 +291,16 @@ add_executable(selinos-taskd-dynamic-cspace-m0-probe EXCLUDE_FROM_ALL drivers/ta
 target_include_directories(selinos-taskd-dynamic-cspace-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-dynamic-cspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-dynamic-cspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-dynamic-vspace-m0 EXCLUDE_FROM_ALL servers/taskd_dynamic_vspace_m0.c)
+target_include_directories(selinos-taskd-dynamic-vspace-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-dynamic-vspace-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-dynamic-vspace-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-dynamic-vspace-m0-probe EXCLUDE_FROM_ALL drivers/taskd_dynamic_vspace_m0_probe.c)
+target_include_directories(selinos-taskd-dynamic-vspace-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-dynamic-vspace-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-dynamic-vspace-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -550,6 +567,11 @@ if(SeLinTaskdDynamicCspaceRollbackProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-dynamic-cspace-m0>"
         "$<TARGET_FILE:selinos-taskd-dynamic-cspace-m0-probe>")
+endif()
+if(SeLinTaskdDynamicVspaceRollbackProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-dynamic-vspace-m0>"
+        "$<TARGET_FILE:selinos-taskd-dynamic-vspace-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

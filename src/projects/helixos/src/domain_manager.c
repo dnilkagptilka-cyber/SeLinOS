@@ -20,6 +20,7 @@
 #include "selinos_taskd_dynamic_alloc_m0_protocol.h"
 #include "selinos_taskd_dynamic_tcb_m0_protocol.h"
 #include "selinos_taskd_dynamic_cspace_m0_protocol.h"
+#include "selinos_taskd_dynamic_vspace_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -1849,6 +1850,60 @@ static bool start_taskd_dynamic_cspace_m0_bundle(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_TASKD_DYNAMIC_VSPACE_ROLLBACK_PROBE
+static bool start_taskd_dynamic_vspace_m0_bundle(vka_t *vka, vspace_t *vspace)
+{
+    sel4utils_process_t taskd;
+    sel4utils_process_t probe;
+    vka_object_t endpoint;
+    vka_object_t success;
+    vka_object_t rollback_vspace_root;
+    vka_object_t owned_vspace_root;
+    cspacepath_t root_owned_path;
+    seL4_CPtr taskd_endpoint_slot;
+    seL4_CPtr taskd_owned_root_slot;
+    seL4_CPtr probe_endpoint_slot;
+    seL4_CPtr probe_success_slot;
+    seL4_Word badge = 0u;
+    char *taskd_argv[] = {"selinos-taskd-dynamic-vspace-m0", NULL};
+    char *probe_argv[] = {"selinos-taskd-dynamic-vspace-m0-probe", NULL};
+
+    if (sel4utils_configure_process(&taskd, vka, vspace,
+                                    "selinos-taskd-dynamic-vspace-m0") != 0 ||
+        sel4utils_configure_process(&probe, vka, vspace,
+                                    "selinos-taskd-dynamic-vspace-m0-probe") != 0 ||
+        vka_alloc_endpoint(vka, &endpoint) != seL4_NoError ||
+        vka_alloc_notification(vka, &success) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &rollback_vspace_root) != seL4_NoError) {
+        return false;
+    }
+    /* The injected policy rejection occurs before any PML4 cap transfer. */
+    vka_free_object(vka, &rollback_vspace_root);
+    if (vka_alloc_vspace_root(vka, &owned_vspace_root) != seL4_NoError) {
+        return false;
+    }
+
+    taskd_endpoint_slot = sel4utils_copy_cap_to_process(&taskd, vka, endpoint.cptr);
+    probe_endpoint_slot = sel4utils_copy_cap_to_process(&probe, vka, endpoint.cptr);
+    probe_success_slot = sel4utils_copy_cap_to_process(&probe, vka, success.cptr);
+    vka_cspace_make_path(vka, owned_vspace_root.cptr, &root_owned_path);
+    taskd_owned_root_slot = sel4utils_move_cap_to_process(&taskd, root_owned_path, vka);
+    if (taskd_endpoint_slot != SELINOS_TASKD_DYNAMIC_VSPACE_M0_SERVER_ENDPOINT_SLOT ||
+        taskd_owned_root_slot != SELINOS_TASKD_DYNAMIC_VSPACE_M0_OWNED_ROOT_SLOT ||
+        probe_endpoint_slot != SELINOS_TASKD_DYNAMIC_VSPACE_M0_PROBE_ENDPOINT_SLOT ||
+        probe_success_slot != SELINOS_TASKD_DYNAMIC_VSPACE_M0_PROBE_SUCCESS_NOTIFY_SLOT) {
+        return false;
+    }
+
+    if (sel4utils_spawn_process_v(&taskd, vka, vspace, 1, taskd_argv, 1) != 0 ||
+        sel4utils_spawn_process_v(&probe, vka, vspace, 1, probe_argv, 1) != 0) {
+        return false;
+    }
+    (void)seL4_Wait(success.cptr, &badge);
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -1891,6 +1946,16 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS taskd dynamic CSpace M0: root rolled back rejected CNode generation 1 before delegation.\n");
     debug_puts("SeLinOS taskd dynamic CSpace M0: replacement CNode generation 2 allocated then moved into taskd ownership slot.\n");
     debug_puts("SeLinOS taskd dynamic CSpace M0: final CNode remains empty, inert and is not a TCB CSpace root.\n");
+#endif
+
+#if CONFIG_SELINOS_TASKD_DYNAMIC_VSPACE_ROLLBACK_PROBE
+    if (!start_taskd_dynamic_vspace_m0_bundle(vka, vspace)) {
+        debug_puts("SeLinOS taskd dynamic VSpace M0: allocation, rollback or ownership prerequisite failed; authority withheld.\n");
+        return false;
+    }
+    debug_puts("SeLinOS taskd dynamic VSpace M0: root rolled back rejected VSpace root generation 1 before delegation.\n");
+    debug_puts("SeLinOS taskd dynamic VSpace M0: replacement VSpace root generation 2 allocated then moved into taskd ownership slot.\n");
+    debug_puts("SeLinOS taskd dynamic VSpace M0: final x86_64 PML4 remains inert, unassigned and unmapped.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
