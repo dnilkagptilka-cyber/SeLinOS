@@ -21,7 +21,7 @@
     },
     "root_image": {
       "path": "build-virtio-zero-index-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "2b25a9c1240fc480cb62ecc338c8982b18e33bae964331a6eaeed6853967cd3b"
+      "sha256": "96a09b0debecd192d8819de71badc5beb0ec12c123b071bc3ce4960d0411f65e"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "4bc342d4a4441d31e2c55dd21aa44ca272b2990820ae8078a9f40dec78ff7b27"
+      "sha256": "fb7e29520a4e6b17d34d2adb574e430d36ff1cb6218995b8e96fb39abba8696f"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "a4fe8e9dce3c8ba89c24a3b989fa4ea5b2391ad5fcd7ef6621fc986f99b57a47"
+      "sha256": "e52c80acd5ca8e2c70b6db455f9df793b40ce7353325d30c853bff80402a5058"
     },
     "phase_design_gate": {
       "path": "docs/phase48_virtio_blk_zero_index_observation_m10_gate.md",

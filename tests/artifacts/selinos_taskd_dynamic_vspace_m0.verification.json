@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-vspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "ee35768114a0c359afb5c317b04fad0abeda049085269e75a134171c4fcc7251"
+      "sha256": "34bd36b61cf4cc9593bd8fb0c4c0bd678fe01281c428556e9401a9c7ab93f9b5"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "4bc342d4a4441d31e2c55dd21aa44ca272b2990820ae8078a9f40dec78ff7b27"
+      "sha256": "fb7e29520a4e6b17d34d2adb574e430d36ff1cb6218995b8e96fb39abba8696f"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "a4fe8e9dce3c8ba89c24a3b989fa4ea5b2391ad5fcd7ef6621fc986f99b57a47"
+      "sha256": "e52c80acd5ca8e2c70b6db455f9df793b40ce7353325d30c853bff80402a5058"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_vspace_m0_protocol.h",

@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS isolated IPC-buffer mapped configured non-executing task M0",
+  "profile": {
+    "build_directory": "build-taskd-ipc-buffer-probe",
+    "cmake_option": "SeLinTaskdIpcBufferProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-ipc-buffer-probe/images/kernel-x86_64-pc99",
+      "sha256": "09dc3fd3d8bccbaddc9b207078329fda84789785518ca5da3a2de1069569d3e9"
+    },
+    "root_image": {
+      "path": "build-taskd-ipc-buffer-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "bf399c8dd51fa4b8a7be7c9fb13ab70f1abc5615825f26e756eb76a5c4b4607a"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "fb7e29520a4e6b17d34d2adb574e430d36ff1cb6218995b8e96fb39abba8696f"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "e52c80acd5ca8e2c70b6db455f9df793b40ce7353325d30c853bff80402a5058"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_ipc_buffer_m0_protocol.h",
+      "sha256": "068933d43ec1a4b75b0b45b21d99c0e8f9d19c8aa4832fd3d81107fc8d7172f1"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_ipc_buffer_m0.c",
+      "sha256": "2b8c29a6a2b05a494eb12f37cbab2062e2811d4ce65523ae7f3a5523e62692de"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_ipc_buffer_m0_probe.c",
+      "sha256": "f5b629c480fd149dfa438703c25946d0b5d2208ae1091c8c278afa883bbb5b3e"
+    },
+    "gate": {
+      "path": "docs/phase58_ipc_buffer_mapping_m0_gate.md",
+      "sha256": "b5880f2a11cb1573978f88d08332cdca2f6fb3d023ad5e9c5491f977a54de11c"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_ipc_buffer_m0.boot.log",
+    "sha256": "c7c143a51cdbc28cc4ee84e2c0b1370999c63a6b6885a37aa15d8a7efaacd86d",
+    "required_markers": [
+      "SeLinOS taskd IPC buffer M0: mapping ownership witness issued; target not invoked.",
+      "SeLinOS taskd IPC buffer M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",
+      "SeLinOS taskd IPC buffer M0: fixed 4 KiB IPC frame mapped into generation 2 PML4 and copied to target CSpace.",
+      "SeLinOS taskd IPC buffer M0: configured target remains without registers or resume.",
+      "SeLinOS taskd IPC buffer M0: isolated mapping witness passed; configured target remains non-executing.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "IPC activity",
+    "register context",
+    "target invocation",
+    "resume",
+    "execution",
+    "stack",
+    "ELF runtime",
+    "W^X ELF loading",
+    "clone",
+    "fork",
+    "pthread",
+    "DMA containment",
+    "persistent storage",
+    "networking",
+    "dpkg",
+    "apt"
+  ]
+}

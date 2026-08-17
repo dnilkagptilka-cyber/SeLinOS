@@ -43,21 +43,19 @@ The current Phase 49 result is a hard safety gate, not an inconvenience: the act
 
 ## 3. Git-first development policy
 
-The repository root is now a local Git repository on branch `main`. The baseline commit is `4f886e6873f897a16a52f924f6272759f5e53ee8` (`chore: establish verified SeLinOS evidence baseline`). It tracks SeLinOS-controlled source, protocols, documentation, verifiers and portable SHA-bound evidence. It excludes CMake/Ninja outputs, bootstrapped upstream worktrees, local caches, host test binaries and raw QEMU logs. Upstream seL4 ecosystem revisions remain reproducibly described in `sources.lock` and fetched by `bootstrap_sources.sh`.
+The repository root is a local Git checkout with private remote `dnilkagptilka-cyber/SeLinOS`. It tracks SeLinOS-controlled source, protocols, documentation, verifiers and portable SHA-bound evidence. It excludes CMake/Ninja outputs, bootstrapped upstream worktrees, local caches, host test binaries and raw QEMU logs. Upstream seL4 ecosystem revisions remain reproducibly described in `sources.lock` and fetched by `bootstrap_sources.sh`.
 
-Every implementation milestone uses an isolated branch named `phaseNN-short-scope`, with small commits that separate contract/documentation, protocol, server/probe, verifier/evidence and compatibility-matrix promotion. Each commit message identifies the evidence gate it affects. A change cannot merge into `main` merely because it compiles: it needs a clean configured build, an isolated QEMU TCG proof, an independent verifier, SHA re-binding and the relevant regression suite. Any unresolved threat-model issue blocks promotion rather than being labelled as a known limitation after merge.
-
-Remote publication is deliberately deferred until the GitHub credential is valid and a named repository is selected. The observed GitHub CLI token was invalid; no remote or push was configured. This keeps the local evidence baseline intact and avoids accidentally creating or exposing a public repository. Once authentication is repaired, the remote should be private by default, protected `main` should require CI, and release tags should be signed or otherwise attestable.
+Every implementation milestone uses an isolated branch named `phaseNN-short-scope`, with small commits that separate contract/documentation, protocol, server/probe, verifier/evidence and compatibility-matrix promotion. Each commit message identifies the evidence gate it affects. A change cannot merge into `main` merely because it compiles: it needs a clean configured build, an isolated QEMU TCG proof, an independent verifier, SHA re-binding and the relevant regression suite. Any unresolved threat-model issue blocks promotion rather than being labelled as a known limitation after merge. Private remote publication is part of the promotion gate; protected `main` and signed release attestation remain recommended follow-up controls.
 
 ## 4. Delivery sequence
 
 ### Workstream A — dynamic isolated task construction (Phases 51–58)
 
-Phase 50 is complete: a default-OFF QEMU profile proved only taskd's status-only `reserve → EBUSY → release → re-reserve` lifecycle with generations 1 then 2. It did not create a TCB, CSpace, VSpace, child execution context or Linux process.
+Phases 50–57 are verified as a narrow construction chain: status-only reservation, inert TCB, generation-bound CNode and PML4 rollback, TCB/CNode/PML4 bundle ownership, ASID plus suspended TCB configuration, one notification cap, then a self-rooted two-cap target CSpace. None constituted process execution or a Linux process claim.
 
-Phase 51 will prove **resource-plan ownership and rollback** for one reservation. It will add no task creation: an owner-labelled reservation ledger must reject stale, duplicate and cross-owner release, and injected failure must return the slot to the exact pre-operation state. The evidence must show no object retype, no CNode mutation, no frame mapping and no child endpoint capability.
+**Phase 58 is verified:** a separate default-OFF QEMU TCG profile rolls back a generation-1 TCB/CNode/PML4/frame bundle, then maps one ordinary 4 KiB IPC-buffer frame at fixed target address `0x70000000` through a generation-2 ASID-assigned PML4. It copies the frame cap into target CSpace and configures the still-suspended TCB with that buffer. The proof includes a status-only ownership/rejection witness, SHA-bound transcript, independent verifier, 30-profile rebuild and 64 standalone verifiers. It does not set registers, invoke, or resume the target.
 
-Subsequent phases create one object at a time: untyped reservation/retype accounting, empty CNode creation, guarded CSpace installation, VSpace root and page-table setup, non-executable frame mapping, TCB configuration, endpoint-mediated start permission and final resume. Each phase proves construction and teardown symmetry. Only after a suspended-child proof, a bounded register-context proof, and an authority-audit proof may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+**Phase 59 is next:** establish a bounded zeroed initial register-context gate for the same non-executing target, with exact register ledger, negative-path checks, QEMU proof and no resume. Only after a suspended-child proof, a bounded register-context proof, controlled first execution and an authority audit may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
 
 ### Workstream B — executable runtime and Linux process surface (Phases 59–82)
 
@@ -101,17 +99,16 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 | Priority | Next deliverable | Completion evidence | Explicitly not claimed |
 |---|---|---|---|
-| **P0** | Repair GitHub authentication and attach a named private remote; push only after user-controlled access is valid. | `gh auth status` success, remote URL, protected-branch policy, push receipt. | Remote publication until credential is valid. |
-| **P0** | Phase 51 design gate: one reservation owner/rollback ledger. | Document, protocol constants, stale/cross-owner negative cases, failure-injection model. | TCB/CSpace/VSpace creation. |
-| **P0** | Phase 51 default-OFF QEMU probe and independent verifier. | QEMU transcript, SHA-bound JSON, verifier, full regression and all-profile rebuild. | Thread execution, Linux process lifecycle. |
-| **P1** | Phase 52 untyped/object allocation ledger with symmetric rollback. | Allocation/release accounting and leak-negative proof. | Child execution or Linux `clone`. |
+| **P0** | Phase 59 zeroed register-context gate for the already IPC-buffer-configured suspended target. | Exact register ledger, negative-path checks, default-OFF QEMU transcript, SHA-bound record and independent verifier. | Resume, instruction execution, stack/ELF loading or Linux-process claim. |
+| **P0** | Phase 60 controlled first execution and fault-mediated witness. | One bounded instruction/fault record, cleanup/teardown evidence and authority audit. | General process launch or Linux ABI compatibility. |
+| **P1** | W^X ELF loading path. | `PT_LOAD` validation/map ledger, relocation boundaries, static fixture execution and verifier. | Dynamic linker/general ELF compatibility until separately tested. |
 | **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
-| **P2** | First T1 sealed ELF execution fixture. | W^X mapping, static ELF launch, exit-status, teardown and verifier. | General ELF/dynamic linker compatibility. |
-| **P2** | VFS transaction design for dpkg database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent apt/dpkg claim. |
+| **P2** | Persistent VFS transaction design for `dpkg` database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent `apt`/`dpkg` claim. |
+| **P2** | Network, time and repository-trust substrate. | In-VM transport, TLS/keyring/freshness rejection tests. | Authenticated repository transaction until end-to-end tested. |
 
 ## 7. Current status boundary
 
-The baseline records 56 standalone verified probes and a successful 22-profile rebuild after Phase 50. This is meaningful progress in evidence infrastructure and primitive OS services, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are dynamic task construction with authority proof, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+The current baseline records **64 standalone verified probes** and a successful **30-profile rebuild** after Phase 58. This is meaningful progress in evidence infrastructure and primitive OS services, including one isolated mapped IPC-buffer configuration for a suspended task, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are register context and controlled execution, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
 
 ## References
 
