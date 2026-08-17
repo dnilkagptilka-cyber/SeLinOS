@@ -656,6 +656,11 @@ if(SeLinTaskdPopulatedCspaceProbe)
         "$<TARGET_FILE:selinos-taskd-populated-cspace-m0>"
         "$<TARGET_FILE:selinos-taskd-populated-cspace-m0-probe>")
 endif()
+if(SeLinTaskdSelfRootedCspaceProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-self-rooted-cspace-m0>"
+        "$<TARGET_FILE:selinos-taskd-self-rooted-cspace-m0-probe>")
+endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-x86-nx-mapping-probe-child>")
