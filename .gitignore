@@ -32,6 +32,7 @@ __pycache__/
 !/tests/artifacts/selinos_taskd_inert_bundle_m0.boot.log
 !/tests/artifacts/selinos_taskd_suspended_linkage_m0.boot.log
 !/tests/artifacts/selinos_taskd_populated_cspace_m0.boot.log
+!/tests/artifacts/selinos_taskd_self_rooted_cspace_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

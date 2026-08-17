@@ -24,6 +24,7 @@
 #include "selinos_taskd_inert_bundle_m0_protocol.h"
 #include "selinos_taskd_suspended_linkage_m0_protocol.h"
 #include "selinos_taskd_populated_cspace_m0_protocol.h"
+#include "selinos_taskd_self_rooted_cspace_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -2153,6 +2154,96 @@ static bool start_taskd_populated_cspace_m0(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_TASKD_SELF_ROOTED_CSPACE_PROBE
+static bool start_taskd_self_rooted_cspace_m0(vka_t *vka, vspace_t *vspace)
+{
+    sel4utils_process_t taskd;
+    sel4utils_process_t probe;
+    vka_object_t endpoint;
+    vka_object_t success;
+    vka_object_t rollback_tcb;
+    vka_object_t rollback_cnode;
+    vka_object_t rollback_vspace_root;
+    vka_object_t owned_tcb;
+    vka_object_t owned_cnode;
+    vka_object_t owned_vspace_root;
+    vka_object_t target_notification;
+    cspacepath_t root_tcb_path;
+    cspacepath_t root_cnode_path;
+    cspacepath_t root_vspace_path;
+    seL4_CPtr taskd_endpoint_slot;
+    seL4_CPtr taskd_tcb_slot;
+    seL4_CPtr taskd_cnode_slot;
+    seL4_CPtr taskd_vspace_slot;
+    seL4_CPtr probe_endpoint_slot;
+    seL4_CPtr probe_success_slot;
+    seL4_Word badge = 0u;
+    char *taskd_argv[] = {"selinos-taskd-self-rooted-cspace-m0", NULL};
+    char *probe_argv[] = {"selinos-taskd-self-rooted-cspace-m0-probe", NULL};
+
+    if (sel4utils_configure_process(&taskd, vka, vspace,
+                                    "selinos-taskd-self-rooted-cspace-m0") != 0 ||
+        sel4utils_configure_process(&probe, vka, vspace,
+                                    "selinos-taskd-self-rooted-cspace-m0-probe") != 0 ||
+        vka_alloc_endpoint(vka, &endpoint) != seL4_NoError ||
+        vka_alloc_notification(vka, &success) != seL4_NoError ||
+        vka_alloc_tcb(vka, &rollback_tcb) != seL4_NoError ||
+        vka_alloc_cnode_object(vka, SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_CNODE_SLOT_BITS,
+                               &rollback_cnode) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &rollback_vspace_root) != seL4_NoError) {
+        return false;
+    }
+    vka_free_object(vka, &rollback_vspace_root);
+    vka_free_object(vka, &rollback_cnode);
+    vka_free_object(vka, &rollback_tcb);
+    if (vka_alloc_tcb(vka, &owned_tcb) != seL4_NoError ||
+        vka_alloc_cnode_object(vka, SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_CNODE_SLOT_BITS,
+                               &owned_cnode) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &owned_vspace_root) != seL4_NoError ||
+        vka_alloc_notification(vka, &target_notification) != seL4_NoError ||
+        seL4_CNode_Copy(owned_cnode.cptr,
+                        SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_TARGET_CNODE_SELF_SLOT,
+                        SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, owned_cnode.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(owned_cnode.cptr,
+                        SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_TARGET_NOTIFICATION_SLOT,
+                        SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_notification.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_X86_ASIDPool_Assign(seL4_CapInitThreadASIDPool,
+                                 owned_vspace_root.cptr) != seL4_NoError ||
+        seL4_TCB_Configure(owned_tcb.cptr, seL4_CapNull, owned_cnode.cptr,
+                            0u, owned_vspace_root.cptr, 0u, 0u,
+                            seL4_CapNull) != seL4_NoError) {
+        return false;
+    }
+    taskd_endpoint_slot = sel4utils_copy_cap_to_process(&taskd, vka, endpoint.cptr);
+    probe_endpoint_slot = sel4utils_copy_cap_to_process(&probe, vka, endpoint.cptr);
+    probe_success_slot = sel4utils_copy_cap_to_process(&probe, vka, success.cptr);
+    vka_cspace_make_path(vka, owned_tcb.cptr, &root_tcb_path);
+    vka_cspace_make_path(vka, owned_cnode.cptr, &root_cnode_path);
+    vka_cspace_make_path(vka, owned_vspace_root.cptr, &root_vspace_path);
+    taskd_tcb_slot = sel4utils_move_cap_to_process(&taskd, root_tcb_path, vka);
+    taskd_cnode_slot = sel4utils_move_cap_to_process(&taskd, root_cnode_path, vka);
+    taskd_vspace_slot = sel4utils_move_cap_to_process(&taskd, root_vspace_path, vka);
+    if (taskd_endpoint_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_SERVER_ENDPOINT_SLOT ||
+        taskd_tcb_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_TCB_SLOT ||
+        taskd_cnode_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_CNODE_SLOT ||
+        taskd_vspace_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_VSPACE_ROOT_SLOT ||
+        probe_endpoint_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_PROBE_ENDPOINT_SLOT ||
+        probe_success_slot != SELINOS_TASKD_SELF_ROOTED_CSPACE_M0_PROBE_SUCCESS_NOTIFY_SLOT) {
+        return false;
+    }
+    if (sel4utils_spawn_process_v(&taskd, vka, vspace, 1, taskd_argv, 1) != 0 ||
+        sel4utils_spawn_process_v(&probe, vka, vspace, 1, probe_argv, 1) != 0) {
+        return false;
+    }
+    (void)seL4_Wait(success.cptr, &badge);
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -2236,6 +2327,17 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS taskd populated CSpace M0: one notification cap inserted into final CNode slot 1.\n");
     debug_puts("SeLinOS taskd populated CSpace M0: generation 2 PML4 ASID assigned and populated CSpace configured.\n");
     debug_puts("SeLinOS taskd populated CSpace M0: final caps moved into taskd ownership slots; no registers or resume.\n");
+#endif
+
+#if CONFIG_SELINOS_TASKD_SELF_ROOTED_CSPACE_PROBE
+    if (!start_taskd_self_rooted_cspace_m0(vka, vspace)) {
+        debug_puts("SeLinOS taskd self-rooted CSpace M0: allocation, population, ASID, configuration or ownership prerequisite failed; authority withheld.\n");
+        return false;
+    }
+    debug_puts("SeLinOS taskd self-rooted CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.\n");
+    debug_puts("SeLinOS taskd self-rooted CSpace M0: final CNode self cap slot 0 and notification cap slot 1 inserted.\n");
+    debug_puts("SeLinOS taskd self-rooted CSpace M0: generation 2 PML4 ASID assigned and self-rooted CSpace configured.\n");
+    debug_puts("SeLinOS taskd self-rooted CSpace M0: final caps moved into taskd ownership slots; no registers or resume.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
