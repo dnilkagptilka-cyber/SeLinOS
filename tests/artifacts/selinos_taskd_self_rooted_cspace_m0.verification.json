@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS taskd-owned self-rooted two-cap CSpace configured non-executing task M0",
+  "profile": {
+    "build_directory": "build-taskd-self-rooted-cspace-probe",
+    "cmake_option": "SeLinTaskdSelfRootedCspaceProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-self-rooted-cspace-probe/images/kernel-x86_64-pc99",
+      "sha256": "9a3f46f978b16a94cc13ce28a8606a2b5ef7b861d1e53e3a2ca25d9ab97f0c7c"
+    },
+    "root_image": {
+      "path": "build-taskd-self-rooted-cspace-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "8619828b3403611d9b8a06e4074d7d18cdf67168a3a0b49580de98972ae46ad5"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "4bc342d4a4441d31e2c55dd21aa44ca272b2990820ae8078a9f40dec78ff7b27"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "a4fe8e9dce3c8ba89c24a3b989fa4ea5b2391ad5fcd7ef6621fc986f99b57a47"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_self_rooted_cspace_m0_protocol.h",
+      "sha256": "ede521ab9851b95efaff1355310f89cee5b548c8c9d005867794ed5173f1d349"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_self_rooted_cspace_m0.c",
+      "sha256": "b437e679f3f1f04020c44426d2423fb8c2586fd954e57416a2edc2ec476712a6"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_self_rooted_cspace_m0_probe.c",
+      "sha256": "35b5014b40d9b9a94e33c3512adf2031aa7c78596aef086028144c66ec134d6a"
+    },
+    "gate": {
+      "path": "docs/phase57_self_rooted_cspace_suspended_task_m0_gate.md",
+      "sha256": "1fff6f608939aa0e2420c88ded5894baf4bdf247126a5be65e12786278c35570"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_self_rooted_cspace_m0.boot.log",
+    "sha256": "ecd0bc547b87369c378c93c179bfc6c06ac86819dfaec68bcc856c85ad3ba890",
+    "required_markers": [
+      "SeLinOS taskd self-rooted CSpace M0: ownership witness issued; target resources not invoked.",
+      "SeLinOS taskd self-rooted CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.",
+      "SeLinOS taskd self-rooted CSpace M0: final CNode self cap slot 0 and notification cap slot 1 inserted.",
+      "SeLinOS taskd self-rooted CSpace M0: generation 2 PML4 ASID assigned and self-rooted CSpace configured.",
+      "SeLinOS taskd self-rooted CSpace M0: final caps moved into taskd ownership slots; no registers or resume.",
+      "SeLinOS taskd self-rooted CSpace M0: self-rooted CNode ownership query passed; configured TCB remains non-executing.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "IPC buffer",
+    "register context",
+    "target invocation",
+    "resume",
+    "execution",
+    "mappings",
+    "W^X",
+    "ELF runtime",
+    "clone",
+    "fork",
+    "pthread",
+    "dpkg",
+    "apt"
+  ]
+}
