@@ -13,7 +13,7 @@
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "702f37f89025366bb07ececba352fc7a63cf28c7997b0792b36d91e5f6f212e0"
+      "sha256": "4bc342d4a4441d31e2c55dd21aa44ca272b2990820ae8078a9f40dec78ff7b27"
     }
   },
   "contract": {
