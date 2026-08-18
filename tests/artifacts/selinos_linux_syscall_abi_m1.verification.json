@@ -13,7 +13,7 @@
   },
   "gateway_source": {
     "path": "src/projects/helixos/src/domain_manager.c",
-    "sha256": "66b2504a453afe6bd77f96b264f6ea6a0d3a9420600672ddc44db34e5ef4321d"
+    "sha256": "6a1b1902883bff1e1397ed9d68709c7bf439741d2533dc6e8200558a6796c4aa"
   },
   "contract": {
     "fault_type": "seL4_Fault_UnknownSyscall",

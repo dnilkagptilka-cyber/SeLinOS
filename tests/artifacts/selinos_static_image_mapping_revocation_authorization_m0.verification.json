@@ -1,0 +1,61 @@
+{
+  "gate": "Phase 68 static-image mapping revocation authorization M0",
+  "status": "verified; QEMU TCG proof, independent verifier, 40-profile rebuild and 74-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageMappingRevocationAuthorizationProbe=ON",
+    "build_dir": "build-static-image-mapping-revocation-authorization-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-mapping-revocation-authorization-probe/images/kernel-x86_64-pc99",
+      "sha256": "103b4a438359196b7bdac3d3e63d225c73dcca61969283c3265ce5fe4c6d1ac9"
+    },
+    "root": {
+      "path": "build-static-image-mapping-revocation-authorization-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "83b357c8f82884ad069a816622a591a7bea70d5d590ef56b463109761421ec11"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_mapping_revocation_authorization_m0.boot.log",
+    "sha256": "2ecf5dde353b2003aafbeada3ee92def4a63346fffe34dff05fc5e472a5b08ee",
+    "required_markers": [
+      "SeLinOS static-image mapping revocation authorization M0: entry-stack-IPC ledger authorized then duplicate rejected; no unmap, reply, resume, delete, free or successor task.",
+      "SeLinOS static-image mapping revocation authorization M0: status-only ordering ledger; no unmap, cleanup, reuse or Linux process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase68_static_image_mapping_revocation_authorization_m0_gate.md",
+      "sha256": "9cf00d56ee279081a264c3ed61fde02d04cb873c2cff12cc54c663cee232e114"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "d16621cc11cc8d8b0248b13c0b6e771c9b4651cbc7313db33843d48e3f2cef44"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "6a1b1902883bff1e1397ed9d68709c7bf439741d2533dc6e8200558a6796c4aa"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_mapping_revocation_authorization_m0_protocol.h",
+      "sha256": "9bda80bda3968c7b61f49bcfdb8b9f84eb30e2a4aa3facbecb8b1fbd4238edd7"
+    }
+  },
+  "proves": [
+    "one terminal entry-stack-IPC ordering ledger authorization followed by duplicate rejection",
+    "no capability or mapping authority is returned",
+    "no post-terminal unmap, reply, resume, deletion, free or successor construction occurs"
+  ],
+  "does_not_prove": [
+    "mapping revocation",
+    "flush",
+    "cleanup",
+    "reclamation",
+    "resource reuse",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

@@ -254,6 +254,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageMappingRevocationAuthorizationProbe
+    SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE
+    "Enable one mapping-revocation authorization ledger without unmap or reclamation"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
