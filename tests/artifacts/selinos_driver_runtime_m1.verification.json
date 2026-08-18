@@ -10,7 +10,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "908005eca501c11e6282f24f6e48e5af5c82ca9cd4d192cd771f47696d86de56"
+    "sha256": "d464d0d24333895e23589856e523a528ce25575ddcb9b53842e7330c4290db5a"
   },
   "runtime_evidence": {
     "qemu_edu_log": {

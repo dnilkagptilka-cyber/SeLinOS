@@ -1,0 +1,69 @@
+{
+  "gate": "Phase 71 static-image object reclamation M0",
+  "status": "verified; isolated QEMU TCG proof, independent verifier, 43-profile rebuild and 77-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageObjectReclamationProbe=ON",
+    "build_dir": "build-static-image-object-reclamation-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-object-reclamation-probe/images/kernel-x86_64-pc99",
+      "sha256": "005bbf3f1880c2878dd29aa7adb660dcafc6574efc9cc30589ffff53351ff295"
+    },
+    "root": {
+      "path": "build-static-image-object-reclamation-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "66a67c94c69e5be90547db628f8db7c4a130f85de9dedd27317f6007b7fc9efe"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_object_reclamation_m0.boot.log",
+    "sha256": "bfe71771f2e50895db5b6188973768ee974ccbb453bbbc3886ad2cfcd565d784",
+    "required_markers": [
+      "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
+      "SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.",
+      "SeLinOS static-image object reclamation M0: terminal TCB, unmapped frames, reverse paging objects, CNode, PML4, endpoint and notification disposed; no reuse performed.",
+      "SeLinOS static-image object reclamation M0: one terminal disposal sequence only; no ASID, slot, object or Linux-process reuse claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase71_static_image_object_reclamation_m0_gate.md",
+      "sha256": "d98b5aa0f111f9fc7b30051bd3f0a841c01df67b501e8590df8338033917edbf"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "8ac01c426f5b268f1bbb4fe2cddca6395fdab99dcac617a8ce1b107c5fbb0e8c"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "16850ae852b4e72db83b014048ac73bcc37c076933bf3acda557fa3798ac3d76"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_object_reclamation_m0_protocol.h",
+      "sha256": "99f11da2d95036ab7f5fe4d1678a843e9a98b7500faeec63d54745f4a2256a20"
+    }
+  },
+  "regression": {
+    "profiles_rebuilt": 43,
+    "standalone_verifiers_passed": 77,
+    "log": "tests/artifacts/phase71_full_verifier_regression.log"
+  },
+  "proves": [
+    "Phase 69 target Page_Unmap and Phase 70 target-CNode copy deletion blocks completed before Phase 71",
+    "one terminal target TCB, three unmapped frames, recorded paging objects in reverse order, target CNode, PML4, fault endpoint and notification each reached VKA disposal in fixed order",
+    "no reply, resume, allocation, reconfiguration, mapping, ASID action, capability copy/mint or successor construction is executed after terminal disposition begins"
+  ],
+  "does_not_prove": [
+    "deterministic untyped reuse",
+    "capability-slot reuse",
+    "ASID reuse",
+    "target virtual-address reuse",
+    "general process exit",
+    "wait/reap",
+    "process creation",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

@@ -275,6 +275,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageObjectReclamationProbe
+    SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    "Enable one terminal static-image object reclamation witness without reuse"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-static-image-mapping-revocation-authorization-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "c559b1788be48f4c1167507cc10b508610e2f09256262da78471aaced27e5b31"
+      "sha256": "a363885300d8c8f33e35d1df834abe9e4a74e2af87c2bc3c89c59da1fe453569"
     }
   },
   "runtime": {
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "044e21807edd391e773abdfaf38b74b6877a161874231e186777522a45966fd0"
+      "sha256": "8ac01c426f5b268f1bbb4fe2cddca6395fdab99dcac617a8ce1b107c5fbb0e8c"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "01aed26a55c7f30d8adc240840e624b25fb907a0f7760eccde9f4190522451e0"
+      "sha256": "16850ae852b4e72db83b014048ac73bcc37c076933bf3acda557fa3798ac3d76"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_mapping_revocation_authorization_m0_protocol.h",

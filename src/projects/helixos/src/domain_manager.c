@@ -41,6 +41,7 @@
 #include "selinos_static_image_mapping_revocation_authorization_m0_protocol.h"
 #include "selinos_static_image_mapping_revocation_m0_protocol.h"
 #include "selinos_static_image_target_capability_deletion_m0_protocol.h"
+#include "selinos_static_image_object_reclamation_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3334,7 +3335,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3581,7 +3583,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     }
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3596,7 +3599,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     }
     debug_puts("SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.\n");
 #endif
-#if CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
+#if CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3629,6 +3633,36 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         return false;
     }
     debug_puts("SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    if (seL4_GetMR(seL4_UserException_FaultIP) !=
+            SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_TERMINAL_IP ||
+        seL4_GetMR(seL4_UserException_Number) !=
+            SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_INVALID_OPCODE_VECTOR ||
+        target_tcb.cptr == seL4_CapNull ||
+        target_cnode.cptr == seL4_CapNull ||
+        target_vspace_root.cptr == seL4_CapNull ||
+        fault_endpoint.cptr == seL4_CapNull ||
+        target_notification.cptr == seL4_CapNull ||
+        target_entry_frame.cptr == seL4_CapNull ||
+        target_stack_frame.cptr == seL4_CapNull ||
+        target_ipc_frame.cptr == seL4_CapNull ||
+        paging_object_count <= 0 ||
+        paging_object_count > (int)SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_MAX_PAGING_OBJECTS) {
+        return false;
+    }
+    vka_free_object(vka, &target_tcb);
+    vka_free_object(vka, &target_entry_frame);
+    vka_free_object(vka, &target_stack_frame);
+    vka_free_object(vka, &target_ipc_frame);
+    for (register_index = (seL4_Word)paging_object_count; register_index > 0u; register_index--) {
+        vka_free_object(vka, &paging_objects[register_index - 1u]);
+    }
+    vka_free_object(vka, &target_cnode);
+    vka_free_object(vka, &target_vspace_root);
+    vka_free_object(vka, &fault_endpoint);
+    vka_free_object(vka, &target_notification);
+    debug_puts("SeLinOS static-image object reclamation M0: terminal TCB, unmapped frames, reverse paging objects, CNode, PML4, endpoint and notification disposed; no reuse performed.\n");
 #endif
     return true;
 }
@@ -3804,7 +3838,8 @@ bool selinos_domain_manager_start(void)
     CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3827,6 +3862,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
     debug_puts("SeLinOS static-image target capability deletion M0: target CNode cap copies only; no root-cap deletion, object free, reuse or Linux process claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    debug_puts("SeLinOS static-image object reclamation M0: one terminal disposal sequence only; no ASID, slot, object or Linux-process reuse claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
