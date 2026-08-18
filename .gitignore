@@ -44,6 +44,7 @@ __pycache__/
 !/tests/artifacts/selinos_static_image_terminal_lifecycle_m0.boot.log
 !/tests/artifacts/selinos_static_image_teardown_authorization_m0.boot.log
 !/tests/artifacts/selinos_static_image_mapping_revocation_authorization_m0.boot.log
+!/tests/artifacts/selinos_static_image_mapping_revocation_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

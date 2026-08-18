@@ -16,8 +16,8 @@ def require(condition, description):
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    evidence = json.loads((root / 'tests/artifacts/selinos_static_image_teardown_authorization_m0.verification.json').read_text())
-    require(evidence['profile']['cmake_option'] == 'SeLinStaticImageTeardownAuthorizationProbe=ON', 'profile')
+    evidence = json.loads((root / 'tests/artifacts/selinos_static_image_mapping_revocation_m0.verification.json').read_text())
+    require(evidence['profile']['cmake_option'] == 'SeLinStaticImageMappingRevocationProbe=ON', 'profile')
     for group in ('images', 'implementation'):
         for name, binding in evidence[group].items():
             path = root / binding['path']
@@ -31,24 +31,25 @@ def main():
     cmake = (root / evidence['implementation']['cmake']['path']).read_text()
     gate = (root / evidence['implementation']['gate']['path']).read_text()
     protocol = (root / evidence['implementation']['protocol']['path']).read_text()
-    require('SeLinStaticImageTeardownAuthorizationProbe' in cmake and 'SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE' in cmake, 'default-off profile')
-    for marker in ('APPROVED', 'REJECTED', 'TERMINAL_IP', 'INVALID_OPCODE_VECTOR'):
+    require('SeLinStaticImageMappingRevocationProbe' in cmake and 'SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE' in cmake, 'default-off profile')
+    for marker in ('ENTRY_VADDR', 'STACK_VADDR', 'IPC_VADDR', 'TERMINAL_IP', 'INVALID_OPCODE_VECTOR'):
         require(marker in protocol, f'protocol:{marker}')
     begin = source.index('static bool start_sealed_static_image_mapping_m0')
     end = source.index('\n}\n#endif\n\nbool selinos_domain_manager_start', begin) + 2
     body = source[begin:end]
-    authorization = body.index('authorization_used')
     terminal = body.index('seL4_Fault_UserException')
-    require(authorization > terminal, 'authorization after terminal validation')
-    authorization_block = body.index('#if CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE')
-    authorization_end = body.index('\n#endif', authorization_block) + len('\n#endif')
-    lifecycle = body[authorization_block:authorization_end]
-    for marker in ('SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_APPROVED', 'SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_REJECTED', 'one terminal ledger authorized then duplicate rejected'):
-        require(marker in lifecycle, f'root:{marker}')
-    for forbidden in ('seL4_Reply(', 'seL4_TCB_Resume(', 'vka_free_object(', 'seL4_CNode_Delete(', 'seL4_X86_Page_Unmap(', 'sel4utils_configure_process('):
-        require(forbidden not in lifecycle, f'forbidden post-terminal operation:{forbidden}')
-    require('does not prove' in gate and 'teardown' in gate and 'Linux ABI' in gate, 'explicit boundary')
-    print('SeLinOS static-image teardown authorization M0 evidence verified.')
+    revocation = body.index('seL4_X86_Page_Unmap(target_entry_frame.cptr)')
+    require(revocation > terminal, 'unmaps after terminal validation')
+    post = body[revocation:]
+    entry = post.index('seL4_X86_Page_Unmap(target_entry_frame.cptr)')
+    stack = post.index('seL4_X86_Page_Unmap(target_stack_frame.cptr)')
+    ipc = post.index('seL4_X86_Page_Unmap(target_ipc_frame.cptr)')
+    require(entry < stack < ipc, 'entry-stack-ipc unmap order')
+    require(post.count('seL4_X86_Page_Unmap(') == 3, 'exactly three target unmaps')
+    for forbidden in ('seL4_Reply(', 'seL4_TCB_Resume(', 'vka_free_object(', 'seL4_CNode_Delete(', 'seL4_X86_ASIDPool_Assign(', 'sel4utils_configure_process('):
+        require(forbidden not in post, f'forbidden post-terminal operation:{forbidden}')
+    require('does not prove' in gate and 'frame reclamation' in gate and 'Linux ABI' in gate, 'explicit boundary')
+    print('SeLinOS static-image mapping revocation M0 evidence verified.')
 
 
 try:

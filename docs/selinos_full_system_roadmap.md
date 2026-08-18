@@ -67,7 +67,9 @@ Phases 50–57 are verified as a narrow construction chain: status-only reservat
 
 **Phase 64 is verified:** a separate default-OFF parser profile accepts one deterministic 4 KiB SSIM-v1 RX-only record with fixed low-canonical entry and zeroed-digest SHA-256 source seal. It rejects altered digest, W+X, non-canonical, reserved-field and source-range variants plus a duplicate status request. The proof is parser-only: it maps no frame, changes no permission, resumes no target and is not an ELF claim. The proof includes a deterministic host negative suite, SHA-bound QEMU TCG transcript, independent verifier, 36-profile rebuild and 70 standalone verifiers.
 
-**Phase 65 is next:** map exactly one accepted sealed-image frame under a W^X mapping ledger and demonstrate one terminal witness. It must not claim ELF, dynamic linking, a process lifecycle, or Linux ABI until separately proven. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+**Phases 65–69 are verified:** Phase 65 maps one accepted sealed-image fixture under a W^X ledger and observes the terminal witness; Phase 66 records terminal lifecycle and retained-object ownership; Phase 67 authorizes teardown status-only; Phase 68 authorizes the entry-stack-IPC revocation order status-only; and Phase 69 executes exactly three successful target `Page_Unmap` calls after the terminal fault, in the authorized entry, stack, IPC order. Phase 69 retains every frame, TCB, CNode, PML4, endpoint and paging object and proves neither PTE readback nor capability deletion, object free, ASID/task reuse, a process lifecycle, ELF or Linux ABI. The Phase 69 isolated QEMU TCG transcript, SHA-bound evidence, independent verifier, **41-profile rebuild** and **75/75 standalone verifier regression** are recorded in `phase69_static_image_mapping_revocation_m0_gate.md`.
+
+**Phase 70 is next:** delete only the target-owned capabilities after a verified mapping-revocation transaction, with explicit retained-object ledger and no `vka_free_object`, no ASID reuse and no successor construction. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
 
 ### Workstream B — executable runtime and Linux process surface (Phases 59–82)
 
@@ -111,8 +113,8 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 | Priority | Next deliverable | Completion evidence | Explicitly not claimed |
 |---|---|---|---|
-| **P0** | Phase 65 static sealed-image mapping and terminal witness. | W^X map ledger, one accepted image witness and fault boundary. | General program execution or Linux ABI compatibility. |
-| **P0** | Phase 66 static-image lifecycle boundary. | Explicit terminal/rollback and source/frame ownership ledger. | General process lifecycle or Linux ABI compatibility. |
+| **P0** | Phase 70 target-owned capability deletion after Phase 69 mapping revocation. | Target-cap inventory, ordered deletion ledger, negative duplicate/retained-root checks, isolated QEMU proof and verifier. | Object free, frame/page-table reclamation, ASID/task reuse, general lifecycle or Linux ABI compatibility. |
+| **P0** | Phase 71 target object reclamation after cap cleanup. | Reverse-order object ledger, failed-use checks and clean no-leak/reuse authorization evidence. | General process lifecycle or Linux ABI compatibility. |
 | **P1** | W^X ELF loading path. | `PT_LOAD` validation/map ledger, relocation boundaries, static fixture execution and verifier. | Dynamic linker/general ELF compatibility until separately tested. |
 | **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
 | **P2** | Persistent VFS transaction design for `dpkg` database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent `apt`/`dpkg` claim. |
@@ -120,7 +122,7 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 ## 7. Current status boundary
 
-The current baseline records **70 standalone verified probes** and a successful **36-profile rebuild** after Phase 64. This is meaningful progress in evidence infrastructure and primitive OS services, including one verified sealed static-image grammar and SHA-256 ledger, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are sealed-image frame mapping under an explicit W^X ledger, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+The current baseline records **75 standalone verified probes** and a successful **41-profile rebuild** after Phase 69. This is meaningful progress in evidence infrastructure and primitive OS services: one sealed static-image fixture has progressed through terminal mapping revocation without resource reuse. It is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The immediate technical blocker within the task lifecycle is capability deletion and retained-object disposition; the larger blockers remain W^X ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
 
 ## References
 

@@ -261,6 +261,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageMappingRevocationProbe
+    SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE
+    "Enable one terminal target entry-stack-IPC mapping revocation witness without object free"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

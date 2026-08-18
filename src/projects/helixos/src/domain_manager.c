@@ -39,6 +39,7 @@
 #include "selinos_static_image_terminal_lifecycle_m0_record.h"
 #include "selinos_static_image_teardown_authorization_m0_protocol.h"
 #include "selinos_static_image_mapping_revocation_authorization_m0_protocol.h"
+#include "selinos_static_image_mapping_revocation_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3330,7 +3331,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
 #if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3576,6 +3578,21 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         debug_puts("SeLinOS static-image mapping revocation authorization M0: entry-stack-IPC ledger authorized then duplicate rejected; no unmap, reply, resume, delete, free or successor task.\n");
     }
 #endif
+#if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE
+    if (seL4_GetMR(seL4_UserException_FaultIP) !=
+            SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
+        seL4_GetMR(seL4_UserException_Number) !=
+            SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_INVALID_OPCODE_VECTOR ||
+        target_entry_frame.cptr == seL4_CapNull ||
+        target_stack_frame.cptr == seL4_CapNull ||
+        target_ipc_frame.cptr == seL4_CapNull ||
+        seL4_X86_Page_Unmap(target_entry_frame.cptr) != seL4_NoError ||
+        seL4_X86_Page_Unmap(target_stack_frame.cptr) != seL4_NoError ||
+        seL4_X86_Page_Unmap(target_ipc_frame.cptr) != seL4_NoError) {
+        return false;
+    }
+    debug_puts("SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.\n");
+#endif
     return true;
 }
 #endif
@@ -3748,7 +3765,8 @@ bool selinos_domain_manager_start(void)
 #if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3765,6 +3783,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE
     debug_puts("SeLinOS static-image mapping revocation authorization M0: status-only ordering ledger; no unmap, cleanup, reuse or Linux process claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE
+    debug_puts("SeLinOS static-image mapping revocation M0: one target mapping transaction only; no cap deletion, object free, reuse or Linux process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE

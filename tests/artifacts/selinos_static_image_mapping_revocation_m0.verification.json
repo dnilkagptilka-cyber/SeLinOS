@@ -1,0 +1,66 @@
+{
+  "gate": "Phase 69 static-image mapping revocation M0",
+  "status": "verified; isolated QEMU TCG proof, independent verifier, 41-profile rebuild and 75-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageMappingRevocationProbe=ON",
+    "build_dir": "build-static-image-mapping-revocation-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-mapping-revocation-probe/images/kernel-x86_64-pc99",
+      "sha256": "0f6deafd4f4c9abf2506ed617db2bbccd717b9d14747c9738b39e3f64f686e75"
+    },
+    "root": {
+      "path": "build-static-image-mapping-revocation-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "24b4290266c493bf8170ffa4c81ec004c69acb9c35a4dd24705921b7daf4b328"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_mapping_revocation_m0.boot.log",
+    "sha256": "a40119c3747057ea5eb9c4ab2b1cf516af9e597e4b3c69122e250635a9dc9a27",
+    "required_markers": [
+      "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
+      "SeLinOS static-image mapping revocation M0: one target mapping transaction only; no cap deletion, object free, reuse or Linux process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase69_static_image_mapping_revocation_m0_gate.md",
+      "sha256": "093dfb7683ef3f3db2371f446f0725093414c5909e9316fd0bee4185fd64c6ba"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "f5591414dd075619097602197f8899f83675aef8f5d38774a71b2bcd7d62a873"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "c65b6572d2614112db09d3757c4035cf0d9df7425d35f257d57c4e8f527f9580"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_mapping_revocation_m0_protocol.h",
+      "sha256": "f6036ba95db480472a7dcdf0456e0523b2bff9a67d88f97c41d372b6dc71c2bb"
+    }
+  },
+  "regression": {
+    "profiles_rebuilt": 41,
+    "standalone_verifiers_passed": 75,
+    "log": "tests/artifacts/phase69_full_verifier_regression.log"
+  },
+  "proves": [
+    "exact terminal target entry, stack and IPC mappings each received one Page_Unmap call in order",
+    "root retains target frame, TCB, CNode, PML4 and terminal fault descriptors",
+    "no reply, resume, cap deletion, object free, ASID action or successor construction is executed"
+  ],
+  "does_not_prove": [
+    "general VSpace teardown",
+    "page-table reclamation",
+    "capability deletion",
+    "frame reclamation",
+    "resource reuse",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

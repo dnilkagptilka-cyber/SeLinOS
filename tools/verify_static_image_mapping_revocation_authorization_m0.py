@@ -40,7 +40,9 @@ def main():
     authorization = body.index('next_order')
     terminal = body.index('seL4_Fault_UserException')
     require(authorization > terminal, 'authorization after terminal validation')
-    lifecycle = body[authorization:]
+    authorization_block = body.index('#if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE')
+    authorization_end = body.index('\n#endif', authorization_block) + len('\n#endif')
+    lifecycle = body[authorization_block:authorization_end]
     for marker in ('ENTRY_ORDER', 'STACK_ORDER', 'IPC_ORDER', 'MAPPING_REVOCATION_AUTHORIZATION_M0_APPROVED', 'MAPPING_REVOCATION_AUTHORIZATION_M0_REJECTED', 'entry-stack-IPC ledger authorized then duplicate rejected'):
         require(marker in lifecycle, f'root:{marker}')
     require(lifecycle.index('ENTRY_ORDER') < lifecycle.index('STACK_ORDER') < lifecycle.index('IPC_ORDER'), 'entry-stack-ipc order')
