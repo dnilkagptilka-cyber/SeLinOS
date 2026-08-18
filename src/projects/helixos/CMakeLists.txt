@@ -268,6 +268,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageTargetCapabilityDeletionProbe
+    SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE
+    "Enable one terminal target-CNode capability deletion witness without object free"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

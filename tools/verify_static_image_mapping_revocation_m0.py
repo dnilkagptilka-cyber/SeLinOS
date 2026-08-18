@@ -40,7 +40,10 @@ def main():
     terminal = body.index('seL4_Fault_UserException')
     revocation = body.index('seL4_X86_Page_Unmap(target_entry_frame.cptr)')
     require(revocation > terminal, 'unmaps after terminal validation')
-    post = body[revocation:]
+    phase69 = body.rfind('#if ', 0, revocation)
+    phase69_end = body.index('\n#endif', phase69) + len('\n#endif')
+    post = body[phase69:phase69_end]
+    require('CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE' in post, 'Phase 69 block')
     entry = post.index('seL4_X86_Page_Unmap(target_entry_frame.cptr)')
     stack = post.index('seL4_X86_Page_Unmap(target_stack_frame.cptr)')
     ipc = post.index('seL4_X86_Page_Unmap(target_ipc_frame.cptr)')

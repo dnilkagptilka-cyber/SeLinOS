@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-fault-witness-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f5302a5b55556cc8df6dcda66e4020e3f05dd47013bd384dcbe53de4b60f53a3"
+      "sha256": "32a03a5ee090f70e49188b59e28f9e73d4c386a57c395497ed5a90c006ce615f"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "c65b6572d2614112db09d3757c4035cf0d9df7425d35f257d57c4e8f527f9580"
+      "sha256": "01aed26a55c7f30d8adc240840e624b25fb907a0f7760eccde9f4190522451e0"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "f5591414dd075619097602197f8899f83675aef8f5d38774a71b2bcd7d62a873"
+      "sha256": "044e21807edd391e773abdfaf38b74b6877a161874231e186777522a45966fd0"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_fault_witness_m0_protocol.h",

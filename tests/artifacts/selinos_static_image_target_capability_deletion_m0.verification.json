@@ -1,0 +1,67 @@
+{
+  "gate": "Phase 70 static-image target capability deletion M0",
+  "status": "verified; isolated QEMU TCG proof, independent verifier, 42-profile rebuild and 76-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageTargetCapabilityDeletionProbe=ON",
+    "build_dir": "build-static-image-target-capability-deletion-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-target-capability-deletion-probe/images/kernel-x86_64-pc99",
+      "sha256": "0accb03a78abd599bfa06028620bd2841c5c21a35405771bdf6b4ba468799201"
+    },
+    "root": {
+      "path": "build-static-image-target-capability-deletion-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "df39467dcad27b8ee35642593818906373b8ad35e56a87f32781a825024a9a68"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_target_capability_deletion_m0.boot.log",
+    "sha256": "b9521a2d6fb4e47738340000b8bdf635958445865301310b728a8f7c6fbec8cb",
+    "required_markers": [
+      "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
+      "SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.",
+      "SeLinOS static-image target capability deletion M0: target CNode cap copies only; no root-cap deletion, object free, reuse or Linux process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase70_static_image_target_capability_deletion_m0_gate.md",
+      "sha256": "544fb12eb137c07d13a6b1f9935d9fd353ef242745e6f458918863d80a75023e"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "044e21807edd391e773abdfaf38b74b6877a161874231e186777522a45966fd0"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "01aed26a55c7f30d8adc240840e624b25fb907a0f7760eccde9f4190522451e0"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_target_capability_deletion_m0_protocol.h",
+      "sha256": "cf04229a74988c098349f8133f9bbb2d9f4d3bbf838c9e341221df8ce515495d"
+    }
+  },
+  "regression": {
+    "profiles_rebuilt": 42,
+    "standalone_verifiers_passed": 76,
+    "log": "tests/artifacts/phase70_full_verifier_regression.log"
+  },
+  "proves": [
+    "Phase 69 entry-stack-IPC Page_Unmap calls completed before Phase 70",
+    "exact target-only notification, IPC, fault endpoint, entry, stack and self-CNode capability copies each received one CNode_Delete call in order",
+    "root retains direct target-object descriptors and no reply, resume, root-cap deletion, object free, ASID action or successor construction is executed"
+  ],
+  "does_not_prove": [
+    "global capability revocation",
+    "root capability deletion",
+    "object destruction",
+    "frame or page-table reclamation",
+    "ASID or task reuse",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}
