@@ -17,8 +17,21 @@ def require(condition, message):
 def config_block_before(source, anchor):
     anchor_offset = source.index(anchor)
     start = source.rfind("#if ", 0, anchor_offset)
-    end = source.index("\n#endif", start)
-    return source[start:end]
+    depth = 0
+    cursor = start
+    while cursor < len(source):
+        next_line = source.find("\n", cursor)
+        if next_line < 0:
+            next_line = len(source)
+        line = source[cursor:next_line].lstrip()
+        if line.startswith("#if"):
+            depth += 1
+        elif line.startswith("#endif"):
+            depth -= 1
+            if depth == 0:
+                return source[start:next_line]
+        cursor = next_line + 1
+    raise RuntimeError("unterminated preprocessor block")
 
 
 try:

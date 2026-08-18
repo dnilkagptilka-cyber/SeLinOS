@@ -317,6 +317,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetFaultReplyRestartProbe
+    SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    "Enable one fresh target RIP-only fault reply and terminal restart witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

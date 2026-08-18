@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-static-image-object-reclamation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b2af57add9de664404892134941f5ca415848e0852b436cdfa6d92ad17505918"
+      "sha256": "407682ed7c742c36d27816f3c33b2976bf56fd00e7a14abb7a5e35b1c3790b08"
     }
   },
   "runtime": {
@@ -32,11 +32,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
+      "sha256": "c79f8e0167ae25818a14f436f8bac5d65662e624828d4569672b8542a4800d3a"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
+      "sha256": "272584c85f4b4563d5965701c4889ad6d7bae43099f23b63319d527768826e20"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_object_reclamation_m0_protocol.h",

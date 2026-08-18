@@ -52,6 +52,7 @@ __pycache__/
 !/tests/artifacts/selinos_fresh_target_bundle_configuration_m0.boot.log
 !/tests/artifacts/selinos_fresh_target_context_provenance_m0.boot.log
 !/tests/artifacts/selinos_fresh_target_first_fetch_m0.boot.log
+!/tests/artifacts/selinos_fresh_target_fault_reply_restart_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

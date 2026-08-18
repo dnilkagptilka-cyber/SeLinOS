@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-static-image-terminal-lifecycle-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "ab27e3615778ef3aea80dfc637db8248095f9c16e038986cbad879f3c7c8148e"
+      "sha256": "8672ec936eeb3f68ef0033146947290f347c86066400a4eb97700fd8db86b32a"
     }
   },
   "runtime": {
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
+      "sha256": "c79f8e0167ae25818a14f436f8bac5d65662e624828d4569672b8542a4800d3a"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
+      "sha256": "272584c85f4b4563d5965701c4889ad6d7bae43099f23b63319d527768826e20"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_terminal_lifecycle_m0_protocol.h",
