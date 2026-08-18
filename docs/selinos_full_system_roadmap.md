@@ -53,9 +53,11 @@ Every implementation milestone uses an isolated branch named `phaseNN-short-scop
 
 Phases 50–57 are verified as a narrow construction chain: status-only reservation, inert TCB, generation-bound CNode and PML4 rollback, TCB/CNode/PML4 bundle ownership, ASID plus suspended TCB configuration, one notification cap, then a self-rooted two-cap target CSpace. None constituted process execution or a Linux process claim.
 
-**Phase 58 is verified:** a separate default-OFF QEMU TCG profile rolls back a generation-1 TCB/CNode/PML4/frame bundle, then maps one ordinary 4 KiB IPC-buffer frame at fixed target address `0x70000000` through a generation-2 ASID-assigned PML4. It copies the frame cap into target CSpace and configures the still-suspended TCB with that buffer. The proof includes a status-only ownership/rejection witness, SHA-bound transcript, independent verifier, 30-profile rebuild and 64 standalone verifiers. It does not set registers, invoke, or resume the target.
+**Phase 58 is verified:** a separate default-OFF QEMU TCG profile rolls back a generation-1 TCB/CNode/PML4/frame bundle, then maps one ordinary 4 KiB IPC-buffer frame at fixed target address `0x70000000` through a generation-2 ASID-assigned PML4. It copies the frame cap into target CSpace and configures the still-suspended TCB with that buffer. The proof includes a status-only ownership/rejection witness, SHA-bound transcript, independent verifier, all-profile rebuild and standalone regression. It does not invoke or resume the target.
 
-**Phase 59 is next:** establish a bounded zeroed initial register-context gate for the same non-executing target, with exact register ledger, negative-path checks, QEMU proof and no resume. Only after a suspended-child proof, a bounded register-context proof, controlled first execution and an authority audit may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+**Phase 59 is verified:** the same isolated topology receives one whole 20-word all-zero x86_64 `seL4_UserContext` request through `seL4_TCB_WriteRegisters` with `resume_target=0u`, then one full read-back. Pinned seL4 x86 sanitization returns only `rflags=0x202` (mandatory high/interrupt-enable bits) while the other 19 words are zero. The target still has no entry point, stack, invocation or resume. The proof includes the status-only ownership/rejection witness, SHA-bound transcript, independent verifier, 31-profile rebuild and 65 standalone verifiers.
+
+**Phase 60 is next:** establish controlled first execution for this deliberately zeroed context through one fault-mediated boundary, preserving a teardown audit and never treating a single instruction/fault witness as general process launch. Only after a suspended-child proof, bounded register context, controlled first execution and authority audit may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
 
 ### Workstream B — executable runtime and Linux process surface (Phases 59–82)
 
@@ -99,8 +101,8 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 | Priority | Next deliverable | Completion evidence | Explicitly not claimed |
 |---|---|---|---|
-| **P0** | Phase 59 zeroed register-context gate for the already IPC-buffer-configured suspended target. | Exact register ledger, negative-path checks, default-OFF QEMU transcript, SHA-bound record and independent verifier. | Resume, instruction execution, stack/ELF loading or Linux-process claim. |
-| **P0** | Phase 60 controlled first execution and fault-mediated witness. | One bounded instruction/fault record, cleanup/teardown evidence and authority audit. | General process launch or Linux ABI compatibility. |
+| **P0** | Phase 60 controlled first execution and fault-mediated witness for the Phase 59 zero-context target. | One bounded instruction/fault record, cleanup/teardown evidence and authority audit. | General process launch or Linux ABI compatibility. |
+| **P0** | Phase 61 entry-point and stack provenance gate. | Capability/mapping ledger, canonical-address checks and negative misuse tests. | General executable loading or process launch. |
 | **P1** | W^X ELF loading path. | `PT_LOAD` validation/map ledger, relocation boundaries, static fixture execution and verifier. | Dynamic linker/general ELF compatibility until separately tested. |
 | **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
 | **P2** | Persistent VFS transaction design for `dpkg` database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent `apt`/`dpkg` claim. |
@@ -108,7 +110,7 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 ## 7. Current status boundary
 
-The current baseline records **64 standalone verified probes** and a successful **30-profile rebuild** after Phase 58. This is meaningful progress in evidence infrastructure and primitive OS services, including one isolated mapped IPC-buffer configuration for a suspended task, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are register context and controlled execution, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+The current baseline records **65 standalone verified probes** and a successful **31-profile rebuild** after Phase 59. This is meaningful progress in evidence infrastructure and primitive OS services, including one requested-zero x86_64 register context with exact kernel-normalized `rflags` read-back for a suspended task, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are controlled first execution, entry-point/stack provenance, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
 
 ## References
 

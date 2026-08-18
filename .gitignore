@@ -34,6 +34,7 @@ __pycache__/
 !/tests/artifacts/selinos_taskd_populated_cspace_m0.boot.log
 !/tests/artifacts/selinos_taskd_self_rooted_cspace_m0.boot.log
 !/tests/artifacts/selinos_taskd_ipc_buffer_m0.boot.log
+!/tests/artifacts/selinos_taskd_zeroed_context_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

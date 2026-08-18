@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-tcb-ownership-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "0a964035aaf9a4f0095bcdd011a06059f7a49604250b9029b67c231c3228284f"
+      "sha256": "2afe6274f1a308254139e46ab9a81fbc950e7a03f28869cc97f201e435d01cda"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "fb7e29520a4e6b17d34d2adb574e430d36ff1cb6218995b8e96fb39abba8696f"
+      "sha256": "835dda63e21cbbfd2d73c72fb56051e5c3e53c5c742e94992426faec88b594d0"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e52c80acd5ca8e2c70b6db455f9df793b40ce7353325d30c853bff80402a5058"
+      "sha256": "2f8b81efca7e47aa210d8f9f031d035e693706803a2b39804b432661b6d02f75"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_tcb_m0_protocol.h",

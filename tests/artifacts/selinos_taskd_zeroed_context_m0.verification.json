@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS requested-zero x86_64 register context with normalized-RFLAGS configured non-executing task M0",
+  "profile": {
+    "build_directory": "build-taskd-zeroed-context-probe",
+    "cmake_option": "SeLinTaskdZeroedContextProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-zeroed-context-probe/images/kernel-x86_64-pc99",
+      "sha256": "89148c83fcb51dd724115464b767426125a92d760fe49b3d404d8087d806d909"
+    },
+    "root_image": {
+      "path": "build-taskd-zeroed-context-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "90724ead3a664f48c2ca9f33e95974b837e36ba08259776843b25d519c6acd51"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "835dda63e21cbbfd2d73c72fb56051e5c3e53c5c742e94992426faec88b594d0"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "2f8b81efca7e47aa210d8f9f031d035e693706803a2b39804b432661b6d02f75"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_zeroed_context_m0_protocol.h",
+      "sha256": "16ce6b2f9874c8697ffba5477a19c70781507564f92c1a75b8a34d520a624608"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_zeroed_context_m0.c",
+      "sha256": "b75b252e0edb4eae39196727fcc0829273a56996e326bd82201685689243f4a4"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_zeroed_context_m0_probe.c",
+      "sha256": "e2783d89cff8e242b4eff7ecd1ddebd524ffe41c7d049513e97ee824b40b6776"
+    },
+    "gate": {
+      "path": "docs/phase59_zeroed_register_context_m0_gate.md",
+      "sha256": "c30a1e9cb7c94ea80f381c99017003a703f593de2098b449541549607ca5f886"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_zeroed_context_m0.boot.log",
+    "sha256": "d7a4ed399b93ddbe7feeb7078f7e48bb771dbff489b41d5f583e293211df2b32",
+    "required_markers": [
+      "SeLinOS taskd zeroed context M0: register ownership witness issued; target not invoked.",
+      "SeLinOS taskd zeroed context M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",
+      "SeLinOS taskd zeroed context M0: complete x86_64 zero context written and read back with resume_target=0.",
+      "SeLinOS taskd zeroed context M0: configured target remains without entry point, stack or resume.",
+      "SeLinOS taskd zeroed context M0: zeroed read-back witness passed; configured target remains non-executing.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "all-zero RFLAGS read-back",
+    "entry point",
+    "stack",
+    "target invocation",
+    "resume",
+    "execution",
+    "ELF runtime",
+    "clone",
+    "fork",
+    "pthread",
+    "DMA containment",
+    "persistent storage",
+    "networking",
+    "dpkg",
+    "apt"
+  ]
+}

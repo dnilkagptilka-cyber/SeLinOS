@@ -191,6 +191,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdZeroedContextProbe
+    SELINOS_TASKD_ZEROED_CONTEXT_PROBE
+    "Enable zeroed whole-register-context read-back for a configured non-executing taskd target"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -386,6 +393,16 @@ add_executable(selinos-taskd-ipc-buffer-m0-probe EXCLUDE_FROM_ALL drivers/taskd_
 target_include_directories(selinos-taskd-ipc-buffer-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-ipc-buffer-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-ipc-buffer-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-zeroed-context-m0 EXCLUDE_FROM_ALL servers/taskd_zeroed_context_m0.c)
+target_include_directories(selinos-taskd-zeroed-context-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-zeroed-context-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-zeroed-context-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-zeroed-context-m0-probe EXCLUDE_FROM_ALL drivers/taskd_zeroed_context_m0_probe.c)
+target_include_directories(selinos-taskd-zeroed-context-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-zeroed-context-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-zeroed-context-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -682,6 +699,11 @@ if(SeLinTaskdIpcBufferProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-ipc-buffer-m0>"
         "$<TARGET_FILE:selinos-taskd-ipc-buffer-m0-probe>")
+endif()
+if(SeLinTaskdZeroedContextProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-zeroed-context-m0>"
+        "$<TARGET_FILE:selinos-taskd-zeroed-context-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

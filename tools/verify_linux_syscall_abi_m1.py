@@ -40,7 +40,11 @@ def main() -> int:
             "gateway must authenticate the Linux syscall number in RAX")
     require("seL4_UnknownSyscall_FaultIP" in gateway_source,
             "gateway must advance the faulting syscall instruction")
-    require("seL4_TCB_WriteRegisters" not in gateway_source,
+    gateway_begin = gateway_source.index("static bool run_linux_syscall_abi_probe")
+    gateway_end = gateway_source.index("static bool start_taskd_dynamic_alloc_m0_bundle",
+                                       gateway_begin)
+    gateway_body = gateway_source[gateway_begin:gateway_end]
+    require("seL4_TCB_WriteRegisters" not in gateway_body,
             "M1 reply path must not rewrite unrelated TCB state")
 
     subprocess.run(["ninja"], cwd=BUILD, check=True)

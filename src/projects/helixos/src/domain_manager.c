@@ -26,6 +26,7 @@
 #include "selinos_taskd_populated_cspace_m0_protocol.h"
 #include "selinos_taskd_self_rooted_cspace_m0_protocol.h"
 #include "selinos_taskd_ipc_buffer_m0_protocol.h"
+#include "selinos_taskd_zeroed_context_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -2352,6 +2353,144 @@ static bool start_taskd_ipc_buffer_m0(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_TASKD_ZEROED_CONTEXT_PROBE
+static bool start_taskd_zeroed_context_m0(vka_t *vka, vspace_t *vspace)
+{
+    sel4utils_process_t taskd;
+    sel4utils_process_t probe;
+    vka_object_t endpoint;
+    vka_object_t success;
+    vka_object_t rollback_tcb;
+    vka_object_t rollback_cnode;
+    vka_object_t rollback_vspace_root;
+    vka_object_t rollback_frame;
+    vka_object_t owned_tcb;
+    vka_object_t owned_cnode;
+    vka_object_t owned_vspace_root;
+    vka_object_t target_notification;
+    vka_object_t target_frame;
+    vka_object_t paging_objects[3];
+    seL4_UserContext zero_context = {0};
+    seL4_UserContext observed_context = {0};
+    int paging_object_count = 0;
+    cspacepath_t root_tcb_path;
+    cspacepath_t root_cnode_path;
+    cspacepath_t root_vspace_path;
+    seL4_CPtr taskd_endpoint_slot;
+    seL4_CPtr taskd_tcb_slot;
+    seL4_CPtr taskd_cnode_slot;
+    seL4_CPtr taskd_vspace_slot;
+    seL4_CPtr probe_endpoint_slot;
+    seL4_CPtr probe_success_slot;
+    seL4_Word badge = 0u;
+    seL4_Word register_index;
+    char *taskd_argv[] = {"selinos-taskd-zeroed-context-m0", NULL};
+    char *probe_argv[] = {"selinos-taskd-zeroed-context-m0-probe", NULL};
+
+    _Static_assert(sizeof(seL4_UserContext) / sizeof(seL4_Word) ==
+                       SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_CONTEXT_WORDS,
+                   "Phase 59 requires the complete pinned x86_64 register context");
+    if (sel4utils_configure_process(&taskd, vka, vspace,
+                                    "selinos-taskd-zeroed-context-m0") != 0 ||
+        sel4utils_configure_process(&probe, vka, vspace,
+                                    "selinos-taskd-zeroed-context-m0-probe") != 0 ||
+        vka_alloc_endpoint(vka, &endpoint) != seL4_NoError ||
+        vka_alloc_notification(vka, &success) != seL4_NoError ||
+        vka_alloc_tcb(vka, &rollback_tcb) != seL4_NoError ||
+        vka_alloc_cnode_object(vka, SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT_BITS,
+                               &rollback_cnode) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &rollback_vspace_root) != seL4_NoError ||
+        vka_alloc_frame(vka, seL4_PageBits, &rollback_frame) != seL4_NoError) {
+        return false;
+    }
+    vka_free_object(vka, &rollback_frame);
+    vka_free_object(vka, &rollback_vspace_root);
+    vka_free_object(vka, &rollback_cnode);
+    vka_free_object(vka, &rollback_tcb);
+    if (vka_alloc_tcb(vka, &owned_tcb) != seL4_NoError ||
+        vka_alloc_cnode_object(vka, SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT_BITS,
+                               &owned_cnode) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &owned_vspace_root) != seL4_NoError ||
+        vka_alloc_notification(vka, &target_notification) != seL4_NoError ||
+        vka_alloc_frame(vka, seL4_PageBits, &target_frame) != seL4_NoError ||
+        seL4_CNode_Copy(owned_cnode.cptr,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_TARGET_CNODE_SELF_SLOT,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, owned_cnode.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(owned_cnode.cptr,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_TARGET_NOTIFICATION_SLOT,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_notification.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_X86_ASIDPool_Assign(seL4_CapInitThreadASIDPool,
+                                 owned_vspace_root.cptr) != seL4_NoError ||
+        sel4utils_map_page(vka, owned_vspace_root.cptr, target_frame.cptr,
+                           (void *)SELINOS_TASKD_ZEROED_CONTEXT_M0_FIXED_IPC_BUFFER_VADDR,
+                           seL4_AllRights, 1, paging_objects,
+                           &paging_object_count) != seL4_NoError ||
+        seL4_CNode_Copy(owned_cnode.cptr,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_TARGET_FRAME_SLOT,
+                        SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_frame.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_TCB_Configure(owned_tcb.cptr, seL4_CapNull, owned_cnode.cptr,
+                            0u, owned_vspace_root.cptr, 0u,
+                            SELINOS_TASKD_ZEROED_CONTEXT_M0_FIXED_IPC_BUFFER_VADDR,
+                            target_frame.cptr) != seL4_NoError) {
+        seL4_DebugPutString("SeLinOS taskd zeroed context M0: pre-register configuration failed.\n");
+        return false;
+    }
+    if (seL4_TCB_WriteRegisters(owned_tcb.cptr, 0u, 0u,
+                                SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_CONTEXT_WORDS,
+                                &zero_context) != seL4_NoError) {
+        seL4_DebugPutString("SeLinOS taskd zeroed context M0: zero-context write failed.\n");
+        return false;
+    }
+    if (seL4_TCB_ReadRegisters(owned_tcb.cptr, 0u, 0u,
+                               SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_CONTEXT_WORDS,
+                               &observed_context) != seL4_NoError) {
+        seL4_DebugPutString("SeLinOS taskd zeroed context M0: zero-context read-back failed.\n");
+        return false;
+    }
+    for (register_index = 0u;
+         register_index < SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_CONTEXT_WORDS;
+         register_index++) {
+        seL4_Word expected_word =
+            register_index == SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_RFLAGS_WORD
+                ? SELINOS_TASKD_ZEROED_CONTEXT_M0_X86_64_NORMALIZED_RFLAGS
+                : 0u;
+        if (((const seL4_Word *)&observed_context)[register_index] != expected_word) {
+            seL4_DebugPutString("SeLinOS taskd zeroed context M0: read-back violates the zero-plus-normalized-RFLAGS contract.\n");
+            return false;
+        }
+    }
+    taskd_endpoint_slot = sel4utils_copy_cap_to_process(&taskd, vka, endpoint.cptr);
+    probe_endpoint_slot = sel4utils_copy_cap_to_process(&probe, vka, endpoint.cptr);
+    probe_success_slot = sel4utils_copy_cap_to_process(&probe, vka, success.cptr);
+    vka_cspace_make_path(vka, owned_tcb.cptr, &root_tcb_path);
+    vka_cspace_make_path(vka, owned_cnode.cptr, &root_cnode_path);
+    vka_cspace_make_path(vka, owned_vspace_root.cptr, &root_vspace_path);
+    taskd_tcb_slot = sel4utils_move_cap_to_process(&taskd, root_tcb_path, vka);
+    taskd_cnode_slot = sel4utils_move_cap_to_process(&taskd, root_cnode_path, vka);
+    taskd_vspace_slot = sel4utils_move_cap_to_process(&taskd, root_vspace_path, vka);
+    if (taskd_endpoint_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_SERVER_ENDPOINT_SLOT ||
+        taskd_tcb_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_TCB_SLOT ||
+        taskd_cnode_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_CNODE_SLOT ||
+        taskd_vspace_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_VSPACE_ROOT_SLOT ||
+        probe_endpoint_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_PROBE_ENDPOINT_SLOT ||
+        probe_success_slot != SELINOS_TASKD_ZEROED_CONTEXT_M0_PROBE_SUCCESS_NOTIFY_SLOT) {
+        return false;
+    }
+    if (sel4utils_spawn_process_v(&taskd, vka, vspace, 1, taskd_argv, 1) != 0 ||
+        sel4utils_spawn_process_v(&probe, vka, vspace, 1, probe_argv, 1) != 0) {
+        return false;
+    }
+    (void)seL4_Wait(success.cptr, &badge);
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -2456,6 +2595,16 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS taskd IPC buffer M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.\n");
     debug_puts("SeLinOS taskd IPC buffer M0: fixed 4 KiB IPC frame mapped into generation 2 PML4 and copied to target CSpace.\n");
     debug_puts("SeLinOS taskd IPC buffer M0: configured target remains without registers or resume.\n");
+#endif
+
+#if CONFIG_SELINOS_TASKD_ZEROED_CONTEXT_PROBE
+    if (!start_taskd_zeroed_context_m0(vka, vspace)) {
+        debug_puts("SeLinOS taskd zeroed context M0: rollback, mapping, zero-context read-back or ownership prerequisite failed; authority withheld.\n");
+        return false;
+    }
+    debug_puts("SeLinOS taskd zeroed context M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.\n");
+    debug_puts("SeLinOS taskd zeroed context M0: complete x86_64 zero context written and read back with resume_target=0.\n");
+    debug_puts("SeLinOS taskd zeroed context M0: configured target remains without entry point, stack or resume.\n");
 #endif
 
 
