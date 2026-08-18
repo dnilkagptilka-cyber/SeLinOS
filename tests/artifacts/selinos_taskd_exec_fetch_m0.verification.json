@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS one-NOP executable instruction-fetch and unreplied invalid-opcode witness M0",
+  "profile": {
+    "build_directory": "build-taskd-exec-fetch-probe",
+    "cmake_option": "SeLinTaskdExecFetchProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-exec-fetch-probe/images/kernel-x86_64-pc99",
+      "sha256": "d51fcce3ed1bcb7630a45a0afef91cc15ec9f558030e804339e2f65c45e17873"
+    },
+    "root_image": {
+      "path": "build-taskd-exec-fetch-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "36c85b47fca7042bc6aa9bf9f469afcbdca7eec17cc01c8f3517ceedc123c5a9"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "77abf7dc763c904e5c7f9c480920ff60bf8763a9baa05c1a115236cf003fc85c"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "e3c9ebc82f4311ea11069b9194b26a124644897081308f01fd8e868e3f1babb4"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_exec_fetch_m0_protocol.h",
+      "sha256": "ab91d1f17e02341bcc7eddf07e02e4887fd8429bfbb7b84360369aa556bfdc95"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_exec_fetch_m0.c",
+      "sha256": "2d38a34e9f7cbb9ff5ff282cfd3a151eed1ca04e7664008a88b22517ccd84c2f"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_exec_fetch_m0_probe.c",
+      "sha256": "b29b995fd2c873fae55c6e9dd7428f43c6bc4497fd14ffddfec64d1a501f08a9"
+    },
+    "gate": {
+      "path": "docs/phase62_executable_fetch_witness_m0_gate.md",
+      "sha256": "799e989fbe33a95beb0143f7fc283f547d0c6d2891a65bedd049c656f1b8d117"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_exec_fetch_m0.boot.log",
+    "sha256": "c3113358ea99527b69d3d18e19799ac857c7a7ee2fa8a820ea968bf5baf7454a",
+    "required_markers": [
+      "SeLinOS taskd exec-fetch M0: post-NOP target ownership issued; target not resumed.",
+      "SeLinOS taskd exec-fetch M0: root observed one invalid-opcode fault at entry plus one, after NOP.",
+      "SeLinOS taskd exec-fetch M0: no fault reply or second resume; target remains blocked.",
+      "SeLinOS taskd exec-fetch M0: no ELF, C runtime, process lifecycle or Linux ABI claim.",
+      "SeLinOS taskd exec-fetch M0: one NOP before unreplied invalid-opcode fault validated; target remains blocked.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "general arbitrary-code execution",
+    "ELF runtime",
+    "C runtime",
+    "target continuation",
+    "fault reply",
+    "second resume",
+    "initial stack image",
+    "general process launch",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

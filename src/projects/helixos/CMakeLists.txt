@@ -212,6 +212,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdExecFetchProbe
+    SELINOS_TASKD_EXEC_FETCH_PROBE
+    "Enable one executable NOP then unreplied invalid-opcode fault witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -437,6 +444,16 @@ add_executable(selinos-taskd-entry-stack-m0-probe EXCLUDE_FROM_ALL drivers/taskd
 target_include_directories(selinos-taskd-entry-stack-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-entry-stack-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-entry-stack-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-exec-fetch-m0 EXCLUDE_FROM_ALL servers/taskd_exec_fetch_m0.c)
+target_include_directories(selinos-taskd-exec-fetch-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-exec-fetch-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-exec-fetch-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-exec-fetch-m0-probe EXCLUDE_FROM_ALL drivers/taskd_exec_fetch_m0_probe.c)
+target_include_directories(selinos-taskd-exec-fetch-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-exec-fetch-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-exec-fetch-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -748,6 +765,11 @@ if(SeLinTaskdEntryStackProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-entry-stack-m0>"
         "$<TARGET_FILE:selinos-taskd-entry-stack-m0-probe>")
+endif()
+if(SeLinTaskdExecFetchProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-exec-fetch-m0>"
+        "$<TARGET_FILE:selinos-taskd-exec-fetch-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

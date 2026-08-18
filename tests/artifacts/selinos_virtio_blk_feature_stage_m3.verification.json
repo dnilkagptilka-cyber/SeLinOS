@@ -14,7 +14,7 @@
   },
   "image": {
     "path": "build-virtio-feature-stage-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "403dd7c3412d2c4f8444951433463897b0cd57e01eb52beab4327f5d470c1a7f"
+    "sha256": "a8cd8ff181689743f75113658c6040cf22cc14c7604e0c45856c9d20aa8eae3a"
   },
   "implementation": {
     "pci_helper": {
@@ -27,7 +27,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b6f4765866e807934df8d22c2c012bab13398d46177afd11e47238fed29c0063"
+      "sha256": "77abf7dc763c904e5c7f9c480920ff60bf8763a9baa05c1a115236cf003fc85c"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -35,7 +35,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "35ca8280f5b589505548a5a46555db79a2c8f803aaf9259c829e4231373f8962"
+      "sha256": "e3c9ebc82f4311ea11069b9194b26a124644897081308f01fd8e868e3f1babb4"
     }
   },
   "fixture": {
