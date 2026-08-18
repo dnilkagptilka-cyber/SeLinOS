@@ -1,0 +1,11 @@
+{
+  "entry_vaddr": "0x0000000060000000",
+  "format": "SeLin Sealed Image version 1",
+  "payload_bytes": 3,
+  "payload_offset": 96,
+  "payload_sha256": "044997fa9fdb0c8b4248e4251a10cc9a75ebb0927657dacfdcc7ad92752a319e",
+  "permissions": "R|X",
+  "source_bytes": 99,
+  "source_sha256": "cc9d4a881e9a35e414d846f0f0ed3013e00bba4a1fa342cae8f16c7a47bac0d4",
+  "wire_sha256": "f2c750a5f5dd22e229d2980a6a4c9ea3ff3ca91d82bd3a95df1a928a4bacdf12"
+}

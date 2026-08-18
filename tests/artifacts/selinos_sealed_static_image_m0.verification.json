@@ -1,0 +1,98 @@
+{
+  "gate": "Phase 64 sealed static-image format and W^X loader design M0",
+  "status": "verified; host parser suite, QEMU TCG proof, independent verifier, 36-profile rebuild and 70-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinSealedStaticImageProbe=ON",
+    "build_dir": "build-sealed-static-image-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-sealed-static-image-probe/images/kernel-x86_64-pc99",
+      "sha256": "645886bc8e0f7db69f0017e4a2f04fcf21abf7cd6b2a5427392842c1229c047b"
+    },
+    "root": {
+      "path": "build-sealed-static-image-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "ee7a5d0df167fc2a86a8bf82c517a415dc44e0737e45b675b00ccaa98d7a3bed"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_sealed_static_image_m0.boot.log",
+    "sha256": "f952acae2ee5adbc44d9ad2a1242fb67d3f791569dae87d49cebfe783e768b49",
+    "required_markers": [
+      "SeLinOS sealed static-image M0: one SSIM-v1 RX ledger accepted; digest, W+X, canonical, reserved and range guards rejected before mapping.",
+      "SeLinOS sealed static-image M0: parser-only status transaction; no frame, mapping, TCB, task resume or ELF claim.",
+      "SeLinOS sealed static-image M0: one SSIM-v1 RX source ledger accepted and five malformed cases rejected.",
+      "SeLinOS sealed static-image M0 probe: one sealed RX source ledger accepted; duplicate rejected."
+    ]
+  },
+  "fixtures": {
+    "wire_image": {
+      "path": "tests/artifacts/sealed_static_image_m0/valid.ssim",
+      "sha256": "f2c750a5f5dd22e229d2980a6a4c9ea3ff3ca91d82bd3a95df1a928a4bacdf12"
+    },
+    "ledger": {
+      "path": "tests/artifacts/sealed_static_image_m0/valid.ledger.json",
+      "sha256": "aba4f64a318e2228a7245cdec2b05e2b5db2a280112d5eb858e864dc15c5f0a2"
+    }
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase64_sealed_static_image_m0_gate.md",
+      "sha256": "58083833e45fa5594c3068a3a0a816f7073510fc6fcf0875155f9a6e43c28d26"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "79fd57d6bd58f72f75f8d69da49f3224bc7917c1e6fe3c89adcc9288d82ff68a"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "40eab1251445c2ced2f82fa86e066ef709d6f499b8dc0917b354050d98460d2a"
+    },
+    "parser_header": {
+      "path": "src/projects/helixos/include/selinos_sealed_static_image_m0.h",
+      "sha256": "71d241321972b31a5af5edb778a46b6aee1df071f057a51ff40abd41794cf2c5"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_sealed_static_image_m0_protocol.h",
+      "sha256": "bbdd98b4db9fc6410f2a8a34306c3028f0813aa68399ed14cfff935c54c897b8"
+    },
+    "parser": {
+      "path": "src/projects/helixos/src/sealed_static_image_m0.c",
+      "sha256": "6d3502aa7b52b9f1dc41392bffd4ec1ffddbe781333f3530e8430408ad94e75b"
+    },
+    "fixture_builder": {
+      "path": "src/projects/helixos/src/sealed_static_image_m0_fixture.c",
+      "sha256": "413e0ca75d428a1c2b8902af665e1adf01491b6f8cfb5e73202ee88aeca1484c"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/sealed_static_image_m0.c",
+      "sha256": "9b3c6433e3e008bde3c43d473091cbad2c541cff6c86300f40bec56e2390baa8"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/sealed_static_image_m0_probe.c",
+      "sha256": "2fb7ef2bbd59e3dba27efd408adfbbe68e67e36de254303c2c096ce20cdb6a6e"
+    },
+    "fixture_generator": {
+      "path": "tools/generate_sealed_static_image_m0_fixture.py",
+      "sha256": "5fb664c6718b1204f1608508c29dbd0c7297a4bc9bcab2bfabcbdae8d6939a3d"
+    },
+    "host_test": {
+      "path": "tests/sealed_static_image_m0_test.c",
+      "sha256": "119f289c5ac865e71b1bcdae44c51941f57bf7e4d5b7aa5b261cf1f4c0fcee56"
+    }
+  },
+  "accepts": [
+    "one exact SSIM-v1 RX-only metadata record",
+    "zeroed-digest source SHA-256 seal",
+    "one status-only accepted transaction followed by duplicate rejection",
+    "five parser-negative guards: altered payload digest, W+X mask, non-canonical entry, reserved field and source range"
+  ],
+  "does_not_prove": [
+    "image storage or capability transfer",
+    "frame allocation or page mapping",
+    "W^X transition or executable mapping",
+    "task resume or instruction fetch",
+    "ELF, relocation, C runtime, process lifecycle or Linux ABI",
+    "dpkg, apt, Linux package or driver compatibility"
+  ]
+}

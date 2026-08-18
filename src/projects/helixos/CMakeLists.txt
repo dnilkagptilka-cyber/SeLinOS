@@ -226,6 +226,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinSealedStaticImageProbe
+    SELINOS_SEALED_STATIC_IMAGE_PROBE
+    "Enable one sealed static-image parser ledger with fail-closed W^X guards"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -299,6 +306,15 @@ target_compile_options(selinos-kabi-module PRIVATE -Wall -Wextra -Werror -g)
 add_library(selinos-elfrt STATIC elfrt/src/selinos_elfrt.c)
 target_include_directories(selinos-elfrt PUBLIC elfrt/include)
 target_compile_options(selinos-elfrt PRIVATE -Wall -Wextra -Werror -g)
+
+# Phase 64 validates a self-authored sealed static-image grammar only. It maps
+# nothing and is not an ELF or executable loader.
+add_library(selinos-sealed-static-image-m0-parser STATIC
+    src/sealed_static_image_m0.c
+    src/sealed_static_image_m0_fixture.c)
+target_include_directories(selinos-sealed-static-image-m0-parser PUBLIC include kabi/include)
+target_link_libraries(selinos-sealed-static-image-m0-parser PUBLIC selinos-kabi-module)
+target_compile_options(selinos-sealed-static-image-m0-parser PRIVATE -Wall -Wextra -Werror -g)
 
 function(selinos_add_service target_name service_label)
     add_executable(${target_name} EXCLUDE_FROM_ALL servers/service.c)
@@ -471,6 +487,16 @@ add_executable(selinos-taskd-vm-restart-m0-probe EXCLUDE_FROM_ALL drivers/taskd_
 target_include_directories(selinos-taskd-vm-restart-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-vm-restart-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-vm-restart-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-sealed-static-image-m0 EXCLUDE_FROM_ALL servers/sealed_static_image_m0.c)
+target_include_directories(selinos-sealed-static-image-m0 PRIVATE include)
+target_link_libraries(selinos-sealed-static-image-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime selinos-sealed-static-image-m0-parser)
+target_compile_options(selinos-sealed-static-image-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-sealed-static-image-m0-probe EXCLUDE_FROM_ALL drivers/sealed_static_image_m0_probe.c)
+target_include_directories(selinos-sealed-static-image-m0-probe PRIVATE include)
+target_link_libraries(selinos-sealed-static-image-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-sealed-static-image-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -792,6 +818,11 @@ if(SeLinTaskdVmRestartProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-vm-restart-m0>"
         "$<TARGET_FILE:selinos-taskd-vm-restart-m0-probe>")
+endif()
+if(SeLinSealedStaticImageProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-sealed-static-image-m0>"
+        "$<TARGET_FILE:selinos-sealed-static-image-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

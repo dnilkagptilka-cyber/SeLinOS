@@ -31,6 +31,7 @@
 #include "selinos_taskd_entry_stack_m0_protocol.h"
 #include "selinos_taskd_exec_fetch_m0_protocol.h"
 #include "selinos_taskd_vm_restart_m0_protocol.h"
+#include "selinos_sealed_static_image_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3280,6 +3281,45 @@ static bool start_taskd_vm_restart_m0(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_PROBE
+static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
+{
+    sel4utils_process_t service;
+    sel4utils_process_t probe;
+    vka_object_t endpoint;
+    vka_object_t success;
+    seL4_CPtr service_endpoint_slot;
+    seL4_CPtr probe_endpoint_slot;
+    seL4_CPtr probe_success_slot;
+    seL4_Word badge = 0u;
+    char *service_argv[] = {"selinos-sealed-static-image-m0", NULL};
+    char *probe_argv[] = {"selinos-sealed-static-image-m0-probe", NULL};
+
+    if (sel4utils_configure_process(&service, vka, vspace,
+                                    "selinos-sealed-static-image-m0") != 0 ||
+        sel4utils_configure_process(&probe, vka, vspace,
+                                    "selinos-sealed-static-image-m0-probe") != 0 ||
+        vka_alloc_endpoint(vka, &endpoint) != seL4_NoError ||
+        vka_alloc_notification(vka, &success) != seL4_NoError) {
+        return false;
+    }
+    service_endpoint_slot = sel4utils_copy_cap_to_process(&service, vka, endpoint.cptr);
+    probe_endpoint_slot = sel4utils_copy_cap_to_process(&probe, vka, endpoint.cptr);
+    probe_success_slot = sel4utils_copy_cap_to_process(&probe, vka, success.cptr);
+    if (service_endpoint_slot != SELINOS_SEALED_STATIC_IMAGE_M0_SERVER_ENDPOINT_SLOT ||
+        probe_endpoint_slot != SELINOS_SEALED_STATIC_IMAGE_M0_PROBE_ENDPOINT_SLOT ||
+        probe_success_slot != SELINOS_SEALED_STATIC_IMAGE_M0_PROBE_SUCCESS_NOTIFY_SLOT) {
+        return false;
+    }
+    if (sel4utils_spawn_process_v(&service, vka, vspace, 1, service_argv, 1) != 0 ||
+        sel4utils_spawn_process_v(&probe, vka, vspace, 1, probe_argv, 1) != 0) {
+        return false;
+    }
+    (void)seL4_Wait(success.cptr, &badge);
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -3436,6 +3476,14 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS taskd VM-restart M0: no generic continuation, ELF runtime, process lifecycle or Linux ABI claim.\n");
 #endif
 
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_PROBE
+    if (!start_sealed_static_image_m0(vka, vspace)) {
+        debug_puts("SeLinOS sealed static-image M0: parser ledger or status-only isolation prerequisite failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS sealed static-image M0: one SSIM-v1 RX source ledger accepted and five malformed cases rejected.\n");
+    debug_puts("SeLinOS sealed static-image M0: parser-only; no loader frame, mapping, permission transition, task resume or ELF claim.\n");
+#endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     /* Phase 49 M0: root reads only kernel-provided bootinfo topology. It does

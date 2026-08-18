@@ -39,6 +39,7 @@ __pycache__/
 !/tests/artifacts/selinos_taskd_entry_stack_m0.boot.log
 !/tests/artifacts/selinos_taskd_exec_fetch_m0.boot.log
 !/tests/artifacts/selinos_taskd_vm_restart_m0.boot.log
+!/tests/artifacts/selinos_sealed_static_image_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 
@@ -62,6 +63,7 @@ modules.order
 /tests/elfrt_m1_test
 
 # Generated binary evidence fixtures; retain paired JSON manifests and text inspection output instead.
+/tests/artifacts/sealed_static_image_m0/build/
 /tests/artifacts/elfrt_m1/elfrt_m1_test
 /tests/artifacts/elfrt_m1/selinos_elfrt_interp_fixture
 /tests/artifacts/*.ko
