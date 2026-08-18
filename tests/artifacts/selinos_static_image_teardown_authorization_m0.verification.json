@@ -1,0 +1,60 @@
+{
+  "gate": "Phase 67 static-image terminal teardown authorization M0",
+  "status": "verified; QEMU TCG proof, independent verifier, 39-profile rebuild and 73-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageTeardownAuthorizationProbe=ON",
+    "build_dir": "build-static-image-teardown-authorization-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-teardown-authorization-probe/images/kernel-x86_64-pc99",
+      "sha256": "3566f3a8ae4c8427b4314f1f3bfaf523400534cc49d2fa32a0984bf846f48e96"
+    },
+    "root": {
+      "path": "build-static-image-teardown-authorization-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "49c34be5e8eb7b8766caa977d07ec4a9c93817c4e794ba44c4eae06273b0b3b6"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_teardown_authorization_m0.boot.log",
+    "sha256": "82932ced63129aaaf62ce39702b74010f43fc0ca690080a3554247d5dbbd4276",
+    "required_markers": [
+      "SeLinOS static-image teardown authorization M0: one terminal ledger authorized then duplicate rejected; no reply, resume, unmap, delete, free or successor task.",
+      "SeLinOS static-image teardown authorization M0: status-only authorization; no teardown, cleanup, reuse or Linux process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase67_static_image_teardown_authorization_m0_gate.md",
+      "sha256": "99884e37badcaab3771a50f36a097228eda512fb4281e1cf5bd4ef1063902dc2"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "8319e87571a19c2c499e6386756490c55319653ee09b42fd7febad13f6536569"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "66b2504a453afe6bd77f96b264f6ea6a0d3a9420600672ddc44db34e5ef4321d"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_teardown_authorization_m0_protocol.h",
+      "sha256": "bde4a095a753b5925ce6be84f4b768a652dc3de876560473aa3d363391de51d7"
+    }
+  },
+  "proves": [
+    "one exact terminal ledger authorization followed by duplicate rejection",
+    "no authority or capability is returned by either decision",
+    "no post-terminal reply, resume, unmap, delete, free or successor construction occurs"
+  ],
+  "does_not_prove": [
+    "teardown",
+    "cleanup",
+    "reclamation",
+    "resource reuse",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

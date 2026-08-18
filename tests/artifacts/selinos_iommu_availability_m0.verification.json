@@ -16,17 +16,17 @@
     },
     "root_image": {
       "path": "build-iommu-availability-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "92310403b71f6b91547ccd134a715a151adc8d7c2911fbb11d46f8b8a833cec8"
+      "sha256": "7a879b973f34768953d922cb466669e3afbb8cf73f5f89d686604158e5db6505"
     }
   },
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "e8a97aa9f9fc8e17399e61414a79805c45d8b688d58fe3aaf1055944fbcbd9e2"
+      "sha256": "66b2504a453afe6bd77f96b264f6ea6a0d3a9420600672ddc44db34e5ef4321d"
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4a365b5d0e309fdc92b2939c88f6679795a3c4ce42a93b9c259c2668566b90fa"
+      "sha256": "8319e87571a19c2c499e6386756490c55319653ee09b42fd7febad13f6536569"
     },
     "phase_design_gate": {
       "path": "docs/phase49_x86_iommu_availability_m0_gate.md",

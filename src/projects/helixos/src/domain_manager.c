@@ -37,6 +37,7 @@
 #include "selinos_sealed_static_image_mapping_m0_protocol.h"
 #include "selinos_static_image_terminal_lifecycle_m0_protocol.h"
 #include "selinos_static_image_terminal_lifecycle_m0_record.h"
+#include "selinos_static_image_teardown_authorization_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3326,7 +3327,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
 #endif
 
 #if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3512,6 +3514,34 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         debug_puts("SeLinOS static-image terminal lifecycle M0: one terminal ownership record observed; no reply, resume, unmap, delete, reclaim or successor task.\n");
     }
 #endif
+#if CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE
+    {
+        bool authorization_used = false;
+        seL4_Word authorization = SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_REJECTED;
+        if (!authorization_used &&
+            seL4_GetMR(seL4_UserException_FaultIP) ==
+                SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_TERMINAL_IP &&
+            seL4_GetMR(seL4_UserException_Number) ==
+                SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_INVALID_OPCODE_VECTOR &&
+            target_tcb.cptr != seL4_CapNull && target_cnode.cptr != seL4_CapNull &&
+            target_vspace_root.cptr != seL4_CapNull && target_entry_frame.cptr != seL4_CapNull &&
+            target_stack_frame.cptr != seL4_CapNull && target_ipc_frame.cptr != seL4_CapNull) {
+            authorization = SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_APPROVED;
+            authorization_used = true;
+        }
+        if (authorization != SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_APPROVED ||
+            !authorization_used) {
+            return false;
+        }
+        authorization = authorization_used
+                            ? SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_REJECTED
+                            : SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_APPROVED;
+        if (authorization != SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_M0_REJECTED) {
+            return false;
+        }
+        debug_puts("SeLinOS static-image teardown authorization M0: one terminal ledger authorized then duplicate rejected; no reply, resume, unmap, delete, free or successor task.\n");
+    }
+#endif
     return true;
 }
 #endif
@@ -3682,7 +3712,8 @@ bool selinos_domain_manager_start(void)
 #endif
 
 #if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3693,6 +3724,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE
+    debug_puts("SeLinOS static-image teardown authorization M0: status-only authorization; no teardown, cleanup, reuse or Linux process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE

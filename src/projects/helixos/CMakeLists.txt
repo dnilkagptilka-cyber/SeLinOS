@@ -247,6 +247,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageTeardownAuthorizationProbe
+    SELINOS_STATIC_IMAGE_TEARDOWN_AUTHORIZATION_PROBE
+    "Enable one fail-closed terminal teardown authorization ledger without deallocation"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
