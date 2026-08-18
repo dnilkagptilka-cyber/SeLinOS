@@ -296,6 +296,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetBundleConfigurationProbe
+    SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
+    "Enable one fresh suspended target-bundle configuration witness without execution"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

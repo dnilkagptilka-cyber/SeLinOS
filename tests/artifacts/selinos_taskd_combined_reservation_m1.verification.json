@@ -8,12 +8,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "ffcd385f1ee6418537955138c88e9cecc15c72d4db349421aad6adc9a1468713"
+    "sha256": "fcf07817184741d4a9ce78ae9470d3e1fa48728d4c77ce306823c68968c367f9"
   },
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "bc1714c8fcfc2a9be514c3bc03a75107f614d6d54ba99ef2fbde6aef681e4199"
+      "sha256": "d10d188daeec76888b9bd8d091dda026ecded846a5f3bd4396e429ba62160890"
     },
     "taskd": {
       "path": "src/projects/helixos/servers/taskd_reservation_m1.c",

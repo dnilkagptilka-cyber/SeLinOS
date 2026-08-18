@@ -1,0 +1,63 @@
+{
+  "gate": "Phase 74 fresh target-bundle configuration M0",
+  "status": "candidate; isolated QEMU TCG proof obtained; all-profile regression pending",
+  "profile": {
+    "cmake_option": "SeLinFreshTargetBundleConfigurationProbe=ON",
+    "build_dir": "build-fresh-target-bundle-configuration-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-bundle-configuration-probe/images/kernel-x86_64-pc99",
+      "sha256": "9b78dbf43d5839535d761e8dfe1af8e5a85bd66941e8872aa26057862c5d1840"
+    },
+    "root": {
+      "path": "build-fresh-target-bundle-configuration-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "292ff1f1a345143124d0513d883db911b39040a03f7de7109ec429d101b96cca"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_bundle_configuration_m0.boot.log",
+    "sha256": "3f277d9601a6953931654800345dcea3ea811d622b08ad1c8ed96ce5e7b7aa03",
+    "required_markers": [
+      "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
+      "SeLinOS fresh target-bundle configuration M0: one suspended self-IPC-badged-fault configuration; no register context, resume, execution or Linux-process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase74_fresh_target_bundle_configuration_m0_gate.md",
+      "sha256": "1e08d39a4e585a9d85f0913d857b2b8fe1fce27e8fc93efb2ce9a59a80baf865"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "a923940998f929ee6682dbb2f45002e80adeabb771d4f6bd112a78ef8ac9fabc"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "d10d188daeec76888b9bd8d091dda026ecded846a5f3bd4396e429ba62160890"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_bundle_configuration_m0_protocol.h",
+      "sha256": "63855ac9b8272ee57c27906c5c5059a82aa2eb4c3ee138de9565821681045dcc"
+    }
+  },
+  "proves": [
+    "Phase 69\u201373 prerequisite blocks completed before configuration",
+    "one fresh endpoint, self/IPC/badged-fault slots, fresh ASID, one IPC mapping and one suspended TCB configuration completed",
+    "no register write, resume, reply, execution or additional successor construction occurs in Phase 74"
+  ],
+  "does_not_prove": [
+    "ASID reuse",
+    "executable mapping",
+    "entry or stack provenance",
+    "register state",
+    "first instruction fetch",
+    "fault delivery",
+    "target execution",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

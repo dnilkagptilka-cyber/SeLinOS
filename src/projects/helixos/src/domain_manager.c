@@ -44,6 +44,7 @@
 #include "selinos_static_image_object_reclamation_m0_protocol.h"
 #include "selinos_static_image_fresh_bundle_authorization_m0_protocol.h"
 #include "selinos_fresh_target_bundle_construction_m0_protocol.h"
+#include "selinos_fresh_target_bundle_configuration_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3340,7 +3341,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3362,7 +3364,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     seL4_Word fault_badge = 0u;
     seL4_Word register_index;
     void *root_entry_mapping = NULL;
-#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     vka_object_t fresh_tcb;
     vka_object_t fresh_cnode;
     vka_object_t fresh_vspace_root;
@@ -3370,6 +3373,11 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     vka_object_t fresh_ipc_frame;
     vka_object_t fresh_entry_frame;
     vka_object_t fresh_stack_frame;
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
+    vka_object_t fresh_fault_endpoint;
+    vka_object_t fresh_paging_objects[3];
+    int fresh_paging_object_count = 0;
 #endif
 
     _Static_assert(sizeof(seL4_UserContext) / sizeof(seL4_Word) ==
@@ -3599,7 +3607,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3617,7 +3626,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #if CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3653,7 +3663,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3721,7 +3732,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         debug_puts("SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.\n");
     }
 #endif
-#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3747,6 +3759,42 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         return false;
     }
     debug_puts("SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PML4-notification-IPC-entry-stack bundle root-owned; no ASID, mapping, configuration or execution.\n");
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
+    if (seL4_GetMR(seL4_UserException_FaultIP) !=
+            SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_TERMINAL_IP ||
+        seL4_GetMR(seL4_UserException_Number) !=
+            SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_INVALID_OPCODE_VECTOR ||
+        vka_alloc_endpoint(vka, &fresh_fault_endpoint) != seL4_NoError ||
+        seL4_CNode_Copy(fresh_cnode.cptr,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_SELF_SLOT,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, fresh_cnode.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(fresh_cnode.cptr,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_IPC_FRAME_SLOT,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, fresh_ipc_frame.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Mint(fresh_cnode.cptr,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FAULT_ENDPOINT_SLOT,
+                        SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, fresh_fault_endpoint.cptr,
+                        seL4_WordBits, seL4_AllRights, 0x74u) != seL4_NoError ||
+        seL4_X86_ASIDPool_Assign(seL4_CapInitThreadASIDPool,
+                                 fresh_vspace_root.cptr) != seL4_NoError ||
+        sel4utils_map_page(vka, fresh_vspace_root.cptr, fresh_ipc_frame.cptr,
+                           (void *)SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FIXED_IPC_VADDR,
+                           seL4_AllRights, 1, fresh_paging_objects,
+                           &fresh_paging_object_count) != seL4_NoError ||
+        seL4_TCB_Configure(fresh_tcb.cptr,
+                           SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FAULT_ENDPOINT_SLOT,
+                           fresh_cnode.cptr, 0u, fresh_vspace_root.cptr, 0u,
+                           SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FIXED_IPC_VADDR,
+                           fresh_ipc_frame.cptr) != seL4_NoError) {
+        return false;
+    }
+    debug_puts("SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.\n");
 #endif
     return true;
 }
@@ -3925,7 +3973,8 @@ bool selinos_domain_manager_start(void)
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3957,6 +4006,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
     debug_puts("SeLinOS fresh target-bundle construction M0: one root-owned inert generation-2 bundle; no physical-reuse, ASID, mapping, execution or Linux-process claim.\n");
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE
+    debug_puts("SeLinOS fresh target-bundle configuration M0: one suspended self-IPC-badged-fault configuration; no register context, resume, execution or Linux-process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
