@@ -205,6 +205,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdEntryStackProbe
+    SELINOS_TASKD_ENTRY_STACK_PROBE
+    "Enable canonical NX entry and ABI-aligned stack provenance for a suspended task"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -420,6 +427,16 @@ add_executable(selinos-taskd-fault-witness-m0-probe EXCLUDE_FROM_ALL drivers/tas
 target_include_directories(selinos-taskd-fault-witness-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-fault-witness-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-fault-witness-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-entry-stack-m0 EXCLUDE_FROM_ALL servers/taskd_entry_stack_m0.c)
+target_include_directories(selinos-taskd-entry-stack-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-entry-stack-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-entry-stack-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-entry-stack-m0-probe EXCLUDE_FROM_ALL drivers/taskd_entry_stack_m0_probe.c)
+target_include_directories(selinos-taskd-entry-stack-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-entry-stack-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-entry-stack-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -726,6 +743,11 @@ if(SeLinTaskdFaultWitnessProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-fault-witness-m0>"
         "$<TARGET_FILE:selinos-taskd-fault-witness-m0-probe>")
+endif()
+if(SeLinTaskdEntryStackProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-entry-stack-m0>"
+        "$<TARGET_FILE:selinos-taskd-entry-stack-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

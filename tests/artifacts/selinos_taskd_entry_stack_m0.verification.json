@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS canonical NX entry-point and ABI-aligned stack provenance M0",
+  "profile": {
+    "build_directory": "build-taskd-entry-stack-probe",
+    "cmake_option": "SeLinTaskdEntryStackProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-entry-stack-probe/images/kernel-x86_64-pc99",
+      "sha256": "70cd05fd2c7212fba87176b8f735f7a7f711e9780089ee94df68216502c06255"
+    },
+    "root_image": {
+      "path": "build-taskd-entry-stack-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "1393d044eb49a879fb0a38ac12fd3464d9c92882a5948fdd04d4a6663c326dd3"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "b6f4765866e807934df8d22c2c012bab13398d46177afd11e47238fed29c0063"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "35ca8280f5b589505548a5a46555db79a2c8f803aaf9259c829e4231373f8962"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_entry_stack_m0_protocol.h",
+      "sha256": "3a2b85e61c5dad6dd588710756d1fe87589ad9fece554fba3f26d65bb7c90685"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_entry_stack_m0.c",
+      "sha256": "2233e6119601a47dd16e7182bb2368b7a00123bf4d06b200a231ef6a46781a4b"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_entry_stack_m0_probe.c",
+      "sha256": "c72114f92ef58d7a525c703f3987b8074714564d2df822373d5345f367d810cb"
+    },
+    "gate": {
+      "path": "docs/phase61_entry_stack_provenance_m0_gate.md",
+      "sha256": "3fc8f22e39f7bff929bb1b3d69f4efb05e91c49a3c4fc54a695e3fe1c5aca39c"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_entry_stack_m0.boot.log",
+    "sha256": "fedd3b7eefa5ecdf583dcde74c170d25f285c30e484dbf1681f4698fbce13748",
+    "required_markers": [
+      "SeLinOS taskd entry-stack M0: NX entry/stack provenance ownership issued; target not resumed.",
+      "SeLinOS taskd entry-stack M0: canonical entry and 16-byte ABI-derived stack provenance read back.",
+      "SeLinOS taskd entry-stack M0: entry and stack leaves are NX; target has no resume or instruction fetch.",
+      "SeLinOS taskd entry-stack M0: no ELF, stack image, return address or successful execution claim.",
+      "SeLinOS taskd entry-stack M0: canonical NX entry and ABI-aligned stack provenance validated; target remains suspended.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "instruction fetch",
+    "successful instruction completion",
+    "target resume",
+    "fault delivery",
+    "fault reply",
+    "executable mapping",
+    "instruction bytes",
+    "ELF runtime",
+    "initial stack image",
+    "return address",
+    "general process launch",
+    "clone",
+    "fork",
+    "pthread",
+    "DMA containment",
+    "persistent storage",
+    "networking",
+    "dpkg",
+    "apt"
+  ]
+}

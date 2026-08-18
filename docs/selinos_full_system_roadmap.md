@@ -59,7 +59,9 @@ Phases 50–57 are verified as a narrow construction chain: status-only reservat
 
 **Phase 60 is verified:** the default-OFF profile adds a badged target fault endpoint to the Phase 59 isolated target, then writes/reads the requested-zero context, performs exactly one resume, receives one instruction-fetch VM fault at zero IP/address, and deliberately withholds any fault reply. The target is fault-blocked. This proves only a bounded dispatch-to-fault transition: no instruction completion, entry point, stack, ELF runtime, or general task launch is claimed. The proof includes a SHA-bound QEMU transcript, independent verifier, 32-profile rebuild and 66 standalone verifiers.
 
-**Phase 61 is next:** establish entry-point and stack provenance for an isolated target, with canonical-address, mapping-rights, ABI-alignment and negative misuse checks before another separately bounded execution/fault gate. Only after a suspended-child proof, bounded register context, controlled dispatch/fault transition, valid entry/stack provenance and authority audit may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+**Phase 61 is verified:** a separate default-OFF profile allocates distinct entry and stack frames, places them at fixed low-canonical target addresses, maps both with x86 `ExecuteDisable`, and writes/reads a full context with `rip=0x60000000` and ABI-derived `rsp=0x70002ff8`. Root proves canonical-address and misalignment negative guards, while the target remains unresumed. The proof includes a SHA-bound QEMU transcript, independent verifier, 33-profile rebuild and 67 standalone verifiers.
+
+**Phase 62 is next:** replace the Phase 61 entry candidate’s NX mapping with one controlled executable mapping containing one fixed, non-returning instruction witness. A fault endpoint will record one bounded post-fetch fault, with no ELF image, loader, general continuation, dynamic linking or Linux process claim. Only after a suspended-child proof, bounded register context, controlled dispatch/fault transition, valid entry/stack provenance, executable-mapping proof and authority audit may SeLinOS make a limited native-thread claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
 
 ### Workstream B — executable runtime and Linux process surface (Phases 59–82)
 
@@ -103,8 +105,8 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 | Priority | Next deliverable | Completion evidence | Explicitly not claimed |
 |---|---|---|---|
-| **P0** | Phase 61 entry-point and stack provenance gate. | Capability/mapping ledger, canonical-address checks and negative misuse tests. | General executable loading or process launch. |
-| **P0** | Phase 62 mapped instruction-fetch and single-step/fault boundary. | One exact executable mapping, instruction-fault/continuation ledger and cleanup evidence. | General program execution or Linux ABI compatibility. |
+| **P0** | Phase 62 mapped instruction-fetch and one post-fetch fault boundary. | One exact executable mapping, instruction witness, fault ledger and cleanup evidence. | General program execution or Linux ABI compatibility. |
+| **P0** | Phase 63 controlled continuation/exit-fault design. | No-return handler, trap/exit ledger and negative continuation tests. | General task lifecycle or Linux ABI compatibility. |
 | **P1** | W^X ELF loading path. | `PT_LOAD` validation/map ledger, relocation boundaries, static fixture execution and verifier. | Dynamic linker/general ELF compatibility until separately tested. |
 | **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
 | **P2** | Persistent VFS transaction design for `dpkg` database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent `apt`/`dpkg` claim. |
@@ -112,7 +114,7 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 ## 7. Current status boundary
 
-The current baseline records **66 standalone verified probes** and a successful **32-profile rebuild** after Phase 60. This is meaningful progress in evidence infrastructure and primitive OS services, including one fault-mediated dispatch-to-VM-fault transition for a target whose requested x86_64 context is zero, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are valid entry-point/stack provenance, mapped executable instruction fetch, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+The current baseline records **67 standalone verified probes** and a successful **33-profile rebuild** after Phase 61. This is meaningful progress in evidence infrastructure and primitive OS services, including a canonical, ABI-aligned `rip`/`rsp` context backed by distinct NX entry and stack frames for an unresumed target, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are mapped executable instruction fetch, controlled continuation/exit, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
 
 ## References
 
