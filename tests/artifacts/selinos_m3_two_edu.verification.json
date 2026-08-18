@@ -13,7 +13,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "cc258fe17ead93918ac35ad69fb180aa7ad0dd05db5ad029ca5289839c049014"
+    "sha256": "9d34267982e2861e9e19c15a54ac1cd7cd8ee03bfc58e5e728f7579b41c02e59"
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_two_edu_m3.log",

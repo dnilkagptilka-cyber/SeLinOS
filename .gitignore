@@ -41,6 +41,7 @@ __pycache__/
 !/tests/artifacts/selinos_taskd_vm_restart_m0.boot.log
 !/tests/artifacts/selinos_sealed_static_image_m0.boot.log
 !/tests/artifacts/selinos_sealed_static_image_mapping_m0.boot.log
+!/tests/artifacts/selinos_static_image_terminal_lifecycle_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

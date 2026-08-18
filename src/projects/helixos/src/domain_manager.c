@@ -35,6 +35,8 @@
 #include "selinos_sealed_static_image_m0.h"
 #include "selinos_kabi_policy.h"
 #include "selinos_sealed_static_image_mapping_m0_protocol.h"
+#include "selinos_static_image_terminal_lifecycle_m0_protocol.h"
+#include "selinos_static_image_terminal_lifecycle_m0_record.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3323,7 +3325,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
-#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3483,6 +3486,32 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
             SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_INVALID_OPCODE_VECTOR) {
         return false;
     }
+#if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
+    {
+        const struct selinos_static_image_terminal_lifecycle_m0_record record = {
+            .terminal_ip = seL4_GetMR(seL4_UserException_FaultIP),
+            .terminal_vector = seL4_GetMR(seL4_UserException_Number),
+            .tcb_observed = target_tcb.cptr,
+            .cnode_observed = target_cnode.cptr,
+            .vspace_observed = target_vspace_root.cptr,
+            .entry_frame_observed = target_entry_frame.cptr,
+            .stack_frame_observed = target_stack_frame.cptr,
+            .ipc_frame_observed = target_ipc_frame.cptr,
+        };
+        if (record.terminal_ip != SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_M0_TERMINAL_IP ||
+            record.terminal_vector !=
+                SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_M0_INVALID_OPCODE_VECTOR ||
+            record.tcb_observed == seL4_CapNull ||
+            record.cnode_observed == seL4_CapNull ||
+            record.vspace_observed == seL4_CapNull ||
+            record.entry_frame_observed == seL4_CapNull ||
+            record.stack_frame_observed == seL4_CapNull ||
+            record.ipc_frame_observed == seL4_CapNull) {
+            return false;
+        }
+        debug_puts("SeLinOS static-image terminal lifecycle M0: one terminal ownership record observed; no reply, resume, unmap, delete, reclaim or successor task.\n");
+    }
+#endif
     return true;
 }
 #endif
@@ -3652,7 +3681,8 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS sealed static-image M0: parser-only; no loader frame, mapping, permission transition, task resume or ELF claim.\n");
 #endif
 
-#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3660,6 +3690,9 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.\n");
     debug_puts("SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.\n");
     debug_puts("SeLinOS sealed static-image mapping M0: no raw container mapping, ELF, lifecycle or Linux ABI claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
+    debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
