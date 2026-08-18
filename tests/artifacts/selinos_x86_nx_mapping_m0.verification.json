@@ -17,7 +17,7 @@
     },
     "root_image": {
       "path": "build-wx-nx-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "0d154fb649587f3b0230b70363fc4a0a2093a91d33c590a6d31551060997665b"
+      "sha256": "b7921d8db954ed3ac9951247e915dc1ee53ed8ac4889701cf51b1bce09d4e556"
     }
   },
   "implementation": {
@@ -67,11 +67,11 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "phase_design_gate": {
       "path": "docs/phase43_x86_64_nx_mapping_extension_gate.md",

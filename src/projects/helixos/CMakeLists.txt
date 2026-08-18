@@ -310,6 +310,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetFirstFetchProbe
+    SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE
+    "Enable one fresh target first-fetch terminal fault witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

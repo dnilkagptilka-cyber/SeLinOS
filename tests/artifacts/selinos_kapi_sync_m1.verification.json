@@ -10,7 +10,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "d3814f3cff3e1fead4a2770734f3daf7c3357b12a81a18ccdc4cc7e082669aaa"
+    "sha256": "cd223adcf561c15b17f8c16d9805b6fa9df9006393c89721b947937b63c9c526"
   },
   "implementation": {
     "kapi_core": {

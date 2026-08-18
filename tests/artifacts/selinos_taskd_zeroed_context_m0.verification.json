@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-zeroed-context-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "192f633192d25e71646fb82521c4570b9a6f7064372d678d6a0b32272801ec30"
+      "sha256": "8b4759647bfda1859de8bd46f4dea4879e7be1827ac79fc3428d03ea1f218d01"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_zeroed_context_m0_protocol.h",

@@ -21,7 +21,7 @@
     },
     "root_image": {
       "path": "build-virtio-notification-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "889f481f7fc74bad00303d514d497d22751aae57f7c4a966dbadf436d1098b86"
+      "sha256": "9f9b081557df5c1ec25a0664069ff8e3d662ac99f106c3001d91cb391e78672d"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "phase_design_gate": {
       "path": "docs/phase46_virtio_blk_notification_observation_m8_gate.md",

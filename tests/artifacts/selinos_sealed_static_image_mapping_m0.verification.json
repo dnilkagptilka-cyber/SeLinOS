@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-sealed-static-image-mapping-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "73124af2e30e1307f114d75fd9dfb25a7b18c032d7f3d9ac54e86c914701ff15"
+      "sha256": "abb89ad19a1562af43a747556e26ee255c82db49493f1905d09e1b026a391f13"
     }
   },
   "runtime": {
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_mapping_m0_protocol.h",

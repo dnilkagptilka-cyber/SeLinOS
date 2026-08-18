@@ -1,0 +1,55 @@
+{
+  "gate": "Phase 76 fresh target first-fetch M0",
+  "status": "verified; isolated QEMU TCG proof, 48-profile rebuild and 82 standalone verifiers passed",
+  "profile": {
+    "cmake_option": "SeLinFreshTargetFirstFetchProbe=ON",
+    "build_dir": "build-fresh-target-first-fetch-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-first-fetch-probe/images/kernel-x86_64-pc99",
+      "sha256": "ae7e2027ea117100f95da4ff3e9d0d335f62ea407c49c7703609ec02056c36ba"
+    },
+    "root": {
+      "path": "build-fresh-target-first-fetch-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f14627805efc39f7fb1b814b43280daf294eab4a4209621bcbbdcea9181d1c39"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_first_fetch_m0.boot.log",
+    "sha256": "9f33d7248c27d999148deb6445d49e9b3c2feec12d96abb94aa82b85e95baaaa",
+    "required_markers": [
+      "SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PML4-notification-IPC-entry-stack bundle root-owned; no ASID, mapping, configuration or execution.",
+      "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
+      "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
+      "SeLinOS fresh target first-fetch M0: one NOP completed then terminal invalid-opcode fault received; no fault reply or second resume."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase76_fresh_target_first_fetch_m0_gate.md",
+      "sha256": "db8f4671b9e480686ffb9020d6e6932f62812ea44f09c7ff37f74e606cd5c937"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_first_fetch_m0_protocol.h",
+      "sha256": "583d415dadd6dfa724da9f790871a5952fd135220164fc0c72d4fb1c633293ab"
+    }
+  },
+  "does_not_prove": [
+    "fault reply",
+    "restart",
+    "second instruction after the invalid opcode",
+    "ELF loading",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

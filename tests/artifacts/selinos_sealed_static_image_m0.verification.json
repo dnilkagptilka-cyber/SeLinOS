@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-sealed-static-image-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "207839598794bb0c9dbc5725bc32c129cee9f33adb8cb08a38f3303d4e47150d"
+      "sha256": "53ff834ae2bfe94e4b1f3868efca5e8a2af0459a89dc9e2bdef0227c5b4422ed"
     }
   },
   "runtime": {
@@ -42,11 +42,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "parser_header": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_m0.h",

@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-fresh-target-bundle-construction-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a81574eeabe077acd9501e62087a65fbe1b0af1a1b9e1094d94c2e49fe379e2f"
+      "sha256": "d204bdfa97f090fe20e46c84d3cca55248c5083f2ea0aea05f576e77799a6517"
     }
   },
   "runtime": {
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_bundle_construction_m0_protocol.h",

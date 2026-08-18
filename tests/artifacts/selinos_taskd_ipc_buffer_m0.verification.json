@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-ipc-buffer-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "adef2b52acb4223190b0b10fdd81bcd929d1c1327d5bb739bf3671e29fda75df"
+      "sha256": "8d88663dbe20653f0247743c383aedacc5618b0b8afeb67da9433247fdb00a52"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+      "sha256": "84887ae6ece57cd49e8eefc78904bf6d37b8997fccaf4a79771df24ec4811499"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+      "sha256": "69a305dc54d378a77c1c1cf9d3bb5e1a2e22c0ad67f907fedf06ce7161cf6426"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_ipc_buffer_m0_protocol.h",
