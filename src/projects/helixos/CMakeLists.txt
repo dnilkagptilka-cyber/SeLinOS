@@ -198,6 +198,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdFaultWitnessProbe
+    SELINOS_TASKD_FAULT_WITNESS_PROBE
+    "Enable one fault-mediated first-execution witness with an unreplied target VM fault"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -403,6 +410,16 @@ add_executable(selinos-taskd-zeroed-context-m0-probe EXCLUDE_FROM_ALL drivers/ta
 target_include_directories(selinos-taskd-zeroed-context-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-zeroed-context-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-zeroed-context-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-fault-witness-m0 EXCLUDE_FROM_ALL servers/taskd_fault_witness_m0.c)
+target_include_directories(selinos-taskd-fault-witness-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-fault-witness-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-fault-witness-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-fault-witness-m0-probe EXCLUDE_FROM_ALL drivers/taskd_fault_witness_m0_probe.c)
+target_include_directories(selinos-taskd-fault-witness-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-fault-witness-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-fault-witness-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -704,6 +721,11 @@ if(SeLinTaskdZeroedContextProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-zeroed-context-m0>"
         "$<TARGET_FILE:selinos-taskd-zeroed-context-m0-probe>")
+endif()
+if(SeLinTaskdFaultWitnessProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-fault-witness-m0>"
+        "$<TARGET_FILE:selinos-taskd-fault-witness-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

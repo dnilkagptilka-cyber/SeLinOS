@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS fault-mediated first-execution dispatch-to-unreplied-VM-fault M0",
+  "profile": {
+    "build_directory": "build-taskd-fault-witness-probe",
+    "cmake_option": "SeLinTaskdFaultWitnessProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-fault-witness-probe/images/kernel-x86_64-pc99",
+      "sha256": "e8101012d4000620112381c63111ca080c0194257665e2ff8441f7f979b3d18d"
+    },
+    "root_image": {
+      "path": "build-taskd-fault-witness-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "957378c26defa3fd9722698d1a7af857f3b55e755e073642e4fdadc39db1a4c4"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "a0ae297424170124ce5f546a7e3b460c626aebb8cdd3b73df756650b686701bd"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "102ef1a31927ef09a4c83d26d51ac31d0099846b3f01687a021e83d8757e7748"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_fault_witness_m0_protocol.h",
+      "sha256": "4f7ddc2e303a168cdfe647265fc063553180ddba5727bcc2ecbe656e4d5f7390"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_fault_witness_m0.c",
+      "sha256": "db641aacdda18111b9bf52c3f5474ec54e3a9d216420c990286d0f804048bd8a"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_fault_witness_m0_probe.c",
+      "sha256": "85df280cad0c16f7c4711ac7414c2c951a20506960f44cf878a554c3828ce101"
+    },
+    "gate": {
+      "path": "docs/phase60_fault_mediated_first_execution_m0_gate.md",
+      "sha256": "dd43a6a913b2a9825f38152eb3e6b774f60f968060c265a2ecf0e095a2754443"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_fault_witness_m0.boot.log",
+    "sha256": "97171065a37f950a5a603f84bb44a1cdb65bf0e2e20f41e3e19a91709e29c794",
+    "required_markers": [
+      "SeLinOS taskd fault witness M0: fault-blocked target ownership issued; target not resumed.",
+      "SeLinOS taskd fault witness M0: root observed exactly one badged instruction-fetch VM fault at zero.",
+      "SeLinOS taskd fault witness M0: no fault reply or second resume; target remains fault-blocked.",
+      "SeLinOS taskd fault witness M0: no instruction completion, entry point, stack or ELF claim.",
+      "SeLinOS taskd fault witness M0: one unreplied VM fault validated; target remains blocked.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "successful instruction completion",
+    "entry point",
+    "stack",
+    "TLS base",
+    "fault repair",
+    "fault reply",
+    "second resume",
+    "ELF runtime",
+    "general process launch",
+    "clone",
+    "fork",
+    "pthread",
+    "DMA containment",
+    "persistent storage",
+    "networking",
+    "dpkg",
+    "apt"
+  ]
+}

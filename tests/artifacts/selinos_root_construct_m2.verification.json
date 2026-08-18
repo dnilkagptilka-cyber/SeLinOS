@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build-root-construct-m2/images/selinos-root-image-x86_64-pc99",
-    "sha256": "9cb5cad1b6331ae8c9afba7ba55d9b6df04a7ee8db72df60aa3a3ca46018ec95"
+    "sha256": "31285ac70ec1b3878aa08844a2bf84a50cc60646ce8e4325cc8d32a2e27eed19"
   },
   "implementation": {
     "root_m1_adapter": {
@@ -22,7 +22,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "835dda63e21cbbfd2d73c72fb56051e5c3e53c5c742e94992426faec88b594d0"
+      "sha256": "a0ae297424170124ce5f546a7e3b460c626aebb8cdd3b73df756650b686701bd"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -46,7 +46,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "2f8b81efca7e47aa210d8f9f031d035e693706803a2b39804b432661b6d02f75"
+      "sha256": "102ef1a31927ef09a4c83d26d51ac31d0099846b3f01687a021e83d8757e7748"
     }
   },
   "contract": {
