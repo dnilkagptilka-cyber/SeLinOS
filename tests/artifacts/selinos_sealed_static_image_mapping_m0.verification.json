@@ -1,0 +1,67 @@
+{
+  "gate": "Phase 65 sealed static-image mapping and terminal witness M0",
+  "status": "verified; QEMU TCG proof, independent verifier, 37-profile rebuild and 71-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinSealedStaticImageMappingProbe=ON",
+    "build_dir": "build-sealed-static-image-mapping-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-sealed-static-image-mapping-probe/images/kernel-x86_64-pc99",
+      "sha256": "ef33449d45dbab9841acde084f74a18bf1d03c4f060db5e7660e20afed3f5a7c"
+    },
+    "root": {
+      "path": "build-sealed-static-image-mapping-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "970e02050266bfb68803dd24e513deb069b542869d310cbee04ff95ec0c738ce"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_sealed_static_image_mapping_m0.boot.log",
+    "sha256": "7942397316c9789c90d9fd95c67664e9d796d715a7884978a15b854b43e1c23f",
+    "required_markers": [
+      "SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.",
+      "SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.",
+      "SeLinOS sealed static-image mapping M0: no raw container mapping, ELF, lifecycle or Linux ABI claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase65_sealed_static_image_mapping_m0_gate.md",
+      "sha256": "54d077ea6dee4ee090c0221b5eee058cf7a9e4200339d8653ea49c38cce837cd"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "dd4096fb0772093c21038344cc19d9d3687096ae3c16d78537aa918bf1147e07"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "225a55ed7f151739bab7234051d5354442f5b8eb8e7d43029b259c4cd240e784"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_sealed_static_image_mapping_m0_protocol.h",
+      "sha256": "2a91a99364569226e3127a6dea631dd0f02127056ad7b869277984e978b31473"
+    },
+    "parser_header": {
+      "path": "src/projects/helixos/include/selinos_sealed_static_image_m0.h",
+      "sha256": "71d241321972b31a5af5edb778a46b6aee1df071f057a51ff40abd41794cf2c5"
+    },
+    "parser": {
+      "path": "src/projects/helixos/src/sealed_static_image_m0.c",
+      "sha256": "6d3502aa7b52b9f1dc41392bffd4ec1ffddbe781333f3530e8430408ad94e75b"
+    },
+    "fixture_builder": {
+      "path": "src/projects/helixos/src/sealed_static_image_m0_fixture.c",
+      "sha256": "413e0ca75d428a1c2b8902af665e1adf01491b6f8cfb5e73202ee88aeca1484c"
+    }
+  },
+  "proves": [
+    "one parser-accepted SSIM payload is copied to one root-initialized entry frame",
+    "root writable alias is explicitly unmapped before one target executable entry mapping",
+    "one resume reaches terminal vector-6 fault at post-NOP address"
+  ],
+  "does_not_prove": [
+    "raw container execution",
+    "general loader or lifecycle",
+    "ELF, relocation, C runtime, Linux ABI, dpkg or apt"
+  ]
+}

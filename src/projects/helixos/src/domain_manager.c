@@ -32,6 +32,9 @@
 #include "selinos_taskd_exec_fetch_m0_protocol.h"
 #include "selinos_taskd_vm_restart_m0_protocol.h"
 #include "selinos_sealed_static_image_m0_protocol.h"
+#include "selinos_sealed_static_image_m0.h"
+#include "selinos_kabi_policy.h"
+#include "selinos_sealed_static_image_mapping_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3320,6 +3323,170 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
 }
 #endif
 
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE
+static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
+{
+    vka_object_t fault_endpoint;
+    vka_object_t target_tcb;
+    vka_object_t target_cnode;
+    vka_object_t target_vspace_root;
+    vka_object_t target_notification;
+    vka_object_t target_ipc_frame;
+    vka_object_t target_entry_frame;
+    vka_object_t target_stack_frame;
+    vka_object_t paging_objects[4];
+    seL4_UserContext requested_context = {0};
+    seL4_UserContext observed_context = {0};
+    seL4_MessageInfo_t fault_message;
+    struct selinos_sealed_static_image_m0_summary summary;
+    uint8_t sealed_image[SELINOS_SEALED_STATIC_IMAGE_M0_BYTES];
+    uint8_t expected_payload_digest[SELINOS_SEALED_STATIC_IMAGE_M0_DIGEST_BYTES];
+    int paging_object_count = 0;
+    seL4_Word fault_badge = 0u;
+    seL4_Word register_index;
+    void *root_entry_mapping = NULL;
+
+    _Static_assert(sizeof(seL4_UserContext) / sizeof(seL4_Word) ==
+                       SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_CONTEXT_WORDS,
+                   "Phase 65 requires complete pinned x86_64 context");
+    selinos_sealed_static_image_m0_make_fixture(sealed_image);
+    if (selinos_sealed_static_image_m0_parse(sealed_image, sizeof(sealed_image),
+                                             &summary) != SELINOS_SEALED_STATIC_IMAGE_M0_OK ||
+        summary.entry_vaddr != SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_ENTRY_VADDR ||
+        summary.segment_file_bytes != SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_PAYLOAD_BYTES ||
+        summary.segment_memory_bytes != SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_PAYLOAD_BYTES ||
+        summary.permissions != SELINOS_SEALED_STATIC_IMAGE_M0_PERMISSION_RX) {
+        return false;
+    }
+    selinos_kabi_sha256(sealed_image + summary.segment_file_offset,
+                        summary.segment_file_bytes, expected_payload_digest);
+    for (register_index = 0u; register_index < SELINOS_SEALED_STATIC_IMAGE_M0_DIGEST_BYTES;
+         register_index++) {
+        if (expected_payload_digest[register_index] != summary.payload_sha256[register_index]) {
+            return false;
+        }
+    }
+    if (vka_alloc_endpoint(vka, &fault_endpoint) != seL4_NoError ||
+        vka_alloc_tcb(vka, &target_tcb) != seL4_NoError ||
+        vka_alloc_cnode_object(vka, SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                               &target_cnode) != seL4_NoError ||
+        vka_alloc_vspace_root(vka, &target_vspace_root) != seL4_NoError ||
+        vka_alloc_notification(vka, &target_notification) != seL4_NoError ||
+        vka_alloc_frame(vka, seL4_PageBits, &target_ipc_frame) != seL4_NoError ||
+        vka_alloc_frame(vka, seL4_PageBits, &target_entry_frame) != seL4_NoError ||
+        vka_alloc_frame(vka, seL4_PageBits, &target_stack_frame) != seL4_NoError ||
+        seL4_CNode_Copy(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_CNODE_SELF_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_cnode.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_NOTIFICATION_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_notification.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_IPC_FRAME_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_ipc_frame.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Mint(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_FAULT_ENDPOINT_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, fault_endpoint.cptr,
+                        seL4_WordBits, seL4_AllRights,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FAULT_BADGE) != seL4_NoError ||
+        seL4_CNode_Copy(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_ENTRY_FRAME_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_entry_frame.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_CNode_Copy(target_cnode.cptr,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_STACK_FRAME_SLOT,
+                        SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_CNODE_SLOT_BITS,
+                        seL4_CapInitThreadCNode, target_stack_frame.cptr,
+                        seL4_WordBits, seL4_AllRights) != seL4_NoError ||
+        seL4_X86_ASIDPool_Assign(seL4_CapInitThreadASIDPool,
+                                 target_vspace_root.cptr) != seL4_NoError) {
+        return false;
+    }
+    root_entry_mapping = vspace_map_pages(vspace, &target_entry_frame.cptr, NULL,
+                                          seL4_AllRights, 1u, seL4_PageBits, 1u);
+    if (root_entry_mapping == NULL) {
+        return false;
+    }
+    for (register_index = 0u; register_index < summary.segment_file_bytes; register_index++) {
+        ((volatile uint8_t *)root_entry_mapping)[register_index] =
+            sealed_image[summary.segment_file_offset + register_index];
+    }
+    vspace_unmap_pages(vspace, root_entry_mapping, 1u, seL4_PageBits, VSPACE_PRESERVE);
+    root_entry_mapping = NULL;
+    if (sel4utils_map_page(vka, target_vspace_root.cptr, target_ipc_frame.cptr,
+                           (void *)SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_IPC_BUFFER_VADDR,
+                           seL4_AllRights, 1, paging_objects,
+                           &paging_object_count) != seL4_NoError ||
+        sel4utils_map_page_with_attributes(vka, target_vspace_root.cptr,
+                           target_stack_frame.cptr,
+                           (void *)SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_STACK_VADDR,
+                           seL4_AllRights,
+                           (seL4_X86_VMAttributes)(seL4_X86_Default_VMAttributes |
+                                                   seL4_X86_ExecuteDisable),
+                           paging_objects, &paging_object_count) != seL4_NoError ||
+        sel4utils_map_page_with_attributes(vka, target_vspace_root.cptr,
+                           target_entry_frame.cptr,
+                           (void *)SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_ENTRY_VADDR,
+                           seL4_AllRights, seL4_X86_Default_VMAttributes,
+                           paging_objects, &paging_object_count) != seL4_NoError ||
+        seL4_TCB_Configure(target_tcb.cptr,
+                           SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_TARGET_FAULT_ENDPOINT_SLOT,
+                           target_cnode.cptr, 0u, target_vspace_root.cptr, 0u,
+                           SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_IPC_BUFFER_VADDR,
+                           target_ipc_frame.cptr) != seL4_NoError) {
+        return false;
+    }
+    requested_context.rip = SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_ENTRY_VADDR;
+    requested_context.rsp = SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_STACK_POINTER;
+    if (seL4_TCB_WriteRegisters(target_tcb.cptr, 0u, 0u,
+                                SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_CONTEXT_WORDS,
+                                &requested_context) != seL4_NoError ||
+        seL4_TCB_ReadRegisters(target_tcb.cptr, 0u, 0u,
+                               SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_CONTEXT_WORDS,
+                               &observed_context) != seL4_NoError) {
+        return false;
+    }
+    for (register_index = 0u;
+         register_index < SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_CONTEXT_WORDS;
+         register_index++) {
+        seL4_Word expected_word =
+            register_index == 0u
+                ? SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_ENTRY_VADDR
+                : register_index == 1u
+                    ? SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_STACK_POINTER
+                    : register_index == SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_RFLAGS_WORD
+                        ? SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_64_NORMALIZED_RFLAGS
+                        : 0u;
+        if (((const seL4_Word *)&observed_context)[register_index] != expected_word) {
+            return false;
+        }
+    }
+    if (seL4_TCB_Resume(target_tcb.cptr) != seL4_NoError) {
+        return false;
+    }
+    fault_message = seL4_Recv(fault_endpoint.cptr, &fault_badge);
+    if (seL4_MessageInfo_get_label(fault_message) != seL4_Fault_UserException ||
+        fault_badge != SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FAULT_BADGE ||
+        seL4_GetMR(seL4_UserException_FaultIP) !=
+            SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_POST_NOP_FAULT_VADDR ||
+        seL4_GetMR(seL4_UserException_SP) !=
+            SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_FIXED_STACK_POINTER ||
+        seL4_GetMR(seL4_UserException_Number) !=
+            SELINOS_SEALED_STATIC_IMAGE_MAPPING_M0_X86_INVALID_OPCODE_VECTOR) {
+        return false;
+    }
+    return true;
+}
+#endif
+
 bool selinos_domain_manager_start(void)
 {
     simple_t *const simple = &root_simple_context;
@@ -3483,6 +3650,16 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS sealed static-image M0: one SSIM-v1 RX source ledger accepted and five malformed cases rejected.\n");
     debug_puts("SeLinOS sealed static-image M0: parser-only; no loader frame, mapping, permission transition, task resume or ELF claim.\n");
+#endif
+
+#if CONFIG_SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE
+    if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
+        debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.\n");
+    debug_puts("SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.\n");
+    debug_puts("SeLinOS sealed static-image mapping M0: no raw container mapping, ELF, lifecycle or Linux ABI claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE

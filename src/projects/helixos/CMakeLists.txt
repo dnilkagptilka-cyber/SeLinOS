@@ -233,6 +233,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinSealedStaticImageMappingProbe
+    SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE
+    "Enable one accepted sealed-image payload materialization and terminal W^X witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -859,6 +866,7 @@ target_link_libraries(
         sel4platsupport
         sel4muslcsys
         selinos-kabi-module
+        selinos-sealed-static-image-m0-parser
     PRIVATE
         selinos-root_Config
 )
