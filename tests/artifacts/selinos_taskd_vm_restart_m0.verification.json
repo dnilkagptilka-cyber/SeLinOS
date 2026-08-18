@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS one VM-fault repair reply to terminal invalid-opcode user exception M0",
+  "profile": {
+    "build_directory": "build-taskd-vm-restart-probe",
+    "cmake_option": "SeLinTaskdVmRestartProbe=ON",
+    "qemu": "QEMU 8.2.2 TCG x86_64/PC99"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-taskd-vm-restart-probe/images/kernel-x86_64-pc99",
+      "sha256": "eb5c251c3c296c6f8b67e37f70447612df5e43007561ab48cfa62d633ab3c15a"
+    },
+    "root_image": {
+      "path": "build-taskd-vm-restart-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "050afea3e6c7e23607aad2d937d343094da177c9095b4c4743aa8d0939588993"
+    }
+  },
+  "implementation": {
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "374cbbee4a7c0e08d0fb772fc503375dc01462cb3817998461a06e7b41128ad4"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "cd0a3d730be3554bce0ba1f63fb75874ade0c79d8811ecbe06a1bd4d263b280e"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_taskd_vm_restart_m0_protocol.h",
+      "sha256": "014443300f9dd9bed4a94d64d6a7cac0513a5d11fa675bf76eef8d33b5b09d68"
+    },
+    "server": {
+      "path": "src/projects/helixos/servers/taskd_vm_restart_m0.c",
+      "sha256": "9007b5dfef6be2f6847fa3e1c0ec034f6b6e935623a9e9c9e82ff48fd24a33a0"
+    },
+    "probe": {
+      "path": "src/projects/helixos/drivers/taskd_vm_restart_m0_probe.c",
+      "sha256": "16d1afc398b907764bfe1a00887eebee755e748101025f74799740d6e0fe2fb4"
+    },
+    "gate": {
+      "path": "docs/phase63_reply_terminal_fault_m0_gate.md",
+      "sha256": "690aa370e9bd042b24a4a688232ea87bb61c99ca8d8afd937e92fdfac1537294"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_taskd_vm_restart_m0.boot.log",
+    "sha256": "09590032a75d5a27c79fb6637cc606d36bad3926e38da2976a960bd54d6b83ed",
+    "required_markers": [
+      "SeLinOS taskd VM-restart M0: one repaired VM fault then terminal user exception ownership issued; target blocked.",
+      "SeLinOS taskd VM-restart M0: one initial VM fault was repaired by executable entry mapping and one zero-label reply.",
+      "SeLinOS taskd VM-restart M0: repaired restart reached one terminal invalid-opcode user exception without a second resume.",
+      "SeLinOS taskd VM-restart M0: no generic continuation, ELF runtime, process lifecycle or Linux ABI claim.",
+      "SeLinOS taskd VM-restart M0: one zero-label VM-fault reply reaches terminal unreplied user exception; target blocked.",
+      "qemu_status=124"
+    ]
+  },
+  "not_claimed": [
+    "UserException reply",
+    "fault register mutation",
+    "second reply",
+    "second resume",
+    "general continuation",
+    "exit lifecycle",
+    "ELF runtime",
+    "process lifecycle",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

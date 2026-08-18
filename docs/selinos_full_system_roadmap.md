@@ -63,7 +63,9 @@ Phases 50–57 are verified as a narrow construction chain: status-only reservat
 
 **Phase 62 is verified:** a separate default-OFF profile initializes one root-only entry frame with `nop; ud2`, removes the root alias, maps the entry page executable, keeps the stack NX, performs exactly one resume, and receives one badged invalid-opcode user exception at `rip=0x60000001`. Root withholds reply. This proves one NOP completed before the deliberate trap—nothing more. The proof includes a SHA-bound QEMU transcript, independent verifier, 34-profile rebuild and 68 standalone verifiers.
 
-**Phase 63 is next:** define one controlled post-fault continuation or terminal exit-fault experiment with exact fault-reply register mutation, an explicit non-returning sentinel, and negative re-entry checks. It must not be generalized into a process lifecycle, ELF, dynamic linker, or Linux ABI claim. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
+**Phase 63 is verified:** a separate default-OFF profile starts with the `nop; ud2` entry frame unmapped, receives one instruction-fetch VM fault, maps that exact preinitialized frame, and sends one zero-label VM-fault reply. The restarted target completes one NOP then reaches terminal `ud2` UserException, which root does not reply. This proves a narrow x86-supported VM-fault repair/restart only; the pinned kernel rejects UserException fault replies. The proof includes a SHA-bound QEMU transcript, independent verifier, 35-profile rebuild and 69 standalone verifiers.
+
+**Phase 64 is next:** define a sealed static-image format and W^X loader design: source hash ledger, page grammar, canonical-address validation, and negative parser tests. It must not claim ELF, dynamic linking, a process lifecycle, or Linux ABI until separately proven. Linux `clone`, `fork`, `vfork`, `pthread`, PID/TID namespaces, signals and wait/reap remain distinct later milestones.
 
 ### Workstream B — executable runtime and Linux process surface (Phases 59–82)
 
@@ -107,8 +109,8 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 | Priority | Next deliverable | Completion evidence | Explicitly not claimed |
 |---|---|---|---|
-| **P0** | Phase 63 controlled continuation/exit-fault design. | Exact fault-reply mutation, non-returning sentinel, trap/exit ledger and negative re-entry tests. | General task lifecycle or Linux ABI compatibility. |
 | **P0** | Phase 64 sealed static-image format and W^X loader design. | Image grammar, source hash ledger and negative parser tests. | ELF or Linux process compatibility. |
+| **P0** | Phase 65 static sealed-image mapping and terminal witness. | W^X map ledger, one image witness and fault boundary. | General program execution or Linux ABI compatibility. |
 | **P1** | W^X ELF loading path. | `PT_LOAD` validation/map ledger, relocation boundaries, static fixture execution and verifier. | Dynamic linker/general ELF compatibility until separately tested. |
 | **P1** | Resolve the DMA-containment execution environment. | Positive IOMMU/IOSpace evidence on a suitable target, or an explicitly trusted-driver research profile. | Safe untrusted DMA on current QEMU profile. |
 | **P2** | Persistent VFS transaction design for `dpkg` database paths. | Crash/rollback design plus in-VM fault-injection prototype. | Persistent `apt`/`dpkg` claim. |
@@ -116,7 +118,7 @@ Performance work follows functional correctness. Baselines include boot time, IP
 
 ## 7. Current status boundary
 
-The current baseline records **68 standalone verified probes** and a successful **34-profile rebuild** after Phase 62. This is meaningful progress in evidence infrastructure and primitive OS services, including a single verified executable `nop` before an unreplied invalid-opcode trap, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are controlled continuation/exit, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
+The current baseline records **69 standalone verified probes** and a successful **35-profile rebuild** after Phase 63. This is meaningful progress in evidence infrastructure and primitive OS services, including one verified VM-fault repair reply that restarts into a terminal invalid-opcode witness, but it is **not** a bootable Debian/Ubuntu replacement and it does **not** yet run `apt`, `dpkg`, arbitrary Linux packages, general Linux applications or arbitrary Linux C drivers. The most immediate technical blockers are a sealed static-image grammar, W^X image mapping, executable ELF runtime, durable storage under a valid DMA policy, networking/TLS/time and the package transaction stack.
 
 ## References
 

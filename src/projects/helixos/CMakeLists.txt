@@ -219,6 +219,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinTaskdVmRestartProbe
+    SELINOS_TASKD_VM_RESTART_PROBE
+    "Enable one VM-fault repair reply then terminal invalid-opcode witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -454,6 +461,16 @@ add_executable(selinos-taskd-exec-fetch-m0-probe EXCLUDE_FROM_ALL drivers/taskd_
 target_include_directories(selinos-taskd-exec-fetch-m0-probe PRIVATE include)
 target_link_libraries(selinos-taskd-exec-fetch-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
 target_compile_options(selinos-taskd-exec-fetch-m0-probe PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-vm-restart-m0 EXCLUDE_FROM_ALL servers/taskd_vm_restart_m0.c)
+target_include_directories(selinos-taskd-vm-restart-m0 PRIVATE include)
+target_link_libraries(selinos-taskd-vm-restart-m0 PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-vm-restart-m0 PRIVATE -Wall -Wextra -Werror -g)
+
+add_executable(selinos-taskd-vm-restart-m0-probe EXCLUDE_FROM_ALL drivers/taskd_vm_restart_m0_probe.c)
+target_include_directories(selinos-taskd-vm-restart-m0-probe PRIVATE include)
+target_link_libraries(selinos-taskd-vm-restart-m0-probe PUBLIC sel4_autoconf muslc sel4 sel4runtime)
+target_compile_options(selinos-taskd-vm-restart-m0-probe PRIVATE -Wall -Wextra -Werror -g)
 
 add_executable(selinos-taskd-reservation-m1 EXCLUDE_FROM_ALL servers/taskd_reservation_m1.c)
 target_include_directories(selinos-taskd-reservation-m1 PRIVATE include)
@@ -770,6 +787,11 @@ if(SeLinTaskdExecFetchProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-taskd-exec-fetch-m0>"
         "$<TARGET_FILE:selinos-taskd-exec-fetch-m0-probe>")
+endif()
+if(SeLinTaskdVmRestartProbe)
+    list(APPEND SELINOS_SERVICE_IMAGES
+        "$<TARGET_FILE:selinos-taskd-vm-restart-m0>"
+        "$<TARGET_FILE:selinos-taskd-vm-restart-m0-probe>")
 endif()
 if(SeLinX86NxMappingProbe)
     list(APPEND SELINOS_SERVICE_IMAGES

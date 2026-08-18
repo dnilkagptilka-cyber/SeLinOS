@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-suspended-linkage-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "49c51d0e9ad7860b0c77b1b0be4f623b9836680f04b50af3ed0afcd87cbcfd04"
+      "sha256": "7c83a8a8001c7f1ab683596aa5cdd5f09070456938e8b20b17fb075274c22394"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "77abf7dc763c904e5c7f9c480920ff60bf8763a9baa05c1a115236cf003fc85c"
+      "sha256": "374cbbee4a7c0e08d0fb772fc503375dc01462cb3817998461a06e7b41128ad4"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e3c9ebc82f4311ea11069b9194b26a124644897081308f01fd8e868e3f1babb4"
+      "sha256": "cd0a3d730be3554bce0ba1f63fb75874ade0c79d8811ecbe06a1bd4d263b280e"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_suspended_linkage_m0_protocol.h",
