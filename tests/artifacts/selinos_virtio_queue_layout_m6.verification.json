@@ -24,7 +24,7 @@
     },
     "root_image": {
       "path": "build-virtio-queue-layout-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "bd3784ff8bf7eba04d90b8c5fd7276188aaee4740706a3fee5f4568905c69eee"
+      "sha256": "6f4f04492d2af0e5e432e2d5dbfb3b775e963c8bf9e3cacc124e4e044f938b80"
     }
   },
   "implementation": {
@@ -38,7 +38,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "16850ae852b4e72db83b014048ac73bcc37c076933bf3acda557fa3798ac3d76"
+      "sha256": "4c176e352736607b45704347697babaab0b94436cef53c8116268f19d7c32ce7"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -46,7 +46,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "8ac01c426f5b268f1bbb4fe2cddca6395fdab99dcac617a8ce1b107c5fbb0e8c"
+      "sha256": "f0480132cd76680297c34b589f075338834e9cb0068710e3311ff23231524907"
     },
     "phase_design_gate": {
       "path": "docs/phase44_virtio_blk_queue_layout_m6_gate.md",

@@ -3,7 +3,7 @@
   "milestone": "SeLinOS ROMFS bounded packed client pathname M1",
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "d464d0d24333895e23589856e523a528ce25575ddcb9b53842e7330c4290db5a"
+    "sha256": "113da957f732dfe2f30246b1fc9dc1131a660a9d4f31d171d9050d0767648ebd"
   },
   "implementation": {
     "romfs_server": {

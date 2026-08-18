@@ -42,6 +42,7 @@
 #include "selinos_static_image_mapping_revocation_m0_protocol.h"
 #include "selinos_static_image_target_capability_deletion_m0_protocol.h"
 #include "selinos_static_image_object_reclamation_m0_protocol.h"
+#include "selinos_static_image_fresh_bundle_authorization_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3336,7 +3337,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3584,7 +3586,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3600,7 +3603,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     debug_puts("SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3634,7 +3638,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     }
     debug_puts("SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.\n");
 #endif
-#if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+#if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3663,6 +3668,43 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     vka_free_object(vka, &fault_endpoint);
     vka_free_object(vka, &target_notification);
     debug_puts("SeLinOS static-image object reclamation M0: terminal TCB, unmapped frames, reverse paging objects, CNode, PML4, endpoint and notification disposed; no reuse performed.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
+    {
+        bool authorization_used = false;
+        const seL4_Word retired_generation =
+            SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_RETIRED_GENERATION;
+        const seL4_Word fresh_generation =
+            SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_FRESH_GENERATION;
+        seL4_Word authorization =
+            SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_INVALID;
+        if (!authorization_used &&
+            seL4_GetMR(seL4_UserException_FaultIP) ==
+                SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_TERMINAL_IP &&
+            seL4_GetMR(seL4_UserException_Number) ==
+                SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_INVALID_OPCODE_VECTOR &&
+            fresh_generation > retired_generation) {
+            authorization = SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_APPROVED;
+            authorization_used = true;
+        }
+        if (authorization != SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_APPROVED ||
+            !authorization_used) {
+            return false;
+        }
+        authorization = authorization_used
+                            ? SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_STALE
+                            : SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_APPROVED;
+        if (authorization != SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_STALE) {
+            return false;
+        }
+        authorization = retired_generation != fresh_generation
+                            ? SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_STALE
+                            : SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_INVALID;
+        if (authorization != SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_M0_REJECTED_STALE) {
+            return false;
+        }
+        debug_puts("SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.\n");
+    }
 #endif
     return true;
 }
@@ -3839,7 +3881,8 @@ bool selinos_domain_manager_start(void)
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_AUTHORIZATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_PROBE || \
     CONFIG_SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_PROBE || \
-    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
+    CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE || \
+    CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -3865,6 +3908,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_PROBE
     debug_puts("SeLinOS static-image object reclamation M0: one terminal disposal sequence only; no ASID, slot, object or Linux-process reuse claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
+    debug_puts("SeLinOS static-image fresh-bundle authorization M0: status-only generation ledger; no allocation, reuse or Linux-process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE

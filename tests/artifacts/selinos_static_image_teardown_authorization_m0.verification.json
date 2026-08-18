@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-static-image-teardown-authorization-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "3a031ebd112fbd286767c85639c170f69fcba23030de864de1d764c9d6d1e5f7"
+      "sha256": "5d7af165088c31d72fa8b166efc5c6392d1ca1841b9db612500f51b0297529eb"
     }
   },
   "runtime": {
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "8ac01c426f5b268f1bbb4fe2cddca6395fdab99dcac617a8ce1b107c5fbb0e8c"
+      "sha256": "f0480132cd76680297c34b589f075338834e9cb0068710e3311ff23231524907"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "16850ae852b4e72db83b014048ac73bcc37c076933bf3acda557fa3798ac3d76"
+      "sha256": "4c176e352736607b45704347697babaab0b94436cef53c8116268f19d7c32ce7"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_teardown_authorization_m0_protocol.h",

@@ -282,6 +282,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticImageFreshBundleAuthorizationProbe
+    SELINOS_STATIC_IMAGE_FRESH_BUNDLE_AUTHORIZATION_PROBE
+    "Enable one post-reclamation fresh-bundle authorization ledger without allocation"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

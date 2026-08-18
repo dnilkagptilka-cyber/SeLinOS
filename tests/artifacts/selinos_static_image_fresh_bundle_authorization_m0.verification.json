@@ -1,0 +1,67 @@
+{
+  "gate": "Phase 72 static-image fresh-bundle authorization M0",
+  "status": "verified; isolated QEMU TCG proof, independent verifier, 44-profile rebuild and 78-verifier regression passed",
+  "profile": {
+    "cmake_option": "SeLinStaticImageFreshBundleAuthorizationProbe=ON",
+    "build_dir": "build-static-image-fresh-bundle-authorization-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-image-fresh-bundle-authorization-probe/images/kernel-x86_64-pc99",
+      "sha256": "e1ef3742fb55f47211450b9dc0190e40a4ba36bfb510c8dc962fcbeadccb770c"
+    },
+    "root": {
+      "path": "build-static-image-fresh-bundle-authorization-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "9dbe31df53e93fdcd4f9d7ac772214eb97090d7e8ad62e38496af4cffc56e134"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_static_image_fresh_bundle_authorization_m0.boot.log",
+    "sha256": "83eaf9aa89fcdfeb79597ff3329449638ad2d4dd3a5a0728cfcbe798786741eb",
+    "required_markers": [
+      "SeLinOS static-image object reclamation M0: terminal TCB, unmapped frames, reverse paging objects, CNode, PML4, endpoint and notification disposed; no reuse performed.",
+      "SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.",
+      "SeLinOS static-image fresh-bundle authorization M0: status-only generation ledger; no allocation, reuse or Linux-process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase72_static_image_fresh_bundle_authorization_m0_gate.md",
+      "sha256": "38de8d255e46a53e5bbbcf3eef6b58ff87e552abd9e33e613f66f8731c0969b3"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "f0480132cd76680297c34b589f075338834e9cb0068710e3311ff23231524907"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "4c176e352736607b45704347697babaab0b94436cef53c8116268f19d7c32ce7"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_image_fresh_bundle_authorization_m0_protocol.h",
+      "sha256": "7a4ca556fc3bdaac6932bd1f5af982602a667177c85fd64be9143a658659ef26"
+    }
+  },
+  "regression": {
+    "profiles_rebuilt": 44,
+    "standalone_verifiers_passed": 78,
+    "log": "tests/artifacts/phase72_full_verifier_regression.log"
+  },
+  "proves": [
+    "Phase 69\u201371 mapping, target-copy deletion and terminal disposal blocks completed before Phase 72",
+    "logical fresh generation 2 is approved exactly once",
+    "a duplicate generation-2 request and retired generation-1 request are rejected stale without allocation or reuse"
+  ],
+  "does_not_prove": [
+    "actual fresh allocation",
+    "untyped reuse",
+    "CNode-slot reuse",
+    "ASID reuse",
+    "target virtual-address reuse",
+    "process lifecycle",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}
