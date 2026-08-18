@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-vm-restart-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "70647deaa1ee5a9787f0a4b011733c2d469020cd90405ac0c6b6e32a47c7776e"
+      "sha256": "ae155aa2a972b9aeb7c1e7ccdfe7c6bb05ecdc19fc4dbcbc7b3bab855aa67898"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "d10d188daeec76888b9bd8d091dda026ecded846a5f3bd4396e429ba62160890"
+      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "a923940998f929ee6682dbb2f45002e80adeabb771d4f6bd112a78ef8ac9fabc"
+      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_vm_restart_m0_protocol.h",

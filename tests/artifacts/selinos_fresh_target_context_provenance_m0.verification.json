@@ -1,0 +1,52 @@
+{
+  "gate": "Phase 75 fresh target context provenance M0",
+  "status": "candidate; isolated QEMU TCG proof obtained; all-profile regression pending",
+  "profile": {
+    "cmake_option": "SeLinFreshTargetContextProvenanceProbe=ON",
+    "build_dir": "build-fresh-target-context-provenance-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-context-provenance-probe/images/kernel-x86_64-pc99",
+      "sha256": "7b12e033b0c0bda3f1aa04f4d0efcf45074847343f19be81ad14cd29a629d018"
+    },
+    "root": {
+      "path": "build-fresh-target-context-provenance-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "9ecfe87d8101263a1652812b240e7ecf4f930882a9fd8e63f14fead067615ff8"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_context_provenance_m0.boot.log",
+    "sha256": "766a723f21688a01e80a211d495c88533f2b01024332d4160e4b898524d345c8",
+    "required_markers": [
+      "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
+      "SeLinOS fresh target context provenance M0: one suspended context write-readback; no resume, execution or Linux-process claim."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase75_fresh_target_context_provenance_m0_gate.md",
+      "sha256": "dd2d16711b8d7dedfe1196a3420b02c418ddf2c20bfc00139792cfd9269a039d"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "3ec7b3359749a63dfa481cbbbb639505dccafd0c5ad2ff80176e19859850623d"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_context_provenance_m0_protocol.h",
+      "sha256": "42800299ea72084e23f2d19f502ff8048a66db41348804b445f8f1fa644a36c1"
+    }
+  },
+  "does_not_prove": [
+    "resume",
+    "execution",
+    "ELF",
+    "Linux ABI",
+    "dpkg",
+    "apt"
+  ]
+}

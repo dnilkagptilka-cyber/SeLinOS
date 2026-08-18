@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "fcf07817184741d4a9ce78ae9470d3e1fa48728d4c77ce306823c68968c367f9"
+    "sha256": "d3814f3cff3e1fead4a2770734f3daf7c3357b12a81a18ccdc4cc7e082669aaa"
   },
   "implementation": {
     "vfs_server": {
@@ -26,7 +26,7 @@
     },
     "root_bundle": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "d10d188daeec76888b9bd8d091dda026ecded846a5f3bd4396e429ba62160890"
+      "sha256": "b85e6e5bb5a1704e8ff50eb8dd1d7c2f97ed7c99f48d7889407ac73b42cabacc"
     }
   },
   "contract": {

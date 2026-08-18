@@ -303,6 +303,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetContextProvenanceProbe
+    SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE
+    "Enable one fresh suspended target context write-readback witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
