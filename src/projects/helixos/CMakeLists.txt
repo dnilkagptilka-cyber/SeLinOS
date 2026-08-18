@@ -289,6 +289,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetBundleConstructionProbe
+    SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_PROBE
+    "Enable one fresh inert target-bundle construction witness without configuration"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

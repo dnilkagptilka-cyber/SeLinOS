@@ -48,6 +48,7 @@ __pycache__/
 !/tests/artifacts/selinos_static_image_target_capability_deletion_m0.boot.log
 !/tests/artifacts/selinos_static_image_object_reclamation_m0.boot.log
 !/tests/artifacts/selinos_static_image_fresh_bundle_authorization_m0.boot.log
+!/tests/artifacts/selinos_fresh_target_bundle_construction_m0.boot.log
 /tests/artifacts/*.raw
 /tests/artifacts/*.tmp
 

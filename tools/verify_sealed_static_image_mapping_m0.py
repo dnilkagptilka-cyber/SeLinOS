@@ -32,7 +32,7 @@ def main():
     protocol = (root / record['implementation']['protocol']['path']).read_text()
     gate = (root / record['implementation']['gate']['path']).read_text()
     begin = source.index('static bool start_sealed_static_image_mapping_m0')
-    end = source.index('#endif', begin)
+    end = source.index('\n}\n#endif\n\nbool selinos_domain_manager_start', begin) + 2
     body = source[begin:end]
     for marker in ('SeLinSealedStaticImageMappingProbe', 'SELINOS_SEALED_STATIC_IMAGE_MAPPING_PROBE'):
         require(marker in cmake, f'cmake:{marker}')
