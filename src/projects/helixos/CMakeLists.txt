@@ -352,6 +352,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticElfRxLoadM0
+    SELINOS_STATIC_ELF_RX_LOAD_M0_PROBE
+    "Enable one fixed embedded ELF64 RX load and terminal-UD2 witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -432,6 +439,12 @@ target_compile_options(selinos-kabi-module PRIVATE -Wall -Wextra -Werror -g)
 add_library(selinos-elfrt STATIC elfrt/src/selinos_elfrt.c)
 target_include_directories(selinos-elfrt PUBLIC elfrt/include)
 target_compile_options(selinos-elfrt PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-static-elf-rx-load-m0-fixture STATIC
+    src/static_elf_rx_load_m0.c)
+target_include_directories(selinos-static-elf-rx-load-m0-fixture PUBLIC include)
+target_link_libraries(selinos-static-elf-rx-load-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-static-elf-rx-load-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
 
 # Phase 64 validates a self-authored sealed static-image grammar only. It maps
 # nothing and is not an ELF or executable loader.
@@ -998,6 +1011,10 @@ if(SeLinRootConstructM4Completion)
 endif()
 if(SeLinX86NxMappingProbe OR SeLinX86NxRawFsrRevalidationProbe)
     target_sources(selinos-root PRIVATE src/x86_nx_mapping_probe.c)
+endif()
+if(SeLinStaticElfRxLoadM0)
+    target_sources(selinos-root PRIVATE src/static_elf_rx_load_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-static-elf-rx-load-m0-fixture)
 endif()
 
 include(rootserver)

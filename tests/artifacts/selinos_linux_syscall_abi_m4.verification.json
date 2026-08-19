@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "36277dd77fb64828777ac02026a7f44e41890ca09ce6a4239fedc5463aaa6e93"
+    "sha256": "8699fbda082113d8a0998a3b997bb8ab950dd9c235e784088c09ce36e978966b"
   },
   "probe_source": {
     "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
@@ -17,7 +17,7 @@
   },
   "gateway_source": {
     "path": "src/projects/helixos/src/domain_manager.c",
-    "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+    "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
   },
   "implemented_contract": {
     "existing_primitives": [

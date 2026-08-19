@@ -35,7 +35,11 @@ def main() -> None:
         image = data.get("image")
         if not isinstance(image, dict) or image.get("path") != IMAGE:
             continue
-        if image.get("sha256") == image_hash:
+        baseline_stale = (
+            manifest.name == "selinos_driver_runtime_m1.verification.json" and
+            data["runtime_evidence"]["baseline_log"].get("sha256") != sha256(BASELINE)
+        )
+        if image.get("sha256") == image_hash and not baseline_stale:
             continue
         runtime = runtime_binding(data)
         if runtime is not None:
@@ -47,6 +51,13 @@ def main() -> None:
             if source.resolve() != target.resolve():
                 shutil.copyfile(source, target)
             runtime["sha256"] = sha256(target)
+        if manifest.name == "selinos_driver_runtime_m1.verification.json":
+            baseline_binding = data["runtime_evidence"]["baseline_log"]
+            baseline_text = BASELINE.read_text(errors="replace")
+            for marker in baseline_binding["required_markers"]:
+                if marker not in baseline_text:
+                    raise SystemExit(f"refresh refused: baseline missing {marker!r}")
+            baseline_binding["sha256"] = sha256(BASELINE)
         image["sha256"] = image_hash
         manifest.write_text(json.dumps(data, indent=2) + "\n")
         changed.append(manifest.name)

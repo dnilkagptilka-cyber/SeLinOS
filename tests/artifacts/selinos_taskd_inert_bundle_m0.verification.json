@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-inert-bundle-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "4d78df015153f3f4a6bd7e6b93607c82e6421383bbd4f7aa4f4043dbb08e495e"
+      "sha256": "d15fffb1e0e0d1a4ea8957d4aabd85215cf9dfd599272979eb143b76bcfdb261"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_inert_bundle_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_inert_bundle_m0.boot.log",
-    "sha256": "20d6fe679fa4cd4d2b5a429408817a75924afb76f923d58478a4c68add9772b4",
+    "sha256": "8713d57a9340eb471a163cbe5e102cf3011851af188d937506de69d554eccd26",
     "required_markers": [
       "SeLinOS taskd inert bundle M0: taskd ownership witness issued; no final resource invoked.",
       "SeLinOS taskd inert bundle M0: root rolled back rejected TCB/CNode/PML4 generation 1 before delegation.",

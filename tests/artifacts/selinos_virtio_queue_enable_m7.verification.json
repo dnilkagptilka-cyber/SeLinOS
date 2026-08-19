@@ -26,7 +26,7 @@
     },
     "root_image": {
       "path": "build-virtio-queue-enable-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "4b0fb5930d8a6f0e3faa7482cd6824204c54d4b9ed742ae9395e4398f740f73c"
+      "sha256": "c6031f1034691f25f70fd3f669abac0129bd4fee7837c7c435952a5776cad51d"
     }
   },
   "implementation": {
@@ -40,7 +40,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -48,7 +48,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
     },
     "phase_design_gate": {
       "path": "docs/phase45_virtio_blk_queue_enable_m7_gate.md",
@@ -62,7 +62,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_queue_enable_m7.boot.log",
-    "sha256": "448aaa01ff7d2300780da432cc80c8c8621a350308c2d4859a9201d5cfae09c5",
+    "sha256": "b99e5d5e773fdacce78f883ad11a1808437b62050c226526a806ca49185958f2",
     "required_markers": [
       "SeLinOS storage M7: queue_enable one read-back then reset-to-zero passed.",
       "SeLinOS storage M7: no notify, IRQ, PCI-command write, block I/O or DMA/containment claim.",

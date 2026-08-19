@@ -15,8 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "tests/artifacts"
 REPLAY_LOG = ARTIFACTS / "phase78_nxe_affected_profile_replays.log"
 ALLOWED_PATHS = {
+    "src/projects/helixos/CMakeLists.txt",
     "src/projects/helixos/src/domain_manager.c",
     "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 

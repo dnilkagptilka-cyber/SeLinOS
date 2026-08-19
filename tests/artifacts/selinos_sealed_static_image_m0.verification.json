@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-sealed-static-image-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b8f7d250949bd22025411f8ead2194a5f4ae5ce1052c932fb256dd521609ef87"
+      "sha256": "b4f866ec9e1db1464e2abd7871f808566dce9da48fd24d1f216d35e9fbc100bb"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_sealed_static_image_m0.boot.log",
-    "sha256": "7f757ca3a9befaee9ccf8811ae640844e35275f4447547c0eb008b4f55acdcf4",
+    "sha256": "d0c7e20333ff011964dda1dbc0beb04da2dbd0114b11b3e108b84cec61e91d2e",
     "required_markers": [
       "SeLinOS sealed static-image M0: one SSIM-v1 RX ledger accepted; digest, W+X, canonical, reserved and range guards rejected before mapping.",
       "SeLinOS sealed static-image M0: parser-only status transaction; no frame, mapping, TCB, task resume or ELF claim.",
@@ -42,11 +42,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
     },
     "parser_header": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_m0.h",

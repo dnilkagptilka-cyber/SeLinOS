@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 RX load M0",
+  "profile": {
+    "build_directory": "build-static-elf-rx-load-m0",
+    "cmake_option": "SeLinStaticElfRxLoadM0=ON",
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG instruction-count mode, CPU max, 1 GiB RAM",
+    "elf_scope": "one embedded ELF64 little-endian x86_64 ET_EXEC with exactly one RX PT_LOAD at 0x60000000 and UD2 payload",
+    "target_mapping": "read/execute, non-writable",
+    "linux_kernel_present": false
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-elf-rx-load-m0/images/kernel-x86_64-pc99",
+      "sha256": "32f4544f6e3fc9c7dd5014b1eaff43759b4e7237a20bfbf5a59525a728295614"
+    },
+    "root_image": {
+      "path": "build-static-elf-rx-load-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "06e8d9a7c8f8abe571cd77ba5110b7ea5c8fa48c28a356b126a35e2d52a55dca"
+    }
+  },
+  "generated_config": {
+    "path": "build-static-elf-rx-load-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "f10b8f76086318399c3db8bdbb06f15fffaacf2a3ca372c7c68743a9a147f510"
+  },
+  "implementation": {
+    "fixture": {
+      "path": "src/projects/helixos/src/static_elf_rx_load_m0.c",
+      "sha256": "9fa33bff48fd2c47e5475f4107f76151b3dd274a1b2819b9c54c1e30c62b5730"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/static_elf_rx_load_m0_root.c",
+      "sha256": "aa5b7578a4b665c354e192ae4de2d9c3abaabb1d5be7092adec391546abda387"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_elf_rx_load_m0_protocol.h",
+      "sha256": "37eb5255ab9feb17f4fdbb522e92c8a0b911e9d9a8f52321f1d8521972d64686"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+    },
+    "phase_gate": {
+      "path": "docs/phase79_static_elf_rx_load_m0_gate.md",
+      "sha256": "7c2c595b036b6dc860304c12beff1a3f03c55661590cfcd196bf13bc75d483a7"
+    },
+    "verifier": {
+      "path": "tools/verify_static_elf_rx_load_m0.py",
+      "sha256": "0195e2063ba266592d1bddd0ef02b63a9dc36836fbcf3e96f51c24e8c2de990a"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_rx_load_m0.boot.log",
+    "sha256": "2e2083cf6995a57e2d5d517145b2f98bc31302c212976185e6892dae1a6bc4f2",
+    "required_markers": [
+      "SeLinOS static ELF RX load M0: one fixed ELF64 ET_EXEC RX PT_LOAD validated and copied through a root-private alias before target read/execute mapping.",
+      "SeLinOS static ELF RX load M0: one entry UD2 terminal user exception received without reply, repair, retry or second resume.",
+      "SeLinOS static ELF RX load M0: no dynamic linker, relocation, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS static ELF RX load M0: fixed ELF validation, root-private copy, target RX map or terminal UD2 witness failed.",
+      "SeLinOS M0: isolated domain bootstrap FAILED.",
+      "SeLinOS static ELF RX load M0: reply",
+      "SeLinOS static ELF RX load M0: second resume"
+    ]
+  },
+  "not_claimed": [
+    "multiple `PT_LOAD` segments, `ET_DYN`, ASLR, BSS, data segments, ELF section semantics, relocation, TLS, an interpreter, dynamic linking, argv/envp/auxv construction, a C runtime, syscall return",
+    "signals, threads, `fork`, credentials, file-descriptor inheritance, VFS execution, package installation, `dpkg`, `apt`, Debian package compatibility",
+    "Linux ABI, Linux kernel, Linux VM, LKL, DMA containment, IOMMU functionality, hardware validation outside the named QEMU TCG fixture"
+  ]
+}

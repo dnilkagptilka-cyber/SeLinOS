@@ -56,6 +56,9 @@
 #include "selinos_tcb_resume_m2_protocol.h"
 #include "selinos_root_dispatch_m0_protocol.h"
 #include "selinos_root_construct_m1.h"
+#if CONFIG_SELINOS_STATIC_ELF_RX_LOAD_M0_PROBE
+#include "selinos_static_elf_rx_load_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4355,6 +4358,15 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.\n");
     debug_puts("SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.\n");
     debug_puts("SeLinOS sealed static-image mapping M0: no raw container mapping, ELF, lifecycle or Linux ABI claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_ELF_RX_LOAD_M0_PROBE
+    if (!selinos_static_elf_rx_load_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS static ELF RX load M0: fixed ELF validation, root-private copy, target RX map or terminal UD2 witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS static ELF RX load M0: one fixed ELF64 ET_EXEC RX PT_LOAD validated and copied through a root-private alias before target read/execute mapping.\n");
+    debug_puts("SeLinOS static ELF RX load M0: one entry UD2 terminal user exception received without reply, repair, retry or second resume.\n");
+    debug_puts("SeLinOS static ELF RX load M0: no dynamic linker, relocation, C runtime, syscall, process or Linux ABI claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

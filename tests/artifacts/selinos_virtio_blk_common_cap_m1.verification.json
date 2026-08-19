@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build-virtio-capability-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "371ee30b7c4a324a7bc28a32e58364c73673be9b0a34be7f319210b62df43bb7"
+    "sha256": "6c93610e1d93092df894db9d979d474c47f8938689145a1fd7834f8637232f28"
   },
   "implementation": {
     "pci_parser": {
@@ -22,16 +22,16 @@
     },
     "root_hook": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
     }
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_blk_common_cap_m1.boot.log",
-    "sha256": "1e4d4963bcb1b39de677da2f1eca3b215672f86de00b6bdb17b9ac97848de7f4",
+    "sha256": "f054475d54a816b27825b054bbdce4d38e477bee940a6132a7094210d308d876",
     "required_markers": [
       "SeLinOS storage M1: quarantined virtio common capability metadata validated; BAR/feature/queue/IRQ/DMA authority withheld."
     ],

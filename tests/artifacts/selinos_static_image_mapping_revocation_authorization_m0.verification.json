@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-static-image-mapping-revocation-authorization-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "ac99a0214a21afc93e4e1a1852d456bb36e57359704ab63a8f689fc36e3ca44f"
+      "sha256": "f4aa514a8346b7958de10cb9901d16f72aeff69e2476f3ae98ed4fef59a97ca5"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_mapping_revocation_authorization_m0.boot.log",
-    "sha256": "a7479bf7265c11c3fca60e8971dedc66bcbe024d4830cf8ff399091808c24dc5",
+    "sha256": "a0cf384e7682f03dc525390bb7060c5369fea7baaed3c889d98269f62e8d6a52",
     "required_markers": [
       "SeLinOS static-image mapping revocation authorization M0: entry-stack-IPC ledger authorized then duplicate rejected; no unmap, reply, resume, delete, free or successor task.",
       "SeLinOS static-image mapping revocation authorization M0: status-only ordering ledger; no unmap, cleanup, reuse or Linux process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_mapping_revocation_authorization_m0_protocol.h",
