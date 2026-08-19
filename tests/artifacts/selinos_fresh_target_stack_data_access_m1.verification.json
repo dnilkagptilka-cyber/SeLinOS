@@ -1,0 +1,60 @@
+{
+  "gate": "Phase 78 fresh target stack data-access M1",
+  "status": "verified; isolated QEMU TCG classified blocked initial-RSP data-VMFault, 52-profile rebuild and 85 standalone verifiers passed",
+  "observed_branch": "blocked_data_vmfault",
+  "profile": {
+    "cmake_option": "SeLinFreshTargetStackDataAccessProbe=ON",
+    "build_dir": "build-fresh-target-stack-data-access-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-stack-data-access-probe/images/kernel-x86_64-pc99",
+      "sha256": "758f20a58042e19594df893e536a5061ee23e5962102c565147e4e1a853f4cec"
+    },
+    "root": {
+      "path": "build-fresh-target-stack-data-access-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f16e29b478cae7bf53c5da2003d210d84c6ac874917a4c260a5ffdb4396df4bc"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_stack_data_access_m1.boot.log",
+    "sha256": "f580e43563adee093703861d7be54dd89cfabc2ce61917e3bad87f36be28a1dd",
+    "required_markers": [
+      "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
+      "SeLinOS fresh target stack data-access M1: initial rsp data read produced classified VMFault; no reply, repair or second resume.",
+      "SeLinOS fresh target stack data-access M1: one classified initial-rsp read only; no reply, repair, process or Linux claim.",
+      "SeLinOS M0: root task entering idle/yield loop."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase78_fresh_target_stack_data_access_m1_gate.md",
+      "sha256": "1c33e2194ab978866f1ceb5fa907e05464f55c9556b94c7066db718186afe07d"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_stack_data_access_m1_protocol.h",
+      "sha256": "f12cbec6c09180861d565d14c29eda89a84d6239f8dccd44303c961f06763068"
+    }
+  },
+  "does_not_prove": [
+    "successful target stack read",
+    "target user write access",
+    "stack initialization",
+    "fault reply or repair",
+    "second resume",
+    "process execution",
+    "ELF loading",
+    "Linux ABI",
+    "dpkg",
+    "apt",
+    "Debian package compatibility"
+  ]
+}

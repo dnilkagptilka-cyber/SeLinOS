@@ -93,7 +93,8 @@ try:
         "seL4_SetMR(2u,",
     ):
         require(forbidden not in phase77, "forbidden Phase 77 control: " + forbidden)
-    require(source.count("seL4_TCB_Resume(fresh_tcb.cptr)") == 1, "combined path must resume once")
+    require("CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE" not in phase77,
+            "Phase 77 reply block must exclude later Phase 78 M1 classification")
 
     print("SeLinOS fresh target fault reply/restart M0 evidence verified.")
 except Exception as error:

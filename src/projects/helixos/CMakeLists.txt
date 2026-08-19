@@ -331,6 +331,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetStackDataAccessProbe
+    SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    "Enable one fresh target stack-read classification and terminal fault witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

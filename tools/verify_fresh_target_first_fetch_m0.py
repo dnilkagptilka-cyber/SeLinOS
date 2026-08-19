@@ -80,7 +80,7 @@ try:
         require(required in phase75, "missing Phase 75 prerequisite: " + required)
 
     phase76 = config_block_before(
-        source, "fresh_entry_root_mapping = vspace_map_pages(vspace, &fresh_entry_frame.cptr"
+        source, "((volatile uint8_t *)fresh_entry_root_mapping)[0] = 0x90u"
     )
     for required in (
         "vspace_map_pages(vspace, &fresh_entry_frame.cptr",

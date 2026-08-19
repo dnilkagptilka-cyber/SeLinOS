@@ -8,7 +8,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "f403df84eb45de1e260f663196504fdc787ed894bd74389c90352ed69cd63a18"
+    "sha256": "2861d54fb57a5637d528df79a58fbf8da5c337ae0271dfdd97adae6174da4597"
   },
   "implementation": {
     "io_contract": {
