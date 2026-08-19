@@ -324,6 +324,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetMappingProvenanceProbe
+    SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
+    "Enable fresh target suspended entry and NX-stack mapping provenance witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"

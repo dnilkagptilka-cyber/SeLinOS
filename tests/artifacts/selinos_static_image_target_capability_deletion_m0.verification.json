@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-static-image-target-capability-deletion-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "e9eceef5089a8ecd735b27d84f84a8c51a83a5c075aceb952119527027fb6441"
+      "sha256": "c38185decb60329ebd5cb07d56bba948371ba896c8637a1d6e6505d31dbe82f2"
     }
   },
   "runtime": {
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "c79f8e0167ae25818a14f436f8bac5d65662e624828d4569672b8542a4800d3a"
+      "sha256": "2c4db494d16f0346a7dfa8c00d3c52f4c70b4ca9cbc6d8d7a0f79081a8b33990"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "272584c85f4b4563d5965701c4889ad6d7bae43099f23b63319d527768826e20"
+      "sha256": "43b9a389e66dec26f9e56345956b358815b16ab575bd7b5fbe8a95f82cc671e9"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_target_capability_deletion_m0_protocol.h",

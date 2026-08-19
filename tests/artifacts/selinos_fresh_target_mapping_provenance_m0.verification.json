@@ -1,0 +1,60 @@
+{
+  "gate": "Phase 78 fresh target mapping provenance M0",
+  "status": "verified; isolated QEMU TCG proof, 51-profile rebuild and 84 standalone verifiers passed",
+  "profile": {
+    "cmake_option": "SeLinFreshTargetMappingProvenanceProbe=ON",
+    "build_dir": "build-fresh-target-mapping-provenance-probe"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-mapping-provenance-probe/images/kernel-x86_64-pc99",
+      "sha256": "e1836ee9531abfd6b090b2c6deccfdefa1d74ad76319caff6dd9b6436104cb3d"
+    },
+    "root": {
+      "path": "build-fresh-target-mapping-provenance-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "dd8d22c1401ae3ceae5325f41156ddb7ed1d6e987789b3ce6f87232df6232dce"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_mapping_provenance_m0.boot.log",
+    "sha256": "1ff1ad0295abb38232fbeeb5cefc18c67b6bb8036c74f31cf4f24d3698dc1516",
+    "required_markers": [
+      "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
+      "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
+      "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
+      "SeLinOS fresh target mapping provenance M0: suspended NX stack and RX entry mapping ledger only; no payload, resume, user access, execution or Linux-process claim.",
+      "SeLinOS M0: root task entering idle/yield loop."
+    ]
+  },
+  "implementation": {
+    "gate": {
+      "path": "docs/phase78_fresh_target_mapping_provenance_m0_gate.md",
+      "sha256": "e1077b68b2440ed3d3adfecc0eced7476c5f095191923f88e7851da665454861"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "2c4db494d16f0346a7dfa8c00d3c52f4c70b4ca9cbc6d8d7a0f79081a8b33990"
+    },
+    "root": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "43b9a389e66dec26f9e56345956b358815b16ab575bd7b5fbe8a95f82cc671e9"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_mapping_provenance_m0_protocol.h",
+      "sha256": "d8e2e971d9d2e314682e8b89d0d1abb32c152bd3636a7455d90b5c11aff325be"
+    }
+  },
+  "does_not_prove": [
+    "independent target PTE inspection",
+    "target user read or write access",
+    "stack consumption",
+    "instruction fetch",
+    "fault delivery or reply",
+    "process execution",
+    "ELF loading",
+    "Linux ABI",
+    "dpkg",
+    "apt",
+    "Debian package compatibility"
+  ]
+}

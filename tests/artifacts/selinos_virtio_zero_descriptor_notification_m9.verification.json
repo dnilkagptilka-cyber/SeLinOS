@@ -25,7 +25,7 @@
     },
     "root_image": {
       "path": "build-virtio-zero-descriptor-notification-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "07e30287ca672ad480212159982405a7681e57aa19ecc4aa032b7ae2ec646b30"
+      "sha256": "d1e16c66a746fd14a5863351e14ef0f8ad05697fa417bf276d00101b7ecfa35c"
     }
   },
   "implementation": {
@@ -39,7 +39,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "272584c85f4b4563d5965701c4889ad6d7bae43099f23b63319d527768826e20"
+      "sha256": "43b9a389e66dec26f9e56345956b358815b16ab575bd7b5fbe8a95f82cc671e9"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -47,7 +47,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "c79f8e0167ae25818a14f436f8bac5d65662e624828d4569672b8542a4800d3a"
+      "sha256": "2c4db494d16f0346a7dfa8c00d3c52f4c70b4ca9cbc6d8d7a0f79081a8b33990"
     },
     "phase_design_gate": {
       "path": "docs/phase47_virtio_blk_zero_descriptor_notification_m9_gate.md",

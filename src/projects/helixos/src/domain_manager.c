@@ -48,6 +48,7 @@
 #include "selinos_fresh_target_context_provenance_m0_protocol.h"
 #include "selinos_fresh_target_first_fetch_m0_protocol.h"
 #include "selinos_fresh_target_fault_reply_restart_m0_protocol.h"
+#include "selinos_fresh_target_mapping_provenance_m0_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
@@ -3348,7 +3349,8 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3374,7 +3376,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     vka_object_t fresh_tcb;
     vka_object_t fresh_cnode;
     vka_object_t fresh_vspace_root;
@@ -3386,17 +3389,22 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     vka_object_t fresh_fault_endpoint;
     vka_object_t fresh_paging_objects[3];
     int fresh_paging_object_count = 0;
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     vka_object_t fresh_entry_paging_objects[3];
     vka_object_t fresh_stack_paging_objects[3];
     int fresh_entry_paging_object_count = 0;
     int fresh_stack_paging_object_count = 0;
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
     void *fresh_entry_root_mapping = NULL;
 #endif
 
@@ -3631,7 +3639,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3653,7 +3662,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3693,7 +3703,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3765,7 +3776,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3795,7 +3807,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #if CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3833,7 +3846,8 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     requested_context = (seL4_UserContext){0};
     observed_context = (seL4_UserContext){0};
     requested_context.rip = SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RIP;
@@ -3849,6 +3863,36 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
         return false;
     }
     debug_puts("SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.\n");
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
+    if (SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FIXED_IPC_VADDR !=
+            SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_FIXED_IPC_VADDR ||
+        SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RIP !=
+            SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_FIXED_ENTRY_VADDR ||
+        SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RSP != 0x70002ff8u) {
+        return false;
+    }
+    if (sel4utils_map_page_with_attributes(
+            vka, fresh_vspace_root.cptr, fresh_stack_frame.cptr,
+            (void *)SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_FIXED_STACK_VADDR,
+            seL4_AllRights,
+            (seL4_X86_VMAttributes)(seL4_X86_Default_VMAttributes |
+                                     seL4_X86_ExecuteDisable),
+            fresh_stack_paging_objects, &fresh_stack_paging_object_count) != seL4_NoError ||
+        fresh_stack_paging_object_count !=
+            SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_EXPECTED_STACK_PAGING_OBJECTS) {
+        return false;
+    }
+    if (sel4utils_map_page_with_attributes(
+            vka, fresh_vspace_root.cptr, fresh_entry_frame.cptr,
+            (void *)SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_FIXED_ENTRY_VADDR,
+            seL4_AllRights, seL4_X86_Default_VMAttributes, fresh_entry_paging_objects,
+            &fresh_entry_paging_object_count) != seL4_NoError ||
+        fresh_entry_paging_object_count !=
+            SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_EXPECTED_ENTRY_PAGING_OBJECTS) {
+        return false;
+    }
+    debug_puts("SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.\n");
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
@@ -4113,7 +4157,8 @@ bool selinos_domain_manager_start(void)
     CONFIG_SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -4154,6 +4199,9 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
     debug_puts("SeLinOS fresh target fault reply/restart M0: one RIP-only UserException reply then one terminal second invalid-opcode fault; no second reply, resume, process or Linux claim.\n");
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE
+    debug_puts("SeLinOS fresh target mapping provenance M0: suspended NX stack and RX entry mapping ledger only; no payload, resume, user access, execution or Linux-process claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
