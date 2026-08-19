@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-sealed-static-image-mapping-probe/images/kernel-x86_64-pc99",
-      "sha256": "ef33449d45dbab9841acde084f74a18bf1d03c4f060db5e7660e20afed3f5a7c"
+      "sha256": "7f00bd5faeaa8168d9a870b444c70da0e6902016fa1b0d0a8298d53afc417956"
     },
     "root": {
       "path": "build-sealed-static-image-mapping-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "6b2aace84892c23948f9fb1f935333768977cddb28fbcbad8a5e41126e9ed56e"
+      "sha256": "bceb9f572478e6af1c89739b361d4c938c6f7c2fa778db9daac5baf1e5ecc387"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_sealed_static_image_mapping_m0.boot.log",
-    "sha256": "7942397316c9789c90d9fd95c67664e9d796d715a7884978a15b854b43e1c23f",
+    "sha256": "28bcad200fabcc7f1b91ea72aba4dde1d3d6ce853e1c42018e4ca523fa1a2054",
     "required_markers": [
       "SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.",
       "SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_mapping_m0_protocol.h",

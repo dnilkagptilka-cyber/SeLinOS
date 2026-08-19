@@ -10,21 +10,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-dynamic-vspace-rollback-probe/images/kernel-x86_64-pc99",
-      "sha256": "8d22c481ffe708e84070a2195475340aef81ad882335104b9e85ce77cbf3a9c1"
+      "sha256": "a18c0b88ea8fd0cb368e9a30fd744c580c0838394287535e6d362227aa746f2b"
     },
     "root_image": {
       "path": "build-taskd-dynamic-vspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "2cfea2440c781e805c1a3263ce9ea7e342be14066d3ae21026ab2732ebbad8bc"
+      "sha256": "21514af6c0bf68e6bbb7f15957fecfebcb0865b8199464574bb516ac6f49ed92"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_vspace_m0_protocol.h",
@@ -45,14 +45,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_vspace_m0.boot.log",
-    "sha256": "b3e0a274f4c2ab702301a5ec883d358b7188141c87142800e1171aee5d97e059",
+    "sha256": "add383caf351bf472f4b1d97b8a77b8936b2cc95ec82ffb6e4441194ecd1c820",
     "required_markers": [
       "SeLinOS taskd dynamic VSpace M0: taskd ownership witness issued; final PML4 not invoked.",
       "SeLinOS taskd dynamic VSpace M0: root rolled back rejected VSpace root generation 1 before delegation.",
       "SeLinOS taskd dynamic VSpace M0: replacement VSpace root generation 2 allocated then moved into taskd ownership slot.",
       "SeLinOS taskd dynamic VSpace M0: final x86_64 PML4 remains inert, unassigned and unmapped.",
       "SeLinOS taskd dynamic VSpace M0: rollback then ownership query passed; no active VSpace configured.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

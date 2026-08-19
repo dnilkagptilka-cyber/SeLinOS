@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-fresh-target-bundle-construction-probe/images/kernel-x86_64-pc99",
-      "sha256": "2aa4a72dffd2b00504fc47f88c29ca6b7171431e877acd955d5f356b165a9811"
+      "sha256": "0de805ac84c5b2ae69b154d86d3782ec367a069f13acf38aca61f04a970e0148"
     },
     "root": {
       "path": "build-fresh-target-bundle-construction-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "458080972090adf960af465db577d7ad647255945dea5040debc208e8068f4e1"
+      "sha256": "9e15fee13052d49dfc0aed1e23a99181be6e45cfa9323e975599b03454248bd2"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_bundle_construction_m0.boot.log",
-    "sha256": "96abb95ab4d34af2ec935d5648217b7f43ed5d472a25b2b1668eeda698d47f2c",
+    "sha256": "0b0b30d7666ec0566c70fa58afa2ab8da27ac8f3881d2428c368acdbfbe134b7",
     "required_markers": [
       "SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.",
       "SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PML4-notification-IPC-entry-stack bundle root-owned; no ASID, mapping, configuration or execution.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_bundle_construction_m0_protocol.h",

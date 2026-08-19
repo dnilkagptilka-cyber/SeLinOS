@@ -10,21 +10,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-dynamic-cspace-rollback-probe/images/kernel-x86_64-pc99",
-      "sha256": "965a2057d9deed956860af972e1207869bb4173a9510325f734ddf82850e7f97"
+      "sha256": "d23e1538e37b9896db90278c352cb26c95f041b37fbba4dd36fce5458535410c"
     },
     "root_image": {
       "path": "build-taskd-dynamic-cspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "03cfa9e9514451e4a7e6bab2d73b158f5b40f2f5009b0371aa1888603c534ad6"
+      "sha256": "2677a5cd8ea86f1dbb1be6bc29b9d343071d40738ed6b8f415073eab71c0fdd6"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_cspace_m0_protocol.h",
@@ -45,14 +45,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_cspace_m0.boot.log",
-    "sha256": "cc6291b4c0f59eabcc29b3f3da328afe6897177f73e3d0d13b9099514565fcb1",
+    "sha256": "07e67d0e00c1f679c7866fe49f593adfd783304c65c239f76158345ef136bc52",
     "required_markers": [
       "SeLinOS taskd dynamic CSpace M0: taskd ownership witness issued; final CNode not invoked.",
       "SeLinOS taskd dynamic CSpace M0: root rolled back rejected CNode generation 1 before delegation.",
       "SeLinOS taskd dynamic CSpace M0: replacement CNode generation 2 allocated then moved into taskd ownership slot.",
       "SeLinOS taskd dynamic CSpace M0: final CNode remains empty, inert and is not a TCB CSpace root.",
       "SeLinOS taskd dynamic CSpace M0: rollback then ownership query passed; no task CSpace configured.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

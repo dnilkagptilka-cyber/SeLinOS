@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-fault-witness-probe/images/kernel-x86_64-pc99",
-      "sha256": "e8101012d4000620112381c63111ca080c0194257665e2ff8441f7f979b3d18d"
+      "sha256": "933cc3585a53de2f77683fadc1cd01b5608d8b446a4a6f035b77911a25fe313d"
     },
     "root_image": {
       "path": "build-taskd-fault-witness-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "3d3f515f98d4aba062316bdbb12e01090e2b4571b448bd94ac1e6242701982f7"
+      "sha256": "a7ac2bde50b9dc2a1e2e9abe7412fe7134e933590accd7cfb8410f2ccd010518"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_fault_witness_m0_protocol.h",
@@ -44,14 +44,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_fault_witness_m0.boot.log",
-    "sha256": "97171065a37f950a5a603f84bb44a1cdb65bf0e2e20f41e3e19a91709e29c794",
+    "sha256": "ae63357104d5b19b05b4cd7b8e10b05d87c0068b3b49e8b61c429e2dc3a5334a",
     "required_markers": [
       "SeLinOS taskd fault witness M0: fault-blocked target ownership issued; target not resumed.",
       "SeLinOS taskd fault witness M0: root observed exactly one badged instruction-fetch VM fault at zero.",
       "SeLinOS taskd fault witness M0: no fault reply or second resume; target remains fault-blocked.",
       "SeLinOS taskd fault witness M0: no instruction completion, entry point, stack or ELF claim.",
       "SeLinOS taskd fault witness M0: one unreplied VM fault validated; target remains blocked.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

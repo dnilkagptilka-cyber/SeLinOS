@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-fresh-target-context-provenance-probe/images/kernel-x86_64-pc99",
-      "sha256": "7b12e033b0c0bda3f1aa04f4d0efcf45074847343f19be81ad14cd29a629d018"
+      "sha256": "fc8678bdba5420463c79eb9ec4f38f370f55e8f092a98e42fb9488f9a46ffb19"
     },
     "root": {
       "path": "build-fresh-target-context-provenance-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "6a0f34db4f6aebb15b14c1ab1c562ea69676c400c60894d878791048cbef5f11"
+      "sha256": "f66049912289b885ce92c197dc17134888ef136d6bf6935bc72b103791809956"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_context_provenance_m0.boot.log",
-    "sha256": "766a723f21688a01e80a211d495c88533f2b01024332d4160e4b898524d345c8",
+    "sha256": "bfc315e680344022a34da196d6e373d73a9ce8c90cef60c1727ee50d484d7379",
     "required_markers": [
       "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
       "SeLinOS fresh target context provenance M0: one suspended context write-readback; no resume, execution or Linux-process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_context_provenance_m0_protocol.h",

@@ -3,7 +3,7 @@
   "milestone": "SeLinOS ROMFS bounded packed client pathname M1",
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "2861d54fb57a5637d528df79a58fbf8da5c337ae0271dfdd97adae6174da4597"
+    "sha256": "36277dd77fb64828777ac02026a7f44e41890ca09ce6a4239fedc5463aaa6e93"
   },
   "implementation": {
     "romfs_server": {
@@ -41,7 +41,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_romfs_packed_path_m1.boot.log",
-    "sha256": "92c046d34ed6638d3143175f4f38efaff8b89f81f4675d89ca47dda00822e1de",
+    "sha256": "e8b1c71477404ec560796a3d5021f06991f73c67c3c0e6d9c4eebb1bf956dfec",
     "required_markers": [
       "SeLinOS ROMFS probe: bounded packed client pathname lookup passed.",
       "SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.",

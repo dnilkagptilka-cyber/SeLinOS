@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-static-image-mapping-revocation-probe/images/kernel-x86_64-pc99",
-      "sha256": "0f6deafd4f4c9abf2506ed617db2bbccd717b9d14747c9738b39e3f64f686e75"
+      "sha256": "1426caea14a4ac9706f98efbbad415e9d19ed48f5cf9747e12df2c2487e4384a"
     },
     "root": {
       "path": "build-static-image-mapping-revocation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "79e36adad6f877ef82ac3acb1d3b0cde1ae3ce0b177651cc01ce2d62451fbcf1"
+      "sha256": "2ceab44104e9eea0ea88a1823e5c8e67751b5014aff9c978a0c55d5e369408f0"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_mapping_revocation_m0.boot.log",
-    "sha256": "a40119c3747057ea5eb9c4ab2b1cf516af9e597e4b3c69122e250635a9dc9a27",
+    "sha256": "13e61bca9dac70ac0d50fe5a7359b01b6a5ec8ff12835de8b6486eaa8e255d0f",
     "required_markers": [
       "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
       "SeLinOS static-image mapping revocation M0: one target mapping transaction only; no cap deletion, object free, reuse or Linux process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_mapping_revocation_m0_protocol.h",

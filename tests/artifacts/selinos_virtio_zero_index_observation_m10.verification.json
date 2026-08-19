@@ -17,11 +17,11 @@
   "images": {
     "kernel": {
       "path": "build-virtio-zero-index-observation-probe/images/kernel-x86_64-pc99",
-      "sha256": "48d8b56cd09299a9f39f83d617ff452beab175328e23bba5ee48759305982c16"
+      "sha256": "fcd7e9d87efada999ccbf143b99cc2754b621e8b698502f9797fb15e01c4af12"
     },
     "root_image": {
       "path": "build-virtio-zero-index-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "330af43527a22f1df0cb21271b6a2378e108c5f971dc2ecde068d700a3b3476a"
+      "sha256": "43fc9c1f5a06af5bb83f5a528438222d72221256790b1d3fc166f1cbc5b725a2"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "phase_design_gate": {
       "path": "docs/phase48_virtio_blk_zero_index_observation_m10_gate.md",
@@ -57,11 +57,11 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_zero_index_observation_m10.boot.log",
-    "sha256": "4f6092e390cc51ff4d70fb79e038bfd0d17cc31eae16eff19835d2f0785f04d3",
+    "sha256": "3aec516194887c6a0eb8aaf72b5bef88c0808cfa0a15b459dee8846bdae2b945",
     "required_markers": [
       "SeLinOS storage M10: immediate avail/used zero-index observation passed.",
       "SeLinOS storage M10: no completion, IRQ, DMA claim, containment claim or block I/O.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ],
     "forbidden_markers": [
       "SeLinOS storage M10: post-notification zero-index observation failed; authority withheld.",

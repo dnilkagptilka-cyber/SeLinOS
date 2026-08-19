@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-static-image-object-reclamation-probe/images/kernel-x86_64-pc99",
-      "sha256": "005bbf3f1880c2878dd29aa7adb660dcafc6574efc9cc30589ffff53351ff295"
+      "sha256": "efbac50e384168a377d9d99f4e69f32524d67ab61aba5ddb317ea6cafee07923"
     },
     "root": {
       "path": "build-static-image-object-reclamation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "2e616703b83aebadee10f43395205a11eb9565f353a5bb9a5e057ffb681f5ee9"
+      "sha256": "0d489480a608451a86960139520098aa0d9db793973f1a2913466f6931a3aeb1"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_object_reclamation_m0.boot.log",
-    "sha256": "bfe71771f2e50895db5b6188973768ee974ccbb453bbbc3886ad2cfcd565d784",
+    "sha256": "1f9394799764ec6b6f551fdff5806e3bae581825f4f354602d0177bef991855d",
     "required_markers": [
       "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
       "SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.",
@@ -32,11 +32,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_object_reclamation_m0_protocol.h",

@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-fresh-target-mapping-provenance-probe/images/kernel-x86_64-pc99",
-      "sha256": "e1836ee9531abfd6b090b2c6deccfdefa1d74ad76319caff6dd9b6436104cb3d"
+      "sha256": "12db4d08034280be114573b668920d3c498fed347fa1ed20b63e3fc70d4f8251"
     },
     "root": {
       "path": "build-fresh-target-mapping-provenance-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b255f4c8670265d400d2bdc3b3ffad7a5957d2bbeee50cf4375ff42a00337fe2"
+      "sha256": "a5a1a94de4d301b9163b619f970185eb827087d14f917f2ce801ab98b425f8a9"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_mapping_provenance_m0.boot.log",
-    "sha256": "1ff1ad0295abb38232fbeeb5cefc18c67b6bb8036c74f31cf4f24d3698dc1516",
+    "sha256": "1132020c8af7c721b3fad2d8ffdffe3c8d01881cc3d0861396bf7b811b9efea0",
     "required_markers": [
       "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
       "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
@@ -33,11 +33,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_mapping_provenance_m0_protocol.h",

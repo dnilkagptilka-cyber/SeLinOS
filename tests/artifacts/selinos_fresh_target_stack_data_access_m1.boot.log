@@ -1,4 +1,4 @@
-Script started on 2026-08-19 12:09:25+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/31" COLUMNS="80" LINES="24"]
+Script started on 2026-08-19 14:00:49+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/27" COLUMNS="-1" LINES="-1"]
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
@@ -9,7 +9,7 @@ Press Ctrl-B to configure iPXE (PCI 00:03.0)...
 Booting from ROM..Boot config: debug_port = 0x3f8
 Boot config: disable_iommu = false
 Detected 1 boot module(s):
-  module #0: start=0xa14000 end=0xc63de8 size=0x24fde8 name='images/selinos-root-image-x86_64-pc99'
+  module #0: start=0xa14000 end=0xc63df0 size=0x24fdf0 name='images/selinos-root-image-x86_64-pc99'
 Parsing GRUB physical memory map
 	Physical Memory Region from 0 size 9fc00 type 1
 	Physical Memory Region from 9fc00 size 400 type 2
@@ -26,7 +26,7 @@ ACPI: RSDT paddr=0x3ffe1c52
 ACPI: RSDT vaddr=0x3ffe1c52
 Warning: Your kernel was not compiled for the current microarchitecture.
 SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
-Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x100362
 ACPI: RSDT paddr=0x3ffe1c52
 ACPI: RSDT vaddr=0x3ffe1c52
 ACPI: FADT paddr=0x3ffe1b06
@@ -65,7 +65,7 @@ SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PM
 SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.
 SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.
 SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.
-SeLinOS fresh target stack data-access M1: initial rsp data read produced classified VMFault; no reply, repair or second resume.
+SeLinOS fresh target stack data-access M1: one mov rax,[rsp] completed then terminal invalid-opcode fault received; no reply or second resume.
 SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.
 SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.
 SeLinOS sealed static-image mapping M0: no raw container mapping, ELF, lifecycle or Linux ABI claim.
@@ -110,7 +110,7 @@ SeLinOS root dispatch M0: exact fixed request accepted.
 SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
 SeLinOS M0: root task entering idle/yield loop.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SeLSeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS modexec: isolated pinned fixtureSeLinOS modld: integrity, KABI CRC and non-executing relSeLinOS taskd TCB resume M2: one transferred child TCB resumed.
 SeLinOS TCB resume M2 child: one fixed completion sent.
 SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
 SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
@@ -123,12 +123,12 @@ SeLinOS taskd M1: fixed child TCB suspended and resumed.
 SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
 SeLinOS objectd M1: fixed inventory reservation-state proof passed.
 SeLinOS root dispatch M0 probe: fixed root status transaction passed.
-inOS modexec: isolated pinned fixture init_module entering.
+ init_module entering.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
-SeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
+ocation passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS taskd TCB resume M2: exact one child completion validated.
 SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
@@ -146,6 +146,6 @@ SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 750230 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 790247 (timeout)
 
-Script done on 2026-08-19 12:09:37+00:00 [COMMAND_EXIT_CODE="124"]
+Script done on 2026-08-19 14:01:01+00:00 [COMMAND_EXIT_CODE="124"]

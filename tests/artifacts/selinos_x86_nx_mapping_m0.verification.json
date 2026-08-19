@@ -13,11 +13,11 @@
   "images": {
     "kernel": {
       "path": "build-wx-nx-probe/images/kernel-x86_64-pc99",
-      "sha256": "e52eba2d35f66046381604c8a2c4576e6ea08340de6187e71837b47c4cf50dd1"
+      "sha256": "7727fe17a8256909a2baa555aa53a8e6ed711f030dd8b52d9dbe1ded24ce737f"
     },
     "root_image": {
       "path": "build-wx-nx-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "d6c3efab3422f218f14c45e9271be3cb4a0ff99624c4c1195b21698f4524045c"
+      "sha256": "ca5dac892aeba9aa0716270c6079afacd5ac9cb9a49869efdf36725921f112cb"
     }
   },
   "implementation": {
@@ -51,7 +51,7 @@
     },
     "root_nx_probe": {
       "path": "src/projects/helixos/src/x86_nx_mapping_probe.c",
-      "sha256": "0cf8b9607bdc807ecf25db4919e2dd537600e5b107cce7ab71817796f8f1f58c"
+      "sha256": "f6cd2495bf37975be2dd5d4cbae790cb957904d5c2444a68d16ca32c4f40b424"
     },
     "child_nx_probe": {
       "path": "src/projects/helixos/drivers/x86_nx_mapping_probe_child.c",
@@ -63,15 +63,15 @@
     },
     "probe_protocol": {
       "path": "src/projects/helixos/include/selinos_x86_nx_probe_protocol.h",
-      "sha256": "e08ec5ffbf22831149e50de1008c013f7c8ec74a7754e89ebd4e306e3cbed2ad"
+      "sha256": "d0d75ad42f2ae6db4e33a1ebd625581c941a896c0679e01e45277103a02e00e2"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "phase_design_gate": {
       "path": "docs/phase43_x86_64_nx_mapping_extension_gate.md",
@@ -80,10 +80,10 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_x86_nx_mapping_m0.boot.log",
-    "sha256": "404c6ad868897c6808ffc4aa2590c08ee1026e1ac85096bfc37fc62c2a66caae",
+    "sha256": "98ccd5a0d50712a64b113b9a2b895de0c2aed00f0b7f778433326639fae8ec85",
     "required_markers": [
       "SeLinOS NX probe child: attempting one fixed indirect call.",
-      "SeLinOS W^X NX: execute-disabled child produced fixed instruction fault.",
+      "SeLinOS W^X NX: execute-disabled child produced fixed instruction protection fault with raw FSR 0x15.",
       "SeLinOS W^X NX: executable control returned fixed witness.",
       "SeLinOS W^X NX: paired fixed mapping proof passed; no ELF execution."
     ],

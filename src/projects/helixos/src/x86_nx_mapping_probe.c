@@ -56,14 +56,20 @@ bool selinos_run_x86_nx_mapping_probe(vka_t *root_vka, vspace_t *root_vspace)
     char *argv[] = {"selinos-x86-nx-mapping-probe-child", NULL};
     seL4_Word badge = 0u;
     seL4_MessageInfo_t message;
+    bool child_configured = false;
     bool child_frame_copied = false;
     bool child_mapping_present = false;
     bool success = false;
 
-    if (root_vka == NULL || root_vspace == NULL ||
-        sel4utils_configure_process(&child, root_vka, root_vspace,
-                                    "selinos-x86-nx-mapping-probe-child") != 0 ||
-        vka_alloc_endpoint(root_vka, &endpoint) != seL4_NoError ||
+    if (root_vka == NULL || root_vspace == NULL) {
+        goto out;
+    }
+    if (sel4utils_configure_process(&child, root_vka, root_vspace,
+                                    "selinos-x86-nx-mapping-probe-child") != 0) {
+        goto out;
+    }
+    child_configured = true;
+    if (vka_alloc_endpoint(root_vka, &endpoint) != seL4_NoError ||
         sel4utils_copy_cap_to_process(&child, root_vka, endpoint.cptr) !=
             SELINOS_X86_NX_PROBE_SUCCESS_ENDPOINT_SLOT ||
         sel4utils_spawn_process_v(&child, root_vka, root_vspace,
@@ -93,11 +99,13 @@ bool selinos_run_x86_nx_mapping_probe(vka_t *root_vka, vspace_t *root_vspace)
     if (badge != 0u || seL4_MessageInfo_get_label(message) != seL4_Fault_VMFault ||
         seL4_GetMR(seL4_VMFault_IP) != SELINOS_X86_NX_PROBE_VADDR ||
         seL4_GetMR(seL4_VMFault_Addr) != SELINOS_X86_NX_PROBE_VADDR ||
-        seL4_GetMR(seL4_VMFault_PrefetchFault) != seL4_InstructionFault) {
+        seL4_GetMR(seL4_VMFault_PrefetchFault) != seL4_InstructionFault ||
+        seL4_GetMR(seL4_VMFault_FSR) !=
+            SELINOS_X86_NX_PROBE_EXECUTE_DISABLE_FSR) {
         seL4_DebugPutString("SeLinOS W^X NX: execute-disabled fault witness failed.\n");
         goto out;
     }
-    seL4_DebugPutString("SeLinOS W^X NX: execute-disabled child produced fixed instruction fault.\n");
+    seL4_DebugPutString("SeLinOS W^X NX: execute-disabled child produced fixed instruction protection fault with raw FSR 0x15.\n");
 
     if (root_mapping != NULL) {
         vspace_unmap_pages(root_vspace, root_mapping, 1u, seL4_PageBits,
@@ -139,6 +147,9 @@ out:
     }
     if (test_frame.cptr != seL4_CapNull) {
         vka_free_object(root_vka, &test_frame);
+    }
+    if (child_configured) {
+        sel4utils_destroy_process(&child, root_vka);
     }
     if (endpoint.cptr != seL4_CapNull) {
         vka_free_object(root_vka, &endpoint);

@@ -10,21 +10,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-populated-cspace-probe/images/kernel-x86_64-pc99",
-      "sha256": "17a79cb52f339b2ab083c42533d02ffe9569f15feaf93c7f55017e000fccbad3"
+      "sha256": "9213e26afeae8a6fc33fd11b6993257e9c0115ed38a0927ff61e9dd4af19a2af"
     },
     "root_image": {
       "path": "build-taskd-populated-cspace-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "fb2f514827c6f65518f0bb2eea587dcf4ac9dfc3c420b2df4a178b525c4b09c2"
+      "sha256": "4ab008b5c8e7ef0337126ed6c3d4dd3634f4dff2d1b78b3edca1b9e16029d5be"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_populated_cspace_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_populated_cspace_m0.boot.log",
-    "sha256": "a223507f3dcc41654fc0b60abafb462ff83a700815b6e8e779ba0d0bcd95e0e8",
+    "sha256": "d6979fc6e2176e561c6f973259befa63a5fef17b07b3be8ce214b389dcd499f8",
     "required_markers": [
       "SeLinOS taskd populated CSpace M0: ownership witness issued; target resources not invoked.",
       "SeLinOS taskd populated CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.",
@@ -53,7 +53,7 @@
       "SeLinOS taskd populated CSpace M0: generation 2 PML4 ASID assigned and populated CSpace configured.",
       "SeLinOS taskd populated CSpace M0: final caps moved into taskd ownership slots; no registers or resume.",
       "SeLinOS taskd populated CSpace M0: populated-CNode ownership query passed; configured TCB remains non-executing.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

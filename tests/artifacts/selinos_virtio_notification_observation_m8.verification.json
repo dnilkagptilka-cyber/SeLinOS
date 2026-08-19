@@ -17,11 +17,11 @@
   "images": {
     "kernel": {
       "path": "build-virtio-notification-observation-probe/images/kernel-x86_64-pc99",
-      "sha256": "9ca1bcc44e767852e7f640b956da9d6c1f4fed8c62e783f09c605983bd23ea21"
+      "sha256": "f51944ce10089e099a5daeab70b4d954ad097092c40f7a2f131fda79a1a87cb3"
     },
     "root_image": {
       "path": "build-virtio-notification-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "dfd133f0324e7ea80126a6b4d864f29fc7527adf80627038461a16e4fc83d315"
+      "sha256": "644d5d584f73121ce3cea62502296595fb64357e97c727b64c1bca382d7b7527"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "phase_design_gate": {
       "path": "docs/phase46_virtio_blk_notification_observation_m8_gate.md",
@@ -57,11 +57,11 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_notification_observation_m8.boot.log",
-    "sha256": "f563c013445555da965b9195f34a4c50655bcf0669076c42418c724a3877b739",
+    "sha256": "6e7c213b358ff301f05d2a536ca6523b94e303f214616f84c12c8c0ff2e50d8b",
     "required_markers": [
       "SeLinOS storage M8: queue-zero notification address observation passed.",
       "SeLinOS storage M8: notification BAR unmapped; no notify, IRQ, DMA claim or block I/O.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ],
     "forbidden_markers": [
       "SeLinOS storage M8: root-only notification observation failed; authority withheld.",

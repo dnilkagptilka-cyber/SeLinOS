@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-exec-fetch-probe/images/kernel-x86_64-pc99",
-      "sha256": "d51fcce3ed1bcb7630a45a0afef91cc15ec9f558030e804339e2f65c45e17873"
+      "sha256": "c757e44b7318c0da40ab70de3f7f7c041d7a9c9291b8360521827462e32f3888"
     },
     "root_image": {
       "path": "build-taskd-exec-fetch-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b59dcae38cf7acc9145bfe63674699e660e169cce3138b774ed8de1a8442c6ee"
+      "sha256": "8a892585e8f1a97379117cadec3cc7a9b771807394c58888a964558719ecade8"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_exec_fetch_m0_protocol.h",
@@ -44,14 +44,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_exec_fetch_m0.boot.log",
-    "sha256": "c3113358ea99527b69d3d18e19799ac857c7a7ee2fa8a820ea968bf5baf7454a",
+    "sha256": "907d1cebc59c0b5193aa7a14cb421cf8ef2ebc5dff96667f5a75cfd679a21177",
     "required_markers": [
       "SeLinOS taskd exec-fetch M0: post-NOP target ownership issued; target not resumed.",
       "SeLinOS taskd exec-fetch M0: root observed one invalid-opcode fault at entry plus one, after NOP.",
       "SeLinOS taskd exec-fetch M0: no fault reply or second resume; target remains blocked.",
       "SeLinOS taskd exec-fetch M0: no ELF, C runtime, process lifecycle or Linux ABI claim.",
       "SeLinOS taskd exec-fetch M0: one NOP before unreplied invalid-opcode fault validated; target remains blocked.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

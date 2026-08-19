@@ -60,7 +60,9 @@ def direct_blocks(text: str, macro: str) -> list[str]:
 def main() -> None:
     evidence = json.loads(EVIDENCE.read_text())
     require(evidence["gate"] == "Phase 78 fresh target stack data-access M1", "wrong evidence gate")
-    require(evidence["observed_branch"] == "blocked_data_vmfault", "manifest must record blocked branch")
+    branch = evidence["observed_branch"]
+    require(branch in ("blocked_data_vmfault", "post_read_user_exception"),
+            "manifest must record a supported M1 classification branch")
     require(evidence["status"].startswith(("candidate;", "verified;")), "invalid evidence status")
 
     checks = []
@@ -135,11 +137,25 @@ def main() -> None:
     log = (ROOT / evidence["runtime"]["path"]).read_text(errors="replace")
     for marker in evidence["runtime"]["required_markers"]:
         require(marker in log, f"missing QEMU marker: {marker}")
-    require("one mov rax,[rsp] completed then terminal invalid-opcode fault received" not in log,
-            "manifest names blocked branch but positive marker is present")
+    blocked_marker = (
+        "SeLinOS fresh target stack data-access M1: initial rsp data read produced "
+        "classified VMFault; no reply, repair or second resume."
+    )
+    post_read_marker = (
+        "SeLinOS fresh target stack data-access M1: one mov rax,[rsp] completed then "
+        "terminal invalid-opcode fault received; no reply or second resume."
+    )
+    if branch == "blocked_data_vmfault":
+        require(blocked_marker in log, "manifest names blocked branch but blocked marker is absent")
+        require(post_read_marker not in log,
+                "manifest names blocked branch but post-read terminal marker is present")
+    else:
+        require(post_read_marker in log, "post-NXE M1 branch lacks terminal post-read marker")
+        require(blocked_marker not in log,
+                "post-NXE M1 branch unexpectedly reports the historical blocked marker")
     require("SeLinOS M0: isolated domain bootstrap FAILED." not in log, "QEMU reported bootstrap failure")
 
-    print("verification passed: Phase 78 fresh target stack data-access M1 blocked VMFault classification")
+    print(f"verification passed: Phase 78 fresh target stack data-access M1 {branch}")
 
 
 if __name__ == "__main__":

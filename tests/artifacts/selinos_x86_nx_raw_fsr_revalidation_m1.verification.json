@@ -1,0 +1,96 @@
+{
+  "gate": "Phase 43 x86 NX raw-FSR revalidation M1",
+  "status": "verified; isolated default-OFF QEMU TCG proof and independent verifier passed",
+  "observed_branch": "execute_disable_protection_fsr_0x15",
+  "platform": {
+    "machine": "QEMU 8.2.2 TCG pc99",
+    "cpu": "max",
+    "memory": "1G",
+    "timeout_seconds": 12
+  },
+  "profile": {
+    "build_directory": "build-x86-nx-raw-fsr-revalidation-probe",
+    "cmake_option": "SeLinX86NxRawFsrRevalidationProbe=ON",
+    "disabled_peer_option": "SeLinX86NxMappingProbe=OFF",
+    "generated_config": {
+      "path": "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
+      "sha256": "79f1fc93592f8963fed138a005bf318e22eab7a1e5e433c345f666bf639e9b9c"
+    }
+  },
+  "images": {
+    "kernel": {
+      "path": "build-x86-nx-raw-fsr-revalidation-probe/images/kernel-x86_64-pc99",
+      "sha256": "b7f9791ed52f0e7bca98e93e848e5115cde83ac5a88806de957f9bf4a78bce71"
+    },
+    "root_image": {
+      "path": "build-x86-nx-raw-fsr-revalidation-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "9eadef5491bead0dbfb4e78eba2ec35d77bb84cf78776c5aa2f6e9c592241f88"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_x86_nx_raw_fsr_revalidation_m1.boot.log",
+    "sha256": "c46d075cdfd276240d26e14112b41427be5f976ed3946615de546ca3dd904253",
+    "required_markers": [
+      "SeLinOS NX probe child: attempting one fixed indirect call.",
+      "SeLinOS W^X NX: execute-disabled child produced fixed instruction protection fault with raw FSR 0x15.",
+      "SeLinOS W^X NX: executable control returned fixed witness.",
+      "SeLinOS W^X NX: paired fixed mapping proof passed; no ELF execution.",
+      "SeLinOS M0: root task entering idle/yield loop."
+    ],
+    "forbidden_markers": [
+      "raw FSR 0xc",
+      "execute-disabled fault witness failed",
+      "executable remap failed",
+      "executable control witness failed",
+      "unable to start modld domain",
+      "SeLinOS M0: isolated domain bootstrap FAILED.",
+      "nxe_error_string"
+    ]
+  },
+  "implementation": {
+    "x86_head": {
+      "path": "src/kernel/src/arch/x86/64/head.S",
+      "sha256": "68cff105a5c9c44063ce9121d8c7826cc7b979503c160aae095c04403591f1cc"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+    },
+    "root_probe": {
+      "path": "src/projects/helixos/src/x86_nx_mapping_probe.c",
+      "sha256": "f6cd2495bf37975be2dd5d4cbae790cb957904d5c2444a68d16ca32c4f40b424"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_x86_nx_probe_protocol.h",
+      "sha256": "d0d75ad42f2ae6db4e33a1ebd625581c941a896c0679e01e45277103a02e00e2"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_x86_nx_raw_fsr_revalidation_m1.py",
+      "sha256": "89fe1c7651f098402176dafb1a798fed3825cc26ad23c88aed6c7fa2e4cc371b"
+    }
+  },
+  "scope": {
+    "fixed_virtual_address": "0x70000000",
+    "payload": "one root-written ret byte",
+    "first_fault": {
+      "label": "VMFault",
+      "ip": "0x70000000",
+      "address": "0x70000000",
+      "prefetch_fault": 1,
+      "raw_fsr": "0x15"
+    },
+    "child_resumes": 1,
+    "fault_replies": 1,
+    "executable_remaps": 1,
+    "child_process_cleanup": "suspend then sel4utils_destroy_process"
+  },
+  "non_claims": [
+    "This proves only that one fixed execute-disabled user page produced the x86 instruction protection-fault FSR 0x15 after the CPUID-gated NXE boot path, before one controlled executable remap returned a fixed witness.",
+    "It does not prove general W^X policy, PT_LOAD validation, ELF loading, relocation, dynamic linking, Linux ABI completeness, dpkg, apt, Debian package compatibility or a Debian primary environment.",
+    "It does not resolve the independent QEMU IOMMU availability blocker for DMA containment."
+  ]
+}

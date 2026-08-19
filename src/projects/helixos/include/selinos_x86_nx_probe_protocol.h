@@ -14,3 +14,6 @@
  * The executable control child returns normally; the execute-disabled child
  * must fault before it can execute this byte. */
 #define SELINOS_X86_NX_PROBE_RET_OPCODE 0xc3u
+/* x86 page-fault error code: present + user + instruction fetch.  A set
+ * reserved-bit flag would be a different fault class and is rejected. */
+#define SELINOS_X86_NX_PROBE_EXECUTE_DISABLE_FSR 0x15u

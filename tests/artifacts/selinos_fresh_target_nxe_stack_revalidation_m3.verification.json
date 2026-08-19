@@ -1,0 +1,91 @@
+{
+  "gate": "Phase 78 x86 NXE fresh-stack revalidation M3",
+  "status": "verified; isolated default-OFF QEMU TCG profile and independent verifier passed",
+  "observed_branch": "post_read_user_exception",
+  "platform": {
+    "machine": "QEMU 8.2.2 TCG pc99",
+    "cpu": "max",
+    "memory": "1G",
+    "timeout_seconds": 12
+  },
+  "profile": {
+    "build_directory": "build-fresh-target-nxe-stack-revalidation-probe",
+    "cmake_option": "SeLinFreshTargetNxeStackRevalidationProbe=ON",
+    "disabled_peer_option": "SeLinFreshTargetStackVmfaultFsrProbe=OFF",
+    "generated_config": {
+      "path": "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
+      "sha256": "f574c39bccc58413a84eed9c9f9590033848d3dd6ef669a933b8bf6795646a73"
+    }
+  },
+  "images": {
+    "kernel": {
+      "path": "build-fresh-target-nxe-stack-revalidation-probe/images/kernel-x86_64-pc99",
+      "sha256": "a2508bc60f24605106c54ff8aefb6d892fafb361674e420ba8979568b08345f8"
+    },
+    "root_image": {
+      "path": "build-fresh-target-nxe-stack-revalidation-probe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "d5a488196682b44c483df5d85ed6f25477cc3f644f744ed5fc412041b1787161"
+    }
+  },
+  "runtime": {
+    "path": "tests/artifacts/selinos_fresh_target_nxe_stack_revalidation_m3.boot.log",
+    "sha256": "0ec8e92ced7c6744268a8c07e8f7666facc8c8ec7138b1b606a48df9cba390f1",
+    "required_markers": [
+      "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
+      "SeLinOS fresh target stack VMFault FSR M2: post-NXE stack read reached terminal invalid-opcode witness; no reply, repair or second resume.",
+      "SeLinOS fresh target NXE stack revalidation M3: CPUID-gated NXE path reached exact post-read terminal invalid-opcode witness; no reserved-bit VMFault, reply, repair or second resume."
+    ],
+    "forbidden_markers": [
+      "SeLinOS M0: isolated domain bootstrap FAILED.",
+      "post-NXE label mismatch",
+      "post-NXE badge mismatch",
+      "post-NXE IP mismatch",
+      "post-NXE address mismatch",
+      "post-NXE prefetch mismatch",
+      "raw FSR 0xc",
+      "nxe_error_string"
+    ]
+  },
+  "implementation": {
+    "x86_head": {
+      "path": "src/kernel/src/arch/x86/64/head.S",
+      "sha256": "68cff105a5c9c44063ce9121d8c7826cc7b979503c160aae095c04403591f1cc"
+    },
+    "cmake": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
+    },
+    "domain_manager": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_fresh_target_stack_vmfault_fsr_m2_protocol.h",
+      "sha256": "2d2223913c3cc7a696c92c16c79816832508d622df1b1eed124360e8c48a9080"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_fresh_target_nxe_stack_revalidation_m3.py",
+      "sha256": "e3db4b0ce61bf61d0a42d1595d91394af8c494550cdf800b8d1edccd185e372f"
+    }
+  },
+  "scope": {
+    "attempts": 1,
+    "resume_calls": 1,
+    "fault_receives": 1,
+    "reply_calls": 0,
+    "repair_operations": 0,
+    "second_resume_calls": 0,
+    "payload": "mov rax,[rsp]; ud2",
+    "exact_terminal_witness": {
+      "fault_label": "UserException",
+      "fault_ip": "0x60000004",
+      "stack_pointer": "0x70002ff8",
+      "exception_vector": 6
+    }
+  },
+  "non_claims": [
+    "This proves one bounded read from the fresh fixed stack reached its deliberate terminal UD2 after the CPUID-gated NXE setup.",
+    "This does not prove a general stack, PTE inspection, writable stack, call/return, process lifecycle, ELF loading, Linux ABI, dpkg, apt, Debian package compatibility, or a Debian primary environment.",
+    "This does not resolve the independent Phase 49 QEMU IOMMU availability blocker."
+  ]
+}

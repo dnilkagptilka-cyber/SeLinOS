@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-vm-restart-probe/images/kernel-x86_64-pc99",
-      "sha256": "eb5c251c3c296c6f8b67e37f70447612df5e43007561ab48cfa62d633ab3c15a"
+      "sha256": "60ca6f38043694b9c3df515d2bb9b7e293fa5354606b119aa061cf14eb81a648"
     },
     "root_image": {
       "path": "build-taskd-vm-restart-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "ddc01e5a1c066c9735410b219987dc08f68f785c3694084165e4df51bd45ad4e"
+      "sha256": "2d8a4015f41620b10b2b40036c4ab7e4337246a868c8a8e160e1c6f65a2cdba4"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_vm_restart_m0_protocol.h",
@@ -44,14 +44,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_vm_restart_m0.boot.log",
-    "sha256": "09590032a75d5a27c79fb6637cc606d36bad3926e38da2976a960bd54d6b83ed",
+    "sha256": "690e509b8b503c3fc16070b51447d8400e5178dacd8ae2185674240160c443cc",
     "required_markers": [
       "SeLinOS taskd VM-restart M0: one repaired VM fault then terminal user exception ownership issued; target blocked.",
       "SeLinOS taskd VM-restart M0: one initial VM fault was repaired by executable entry mapping and one zero-label reply.",
       "SeLinOS taskd VM-restart M0: repaired restart reached one terminal invalid-opcode user exception without a second resume.",
       "SeLinOS taskd VM-restart M0: no generic continuation, ELF runtime, process lifecycle or Linux ABI claim.",
       "SeLinOS taskd VM-restart M0: one zero-label VM-fault reply reaches terminal unreplied user exception; target blocked.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

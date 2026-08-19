@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-self-rooted-cspace-probe/images/kernel-x86_64-pc99",
-      "sha256": "9a3f46f978b16a94cc13ce28a8606a2b5ef7b861d1e53e3a2ca25d9ab97f0c7c"
+      "sha256": "a7daea8c369764265f8382e44f4972c5df1b64189304e023ee871b7f8e650269"
     },
     "root_image": {
       "path": "build-taskd-self-rooted-cspace-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "1a947c6dffa002dca123b026b929afd64bc29d3f39521aae06d940bf74d2c57f"
+      "sha256": "eecf811f18cf692087e199fb25ecf0a4523fd414d63066c5fb028974a8d8353f"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_self_rooted_cspace_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_self_rooted_cspace_m0.boot.log",
-    "sha256": "ecd0bc547b87369c378c93c179bfc6c06ac86819dfaec68bcc856c85ad3ba890",
+    "sha256": "7e37e5c23a959199ad7c7178fbdc55db8aa5c1e7f7aa7843363c7eb583a1dcdd",
     "required_markers": [
       "SeLinOS taskd self-rooted CSpace M0: ownership witness issued; target resources not invoked.",
       "SeLinOS taskd self-rooted CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.",
@@ -52,7 +52,7 @@
       "SeLinOS taskd self-rooted CSpace M0: generation 2 PML4 ASID assigned and self-rooted CSpace configured.",
       "SeLinOS taskd self-rooted CSpace M0: final caps moved into taskd ownership slots; no registers or resume.",
       "SeLinOS taskd self-rooted CSpace M0: self-rooted CNode ownership query passed; configured TCB remains non-executing.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

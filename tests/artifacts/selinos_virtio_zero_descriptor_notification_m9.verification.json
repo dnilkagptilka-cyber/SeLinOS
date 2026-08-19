@@ -21,11 +21,11 @@
   "images": {
     "kernel": {
       "path": "build-virtio-zero-descriptor-notification-probe/images/kernel-x86_64-pc99",
-      "sha256": "ca87c52d6210c329414eb511e4b3fae178329feca5955586613b0d95a918b31a"
+      "sha256": "1bd3355b6b09b635b506c5ada6e86044119dca4596393ce0e90fa6bbc168b28b"
     },
     "root_image": {
       "path": "build-virtio-zero-descriptor-notification-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "0de8e09dcfb5db24774b68928ad7230170c09cd6946f616385391d2efed07278"
+      "sha256": "b65c481f17b912788519e534e70e7e147f5ebcdc8fd5ba5b96b0bd0ad4914dbc"
     }
   },
   "implementation": {
@@ -39,7 +39,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -47,7 +47,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "phase_design_gate": {
       "path": "docs/phase47_virtio_blk_zero_descriptor_notification_m9_gate.md",
@@ -61,11 +61,11 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_zero_descriptor_notification_m9.boot.log",
-    "sha256": "b82e6dbcc560807f2574bfe411ba8b27486475fc841182e51b40b841ba26c14c",
+    "sha256": "6d3145509c993cd45f6bf7d9251f992aa082e8da1afa49382c28e7b2e4b5284f",
     "required_markers": [
       "SeLinOS storage M9: one zero-descriptor queue-zero notification then reset passed.",
       "SeLinOS storage M9: no IRQ, DMA claim, containment claim or block I/O.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ],
     "forbidden_markers": [
       "SeLinOS storage M9: zero-descriptor notification/reset failed; authority withheld.",

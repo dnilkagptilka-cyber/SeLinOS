@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-ipc-buffer-probe/images/kernel-x86_64-pc99",
-      "sha256": "09dc3fd3d8bccbaddc9b207078329fda84789785518ca5da3a2de1069569d3e9"
+      "sha256": "85731d4fe9b488bed69f19f5d9bb0093d80822ab96c60d469b27d9f8e18bd799"
     },
     "root_image": {
       "path": "build-taskd-ipc-buffer-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "bfa4a3513ed8d821d2573afa4cfbfd721b6c5da1c1ecc0106fad9a1d51ea5104"
+      "sha256": "4e2ff08364b3ce467a3087edfad2ee7335c9a9aff54f73ad89613557458b0539"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_ipc_buffer_m0_protocol.h",
@@ -44,14 +44,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_ipc_buffer_m0.boot.log",
-    "sha256": "c7c143a51cdbc28cc4ee84e2c0b1370999c63a6b6885a37aa15d8a7efaacd86d",
+    "sha256": "939ddf2023e576714dcac522d0c2ee938a69c5a299a1c5db3b81904d3caa8bb8",
     "required_markers": [
       "SeLinOS taskd IPC buffer M0: mapping ownership witness issued; target not invoked.",
       "SeLinOS taskd IPC buffer M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",
       "SeLinOS taskd IPC buffer M0: fixed 4 KiB IPC frame mapped into generation 2 PML4 and copied to target CSpace.",
       "SeLinOS taskd IPC buffer M0: configured target remains without registers or resume.",
       "SeLinOS taskd IPC buffer M0: isolated mapping witness passed; configured target remains non-executing.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

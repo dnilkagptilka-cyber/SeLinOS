@@ -50,12 +50,14 @@
 #include "selinos_fresh_target_fault_reply_restart_m0_protocol.h"
 #include "selinos_fresh_target_mapping_provenance_m0_protocol.h"
 #include "selinos_fresh_target_stack_data_access_m1_protocol.h"
+#include "selinos_fresh_target_stack_vmfault_fsr_m2_protocol.h"
 #include "selinos_opaque_lease_m1_protocol.h"
 #include "selinos_tcb_lease_m1_protocol.h"
 #include "selinos_tcb_resume_m2_protocol.h"
 #include "selinos_root_dispatch_m0_protocol.h"
 #include "selinos_root_construct_m1.h"
-#if CONFIG_SELINOS_X86_NX_MAPPING_PROBE
+#if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
+    CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
 #endif
 
@@ -3352,7 +3354,9 @@ static bool start_sealed_static_image_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
 static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -3380,7 +3384,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     vka_object_t fresh_tcb;
     vka_object_t fresh_cnode;
     vka_object_t fresh_vspace_root;
@@ -3394,7 +3400,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     vka_object_t fresh_fault_endpoint;
     vka_object_t fresh_paging_objects[3];
     int fresh_paging_object_count = 0;
@@ -3402,7 +3410,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     vka_object_t fresh_entry_paging_objects[3];
     vka_object_t fresh_stack_paging_objects[3];
     int fresh_entry_paging_object_count = 0;
@@ -3410,7 +3420,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     void *fresh_entry_root_mapping = NULL;
 #endif
 
@@ -3647,7 +3659,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_MAPPING_REVOCATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3671,7 +3685,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_TARGET_CAPABILITY_DELETION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3713,7 +3729,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_STATIC_IMAGE_OBJECT_RECLAMATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3787,7 +3805,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_FRESH_TARGET_BUNDLE_CONSTRUCTION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3819,7 +3839,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (seL4_GetMR(seL4_UserException_FaultIP) !=
             SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_TERMINAL_IP ||
         seL4_GetMR(seL4_UserException_Number) !=
@@ -3859,7 +3881,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     requested_context = (seL4_UserContext){0};
     observed_context = (seL4_UserContext){0};
     requested_context.rip = SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RIP;
@@ -3876,7 +3900,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     }
     debug_puts("SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.\n");
 #endif
-#if CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+#if CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RIP !=
             SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_M1_FIXED_ENTRY_VADDR ||
         SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RSP !=
@@ -3900,7 +3926,9 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     fresh_entry_root_mapping = NULL;
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (SELINOS_FRESH_TARGET_BUNDLE_CONFIGURATION_M0_FIXED_IPC_VADDR !=
             SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_M0_FIXED_IPC_VADDR ||
         SELINOS_FRESH_TARGET_CONTEXT_PROVENANCE_M0_FIXED_RIP !=
@@ -3961,6 +3989,96 @@ static bool start_sealed_static_image_mapping_m0(vka_t *vka, vspace_t *vspace)
     } else {
         return false;
     }
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
+    if (seL4_TCB_Resume(fresh_tcb.cptr) != seL4_NoError) {
+        return false;
+    }
+    fault_badge = 0u;
+    fault_message = seL4_Recv(fresh_fault_endpoint.cptr, &fault_badge);
+    if (seL4_MessageInfo_get_label(fault_message) == seL4_Fault_UserException) {
+        if (fault_badge != SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_FAULT_BADGE ||
+            seL4_GetMR(seL4_UserException_FaultIP) !=
+                SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_POST_READ_UD2_VADDR ||
+            seL4_GetMR(seL4_UserException_SP) !=
+                SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_FIXED_STACK_POINTER ||
+            seL4_GetMR(seL4_UserException_Number) !=
+                SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_INVALID_OPCODE_VECTOR) {
+            return false;
+        }
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE stack read reached terminal invalid-opcode witness; no reply, repair or second resume.\n");
+#if CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
+        debug_puts("SeLinOS fresh target NXE stack revalidation M3: CPUID-gated NXE path reached exact post-read terminal invalid-opcode witness; no reserved-bit VMFault, reply, repair or second resume.\n");
+#endif
+        goto fresh_stack_fsr_m2_done;
+    }
+    if (seL4_MessageInfo_get_label(fault_message) != seL4_Fault_VMFault) {
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE label mismatch; no reply, repair or second resume.\n");
+        return false;
+    }
+    if (fault_badge != SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_FAULT_BADGE) {
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE badge mismatch; no reply, repair or second resume.\n");
+        return false;
+    }
+    if (seL4_GetMR(seL4_VMFault_IP) !=
+        SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_FIXED_ENTRY_VADDR) {
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE IP mismatch; no reply, repair or second resume.\n");
+        return false;
+    }
+    if (seL4_GetMR(seL4_VMFault_Addr) !=
+        SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_FIXED_STACK_POINTER) {
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE address mismatch; no reply, repair or second resume.\n");
+        return false;
+    }
+    if (seL4_GetMR(seL4_VMFault_PrefetchFault) != 0u) {
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: post-NXE prefetch mismatch; no reply, repair or second resume.\n");
+        return false;
+    }
+    seL4_Word fresh_stack_fsr = seL4_GetMR(seL4_VMFault_FSR);
+    char fresh_stack_fsr_hex[20] = "0x0000000000000000\n";
+    for (unsigned int fresh_stack_fsr_index = 0u;
+         fresh_stack_fsr_index < 16u;
+         fresh_stack_fsr_index++) {
+        unsigned int fresh_stack_fsr_nibble =
+            (unsigned int)((fresh_stack_fsr >> ((15u - fresh_stack_fsr_index) * 4u)) & 0xfu);
+        fresh_stack_fsr_hex[2u + fresh_stack_fsr_index] =
+            (char)(fresh_stack_fsr_nibble < 10u ?
+                       ('0' + fresh_stack_fsr_nibble) :
+                       ('a' + (fresh_stack_fsr_nibble - 10u)));
+    }
+    debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR ");
+    debug_puts(fresh_stack_fsr_hex);
+    switch (fresh_stack_fsr) {
+    case 0x0u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x0; no reply, repair or second resume.\n");
+        break;
+    case 0x1u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x1; no reply, repair or second resume.\n");
+        break;
+    case 0x2u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x2; no reply, repair or second resume.\n");
+        break;
+    case 0x3u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x3; no reply, repair or second resume.\n");
+        break;
+    case SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_NONPRESENT_USER_READ_FSR:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: non-present user data-read classification; no reply, repair or second resume.\n");
+        break;
+    case SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_M2_PROTECTION_USER_READ_FSR:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: protection-class user data-read classification; no reply, repair or second resume.\n");
+        break;
+    case 0x6u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x6; no reply, repair or second resume.\n");
+        break;
+    case 0x7u:
+        debug_puts("SeLinOS fresh target stack VMFault FSR M2: raw FSR 0x7; no reply, repair or second resume.\n");
+        break;
+    default:
+        return false;
+    }
+fresh_stack_fsr_m2_done:
+    ;
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE
@@ -4227,7 +4345,9 @@ bool selinos_domain_manager_start(void)
     CONFIG_SELINOS_FRESH_TARGET_FIRST_FETCH_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_FAULT_REPLY_RESTART_PROBE || \
     CONFIG_SELINOS_FRESH_TARGET_MAPPING_PROVENANCE_PROBE || \
-    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
+    CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
     if (!start_sealed_static_image_mapping_m0(vka, vspace)) {
         debug_puts("SeLinOS sealed static-image mapping M0: SSIM validation, one-frame W^X materialization or terminal witness failed.\n");
         return false;
@@ -4274,6 +4394,10 @@ bool selinos_domain_manager_start(void)
 #endif
 #if CONFIG_SELINOS_FRESH_TARGET_STACK_DATA_ACCESS_PROBE
     debug_puts("SeLinOS fresh target stack data-access M1: one classified initial-rsp read only; no reply, repair, process or Linux claim.\n");
+#endif
+#if CONFIG_SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE || \
+    CONFIG_SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
+    debug_puts("SeLinOS fresh target stack VMFault FSR M2: one raw-FSR classification only; no PTE inspection, reply, repair, process or Linux claim.\n");
 #endif
 
 #if CONFIG_SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
@@ -4631,7 +4755,8 @@ bool selinos_domain_manager_start(void)
         debug_puts("SeLinOS ABI gateway: Linux syscall ABI probe failed.\n");
         return false;
     }
-#if CONFIG_SELINOS_X86_NX_MAPPING_PROBE
+#if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
+    CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
     if (!selinos_run_x86_nx_mapping_probe(vka, vspace)) {
         debug_puts("SeLinOS W^X NX: isolated mapping proof failed.\n");
         return false;

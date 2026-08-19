@@ -10,21 +10,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-suspended-linkage-probe/images/kernel-x86_64-pc99",
-      "sha256": "cdffd7eaf840b1c2f6afc712250c10cb2a4813bada3e1b719e1a0faf00b95773"
+      "sha256": "7089d74b2eec97cd5bd3cb13b8bb76068f85b66c72513a4ea31c25983119afbe"
     },
     "root_image": {
       "path": "build-taskd-suspended-linkage-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a3262ce87493541d64b4ea8aaa3d2092a673d47b21e6366fa85028bf7eccdbff"
+      "sha256": "48bf27a1681bccf1b50da37a97fb990a886a148452ec772555778c968478dfe6"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_suspended_linkage_m0_protocol.h",
@@ -45,14 +45,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_suspended_linkage_m0.boot.log",
-    "sha256": "d12efd3f0eaadc083fd0d72a8b79aa42c57692830e46d69407328a133d331bc5",
+    "sha256": "19c59cf1b6fc6f59e5df5eaef78129b9f4291d19098f014de4c8260b16c7ba64",
     "required_markers": [
       "SeLinOS taskd suspended linkage M0: ownership witness issued; configured TCB not invoked.",
       "SeLinOS taskd suspended linkage M0: root rolled back rejected TCB/CNode/PML4 generation 1 before configuration.",
       "SeLinOS taskd suspended linkage M0: generation 2 PML4 ASID assigned and TCB CSpace/VSpace configured.",
       "SeLinOS taskd suspended linkage M0: configured resource caps moved into taskd ownership slots; no registers or resume.",
       "SeLinOS taskd suspended linkage M0: linkage ownership query passed; configured TCB remains non-executing.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

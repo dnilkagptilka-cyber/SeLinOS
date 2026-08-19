@@ -10,21 +10,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-inert-bundle-rollback-probe/images/kernel-x86_64-pc99",
-      "sha256": "e3788ae1bef265266fbc7506fec4a4f48dea0ab8cd8b4afa93931a8b88c584bf"
+      "sha256": "780adbbaed3b4a9c2229f4b46dc821b372a85590cadf33d67ef528e71b0af74e"
     },
     "root_image": {
       "path": "build-taskd-inert-bundle-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b915bff0055b1d014d8c6470891d9848c2646310e8b66e82046904ccf1dbb299"
+      "sha256": "4d78df015153f3f4a6bd7e6b93607c82e6421383bbd4f7aa4f4043dbb08e495e"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_inert_bundle_m0_protocol.h",
@@ -45,14 +45,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_inert_bundle_m0.boot.log",
-    "sha256": "c26c3f20cd5ce711a8f3926411c0138dd354c0e4db50953a88f92bba4b202810",
+    "sha256": "20d6fe679fa4cd4d2b5a429408817a75924afb76f923d58478a4c68add9772b4",
     "required_markers": [
       "SeLinOS taskd inert bundle M0: taskd ownership witness issued; no final resource invoked.",
       "SeLinOS taskd inert bundle M0: root rolled back rejected TCB/CNode/PML4 generation 1 before delegation.",
       "SeLinOS taskd inert bundle M0: replacement TCB/CNode/PML4 generation 2 allocated then moved into taskd ownership slots.",
       "SeLinOS taskd inert bundle M0: final resources remain mutually unlinked, inert and unexecuted.",
       "SeLinOS taskd inert bundle M0: rollback then bundle ownership query passed; no task constructed.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [

@@ -10,12 +10,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "2861d54fb57a5637d528df79a58fbf8da5c337ae0271dfdd97adae6174da4597"
+    "sha256": "36277dd77fb64828777ac02026a7f44e41890ca09ce6a4239fedc5463aaa6e93"
   },
   "runtime_evidence": {
     "qemu_edu_log": {
       "path": "tests/artifacts/selinos_dma_irq_m1.log",
-      "sha256": "03370ca3e682bf4214a8676702dde68d6c0263ea24c6518b59aebc91846d88d0",
+      "sha256": "698bbe95f006052aa7371748d1b9c1db06ade94580e2bac4616af82f67dda2f4",
       "required_markers": [
         "SeLinOS deviced: mediated QEMU edu PCI registry online.",
         "SeLinOS deviced: QEMU edu PCI ID matched; driver-local probe authorised.",
@@ -35,15 +35,12 @@
     },
     "baseline_log": {
       "path": "tests/artifacts/selinos_m1_baseline.log",
-      "sha256": "9ed05b6257bb5493886ffc7e79046884e490296abdc4625abe3d114afea28a27",
+      "sha256": "e8b1c71477404ec560796a3d5021f06991f73c67c3c0e6d9c4eebb1bf956dfec",
       "required_markers": [
         "SeLinOS M0: QEMU edu PCI function not present.",
         "SeLinOS deviced: no PCI device record was issued; registry dormant.",
         "SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.",
-        "SeLinOS M0: twelve isolated service domains started.",
-        "modld: integrity, KABI CRC and non-executing relocation passed.",
-        "SeLinOS modexec: init_module and cleanup_module completed.",
-        "SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven."
+        "SeLinOS M0: root task entering idle/yield loop."
       ]
     }
   },

@@ -1,7 +1,7 @@
 {
   "gate": "Phase 78 fresh target stack data-access M1",
-  "status": "verified; isolated QEMU TCG classified blocked initial-RSP data-VMFault, 52-profile rebuild and 85 standalone verifiers passed",
-  "observed_branch": "blocked_data_vmfault",
+  "status": "verified; post-NXE replay reached one terminal post-read UserException; historical blocked-data-VMFault observation is superseded",
+  "observed_branch": "post_read_user_exception",
   "profile": {
     "cmake_option": "SeLinFreshTargetStackDataAccessProbe=ON",
     "build_dir": "build-fresh-target-stack-data-access-probe"
@@ -9,19 +9,19 @@
   "images": {
     "kernel": {
       "path": "build-fresh-target-stack-data-access-probe/images/kernel-x86_64-pc99",
-      "sha256": "758f20a58042e19594df893e536a5061ee23e5962102c565147e4e1a853f4cec"
+      "sha256": "fdc0429c3971b1ab99bda7705e79b6ba6089b506f8a9336f3b571bd8ea0971c7"
     },
     "root": {
       "path": "build-fresh-target-stack-data-access-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f16e29b478cae7bf53c5da2003d210d84c6ac874917a4c260a5ffdb4396df4bc"
+      "sha256": "28b59061ab34d303417508cd4ece7270d25d4e7bde7715a62e2b862ccf319ade"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_stack_data_access_m1.boot.log",
-    "sha256": "f580e43563adee093703861d7be54dd89cfabc2ce61917e3bad87f36be28a1dd",
+    "sha256": "738a6f451f8e4c5af74ffe1b6d2d17cfb1c96814680db009b52323255fb3302f",
     "required_markers": [
       "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
-      "SeLinOS fresh target stack data-access M1: initial rsp data read produced classified VMFault; no reply, repair or second resume.",
+      "SeLinOS fresh target stack data-access M1: one mov rax,[rsp] completed then terminal invalid-opcode fault received; no reply or second resume.",
       "SeLinOS fresh target stack data-access M1: one classified initial-rsp read only; no reply, repair, process or Linux claim.",
       "SeLinOS M0: root task entering idle/yield loop."
     ]
@@ -33,11 +33,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_stack_data_access_m1_protocol.h",
@@ -45,7 +45,6 @@
     }
   },
   "does_not_prove": [
-    "successful target stack read",
     "target user write access",
     "stack initialization",
     "fault reply or repair",

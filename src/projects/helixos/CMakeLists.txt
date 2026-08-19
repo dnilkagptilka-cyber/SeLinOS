@@ -338,6 +338,20 @@ config_option(
     OFF
 )
 config_option(
+    SeLinFreshTargetStackVmfaultFsrProbe
+    SELINOS_FRESH_TARGET_STACK_VMFAULT_FSR_PROBE
+    "Enable one fresh target stack VMFault FSR classification witness"
+    DEFAULT
+    OFF
+)
+config_option(
+    SeLinFreshTargetNxeStackRevalidationProbe
+    SELINOS_FRESH_TARGET_NXE_STACK_REVALIDATION_PROBE
+    "Enable one fresh target post-NXE stack-read terminal-witness revalidation"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -348,6 +362,13 @@ config_option(
     SeLinX86NxMappingProbe
     SELINOS_X86_NX_MAPPING_PROBE
     "Enable the isolated x86_64 execute-disable versus executable-control mapping proof"
+    DEFAULT
+    OFF
+)
+config_option(
+    SeLinX86NxRawFsrRevalidationProbe
+    SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
+    "Enable isolated post-NXE raw-FSR execute-disable revalidation"
     DEFAULT
     OFF
 )
@@ -929,7 +950,7 @@ if(SeLinSealedStaticImageProbe)
         "$<TARGET_FILE:selinos-sealed-static-image-m0>"
         "$<TARGET_FILE:selinos-sealed-static-image-m0-probe>")
 endif()
-if(SeLinX86NxMappingProbe)
+if(SeLinX86NxMappingProbe OR SeLinX86NxRawFsrRevalidationProbe)
     list(APPEND SELINOS_SERVICE_IMAGES
         "$<TARGET_FILE:selinos-x86-nx-mapping-probe-child>")
 endif()
@@ -975,7 +996,7 @@ endif()
 if(SeLinRootConstructM4Completion)
     target_sources(selinos-root PRIVATE src/root_construct_m4.c)
 endif()
-if(SeLinX86NxMappingProbe)
+if(SeLinX86NxMappingProbe OR SeLinX86NxRawFsrRevalidationProbe)
     target_sources(selinos-root PRIVATE src/x86_nx_mapping_probe.c)
 endif()
 

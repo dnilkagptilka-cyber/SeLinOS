@@ -8,16 +8,16 @@
   "images": {
     "kernel": {
       "path": "build-sealed-static-image-probe/images/kernel-x86_64-pc99",
-      "sha256": "645886bc8e0f7db69f0017e4a2f04fcf21abf7cd6b2a5427392842c1229c047b"
+      "sha256": "9a3bc8a03e86c51bb38fcd4e978a8e84650f9ba5eff927aafb35e9e10026db20"
     },
     "root": {
       "path": "build-sealed-static-image-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "896056d52567a0cec05227789d4b447a5a85c25c91a5ad47d643ec034f40cc37"
+      "sha256": "b8f7d250949bd22025411f8ead2194a5f4ae5ce1052c932fb256dd521609ef87"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_sealed_static_image_m0.boot.log",
-    "sha256": "f952acae2ee5adbc44d9ad2a1242fb67d3f791569dae87d49cebfe783e768b49",
+    "sha256": "7f757ca3a9befaee9ccf8811ae640844e35275f4447547c0eb008b4f55acdcf4",
     "required_markers": [
       "SeLinOS sealed static-image M0: one SSIM-v1 RX ledger accepted; digest, W+X, canonical, reserved and range guards rejected before mapping.",
       "SeLinOS sealed static-image M0: parser-only status transaction; no frame, mapping, TCB, task resume or ELF claim.",
@@ -42,11 +42,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "parser_header": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_m0.h",

@@ -9,21 +9,21 @@
   "images": {
     "kernel": {
       "path": "build-taskd-zeroed-context-probe/images/kernel-x86_64-pc99",
-      "sha256": "89148c83fcb51dd724115464b767426125a92d760fe49b3d404d8087d806d909"
+      "sha256": "e32e56ef6cbb79ad69cea0c32b747134735c4154cc7abf4a9a5ef46e85080286"
     },
     "root_image": {
       "path": "build-taskd-zeroed-context-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "af4588e166293259e0275c6925bdafa9d2c7f6fc2abd766fa9af3d169bb23048"
+      "sha256": "b806bf08b86bfdd2c52552a23f1ebfe05a7d57a03eee02de4592eb584befc6c8"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2f2a8441c44d8053f01b941553822122ab1526feee71d21bb0b7e977c816e924"
+      "sha256": "a1bc42edfe6d82bc6941ba0e2fbd1fdb4d605d1a10b52a287c44cde6568039df"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "da31d17cd03c9ba9e96dbfd77de329f1d4c2f083a3264edaf0abba336d1fadc7"
+      "sha256": "9860b24ac6b0fed1b99fdeeb2da35beb011eeabf9cde9459ab1653fcfccba278"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_zeroed_context_m0_protocol.h",
@@ -44,14 +44,14 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_zeroed_context_m0.boot.log",
-    "sha256": "d7a4ed399b93ddbe7feeb7078f7e48bb771dbff489b41d5f583e293211df2b32",
+    "sha256": "5cc4eb7721af4afddd0d43aba5cfa5d2db3a743dbec771cfa2a18c57f428112c",
     "required_markers": [
       "SeLinOS taskd zeroed context M0: register ownership witness issued; target not invoked.",
       "SeLinOS taskd zeroed context M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",
       "SeLinOS taskd zeroed context M0: complete x86_64 zero context written and read back with resume_target=0.",
       "SeLinOS taskd zeroed context M0: configured target remains without entry point, stack or resume.",
       "SeLinOS taskd zeroed context M0: zeroed read-back witness passed; configured target remains non-executing.",
-      "qemu_status=124"
+      "COMMAND_EXIT_CODE=\"124\""
     ]
   },
   "not_claimed": [
