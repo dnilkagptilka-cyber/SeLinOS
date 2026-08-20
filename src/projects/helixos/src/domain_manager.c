@@ -65,6 +65,9 @@
 #if CONFIG_SELINOS_STATIC_ELF_RX_RO_RW_BSS_M0_PROBE
 #include "selinos_static_elf_rx_ro_rw_bss_m0.h"
 #endif
+#if CONFIG_SELINOS_STATIC_ELF_TWO_RX_RO_RW_BSS_M0_PROBE
+#include "selinos_static_elf_two_rx_ro_rw_bss_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4391,6 +4394,15 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS static ELF RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC RX text, separate RO PT_LOAD and separate RW BSS PT_LOAD validated and copied through root-private aliases before target W^X mappings.\n");
     debug_puts("SeLinOS static ELF RX/RO/RW+BSS M0: initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then terminal UD2 was received without reply, repair, retry or second resume.\n");
     debug_puts("SeLinOS static ELF RX/RO/RW+BSS M0: no relocation, dynamic linker, C runtime, syscall, process or Linux ABI claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_ELF_TWO_RX_RO_RW_BSS_M0_PROBE
+    if (!selinos_static_elf_two_rx_ro_rw_bss_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS static ELF two-RX/RO/RW+BSS M0: fixed ELF validation, root-private initialization, RX/RX/RO+NX/RW+NX mapping or terminal second-RX UD2 witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS static ELF two-RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC entry RX jump, separate second RX PT_LOAD, RO PT_LOAD and RW BSS PT_LOAD were copied through root-private aliases before target W^X mappings.\n");
+    debug_puts("SeLinOS static ELF two-RX/RO/RW+BSS M0: entry jumped into the second RX page; initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then second-RX terminal UD2 was received without reply, repair, retry or second resume.\n");
+    debug_puts("SeLinOS static ELF two-RX/RO/RW+BSS M0: no relocation, dynamic linker, C runtime, syscall, process or Linux ABI claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

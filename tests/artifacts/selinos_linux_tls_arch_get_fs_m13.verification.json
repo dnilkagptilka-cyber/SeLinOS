@@ -9,12 +9,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "458d82cc453a3cdc03d6696381772efad3c94c9aa9307ac01c3dc8a37788de1e"
+    "sha256": "a7c109ad62a9f8ec21014e93778a82b26506f2f2daaa29a385c65fff126aff70"
   },
   "implementation": {
     "root_dispatcher": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
+      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
     },
     "isolated_probe": {
       "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
@@ -29,7 +29,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_linux_tls_arch_get_fs_m13.boot.log",
-    "sha256": "85900dbb8b616f2fd0b12a10ee003b980e5089b729400d2ad173ae7f85593e1b",
+    "sha256": "1ed71ff77c86b7f0d3896542f43d3645a40ce00b9a82fd3b9ef7f83f3f0836a3",
     "required_markers": [
       "SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.",
       "SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated."

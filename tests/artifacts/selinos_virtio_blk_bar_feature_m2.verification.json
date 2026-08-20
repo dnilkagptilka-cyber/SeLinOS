@@ -12,7 +12,7 @@
   },
   "image": {
     "path": "build-virtio-bar-feature-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "d30bd622a64d6387fd4957b2bf6260e4a90b1bd64cb8c35bbe76bdf9655a2970"
+    "sha256": "1d008f9b66b481048957043deec1950e7cb01782d7f936fbf9e61d9af37ca2be"
   },
   "implementation": {
     "pci_root_helper": {
@@ -25,16 +25,16 @@
     },
     "root_hook": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
+      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
+      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
     }
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_blk_bar_feature_m2.boot.log",
-    "sha256": "20434808fac808704163e4206a64e30313333c43e2a94233ac9dfba77f56a809",
+    "sha256": "2566ddb9d21b1f0aae233a3ac5f869cec669df06701bfdbe3ddaac6b28af96ef",
     "required_markers": [
       "SeLinOS storage M2: root-only uncached common-config feature observation passed; authority withheld.",
       "SeLinOS storage M2: no BAR cap delegation, feature acceptance, status write, queue, IRQ, DMA or block I/O."

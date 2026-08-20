@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-zeroed-context-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "d4032d06e27821a843bed1b08254614919e6d39835d85a535246c5981c825fa0"
+      "sha256": "45cbdafe36657446f800f9f6887d49316a0482871e9218b66ff2c3b0e17cbb2c"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
+      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
+      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_zeroed_context_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_zeroed_context_m0.boot.log",
-    "sha256": "b85b9807ed3479d8b579195d8d382e1f4c70d6c7d1e1c1f7a4fdecb1c4bb8c05",
+    "sha256": "39e6c43980883a74159891f8084e345ad6a73ac599a7e8217b6b9fb620ad2236",
     "required_markers": [
       "SeLinOS taskd zeroed context M0: register ownership witness issued; target not invoked.",
       "SeLinOS taskd zeroed context M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",

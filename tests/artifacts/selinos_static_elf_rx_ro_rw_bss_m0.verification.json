@@ -21,12 +21,12 @@
     },
     "root_image": {
       "path": "build-static-elf-rx-ro-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b778ff9f03040b6c9d30a87e0038c97a781229012c76238a3b429fce5b878e26"
+      "sha256": "cc03277b1418d0d94c045d235f0c9b7f1578ee86262a7bf7c88e0a74a93a3475"
     }
   },
   "generated_config": {
     "path": "build-static-elf-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "edcb719c2e6d2f8ad10e52956d3915254a8db83cd3531e458fc180bca86b31ff"
+    "sha256": "a0b04895a60bdc4333fd5de2afa2bd2a31ce1bae90431acd16ebff52c4506444"
   },
   "implementation": {
     "fixture": {
@@ -43,11 +43,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
+      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
+      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
     },
     "phase_gate": {
       "path": "docs/phase81_static_elf_rx_ro_rw_bss_m0_gate.md",
@@ -60,7 +60,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_static_elf_rx_ro_rw_bss_m0.boot.log",
-    "sha256": "b812a8c0435fe40d1d6510dbd2345cef5539941b3c16bdd2676f8850a4725f47",
+    "sha256": "208d1e3b30769c193d376111477852383dc7c9ff5135b804645f717f95344d01",
     "required_markers": [
       "SeLinOS static ELF RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC RX text, separate RO PT_LOAD and separate RW BSS PT_LOAD validated and copied through root-private aliases before target W^X mappings.",
       "SeLinOS static ELF RX/RO/RW+BSS M0: initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then terminal UD2 was received without reply, repair, retry or second resume.",

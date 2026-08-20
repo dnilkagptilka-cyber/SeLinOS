@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "458d82cc453a3cdc03d6696381772efad3c94c9aa9307ac01c3dc8a37788de1e"
+    "sha256": "a7c109ad62a9f8ec21014e93778a82b26506f2f2daaa29a385c65fff126aff70"
   },
   "implementation": {
     "romfs_server": {
@@ -56,7 +56,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_romfs_cpio_m1.boot.log",
-    "sha256": "85900dbb8b616f2fd0b12a10ee003b980e5089b729400d2ad173ae7f85593e1b",
+    "sha256": "1ed71ff77c86b7f0d3896542f43d3645a40ce00b9a82fd3b9ef7f83f3f0836a3",
     "required_markers": [
       "SeLinOS romfsd: immutable release record service online.",
       "SeLinOS romfsd: embedded newc CPIO multi-file parser ready.",

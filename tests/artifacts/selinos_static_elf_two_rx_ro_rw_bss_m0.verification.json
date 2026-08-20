@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 two-RX plus RO plus RW/BSS load M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinStaticElfTwoRxRoRwBssM0=ON",
+    "default": "OFF",
+    "fixture": "fixed ELF64 ET_EXEC; exactly four page-aligned PT_LOAD records with two RX pages",
+    "entry_mapping": "read/execute, non-writable",
+    "second_rx_mapping": "read/execute, non-writable",
+    "ro_mapping": "read-only plus execute-disable",
+    "data_mapping": "read/write plus execute-disable",
+    "bss": "p_filesz=4, p_memsz=64, exactly 60 zero-filled bytes",
+    "resume_policy": "one target resume; no reply, repair, retry or second resume"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-elf-two-rx-ro-rw-bss-m0/images/kernel-x86_64-pc99",
+      "sha256": "2294be0e95456b0686ac9148364ffc7f4e102c8ca3586de69137e83b005f4274"
+    },
+    "root_image": {
+      "path": "build-static-elf-two-rx-ro-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f6cb9d201c4cd1a3963cc930b37496593bfdc502e2e79c4cc999ca65b58e427d"
+    }
+  },
+  "generated_config": {
+    "path": "build-static-elf-two-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "334f48503d4f12320b5adf38d86a31076ab08fd666d318f3ae8bb62d59d0ef05"
+  },
+  "implementation": {
+    "fixture": {
+      "path": "src/projects/helixos/src/static_elf_two_rx_ro_rw_bss_m0.c",
+      "sha256": "a8785613d274df9f8e74c3253ba1c7e7614a9c63180054eff937b8f6056f7a80"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/static_elf_two_rx_ro_rw_bss_m0_root.c",
+      "sha256": "8b393fdc99f9c85a312f53df669882541b2ade242a020780175d7ef2bdf2e12f"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_elf_two_rx_ro_rw_bss_m0_protocol.h",
+      "sha256": "c2ca0bf8be3bc5566f7ebbd3e489f8b1895be216aac20a720aaed5ca1b360ae7"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+    },
+    "phase_gate": {
+      "path": "docs/phase82_static_elf_two_rx_ro_rw_bss_m0_gate.md",
+      "sha256": "1d05d4ed8c78da346e1889b557aaa790fbfcdb7404cff52019750a35d2442449"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_static_elf_two_rx_ro_rw_bss_m0.py",
+      "sha256": "e96d2cea8599afacf612862fa77625e05c5820cf5d5c96fc2f53fab5d226cf43"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_two_rx_ro_rw_bss_m0.boot.log",
+    "sha256": "5ce0b1864de444c662e926cb85acf2f4efce93a0afdcdeb9a52092cf241edeb2",
+    "required_markers": [
+      "SeLinOS static ELF two-RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC entry RX jump, separate second RX PT_LOAD, RO PT_LOAD and RW BSS PT_LOAD were copied through root-private aliases before target W^X mappings.",
+      "SeLinOS static ELF two-RX/RO/RW+BSS M0: entry jumped into the second RX page; initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then second-RX terminal UD2 was received without reply, repair, retry or second resume.",
+      "SeLinOS static ELF two-RX/RO/RW+BSS M0: no relocation, dynamic linker, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS static ELF two-RX/RO/RW+BSS M0: fixed ELF validation, root-private initialization, RX/RX/RO+NX/RW+NX mapping or terminal second-RX UD2 witness failed.",
+      "terminal breakpoint",
+      "terminal VMFault",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "terminal_witness": {
+    "fault_label": "UserException",
+    "badge": "0x82",
+    "fault_ip": "0x60003046",
+    "stack_pointer": "0x70002ff8",
+    "vector": 6,
+    "instruction": "UD2"
+  },
+  "not_claimed": [
+    "arbitrary `PT_LOAD` layouts, shared pages, permissions, alignments, `ET_DYN`, PIE, TLS, auxiliary vectors, relocations, interpreters or a general ELF loader",
+    "dynamic linker, C runtime, system calls, clone, fork, pthreads, process lifecycle, filesystem semantics or Linux ABI compatibility",
+    "Debian package execution, a Debian primary environment, `dpkg`, `apt`, Linux kernel execution, Linux VM, container, chroot or compatibility mode"
+  ]
+}
