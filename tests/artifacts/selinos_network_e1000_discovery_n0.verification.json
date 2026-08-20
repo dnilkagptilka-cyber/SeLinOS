@@ -13,7 +13,7 @@
   },
   "image": {
     "path": "build-e1000-discovery-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "64353dfa549ffb581f3ebfe36564a6432600584158022812a0655cb646e9f7d1"
+    "sha256": "de64b7e7fc3951801dd4685c421397f3e1c97b9c8c0ebf7ccaad1aa1fa91717f"
   },
   "implementation": {
     "pci_source": {
@@ -26,11 +26,11 @@
     },
     "root_hook": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
     }
   },
   "identity": {
@@ -40,7 +40,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_network_e1000_discovery_n0.boot.log",
-    "sha256": "368a924e910fd511314e570d094fbf92638bc5304e15a8be8d3ccf75dfc0bd5e",
+    "sha256": "4bfc3156f2e3a6e1c71688106976578916a7f2cd45c338b1d2072cac73280b1e",
     "required_markers": [
       "SeLinOS network N0: quarantined e1000 PCI identity found; BAR/IRQ/DMA/network authority withheld."
     ],

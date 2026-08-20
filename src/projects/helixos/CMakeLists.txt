@@ -380,6 +380,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinStaticElfTwoRxGnuStackM0
+    SELINOS_STATIC_ELF_TWO_RX_GNU_STACK_M0_PROBE
+    "Enable one fixed ELF64 two-RX load with fail-closed PT_GNU_STACK metadata witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -484,6 +491,12 @@ add_library(selinos-static-elf-two-rx-ro-rw-bss-m0-fixture STATIC
 target_include_directories(selinos-static-elf-two-rx-ro-rw-bss-m0-fixture PUBLIC include)
 target_link_libraries(selinos-static-elf-two-rx-ro-rw-bss-m0-fixture PUBLIC selinos-elfrt)
 target_compile_options(selinos-static-elf-two-rx-ro-rw-bss-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-static-elf-two-rx-gnu-stack-m0-fixture STATIC
+    src/static_elf_two_rx_gnu_stack_m0.c)
+target_include_directories(selinos-static-elf-two-rx-gnu-stack-m0-fixture PUBLIC include)
+target_link_libraries(selinos-static-elf-two-rx-gnu-stack-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-static-elf-two-rx-gnu-stack-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
 
 # Phase 64 validates a self-authored sealed static-image grammar only. It maps
 # nothing and is not an ELF or executable loader.
@@ -1066,6 +1079,10 @@ endif()
 if(SeLinStaticElfTwoRxRoRwBssM0)
     target_sources(selinos-root PRIVATE src/static_elf_two_rx_ro_rw_bss_m0_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-static-elf-two-rx-ro-rw-bss-m0-fixture)
+endif()
+if(SeLinStaticElfTwoRxGnuStackM0)
+    target_sources(selinos-root PRIVATE src/static_elf_two_rx_gnu_stack_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-static-elf-two-rx-gnu-stack-m0-fixture)
 endif()
 
 include(rootserver)

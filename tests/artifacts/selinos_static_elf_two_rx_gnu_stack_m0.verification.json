@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 two-RX plus PT_GNU_STACK load M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinStaticElfTwoRxGnuStackM0=ON",
+    "default": "OFF",
+    "entry_mapping": "read/execute, non-writable",
+    "second_rx_mapping": "read/execute, non-writable",
+    "ro_mapping": "read-only plus execute-disable",
+    "data_mapping": "read/write plus execute-disable",
+    "bss": "p_filesz=4, p_memsz=64, exactly 60 zero-filled bytes",
+    "gnu_stack": "exactly one zero-extent PT_GNU_STACK with PF_R|PF_W and no PF_X",
+    "resume_policy": "one target resume; no reply, repair, retry or second resume"
+  },
+  "images": {
+    "kernel": {"path": "build-static-elf-two-rx-gnu-stack-m0/images/kernel-x86_64-pc99", "sha256": "b3c556e697072fbcc0cf653c91198d7dd8173fbcd19586841ff3990d4a59f046"},
+    "root_image": {"path": "build-static-elf-two-rx-gnu-stack-m0/images/selinos-root-image-x86_64-pc99", "sha256": "fe7e58bbcdc2ab68480ac626017ad078d022da4e370abb5f6ae6470c29408249"}
+  },
+  "generated_config": {"path": "build-static-elf-two-rx-gnu-stack-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "af4a2d86a98f89611aafa4de1924249baa1cda1951bfed4c4f21b2bca824f564"},
+  "implementation": {
+    "elfrt_parser": {"path": "src/projects/helixos/elfrt/src/selinos_elfrt.c", "sha256": "8600c1c74b41f4b7721b60f4d3c2f4c1e7e7b3eebe2374a1ffc692c488bf320e"},
+    "elfrt_interface": {"path": "src/projects/helixos/elfrt/include/selinos_elfrt.h", "sha256": "5b763910dfa7cc83b49600474988b0cbd1b85a6f9f52b7a928cb740ccbfc1f01"},
+    "fixture": {"path": "src/projects/helixos/src/static_elf_two_rx_gnu_stack_m0.c", "sha256": "b311b485697b536d4457a9d4dbce770517b7d5b76f268492de262bd3665e3766"},
+    "root_transaction": {"path": "src/projects/helixos/src/static_elf_two_rx_gnu_stack_m0_root.c", "sha256": "b9f2551d957bf3d61cd15fce4bcca41c484900ca25d6eac9c9ae01c38db47095"},
+    "protocol": {"path": "src/projects/helixos/include/selinos_static_elf_two_rx_gnu_stack_m0_protocol.h", "sha256": "9cff87f7db8b474fa31c745e3084634e2b4a018f20f59915b927bf8398895a05"},
+    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"},
+    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"},
+    "phase_gate": {"path": "docs/phase83_static_elf_two_rx_gnu_stack_m0_gate.md", "sha256": "e4278e234f0198e48859a12d4ea9103d61f1ca2b5a3b97ecda2a409c9dc28be8"},
+    "independent_verifier": {"path": "tools/verify_static_elf_two_rx_gnu_stack_m0.py", "sha256": "788f9d87703b4a821e0267a55a8a54dd674c6b4259a7240fd5869b793bd84665"}
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_two_rx_gnu_stack_m0.boot.log",
+    "sha256": "e7d9914482947206c3fdeb6875e3f24392d8f6d23f3a064bd8bb0447a833cd3e",
+    "required_markers": [
+      "SeLinOS static ELF two-RX GNU-stack M0: fixed zero-extent PT_GNU_STACK PF_R|PF_W metadata was parser-validated; root retained an independently enforced RW+NX target stack.",
+      "SeLinOS static ELF two-RX GNU-stack M0: two RX pages, RO+NX and RW+BSS+NX mappings reached second-RX terminal UD2 without reply, repair, retry or second resume.",
+      "SeLinOS static ELF two-RX GNU-stack M0: no general PT_GNU_STACK, dynamic linker, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": ["SeLinOS static ELF two-RX GNU-stack M0: fixed ELF validation, PT_GNU_STACK policy, root-private initialization, NX stack mapping or terminal second-RX UD2 witness failed.", "terminal breakpoint", "terminal VMFault"]
+  },
+  "not_claimed": ["arbitrary `PT_LOAD` or `PT_GNU_STACK` layouts, shared pages, ET_DYN, PIE, TLS, auxiliary vectors, relocations or interpreters", "dynamic linker, C runtime, system calls, process lifecycle or Linux ABI compatibility", "Debian package execution, `dpkg`, `apt`, Linux kernel, Linux VM, container, chroot or compatibility mode"]
+}

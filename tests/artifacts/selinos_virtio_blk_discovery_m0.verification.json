@@ -10,7 +10,7 @@
   },
   "image": {
     "path": "build-virtio-discovery-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "1f63a26fc6c30d67d26a9525a449db66374a7c57ed6b518e48d631e44df81043"
+    "sha256": "219ec594038d645cd5734f9889d7debf1c6a5196f6071e53d26e11ca913c7709"
   },
   "implementation": {
     "pci_source": {
@@ -19,7 +19,7 @@
     },
     "root_bootstrap": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
     },
     "pci_contract": {
       "path": "src/projects/helixos/include/selinos_pci.h",
@@ -27,7 +27,7 @@
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
     }
   },
   "identity": {
@@ -37,7 +37,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_blk_discovery_m0.boot.log",
-    "sha256": "ebe9e154d236ae82fa454d173f5027a69db209e4c022869ca9c7de2c06fce5b5",
+    "sha256": "cadddc1a9933c8ba7438dbf9ae0698e3f978e63e43589dead8ba661ca7ce0520",
     "required_markers": [
       "SeLinOS storage M0: quarantined modern virtio-blk PCI identity found; authority withheld."
     ],

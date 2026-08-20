@@ -11,8 +11,10 @@
 #define ELFRT_PT_LOAD 1u
 #define ELFRT_PT_DYNAMIC 2u
 #define ELFRT_PT_INTERP 3u
-#define ELFRT_PF_W 2u
+#define ELFRT_PT_GNU_STACK 0x6474e551u
 #define ELFRT_PF_X 1u
+#define ELFRT_PF_W 2u
+#define ELFRT_PF_R 4u
 #define ELFRT_DT_NULL 0
 #define ELFRT_DT_NEEDED 1
 #define ELFRT_DT_STRTAB 5
@@ -125,6 +127,7 @@ int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
     const struct elfrt_ehdr *header;
     const struct elfrt_phdr *program_headers;
     const struct elfrt_phdr *dynamic_header = 0;
+    const struct elfrt_phdr *gnu_stack_header = 0;
     selinos_elfrt_u64 string_table_address = 0u;
     selinos_elfrt_u64 string_table_size = 0u;
     selinos_elfrt_u64 needed_offsets[SELINOS_ELFRT_MAX_NEEDED];
@@ -204,6 +207,18 @@ int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
             }
             dynamic_header = program;
             summary->has_dynamic = 1u;
+        } else if (program->type == ELFRT_PT_GNU_STACK) {
+            if (gnu_stack_header != 0 ||
+                program->flags != (ELFRT_PF_R | ELFRT_PF_W) ||
+                program->offset != 0u || program->vaddr != 0u ||
+                program->paddr != 0u || program->filesz != 0u ||
+                program->memsz != 0u ||
+                (program->align != 0u && !power_of_two(program->align))) {
+                return SELINOS_ELFRT_E_POLICY;
+            }
+            gnu_stack_header = program;
+            summary->has_gnu_stack = 1u;
+            summary->gnu_stack_flags = program->flags;
         }
     }
     if (summary->load_segments == 0u) {

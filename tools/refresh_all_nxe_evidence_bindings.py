@@ -17,11 +17,14 @@ REPLAY_LOG = ARTIFACTS / "phase78_nxe_affected_profile_replays.log"
 ALLOWED_PATHS = {
     "src/projects/helixos/CMakeLists.txt",
     "src/projects/helixos/src/domain_manager.c",
+    "src/projects/helixos/elfrt/src/selinos_elfrt.c",
+    "src/projects/helixos/elfrt/include/selinos_elfrt.h",
     "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-rx-load-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-rx-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-static-elf-two-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 

@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-suspended-linkage-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b38c3da6c6794c7a19d4bc5f7213d494e9a21d290820bc859e2895b0e43a5ac9"
+      "sha256": "22a0a38968a7745d7910b6ac15629356ebd39a54e584d77ede3ab2d929c578a3"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_suspended_linkage_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_suspended_linkage_m0.boot.log",
-    "sha256": "a31aa92a89dab841ec810306e2aa668d6494beaa1ac38e6281583fd85e318b00",
+    "sha256": "1df07d382286e9793443a8293a313081782e9848c36511fbfd83019fdd0897b0",
     "required_markers": [
       "SeLinOS taskd suspended linkage M0: ownership witness issued; configured TCB not invoked.",
       "SeLinOS taskd suspended linkage M0: root rolled back rejected TCB/CNode/PML4 generation 1 before configuration.",

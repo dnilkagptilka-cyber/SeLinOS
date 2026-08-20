@@ -21,7 +21,7 @@
     },
     "root_image": {
       "path": "build-virtio-notification-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "53c4c303994a4121a8b864a2796a748ce1caf7238ecb3057cc4fbf53d7614188"
+      "sha256": "1272c307835fbc7791c705ba80534ba33224f10f695b4cc038ff68cfc21d40b5"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
     },
     "phase_design_gate": {
       "path": "docs/phase46_virtio_blk_notification_observation_m8_gate.md",
@@ -57,7 +57,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_notification_observation_m8.boot.log",
-    "sha256": "1924b07493b82488abdef66ec293048d2d96eb2ecd22581cb462c994a3947da9",
+    "sha256": "71366c231a0abd8da21d5f2eaa9758d8e00fa610f8c73d6c285e30b949c0e604",
     "required_markers": [
       "SeLinOS storage M8: queue-zero notification address observation passed.",
       "SeLinOS storage M8: notification BAR unmapped; no notify, IRQ, DMA claim or block I/O.",

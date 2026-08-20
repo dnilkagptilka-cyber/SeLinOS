@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-self-rooted-cspace-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "8d5d96540c0e8241a274ba933cc5262910ca35e3f2f18c0c7dd4da6b5545d05e"
+      "sha256": "b7cd0ce42cf350f61e5e15486081f9c338fc591fd797162d11e0cc2f26ca8a32"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "1646ace19fa31a73aed49b04f8f48ce11ade53d8552649d781dae5eb31e5f836"
+      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "4ac7829911b2816844c4165ceee92ad7da7e0a4c00b9fa5c5bf3e3af47df7c56"
+      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_self_rooted_cspace_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_self_rooted_cspace_m0.boot.log",
-    "sha256": "0ffe0b5bbd23a09003131005f910027259884b713f45a77334abfc710849b829",
+    "sha256": "bfbed2a70c88cec2297763863c3b2863104685194eca72e3cf1959ab60b8f71a",
     "required_markers": [
       "SeLinOS taskd self-rooted CSpace M0: ownership witness issued; target resources not invoked.",
       "SeLinOS taskd self-rooted CSpace M0: root rolled back rejected TCB/CNode/PML4 generation 1 before CSpace population.",

@@ -1,4 +1,4 @@
-Script started on 2026-08-20 15:02:54+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/33" COLUMNS="-1" LINES="-1"]
+Script started on 2026-08-20 15:54:56+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/7" COLUMNS="-1" LINES="-1"]
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
@@ -9,7 +9,7 @@ Press Ctrl-B to configure iPXE (PCI 00:03.0)...
 Booting from ROM..Boot config: debug_port = 0x3f8
 Boot config: disable_iommu = false
 Detected 1 boot module(s):
-  module #0: start=0xa14000 end=0xc76c68 size=0x262c68 name='images/selinos-root-image-x86_64-pc99'
+  module #0: start=0xa14000 end=0xc76c70 size=0x262c70 name='images/selinos-root-image-x86_64-pc99'
 Parsing GRUB physical memory map
 	Physical Memory Region from 0 size 9fc00 type 1
 	Physical Memory Region from 9fc00 size 400 type 2
@@ -87,12 +87,8 @@ SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address 
 SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
 SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SeLinOS modexec: isolated pinned fixture init_module entering.
-SeLinOS modexec: pinned fixturSeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
-SeLinOS root dispatch M0: exact fixed request accepted.
-SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
-SeLinOS M0: root task entering idle/yield loop.
-SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS modld: integrity, KABI CRC and non-executing relocation SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child construSeLinOS taskd TCB resume M2: exact slot 1 request accepted.
 SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
 SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
 SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
@@ -105,12 +101,16 @@ SeLinOS taskd M1: exact START(1) accepted.
 SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
 SeLinOS deviced: no PCI device record was issued; registry dormant.
 SeLinOS taskd VM-restart M0: one zero-label VM-fault reply reaches terminal unreplied user exception; target blocked.
-e invoked curated _printk stub.
+SeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+cted.
+SeLinOS M0: root task entering idle/yield loop.
 SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
 SeLinOS TCB resume M2 child: one fixed completion sent.
 SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
@@ -139,6 +139,6 @@ SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 876793 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 897684 (timeout)
 
-Script done on 2026-08-20 15:03:06+00:00 [COMMAND_EXIT_CODE="124"]
+Script done on 2026-08-20 15:55:09+00:00 [COMMAND_EXIT_CODE="124"]
