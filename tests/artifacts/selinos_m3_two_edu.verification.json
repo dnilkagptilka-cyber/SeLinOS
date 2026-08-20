@@ -13,11 +13,11 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "06637758b91049770906f412d0dd3d8e7fd3cedf1242419af69b44939a8e4ec0"
+    "sha256": "ac5aff2e1cea57553a90bf900eaa543893fd95837ffc727e0e121bb9dc99cbca"
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_two_edu_m3.log",
-    "sha256": "974d2cc08432151cb5ab17ebf75a1f938795707438ddcfd88e722cdfca9009fb",
+    "sha256": "6e2890460ab4228a59cd265505e3154772d6dbb8f253333875c1dda56b06ba39",
     "required_once": [
       "SeLinOS M3: multiple QEMU edu functions discovered; independent bundles starting."
     ],

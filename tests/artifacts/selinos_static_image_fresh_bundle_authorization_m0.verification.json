@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-static-image-fresh-bundle-authorization-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "bdf06bac356809e68509a0518d394e27669e1249b4ec292ddd99c4a33ee12520"
+      "sha256": "058a3c643104fc6a862c9686dbc7e55a25a87b95ac48fbdf28201f46e83fb9c8"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_fresh_bundle_authorization_m0.boot.log",
-    "sha256": "eaabd5ffa2948d08652979f2f2e8c615f56b39d19b3074c3bccae84bbb268109",
+    "sha256": "ac985edebfdc1e57783acd9e16958d854b4228d93b2b4be578254e7209427d52",
     "required_markers": [
       "SeLinOS static-image object reclamation M0: terminal TCB, unmapped frames, reverse paging objects, CNode, PML4, endpoint and notification disposed; no reuse performed.",
       "SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_fresh_bundle_authorization_m0_protocol.h",

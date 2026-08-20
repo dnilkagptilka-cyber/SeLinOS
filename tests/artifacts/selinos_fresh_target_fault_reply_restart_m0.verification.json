@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-fresh-target-fault-reply-restart-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f7a108fab34031866567a8ef7c7fef1b1f0839e3159afa3176826376b01170c1"
+      "sha256": "a2a8de6a0075863d1cbf7858ef8f0c832feef5f175ac048ea2e4ac72a6d24f6d"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_fault_reply_restart_m0.boot.log",
-    "sha256": "80fab695c90f2c4f5830d1d6f9bf7ecc84d28b31d0c6c4e628918776a1dcad56",
+    "sha256": "5d7c18dc435fb7df95809704807a861fcfd01cf53ef9c08d12c7634c7e7e793e",
     "required_markers": [
       "SeLinOS fresh target first-fetch M0: one NOP completed then terminal invalid-opcode fault received; no fault reply or second resume.",
       "SeLinOS fresh target fault reply/restart M0: first UserException RIP repaired to one second NOP, then terminal invalid-opcode fault received; no second reply or resume.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_fault_reply_restart_m0_protocol.h",

@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build-root-construct-m2/images/selinos-root-image-x86_64-pc99",
-    "sha256": "2df33a0ec724a9fff4be146268eca30c35380f69adeafceaecde7cb75f1ed641"
+    "sha256": "9dde039d6d2c5bf3721c34aeec59128af9cd6719745f3ac7d7a63b7fffbea7fc"
   },
   "implementation": {
     "root_m1_adapter": {
@@ -22,7 +22,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -46,7 +46,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     }
   },
   "contract": {
@@ -56,7 +56,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_root_construct_m2.boot.log",
-    "sha256": "c6568cf3fbb6b73fb87dfd15e1a521dfc943222664bdfc08bf5b3149426e2749",
+    "sha256": "d4953771027a5fc850ea4f85871a2675b936bc429c805e9fcd4c8673480d55eb",
     "required_markers": [
       "SeLinOS root construction M1: isolated taskd request endpoint ready.",
       "SeLinOS root construction M1: exact fixed request accepted; root constructing.",

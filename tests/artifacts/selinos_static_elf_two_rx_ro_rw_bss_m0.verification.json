@@ -22,12 +22,12 @@
     },
     "root_image": {
       "path": "build-static-elf-two-rx-ro-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "9618b501857aa1df39e018f32c435481776ce2b948ea407b82fb3c0c45078233"
+      "sha256": "359b709882e5c99074ef4c39bd9be8f720f444962cc92a1700b88fa7ee4d5f93"
     }
   },
   "generated_config": {
     "path": "build-static-elf-two-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "f79433a12f0c1c8a1203c76070054dbf9498becbdd4246c05f0413aace287a2e"
+    "sha256": "44f2e825fb302f4cfc45a49aeaa2d4f9c7d0577b5d56864a2756789051899311"
   },
   "implementation": {
     "fixture": {
@@ -44,11 +44,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "phase_gate": {
       "path": "docs/phase82_static_elf_two_rx_ro_rw_bss_m0_gate.md",
@@ -61,7 +61,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_static_elf_two_rx_ro_rw_bss_m0.boot.log",
-    "sha256": "96dbf4161fa63488c003203ba57b8c5fef3821497a51223127b04d2039fc38cf",
+    "sha256": "ff3ed53e5f974b4c17359c582bf6fd2adc955170ba66bbc542d5b05c8f294883",
     "required_markers": [
       "SeLinOS static ELF two-RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC entry RX jump, separate second RX PT_LOAD, RO PT_LOAD and RW BSS PT_LOAD were copied through root-private aliases before target W^X mappings.",
       "SeLinOS static ELF two-RX/RO/RW+BSS M0: entry jumped into the second RX page; initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then second-RX terminal UD2 was received without reply, repair, retry or second resume.",

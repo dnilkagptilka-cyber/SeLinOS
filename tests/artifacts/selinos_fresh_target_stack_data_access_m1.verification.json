@@ -13,12 +13,12 @@
     },
     "root": {
       "path": "build-fresh-target-stack-data-access-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "3cf0845fab4928878991c91bc630071e43b499de83b40f9d8fbf5b97a0cea8c5"
+      "sha256": "45aa86fcace5e4aba950cc7c9e9dcc9808f52cc7ec0698276459e1a74b40b57a"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_stack_data_access_m1.boot.log",
-    "sha256": "f02b877f99b7b7b0b76ea04a9a4d20bd2523092027d0ce4d7602be914477f87a",
+    "sha256": "9152a178042f769916d37d1e16e0246929c3d8e55b2c28c57f58abddefc638a3",
     "required_markers": [
       "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
       "SeLinOS fresh target stack data-access M1: one mov rax,[rsp] completed then terminal invalid-opcode fault received; no reply or second resume.",
@@ -33,11 +33,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_stack_data_access_m1_protocol.h",

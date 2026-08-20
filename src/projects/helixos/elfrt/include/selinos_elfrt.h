@@ -32,6 +32,8 @@ struct selinos_elfrt_summary {
     selinos_elfrt_u32 has_textrel;
     selinos_elfrt_u32 has_gnu_stack;
     selinos_elfrt_u32 gnu_stack_flags;
+    selinos_elfrt_u32 has_note;
+    selinos_elfrt_u32 note_size;
     char interpreter[SELINOS_ELFRT_INTERP_MAX];
     char needed[SELINOS_ELFRT_MAX_NEEDED][SELINOS_ELFRT_NEEDED_NAME_MAX];
 };
@@ -51,7 +53,7 @@ enum selinos_elfrt_status {
 
 /* Accepts exactly ELF64 little-endian x86_64 ET_EXEC or ET_DYN. It validates
  * file bounds and PT_LOAD alignment/ranges, then parses bounded PT_INTERP,
- * PT_DYNAMIC and one fail-closed fixed-form PT_GNU_STACK metadata record.
+ * PT_DYNAMIC, one fail-closed PT_GNU_STACK record and one bounded PT_NOTE record.
  * `allow_interpreter` controls only acceptance of a
  * PT_INTERP record; no interpreter is opened or executed. */
 int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,

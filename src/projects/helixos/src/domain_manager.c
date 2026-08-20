@@ -71,6 +71,9 @@
 #if CONFIG_SELINOS_STATIC_ELF_TWO_RX_GNU_STACK_M0_PROBE
 #include "selinos_static_elf_two_rx_gnu_stack_m0.h"
 #endif
+#if CONFIG_SELINOS_STATIC_ELF_TWO_RX_NOTE_M0_PROBE
+#include "selinos_static_elf_two_rx_note_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4415,6 +4418,15 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS static ELF two-RX GNU-stack M0: fixed zero-extent PT_GNU_STACK PF_R|PF_W metadata was parser-validated; root retained an independently enforced RW+NX target stack.\n");
     debug_puts("SeLinOS static ELF two-RX GNU-stack M0: two RX pages, RO+NX and RW+BSS+NX mappings reached second-RX terminal UD2 without reply, repair, retry or second resume.\n");
     debug_puts("SeLinOS static ELF two-RX GNU-stack M0: no general PT_GNU_STACK, dynamic linker, C runtime, syscall, process or Linux ABI claim.\n");
+#endif
+#if CONFIG_SELINOS_STATIC_ELF_TWO_RX_NOTE_M0_PROBE
+    if (!selinos_static_elf_two_rx_note_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS static ELF two-RX NOTE M0: fixed ELF validation, bounded PT_NOTE policy, root-private initialization, target mappings or terminal second-RX UD2 witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS static ELF two-RX NOTE M0: fixed readable four-byte PT_NOTE metadata was parser-validated and intentionally never mapped into the target.\n");
+    debug_puts("SeLinOS static ELF two-RX NOTE M0: PT_GNU_STACK, two RX pages, RO+NX and RW+BSS+NX mappings reached second-RX terminal UD2 without reply, repair, retry or second resume.\n");
+    debug_puts("SeLinOS static ELF two-RX NOTE M0: no general PT_NOTE, dynamic linker, C runtime, syscall, process or Linux ABI claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

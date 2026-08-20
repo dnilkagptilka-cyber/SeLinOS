@@ -11,6 +11,7 @@
 #define ELFRT_PT_LOAD 1u
 #define ELFRT_PT_DYNAMIC 2u
 #define ELFRT_PT_INTERP 3u
+#define ELFRT_PT_NOTE 4u
 #define ELFRT_PT_GNU_STACK 0x6474e551u
 #define ELFRT_PF_X 1u
 #define ELFRT_PF_W 2u
@@ -207,6 +208,15 @@ int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
             }
             dynamic_header = program;
             summary->has_dynamic = 1u;
+        } else if (program->type == ELFRT_PT_NOTE) {
+            if (program->flags != ELFRT_PF_R ||
+                program->filesz != program->memsz ||
+                !range_valid(image_size, program->offset, program->filesz) ||
+                (program->align != 0u && !power_of_two(program->align))) {
+                return SELINOS_ELFRT_E_POLICY;
+            }
+            summary->has_note = 1u;
+            summary->note_size = (selinos_elfrt_u32)program->filesz;
         } else if (program->type == ELFRT_PT_GNU_STACK) {
             if (gnu_stack_header != 0 ||
                 program->flags != (ELFRT_PF_R | ELFRT_PF_W) ||

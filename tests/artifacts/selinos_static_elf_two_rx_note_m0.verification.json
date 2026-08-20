@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 two-RX plus PT_NOTE load M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinStaticElfTwoRxNoteM0=ON",
+    "default": "OFF",
+    "entry_mapping": "read/execute, non-writable",
+    "second_rx_mapping": "read/execute, non-writable",
+    "ro_mapping": "read-only plus execute-disable",
+    "data_mapping": "read/write plus execute-disable",
+    "bss": "p_filesz=4, p_memsz=64, exactly 60 zero-filled bytes",
+    "gnu_stack": "exactly one zero-extent PT_GNU_STACK with PF_R|PF_W and no PF_X",
+    "note": "exactly one PF_R PT_NOTE, p_vaddr=p_paddr=0, p_filesz=p_memsz=4 at file offset 0x200, not mapped",
+    "resume_policy": "one target resume; no reply, repair, retry or second resume"
+  },
+  "images": {
+    "kernel": {"path": "build-static-elf-two-rx-note-m0/images/kernel-x86_64-pc99", "sha256": "e4a45a8cf9a00982ab7ef59c0acec6951e3dc7e7c21bbc942e393bfcc41fdad1"},
+    "root_image": {"path": "build-static-elf-two-rx-note-m0/images/selinos-root-image-x86_64-pc99", "sha256": "3c0c2c29835413d93f8d4c329ad737947e56a0ee3190047acb0efb945cf2e9f2"}
+  },
+  "generated_config": {"path": "build-static-elf-two-rx-note-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "9d1b289ad6b00357a5b438d651df344519e84b1b0eb52c33e514bf9882337868"},
+  "implementation": {
+    "elfrt_parser": {"path": "src/projects/helixos/elfrt/src/selinos_elfrt.c", "sha256": "e6186ef01b4e8610cb199b4df6b1023d48d9990f1fb31a512a63bf6a20eea174"},
+    "elfrt_interface": {"path": "src/projects/helixos/elfrt/include/selinos_elfrt.h", "sha256": "3e62662bfc4460481af903b9ba301060ff8bffbf330a26ff120aae4ace3a5078"},
+    "fixture": {"path": "src/projects/helixos/src/static_elf_two_rx_note_m0.c", "sha256": "4e1ec01af2051e708c45447c8fc7f58d5fd9f3a86eedfcf674b9186c57cceeaf"},
+    "root_transaction": {"path": "src/projects/helixos/src/static_elf_two_rx_note_m0_root.c", "sha256": "48cf053d9abcc9d09cbd54acb453c688c6526d33934f0b457aa4242300f77c24"},
+    "protocol": {"path": "src/projects/helixos/include/selinos_static_elf_two_rx_note_m0_protocol.h", "sha256": "2686fe61f1a83b65c2fcc02babdc00d2763bc2141ac33c11906ee76fcc816ddc"},
+    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"},
+    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"},
+    "phase_gate": {"path": "docs/phase84_static_elf_two_rx_note_m0_gate.md", "sha256": "f118900fc0897492dd4023d38d7c6f5842be4de0b47799d35813e39c50f66e0e"},
+    "independent_verifier": {"path": "tools/verify_static_elf_two_rx_note_m0.py", "sha256": "c06dd45dc80daacde7f556b0c7d233994a025ca2e238fe88e098ba8ae1e1a9b4"}
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_two_rx_note_m0.boot.log",
+    "sha256": "21377e830fb506b2613630b7b63259ecf60fc343f07baa8f1021671f2efb70f3",
+    "required_markers": [
+      "SeLinOS static ELF two-RX NOTE M0: fixed readable four-byte PT_NOTE metadata was parser-validated and intentionally never mapped into the target.",
+      "SeLinOS static ELF two-RX NOTE M0: PT_GNU_STACK, two RX pages, RO+NX and RW+BSS+NX mappings reached second-RX terminal UD2 without reply, repair, retry or second resume.",
+      "SeLinOS static ELF two-RX NOTE M0: no general PT_NOTE, dynamic linker, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS static ELF two-RX NOTE M0: fixed ELF validation, bounded PT_NOTE policy, root-private initialization, target mappings or terminal second-RX UD2 witness failed.",
+      "terminal breakpoint",
+      "terminal VMFault"
+    ]
+  },
+  "not_claimed": [
+    "arbitrary `PT_LOAD` or `PT_NOTE` layouts, GNU property or build-id interpretation, shared pages, ET_DYN, PIE, TLS, auxiliary vectors, relocations or interpreters",
+    "dynamic linker, C runtime, system calls, process lifecycle or Linux ABI compatibility",
+    "Debian package execution, `dpkg`, `apt`, Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}

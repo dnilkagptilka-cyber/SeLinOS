@@ -10,7 +10,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "06637758b91049770906f412d0dd3d8e7fd3cedf1242419af69b44939a8e4ec0"
+    "sha256": "ac5aff2e1cea57553a90bf900eaa543893fd95837ffc727e0e121bb9dc99cbca"
   },
   "implementation": {
     "kapi_core": {
@@ -44,7 +44,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_kapi_sync_m1.boot.log",
-    "sha256": "269d2f40abab1bcbe4601c76409e629ae2ca026912150da93cf3fd2c579371f5",
+    "sha256": "4d7d928762c7e67486001d49f5c58184592636bb2fe2d78f1fffa582cbd3b30d",
     "required_markers": [
       "SeLinOS edu driver: Phase 6 completion/work/timer/spinlock shim checks passed.",
       "SeLinOS edu driver: mediated 100-byte coherent DMA roundtrip passed.",

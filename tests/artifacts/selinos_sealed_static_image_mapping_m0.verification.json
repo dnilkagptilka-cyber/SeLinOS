@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-sealed-static-image-mapping-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "4cd715793e6123da2e0c9bcefaff36fce629a215e5075fd09fbaa5084bb2e945"
+      "sha256": "3a4216967fed3ed6e1c7e26af652936ef8e2c7fdbbb61b27dcb472b6482dce6d"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_sealed_static_image_mapping_m0.boot.log",
-    "sha256": "5ed4c5eedd9b1719390600c50cd1fb43740d03485065f017fdd511a0a37b5d51",
+    "sha256": "d2588eef2e323bebcafae21b9d10881d2066311f0fd7e83f4ea96dc5cd2efaaa",
     "required_markers": [
       "SeLinOS sealed static-image mapping M0: one accepted SSIM payload copied through a root-private alias then unmapped before target executable mapping.",
       "SeLinOS sealed static-image mapping M0: one NOP completed then terminal invalid-opcode witness received without reply or second resume.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_sealed_static_image_mapping_m0_protocol.h",

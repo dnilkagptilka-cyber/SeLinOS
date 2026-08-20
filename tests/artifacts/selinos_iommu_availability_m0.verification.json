@@ -16,17 +16,17 @@
     },
     "root_image": {
       "path": "build-iommu-availability-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "2eaacf70dcc971581fd7020815c4316d1f1ea6b72775f41607ed1e965525f088"
+      "sha256": "6b8f4cd0043ef060215bbe5e21202309caf73535dc6fbd99d0a2793bf5892e1f"
     }
   },
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "52c208532a23f8c641d3e2a9357b68ca52d40254db045bd7ea99ba2f703ce124"
+      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "cac06c38cba6cb63edca3d5166c94ddea8cea270ca28a46484d7f5b03deeffe4"
+      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
     },
     "phase_design_gate": {
       "path": "docs/phase49_x86_iommu_availability_m0_gate.md",
@@ -35,7 +35,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_iommu_availability_m0.boot.log",
-    "sha256": "f7deb69ac9cf79ba9dde4aee6a6b282c1b4b6ee33661a0eb8149c176b32b5059",
+    "sha256": "2a28f70bedbebf008487cc3d5d5c3e1a892d32d1a914b5fb8daa5af863831765",
     "required_markers": [
       "SeLinOS IOMMU M0: numIOPTLevels=0; QEMU containment blocker observed.",
       "COMMAND_EXIT_CODE=\"124\""
