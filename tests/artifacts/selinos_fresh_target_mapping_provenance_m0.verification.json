@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-fresh-target-mapping-provenance-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a22a943fcfd06821783f4d16e18e6cbede09282b05f6fb89536258de6c889b8c"
+      "sha256": "259852ca487efd3adba5a49115ad29a1789e62d54d6688f6390348d7a0dbc97c"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_mapping_provenance_m0.boot.log",
-    "sha256": "17d44c81367cc33cb7d08a6dac8de65a6a634012f969b43ff20e2f38c08fd29a",
+    "sha256": "30c7c2a593ea177db16f3e7aa69fa56e8b0dc2749473f74c924b6de48c2dde2e",
     "required_markers": [
       "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
       "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
@@ -33,11 +33,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_mapping_provenance_m0_protocol.h",

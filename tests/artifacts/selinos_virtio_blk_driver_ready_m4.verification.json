@@ -15,7 +15,7 @@
   },
   "image": {
     "path": "build-virtio-driver-ready-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "1e3e619dd5d883bb4879f58d692160dd0434a16be5d433c1a969796c49088490"
+    "sha256": "5a255fb93eba31fa779548c8b6bb7fc5ce90e53c84e20026168a185657300f8b"
   },
   "implementation": {
     "pci_helper": {
@@ -28,7 +28,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -36,7 +36,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
     }
   },
   "fixture": {
@@ -46,7 +46,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_driver_ready_m4.boot.log",
-    "sha256": "5d35b84ebe9af515f8c625de2a15d87366e94c0c06f2eac67b4721e9b8f8f518",
+    "sha256": "71928735b81b9a9f446d85fd7009c821e97cb8f63f5299296f670cf774274787",
     "required_markers": [
       "SeLinOS storage M4: root-only zero-feature DRIVER_OK accepted then reset to zero.",
       "SeLinOS storage M4: no queue, IRQ, DMA, bus mastering or block I/O."

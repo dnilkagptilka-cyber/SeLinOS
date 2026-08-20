@@ -20,6 +20,7 @@ ALLOWED_PATHS = {
     "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-rx-load-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-static-elf-rx-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 

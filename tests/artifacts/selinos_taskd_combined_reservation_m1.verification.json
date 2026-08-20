@@ -8,12 +8,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "a16a4fa4d36de3a38cceab621304397c0e6ada5c113f5a53c6bba49a52449653"
+    "sha256": "458d82cc453a3cdc03d6696381772efad3c94c9aa9307ac01c3dc8a37788de1e"
   },
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "taskd": {
       "path": "src/projects/helixos/servers/taskd_reservation_m1.c",
@@ -43,7 +43,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_taskd_combined_reservation_m1.boot.log",
-    "sha256": "9852bdeb54ecc0aa8019799159cf6e869c08fe22f06ffd878793e9d944cc9f7c",
+    "sha256": "85900dbb8b616f2fd0b12a10ee003b980e5089b729400d2ad173ae7f85593e1b",
     "required_markers": [
       "SeLinOS taskd reservation M1: exact combined slot 1 request accepted.",
       "SeLinOS objectd reservation M2: status-only slot 1 reservation returned.",

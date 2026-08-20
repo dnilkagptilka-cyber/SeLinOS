@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-fresh-target-bundle-construction-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "64ec408d694defce9e557e19cd8b966d17186b708fc48431ca649813f1c722e6"
+      "sha256": "c35c7458f82df6a2fd2cb03818eaca2446e01a603fbb0457dfb3cc391f59a671"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_bundle_construction_m0.boot.log",
-    "sha256": "d6aa9f80ca79bed05f8830d9d3742ab96d8a44fdb6663aff924596d9dfa67008",
+    "sha256": "6617c5d8d68180777e58a62fd49b006270ab3b4ecca8846a8a69977790270770",
     "required_markers": [
       "SeLinOS static-image fresh-bundle authorization M0: generation 2 authorized once; duplicate and retired generation 1 rejected; no allocation or reuse performed.",
       "SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PML4-notification-IPC-entry-stack bundle root-owned; no ASID, mapping, configuration or execution.",
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_bundle_construction_m0_protocol.h",

@@ -17,7 +17,7 @@
     },
     "root_image": {
       "path": "build-wx-nx-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "4ed87f7940aeac3d1c9f3c539f492b2ae04e9fa1301ab7836d3e0ecab91f73cd"
+      "sha256": "c4706de0b3e125ce9fbf7285883d1a188cdc0651cd473a53adcdf6d857622e18"
     }
   },
   "implementation": {
@@ -67,11 +67,11 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
     },
     "phase_design_gate": {
       "path": "docs/phase43_x86_64_nx_mapping_extension_gate.md",
@@ -80,7 +80,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_x86_nx_mapping_m0.boot.log",
-    "sha256": "f0389e139fcb1402fca14e80d2da90509d55abace7b2b4739fc80ee8cd0e88d1",
+    "sha256": "8c4ddfcd931d794d54845cdd24a2e4cb51304760a810f49010a16811c48e9c9c",
     "required_markers": [
       "SeLinOS NX probe child: attempting one fixed indirect call.",
       "SeLinOS W^X NX: execute-disabled child produced fixed instruction protection fault with raw FSR 0x15.",

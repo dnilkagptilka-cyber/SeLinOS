@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-fresh-target-context-provenance-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f9317925894b269e7becc0b4d86aca4582a38b65fbaba9e1febba44485da74e3"
+      "sha256": "d4c6766f94c8ceea6c3d10ee6182e35460637f93a671df3926b7cc53551e9363"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_context_provenance_m0.boot.log",
-    "sha256": "7af5881252e4d35f9ef033857fedfaee5af892e47d2a25b08a3803858b13856a",
+    "sha256": "755c4afe1a1d57e1bdfa54ba70489088e1ad39b0167b0cdffccbd75a2258c0a7",
     "required_markers": [
       "SeLinOS fresh target context provenance M0: complete fixed RIP/RSP context write-readback while suspended; no resume or execution.",
       "SeLinOS fresh target context provenance M0: one suspended context write-readback; no resume, execution or Linux-process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_context_provenance_m0_protocol.h",

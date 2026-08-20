@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 RX plus RO plus RW/BSS load M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinStaticElfRxRoRwBssM0=ON",
+    "default": "OFF",
+    "fixture": "fixed ELF64 ET_EXEC; exactly three page-aligned PT_LOAD records",
+    "text_mapping": "read/execute, non-writable",
+    "ro_mapping": "read-only plus execute-disable",
+    "data_mapping": "read/write plus execute-disable",
+    "bss": "p_filesz=4, p_memsz=64, exactly 60 zero-filled bytes",
+    "resume_policy": "one target resume; no reply, repair, retry or second resume"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-elf-rx-ro-rw-bss-m0/images/kernel-x86_64-pc99",
+      "sha256": "a6b1aa519d0db21cf171b2722fdeb780b464db5465a33adbc6ece53e08acfe38"
+    },
+    "root_image": {
+      "path": "build-static-elf-rx-ro-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "b778ff9f03040b6c9d30a87e0038c97a781229012c76238a3b429fce5b878e26"
+    }
+  },
+  "generated_config": {
+    "path": "build-static-elf-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "edcb719c2e6d2f8ad10e52956d3915254a8db83cd3531e458fc180bca86b31ff"
+  },
+  "implementation": {
+    "fixture": {
+      "path": "src/projects/helixos/src/static_elf_rx_ro_rw_bss_m0.c",
+      "sha256": "bfab0ec05973a52eab2255bc264659a7e78fa747d5012771542776f8bac909a5"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/static_elf_rx_ro_rw_bss_m0_root.c",
+      "sha256": "ddcde70da97786827d813692484fa4d2d41f9e5825001e8b30c62d408d5b36b0"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_elf_rx_ro_rw_bss_m0_protocol.h",
+      "sha256": "7d6577998d9ae6358a75c355de090c6c48c242a016ed0cbb8ea0f8fa4e4a70f3"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "f8fd892006931d55146c966995ef6f62986505a215ea048996366de6ca9b83b5"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "cabdcb288c83d0bde660b762f7c5f41ebae9ee7e961a609cb5335980fd96712e"
+    },
+    "phase_gate": {
+      "path": "docs/phase81_static_elf_rx_ro_rw_bss_m0_gate.md",
+      "sha256": "834dd1a0fcf82d1ec6b84ef4ba6839b4231b9940809c78e6060af9de7ff7aa8b"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_static_elf_rx_ro_rw_bss_m0.py",
+      "sha256": "78c3d1b929cf818497992633d3e50661c896fee680e719229bdd081e109ce732"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_rx_ro_rw_bss_m0.boot.log",
+    "sha256": "b812a8c0435fe40d1d6510dbd2345cef5539941b3c16bdd2676f8850a4725f47",
+    "required_markers": [
+      "SeLinOS static ELF RX/RO/RW+BSS M0: fixed ELF64 ET_EXEC RX text, separate RO PT_LOAD and separate RW BSS PT_LOAD validated and copied through root-private aliases before target W^X mappings.",
+      "SeLinOS static ELF RX/RO/RW+BSS M0: initialized RW and RO values plus zero BSS were read, one BSS byte was written and reread, then terminal UD2 was received without reply, repair, retry or second resume.",
+      "SeLinOS static ELF RX/RO/RW+BSS M0: no relocation, dynamic linker, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS static ELF RX/RO/RW+BSS M0: fixed ELF validation, root-private initialization, RX/RO+NX/RW+NX mapping or terminal UD2 witness failed.",
+      "terminal breakpoint",
+      "terminal VMFault",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "terminal_witness": {
+    "fault_label": "UserException",
+    "badge": "0x81",
+    "fault_ip": "0x60000046",
+    "stack_pointer": "0x70002ff8",
+    "vector": 6,
+    "instruction": "UD2"
+  },
+  "not_claimed": [
+    "arbitrary `PT_LOAD` layouts, shared pages, permissions, alignments, `ET_DYN`, PIE, TLS, auxiliary vectors, relocations, interpreters or a general ELF loader",
+    "dynamic linker, C runtime, system calls, clone, fork, pthreads, process lifecycle, filesystem semantics or Linux ABI compatibility",
+    "Debian package execution, a Debian primary environment, `dpkg`, `apt`, Linux kernel execution, Linux VM, container, chroot or compatibility mode"
+  ]
+}
