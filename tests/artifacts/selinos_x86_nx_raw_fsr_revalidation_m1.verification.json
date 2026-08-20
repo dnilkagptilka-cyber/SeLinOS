@@ -14,7 +14,7 @@
     "disabled_peer_option": "SeLinX86NxMappingProbe=OFF",
     "generated_config": {
       "path": "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
-      "sha256": "196403c0893c8f44f16923d245733c25367bb5a9f6b24dca9ff9afcc4a1c6498"
+      "sha256": "1e1b8a406adc307e6bfaf5330b08e029fca2568426f9083e504053070e175149"
     }
   },
   "images": {
@@ -24,12 +24,12 @@
     },
     "root_image": {
       "path": "build-x86-nx-raw-fsr-revalidation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "315c84164c9e888af7bc951b92cdf4a69ed4856c29a7b2b00ae3b286aa895d34"
+      "sha256": "030458a87c0af1f687079d2fd6a18e45cdbc048ba90f8b733027d1638a759854"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_x86_nx_raw_fsr_revalidation_m1.boot.log",
-    "sha256": "d115be35cb53794b29353f6da16191f4bfaa13f5ecc146b1dd61b4d3ee7208ee",
+    "sha256": "f87607458f908bf3842492cc8799921a27d749f3f74c544f7883228f5b94459b",
     "required_markers": [
       "SeLinOS NX probe child: attempting one fixed indirect call.",
       "SeLinOS W^X NX: execute-disabled child produced fixed instruction protection fault with raw FSR 0x15.",
@@ -54,11 +54,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "root_probe": {
       "path": "src/projects/helixos/src/x86_nx_mapping_probe.c",

@@ -14,7 +14,7 @@
     "disabled_peer_option": "SeLinFreshTargetStackVmfaultFsrProbe=OFF",
     "generated_config": {
       "path": "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
-      "sha256": "4673c8f91819eddfe3742607639624d8fb7c441f06157f8b1dbfda97e8f28d8d"
+      "sha256": "1fa7518d34fc3132ea8faad3793e55130821192271df805433c02770330ab5bf"
     }
   },
   "images": {
@@ -24,12 +24,12 @@
     },
     "root_image": {
       "path": "build-fresh-target-nxe-stack-revalidation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "75984f922f0b71c38c52f49b9d9311f953ed1ed407e59e173135e4d9b44fe574"
+      "sha256": "fd383624a5466fcf80e6633d4eade56ef277d321d7d8a3343137cce816b30985"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_nxe_stack_revalidation_m3.boot.log",
-    "sha256": "344ad834c7c61292489ab3e48d2c2283d1419fa7ec3448675d5038520b6abfaf",
+    "sha256": "3946b3b57f412608eb65a8110f052644abe4bb1053966de0f493524f69843952",
     "required_markers": [
       "SeLinOS fresh target mapping provenance M0: suspended NX stack map reused IPC hierarchy and RX entry map allocated one paging object; no payload, resume or execution.",
       "SeLinOS fresh target stack VMFault FSR M2: post-NXE stack read reached terminal invalid-opcode witness; no reply, repair or second resume.",
@@ -53,11 +53,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "domain_manager": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_stack_vmfault_fsr_m2_protocol.h",

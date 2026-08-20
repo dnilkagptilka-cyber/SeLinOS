@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-static-image-teardown-authorization-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "b90ef713b835a13a566826bbd9ccaa2242eed8003d79dbf2ad80b62626946bb8"
+      "sha256": "95441b692a83a6544b6c26cec67bc1c9a842b5fe922a72545a576b0ed8b343f4"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_teardown_authorization_m0.boot.log",
-    "sha256": "ae721032f417cbacfa1d490d50055f6bf0464d82bf1788ff00c4e4ad69a5d547",
+    "sha256": "ae265ac05cf928279859bcc703d929456259e34967541c725df1c3a44c69c4be",
     "required_markers": [
       "SeLinOS static-image teardown authorization M0: one terminal ledger authorized then duplicate rejected; no reply, resume, unmap, delete, free or successor task.",
       "SeLinOS static-image teardown authorization M0: status-only authorization; no teardown, cleanup, reuse or Linux process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_teardown_authorization_m0_protocol.h",

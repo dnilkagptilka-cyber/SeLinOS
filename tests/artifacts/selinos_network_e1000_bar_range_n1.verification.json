@@ -14,7 +14,7 @@
   },
   "image": {
     "path": "build-e1000-bar-range-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "72138d9805e94d89d141cebfa61527416cb9d9fb2ac6028e82563995f74bfa85"
+    "sha256": "552ad89ddd11a771be992534c3c64e411957860031546391536979e0bbfc2dd9"
   },
   "implementation": {
     "pci_source": {
@@ -27,11 +27,11 @@
     },
     "root_hook": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     }
   },
   "identity": {
@@ -48,7 +48,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_network_e1000_bar_range_n1.boot.log",
-    "sha256": "43be92fbccf9fba5184fe730e2e9a482f1dfa7ec295224a2fde2088e8912f3f3",
+    "sha256": "5974aac503dc702c6d6ba2ae7762fe02a8cbeefe36f7775f6c70e4d30ca94da6",
     "required_markers": [
       "SeLinOS network N1: e1000 firmware BAR range validated and restored; no MMIO/IRQ/DMA/NIC authority.",
       "SeLinOS network N1: no BAR frame, mapping, IRQ, DMA, bus mastering or packet I/O.",

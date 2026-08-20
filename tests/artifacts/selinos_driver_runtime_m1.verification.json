@@ -10,12 +10,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "8699fbda082113d8a0998a3b997bb8ab950dd9c235e784088c09ce36e978966b"
+    "sha256": "a16a4fa4d36de3a38cceab621304397c0e6ada5c113f5a53c6bba49a52449653"
   },
   "runtime_evidence": {
     "qemu_edu_log": {
       "path": "tests/artifacts/selinos_dma_irq_m1.log",
-      "sha256": "3e2c0fa66fa150de4ee5fbe9c6a735fe93a00ef62af7f5e416361cc9a56cea53",
+      "sha256": "95cdf21837fe37dbdc63dbfe009cfe3954240a5b36a7d17d7a7b022e6d26cc8d",
       "required_markers": [
         "SeLinOS deviced: mediated QEMU edu PCI registry online.",
         "SeLinOS deviced: QEMU edu PCI ID matched; driver-local probe authorised.",
@@ -35,7 +35,7 @@
     },
     "baseline_log": {
       "path": "tests/artifacts/selinos_m1_baseline.log",
-      "sha256": "8872d8133fa73ed5daa186729fa24f79527c61b9edf5add322e7b5cc5969b8e5",
+      "sha256": "9852bdeb54ecc0aa8019799159cf6e869c08fe22f06ffd878793e9d944cc9f7c",
       "required_markers": [
         "SeLinOS M0: QEMU edu PCI function not present.",
         "SeLinOS deviced: no PCI device record was issued; registry dormant.",

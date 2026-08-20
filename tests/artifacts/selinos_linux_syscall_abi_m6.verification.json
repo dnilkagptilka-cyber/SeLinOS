@@ -9,12 +9,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "8699fbda082113d8a0998a3b997bb8ab950dd9c235e784088c09ce36e978966b"
+    "sha256": "a16a4fa4d36de3a38cceab621304397c0e6ada5c113f5a53c6bba49a52449653"
   },
   "implementation": {
     "root_dispatcher": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "isolated_probe": {
       "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
@@ -30,7 +30,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_linux_syscall_abi_m6.boot.log",
-    "sha256": "8872d8133fa73ed5daa186729fa24f79527c61b9edf5add322e7b5cc5969b8e5",
+    "sha256": "9852bdeb54ecc0aa8019799159cf6e869c08fe22f06ffd878793e9d944cc9f7c",
     "required_markers": [
       "SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.",
       "SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.",

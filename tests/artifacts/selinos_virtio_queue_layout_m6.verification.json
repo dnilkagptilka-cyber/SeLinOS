@@ -24,7 +24,7 @@
     },
     "root_image": {
       "path": "build-virtio-queue-layout-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "4701c8c4f02065f4fdbfce956077e9994a94f34ba0b18a1c7018503e21062ed3"
+      "sha256": "92af486a1312f12e003b69ca47ae07e012c1051d986be51ce8f8a81e05ba86ba"
     }
   },
   "implementation": {
@@ -38,7 +38,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -46,7 +46,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "phase_design_gate": {
       "path": "docs/phase44_virtio_blk_queue_layout_m6_gate.md",
@@ -60,7 +60,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_queue_layout_m6.boot.log",
-    "sha256": "33fda40531a9788c9cc90ac4a3467b2bf9da4b8050183a8b833fb0834ebe0d6b",
+    "sha256": "574af123a8bb0d0bd5759b9f5eaacd23cbe542ca7bff1f5cb42af770bfc73dbd",
     "required_markers": [
       "SeLinOS storage M6: root-only one-slot queue layout/address read-backs passed.",
       "SeLinOS storage M6: queue_enable stayed zero; no enable/notify, IRQ, DMA authority or block I/O.",

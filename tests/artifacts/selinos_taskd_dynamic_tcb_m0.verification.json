@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-tcb-ownership-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "c92666eac80f94330f37ae7942050dbb53c9c390977045ecf424190c3c922779"
+      "sha256": "86468afe00cee3806cb824d4523d207d75bc8305bf6950a33d970936142936d4"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_tcb_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_tcb_m0.boot.log",
-    "sha256": "9f3bc3a6f53eecb8e06eb2744e2a3ba5ee2bb9d4238bd3deba5ff936412b41e7",
+    "sha256": "742d7c1659490982aca0085a96cb0c417f6a4e3aab205078f7b14e8707334154",
     "required_markers": [
       "SeLinOS taskd dynamic TCB M0: taskd ownership witness issued; target TCB not invoked.",
       "SeLinOS taskd dynamic TCB M0: target TCB allocated then moved into taskd ownership slot.",

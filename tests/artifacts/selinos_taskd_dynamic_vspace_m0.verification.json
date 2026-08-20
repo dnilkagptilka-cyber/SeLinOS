@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-vspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "d4feecf7724a082cfb94ffa3707a43c8b26f7a6f024145552ed4faea9e1d2c43"
+      "sha256": "a0f2e2812206c3013d8569cbef3e98eb59ac8b91b2c61d1025dc5dc23423f3c0"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "f982d056ab05455a601b48ee970fa6e78a7cf6493751451fe961b6d4e398e743"
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_vspace_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_vspace_m0.boot.log",
-    "sha256": "7d08cebe15a8707c9bd458552e0c57757b19c4933c0a49e2b1bbf94ddc56e7f5",
+    "sha256": "8b6046c3d986f1a869e2ccefe114b3dd27d7e645f8494b965f72cfffe63e844e",
     "required_markers": [
       "SeLinOS taskd dynamic VSpace M0: taskd ownership witness issued; final PML4 not invoked.",
       "SeLinOS taskd dynamic VSpace M0: root rolled back rejected VSpace root generation 1 before delegation.",

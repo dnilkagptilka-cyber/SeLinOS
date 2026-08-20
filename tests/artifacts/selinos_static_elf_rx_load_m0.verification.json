@@ -17,12 +17,12 @@
     },
     "root_image": {
       "path": "build-static-elf-rx-load-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "06e8d9a7c8f8abe571cd77ba5110b7ea5c8fa48c28a356b126a35e2d52a55dca"
+      "sha256": "ba25b56cecb3d30a67fef72fe7241ee9b2ead307d5fe5ffa76c9542a3574b9ff"
     }
   },
   "generated_config": {
     "path": "build-static-elf-rx-load-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "f10b8f76086318399c3db8bdbb06f15fffaacf2a3ca372c7c68743a9a147f510"
+    "sha256": "7505e455ab291293e4a6c0671612b723b5e56554b24c736e288adef47360e190"
   },
   "implementation": {
     "fixture": {
@@ -39,7 +39,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "1129013a2e25c5d7b66e4f8f6021d249d834da9afc58bc751f52d5d3ad5733ed"
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
     },
     "phase_gate": {
       "path": "docs/phase79_static_elf_rx_load_m0_gate.md",
@@ -52,7 +52,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_static_elf_rx_load_m0.boot.log",
-    "sha256": "2e2083cf6995a57e2d5d517145b2f98bc31302c212976185e6892dae1a6bc4f2",
+    "sha256": "885a84439184c17ad0a231bfadae738fc71c1c153905e96cdbd669666fe73b20",
     "required_markers": [
       "SeLinOS static ELF RX load M0: one fixed ELF64 ET_EXEC RX PT_LOAD validated and copied through a root-private alias before target read/execute mapping.",
       "SeLinOS static ELF RX load M0: one entry UD2 terminal user exception received without reply, repair, retry or second resume.",

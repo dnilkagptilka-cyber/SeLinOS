@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS static ELF64 RX plus RW/BSS load M0",
+  "profile": {
+    "cmake_option": "SeLinStaticElfRxRwBssM0=ON",
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG, -cpu max, -nographic, -serial mon:stdio",
+    "timeout_seconds": 12,
+    "elf": "ELF64 little-endian ET_EXEC, EM_X86_64, exactly two page-aligned PT_LOAD records",
+    "text_mapping": "read/execute, non-writable",
+    "data_mapping": "read/write plus execute-disable",
+    "bss": "p_filesz=4, p_memsz=64, exactly 60 zero-filled bytes",
+    "terminal": "one success-path UD2 UserException at entry+50; failure path is distinct INT3"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-static-elf-rx-rw-bss-m0/images/kernel-x86_64-pc99",
+      "sha256": "9b3c264c36be576e5df3d957a5648404bb8425cd885f75423c354353c6e5425c"
+    },
+    "root_image": {
+      "path": "build-static-elf-rx-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "7154206a8559b529389631048740a21b59d88985d258f13435e3c7178bf8ea34"
+    }
+  },
+  "generated_config": {
+    "path": "build-static-elf-rx-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "1c5687dd5b2d743d4278b545035b438ac1f92acf645b2a7c5796d311713379ad"
+  },
+  "implementation": {
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "bd896ef6bc52b70308abc84789bbff9a17277f57944d7b17ef30b4b5ae2ac651"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "54aa8ef1d840f44628e2d4249753bc7c1c2bafd91b80016fb78cdfcbca057c94"
+    },
+    "fixture": {
+      "path": "src/projects/helixos/src/static_elf_rx_rw_bss_m0.c",
+      "sha256": "ed228690e5c42b79e33e7ff27be91781a0e6322604d97aa9833171b8da463eed"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/static_elf_rx_rw_bss_m0_root.c",
+      "sha256": "7c7302a9e66738b2208be2bd8e3abf053a1206f7a64e845d667ae0c50f357ab2"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_static_elf_rx_rw_bss_m0_protocol.h",
+      "sha256": "a0581dd8201e96aaf23b0c7ede36212d7437492b9c54801de7de67dc474255e9"
+    },
+    "fixture_interface": {
+      "path": "src/projects/helixos/include/selinos_static_elf_rx_rw_bss_m0_fixture.h",
+      "sha256": "251e7ac9aa39b2e96f4cb3fd9ffe8d2d298f77fb71329ac3b4888e50b8b5b0dc"
+    },
+    "transaction_interface": {
+      "path": "src/projects/helixos/include/selinos_static_elf_rx_rw_bss_m0.h",
+      "sha256": "92294dde95ebc4ad2e4759f2c27c6820dab992c2c387fcf010a30a33ae4da3da"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_static_elf_rx_rw_bss_m0.py",
+      "sha256": "7a1341312383222c10be754d3024e9a584081aec7c0aa99540adfee136178714"
+    },
+    "phase_gate": {
+      "path": "docs/phase80_static_elf_rx_rw_bss_m0_gate.md",
+      "sha256": "3c1b66293e532a4d2c7eadec330ebc2df8e5093f6f288586aac298b565f1c282"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_static_elf_rx_rw_bss_m0.boot.log",
+    "sha256": "85a7763f99f883cfe0481737fb7bab95731200958a3d21429a550d9875c168d8",
+    "required_markers": [
+      "SeLinOS static ELF RX/RW+BSS M0: fixed ELF64 ET_EXEC RX text plus separate RW BSS PT_LOAD validated and copied through root-private aliases before target W^X mappings.",
+      "SeLinOS static ELF RX/RW+BSS M0: initialized data and one zero BSS byte were read, one BSS byte was written and reread, then terminal UD2 was received without reply, repair, retry or second resume.",
+      "SeLinOS static ELF RX/RW+BSS M0: no relocation, dynamic linker, C runtime, syscall, process or Linux ABI claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS static ELF RX/RW+BSS M0: fixture validation gate rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: allocation or target-capability setup rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: root text alias map rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: root data alias map rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: initialized data copy mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: BSS zero initialization mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: target W^X mapping or TCB configuration rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: target register setup or single resume rejected.",
+      "SeLinOS static ELF RX/RW+BSS M0: terminal label mismatch",
+      "SeLinOS static ELF RX/RW+BSS M0: terminal badge mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: terminal fault IP mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: terminal stack pointer mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: terminal vector mismatch.",
+      "SeLinOS static ELF RX/RW+BSS M0: fixed ELF validation, root-private initialization, RX/RW+NX mapping or terminal UD2 witness failed.",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "not_claimed": [
+    "arbitrary `PT_LOAD` processing, file I/O, page-sized or multi-page data segments, ET_DYN, ASLR, relocations, PT_INTERP, a dynamic linker, TLS, argv/envp/auxv construction, a C runtime, system calls, process lifecycle, threads, fork, signals, VFS execution, package installation, `dpkg`, `apt`, Linux ABI compatibility or Debian package compatibility",
+    "Linux kernel, Linux VM, LKL, DMA containment, IOMMU functionality or hardware validation outside the named QEMU TCG fixture"
+  ]
+}
