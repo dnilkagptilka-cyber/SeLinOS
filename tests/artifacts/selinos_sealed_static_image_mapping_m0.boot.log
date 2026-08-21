@@ -1,4 +1,4 @@
-Script started on 2026-08-21 12:01:33+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/16" COLUMNS="-1" LINES="-1"]
+Script started on 2026-08-21 12:44:35+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/25" COLUMNS="-1" LINES="-1"]
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
@@ -86,7 +86,11 @@ SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address 
 SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
 SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SSeLinOS modld: integrity, KABI CRC and non-executing relocation passedSeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOS modeSeLinOS modld: integrity, KABI CRC and non-executingSeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
 SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
 SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
 SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
@@ -98,16 +102,13 @@ SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
 SeLinOS taskd M1: exact START(1) accepted.
 SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
 SeLinOS deviced: no PCI device record was issued; registry dormant.
-eLinOS modexec: isolated pinned fixture init_module entering.
-SeLinOS modexec: pinned fixture invoked curated _printk stub.
+xec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
-.
+ relocation passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
-SeLinOS root dispatch M0: exact fixed request accepted.
-SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
-SeLinOS M0: root task entering idle/yield loop.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
 SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
 SeLinOS TCB resume M2 child: one fixed completion sent.
 SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
@@ -120,7 +121,6 @@ SeLinOS taskd M1: child completion generation 1 validated.
 SeLinOS taskd M1: fixed child TCB suspended and resumed.
 SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
 SeLinOS objectd M1: fixed inventory reservation-state proof passed.
-SeLinOS root dispatch M0 probe: fixed root status transaction passed.
 SeLinOS taskd TCB resume M2: exact one child completion validated.
 SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
 SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
@@ -137,6 +137,6 @@ SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 943490 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 961905 (timeout)
 
-Script done on 2026-08-21 12:01:45+00:00 [COMMAND_EXIT_CODE="124"]
+Script done on 2026-08-21 12:44:47+00:00 [COMMAND_EXIT_CODE="124"]

@@ -8,12 +8,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "cfca71e2eb147ab62a8f47a359cbee99910437c385d55afdd5d97fedf6b4d550"
+    "sha256": "5184054b5c835f2dbcc5a80a4fbf4410e135e0936342fe094991f5aa18daf148"
   },
   "implementation": {
     "root_dispatcher": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"
+      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
     },
     "isolated_probe": {
       "path": "src/projects/helixos/drivers/linux_syscall_probe.c",
@@ -34,7 +34,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_linux_uname_m14.boot.log",
-    "sha256": "42086ea5a149d3b7d3bb4c932e5a685b003facb46ce28ed57a285f3bff1ee93a",
+    "sha256": "db1b719d59b6ae041a09e4d09bab13f8bfe7f54efaa5af0da58dd4041a150f92",
     "required_markers": [
       "SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated."
     ],

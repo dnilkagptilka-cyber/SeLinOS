@@ -90,8 +90,15 @@ def main() -> int:
         need(marker in runtime, f"missing marker: {marker}")
     for marker in record["runtime_evidence"]["forbidden_markers"]:
         need(marker not in runtime, f"forbidden marker: {marker}")
-    positions = [runtime.index(marker) for marker in markers]
-    need(positions == sorted(positions), "root-dispatch M0 markers are not ordered")
+    ready_position = runtime.index(markers[0])
+    accepted_position = runtime.index(markers[1])
+    replied_position = runtime.index(markers[2])
+    idle_position = runtime.index(markers[3])
+    probe_position = runtime.index(markers[4])
+    need(ready_position < accepted_position < replied_position < idle_position,
+         "root-side root-dispatch M0 markers are not ordered")
+    need(replied_position < probe_position,
+         "root-dispatch probe observed success before root status reply")
 
     claims = " ".join(record["not_claimed"])
     for excluded in ("root child construction", "dynamic allocation", "Linux clone", "dpkg or apt"):

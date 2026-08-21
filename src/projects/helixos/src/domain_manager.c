@@ -77,6 +77,9 @@
 #if CONFIG_SELINOS_CONTROLLED_ET_DYN_RELATIVE_M0_PROBE
 #include "selinos_controlled_et_dyn_relative_m0.h"
 #endif
+#if CONFIG_SELINOS_CONTROLLED_PT_INTERP_HANDOFF_M0_PROBE
+#include "selinos_controlled_pt_interp_handoff_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4439,6 +4442,14 @@ bool selinos_domain_manager_start(void)
     debug_puts("SeLinOS controlled ET_DYN relative M0: one validated R_X86_64_RELATIVE write produced fixed load-base plus addend through a root-private RW alias.\n");
     debug_puts("SeLinOS controlled ET_DYN relative M0: target second-RX code read the relocated pointer then reached terminal UD2 without reply, repair, retry or second resume.\n");
     debug_puts("SeLinOS controlled ET_DYN relative M0: no interpreter, dependency resolution, general dynamic linker, C runtime, syscall, process or Linux ABI claim.\n");
+#endif
+#if CONFIG_SELINOS_CONTROLLED_PT_INTERP_HANDOFF_M0_PROBE
+    if (!selinos_controlled_pt_interp_handoff_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS controlled PT_INTERP handoff M0: bounded interpreter declaration, initial stack, interpreter transfer or terminal witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS controlled PT_INTERP handoff M0: one self-authored interpreter witness entered with fixed aligned stack and bounded auxv metadata.\n");
+    debug_puts("SeLinOS controlled PT_INTERP handoff M0: no host linker, dependency resolver, general dynamic linker, Linux ABI, Debian, dpkg or apt claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

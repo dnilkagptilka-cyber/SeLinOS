@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-fault-witness-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f6a523ec0f2ebf8ff202016c2f38511b2d46519dada4c95d390590dfdd273991"
+      "sha256": "4f788e9b6ea3e1d9c5b022f0f603ecee335b833c4aba2551c3fa146160098620"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"
+      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "458aede2d175eb3caa8da45a4c806c053fddd936841fa4aab5b41b9f51428e83"
+      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_fault_witness_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_fault_witness_m0.boot.log",
-    "sha256": "83b9d507faf8118bf09baa9c61bb8e551caa589e39351481947393a6c5b96d0f",
+    "sha256": "1875e859d4ae20ae3cbad8657be8aa758b1638d17473283264b30df64f0ec56b",
     "required_markers": [
       "SeLinOS taskd fault witness M0: fault-blocked target ownership issued; target not resumed.",
       "SeLinOS taskd fault witness M0: root observed exactly one badged instruction-fetch VM fault at zero.",

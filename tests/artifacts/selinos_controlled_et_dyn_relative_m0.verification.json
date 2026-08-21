@@ -16,24 +16,60 @@
     "resume_policy": "one target resume; no reply, repair, retry or second resume"
   },
   "images": {
-    "kernel": {"path": "build-controlled-et-dyn-relative-m0/images/kernel-x86_64-pc99", "sha256": "cf16a545a57790ca37c23f1933f3adff4eb2cd956db9fb41a397b1f9d2b33e04"},
-    "root_image": {"path": "build-controlled-et-dyn-relative-m0/images/selinos-root-image-x86_64-pc99", "sha256": "24b29216c435937df0635457a9275dd7013324ddcfd92f8ad22adac9d1c260ea"}
+    "kernel": {
+      "path": "build-controlled-et-dyn-relative-m0/images/kernel-x86_64-pc99",
+      "sha256": "cf16a545a57790ca37c23f1933f3adff4eb2cd956db9fb41a397b1f9d2b33e04"
+    },
+    "root_image": {
+      "path": "build-controlled-et-dyn-relative-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "f0770026c2bb644cde934dd138abde314ea0d30d62e9b027ac8dcad819858871"
+    }
   },
-  "generated_config": {"path": "build-controlled-et-dyn-relative-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "67f542a467878c1493871f6ac84f86314cd7622f6773200d900a66f90b563bbb"},
+  "generated_config": {
+    "path": "build-controlled-et-dyn-relative-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "51e733f38f267d6ad50c29c4a7b8c2793f5211234214e71c72543d939910c9af"
+  },
   "implementation": {
-    "elfrt_parser": {"path": "src/projects/helixos/elfrt/src/selinos_elfrt.c", "sha256": "7b1bdd24d6b3f6d7e69b9aafa30086fa1cc196bf3bfe2b3ebeea238d59697d71"},
-    "elfrt_interface": {"path": "src/projects/helixos/elfrt/include/selinos_elfrt.h", "sha256": "dec65397af5ed82954a90b00986585db50eb6a112039d063c09a832e671d8206"},
-    "fixture": {"path": "src/projects/helixos/src/controlled_et_dyn_relative_m0.c", "sha256": "febdc843914f4e713836056505fe7234f66db5ba375f28fde8e0f09074a72f70"},
-    "root_transaction": {"path": "src/projects/helixos/src/controlled_et_dyn_relative_m0_root.c", "sha256": "27b73a034c5328bb04169a09efef47db5d3a73fff6b2b2bd1a08380a0784be21"},
-    "protocol": {"path": "src/projects/helixos/include/selinos_controlled_et_dyn_relative_m0_protocol.h", "sha256": "7e2f1401eceefe2a1938b5d6a1d6b17e0f4494872c95f87400a192a85db5c0dc"},
-    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "458aede2d175eb3caa8da45a4c806c053fddd936841fa4aab5b41b9f51428e83"},
-    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"},
-    "phase_gate": {"path": "docs/phase85_controlled_et_dyn_relative_m0_gate.md", "sha256": "3bbc66c5d68a2ecf9cae20c975af66190ba7e8b02056b05ccf9f8d29f27d7d36"},
-    "independent_verifier": {"path": "tools/verify_controlled_et_dyn_relative_m0.py", "sha256": "4f29299cbdbf646ed3ce6d1fc15d4241e838f174d023353f9be7fa4e81dcf154"}
+    "elfrt_parser": {
+      "path": "src/projects/helixos/elfrt/src/selinos_elfrt.c",
+      "sha256": "7b1bdd24d6b3f6d7e69b9aafa30086fa1cc196bf3bfe2b3ebeea238d59697d71"
+    },
+    "elfrt_interface": {
+      "path": "src/projects/helixos/elfrt/include/selinos_elfrt.h",
+      "sha256": "dec65397af5ed82954a90b00986585db50eb6a112039d063c09a832e671d8206"
+    },
+    "fixture": {
+      "path": "src/projects/helixos/src/controlled_et_dyn_relative_m0.c",
+      "sha256": "febdc843914f4e713836056505fe7234f66db5ba375f28fde8e0f09074a72f70"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/controlled_et_dyn_relative_m0_root.c",
+      "sha256": "27b73a034c5328bb04169a09efef47db5d3a73fff6b2b2bd1a08380a0784be21"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_controlled_et_dyn_relative_m0_protocol.h",
+      "sha256": "7e2f1401eceefe2a1938b5d6a1d6b17e0f4494872c95f87400a192a85db5c0dc"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+    },
+    "phase_gate": {
+      "path": "docs/phase85_controlled_et_dyn_relative_m0_gate.md",
+      "sha256": "3bbc66c5d68a2ecf9cae20c975af66190ba7e8b02056b05ccf9f8d29f27d7d36"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_controlled_et_dyn_relative_m0.py",
+      "sha256": "4f29299cbdbf646ed3ce6d1fc15d4241e838f174d023353f9be7fa4e81dcf154"
+    }
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_controlled_et_dyn_relative_m0.boot.log",
-    "sha256": "76b4ce9537d221ce34cf6cb58ad3c771e4d928c4503a6c9b8be97320b44e894d",
+    "sha256": "60d01fc121a426b1df0af463d484fa72d3ce81510c9feaec1ca62c894170e8fa",
     "required_markers": [
       "SeLinOS controlled ET_DYN relative M0: one validated R_X86_64_RELATIVE write produced fixed load-base plus addend through a root-private RW alias.",
       "SeLinOS controlled ET_DYN relative M0: target second-RX code read the relocated pointer then reached terminal UD2 without reply, repair, retry or second resume.",

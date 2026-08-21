@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-static-image-object-reclamation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "1385f313466d6d411829dbab8e8d12cdbe080de09b8e7186719adb30d7409300"
+      "sha256": "7a59d3ac0523dabaf1fd2f00b50c551804212a2c0a5e5acfd93912457dab38b2"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_object_reclamation_m0.boot.log",
-    "sha256": "916463f738a9c167e340b212a4255946c30fd43119c10f07734f092d8cadf847",
+    "sha256": "2cfcb27708857e67e7e0ad538f511c75129704d60960e77cba0246f92a873f1c",
     "required_markers": [
       "SeLinOS static-image mapping revocation M0: entry-stack-IPC target mappings unmapped in order; frames, caps, PML4, TCB and terminal fault retained.",
       "SeLinOS static-image target capability deletion M0: target notification-IPC-fault-entry-stack-self cap copies deleted in order; root descriptors and all objects retained.",
@@ -32,11 +32,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "458aede2d175eb3caa8da45a4c806c053fddd936841fa4aab5b41b9f51428e83"
+      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"
+      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_object_reclamation_m0_protocol.h",

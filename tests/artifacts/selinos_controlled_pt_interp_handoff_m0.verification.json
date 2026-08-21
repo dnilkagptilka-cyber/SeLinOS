@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS controlled PT_INTERP handoff M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinControlledPtInterpHandoffM0=ON",
+    "default": "OFF",
+    "handoff": "one self-authored interpreter RX entry with bounded argc/auxv witness",
+    "interpreter": "one exact non-host /selinos/phase86-interp PT_INTERP pathname",
+    "stack": "aligned RW+NX stack with argc=1, argv0, null envp and six fixed auxv pairs",
+    "resume_policy": "one target resume; unreplied terminal user exception"
+  },
+  "images": {
+    "kernel": {"path": "build-controlled-pt-interp-handoff-m0/images/kernel-x86_64-pc99", "sha256": "39bd9e138e6a4b7cf32a64bde601928678ca4bb2f5a9bb9cbd24e848ef8f7139"},
+    "root_image": {"path": "build-controlled-pt-interp-handoff-m0/images/selinos-root-image-x86_64-pc99", "sha256": "dbca8ae97cfb3451b021faa159e8651706c6682d302bcfb4a0f8e18843fd63da"}
+  },
+  "generated_config": {"path": "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "031c0dc468322077e2999e22183dbbcaa83a261fb7a2feef55d3b3ccd20dc4a8"},
+  "implementation": {
+    "fixture": {"path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0.c", "sha256": "6cdc1e9a45bf953f151f35e8168bf7d569b32ec75b3a18cf69f180245b2369ea"},
+    "root_transaction": {"path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0_root.c", "sha256": "5bd60eb0ce6a982dd6ca77b44d3d2d5071b5515ecb8742101664c0e26f28d05d"},
+    "protocol": {"path": "src/projects/helixos/include/selinos_controlled_pt_interp_handoff_m0_protocol.h", "sha256": "15cff78f624d5549b93530fa5258429dc11d05ecc02a1af91b31ecaff755ddfd"},
+    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"},
+    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"},
+    "phase_gate": {"path": "docs/phase86_controlled_pt_interp_handoff_m0_gate.md", "sha256": "d2c091c6b6db62b07734f4ad3c17f303ce7816122ceee3fea72eca103eef919c"},
+    "independent_verifier": {"path": "tools/verify_controlled_pt_interp_handoff_m0.py", "sha256": "5aa021b54ac5e3c059d900c15d50272149ee11a2de2237206092f3bb7020abba"}
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_controlled_pt_interp_handoff_m0.boot.log",
+    "sha256": "c6d3b14da8ff0557774a6660d6cb30c982965d79e7e5d11dcff025f7f2caa499",
+    "required_markers": [
+      "SeLinOS controlled PT_INTERP handoff M0: one self-authored interpreter witness entered with fixed aligned stack and bounded auxv metadata.",
+      "SeLinOS controlled PT_INTERP handoff M0: no host linker, dependency resolver, general dynamic linker, Linux ABI, Debian, dpkg or apt claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS controlled PT_INTERP handoff M0: bounded interpreter declaration, initial stack, interpreter transfer or terminal witness failed.",
+      "terminal breakpoint"
+    ]
+  },
+  "not_claimed": [
+    "general ELF loader, arbitrary PT_INTERP policy, host linker use, ld-linux, glibc, musl, DT_NEEDED, shared objects, symbol resolution, constructors, TLS or lazy binding",
+    "dynamic linker, Linux ABI, execve, process lifecycle, system calls, Debian package execution, `dpkg` or `apt`",
+    "Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}
