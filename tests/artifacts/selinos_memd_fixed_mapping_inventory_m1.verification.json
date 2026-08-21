@@ -8,12 +8,12 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "ac5aff2e1cea57553a90bf900eaa543893fd95837ffc727e0e121bb9dc99cbca"
+    "sha256": "cfca71e2eb147ab62a8f47a359cbee99910437c385d55afdd5d97fedf6b4d550"
   },
   "implementation": {
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
+      "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"
     },
     "memd": {
       "path": "src/projects/helixos/servers/memd_m1.c",
@@ -35,7 +35,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_memd_fixed_mapping_inventory_m1.boot.log",
-    "sha256": "98f715d1d2f574ef3d26bff4d087372bd4c814f541366687da5ca29e122c2333",
+    "sha256": "42086ea5a149d3b7d3bb4c932e5a685b003facb46ce28ed57a285f3bff1ee93a",
     "required_markers": [
       "SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.",
       "SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.",

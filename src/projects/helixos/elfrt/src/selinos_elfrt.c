@@ -20,6 +20,8 @@
 #define ELFRT_DT_NEEDED 1
 #define ELFRT_DT_STRTAB 5
 #define ELFRT_DT_RELA 7
+#define ELFRT_DT_RELASZ 8
+#define ELFRT_DT_RELAENT 9
 #define ELFRT_DT_STRSZ 10
 #define ELFRT_DT_TEXTREL 22
 #define ELFRT_DT_FLAGS 30
@@ -257,6 +259,11 @@ int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
             needed_offsets[needed_count++] = dynamic[i].un.value;
         } else if (dynamic[i].tag == ELFRT_DT_RELA) {
             summary->has_rela = 1u;
+            summary->rela_address = dynamic[i].un.pointer;
+        } else if (dynamic[i].tag == ELFRT_DT_RELASZ) {
+            summary->rela_size = dynamic[i].un.value;
+        } else if (dynamic[i].tag == ELFRT_DT_RELAENT) {
+            summary->rela_entry_size = dynamic[i].un.value;
         } else if (dynamic[i].tag == ELFRT_DT_TEXTREL ||
                    (dynamic[i].tag == ELFRT_DT_FLAGS &&
                     (dynamic[i].un.value & ELFRT_DF_TEXTREL) != 0u)) {

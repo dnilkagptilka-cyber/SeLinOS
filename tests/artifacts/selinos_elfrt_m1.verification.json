@@ -5,11 +5,11 @@
   "sources": {
     "interface": {
       "path": "src/projects/helixos/elfrt/include/selinos_elfrt.h",
-      "sha256": "3e62662bfc4460481af903b9ba301060ff8bffbf330a26ff120aae4ace3a5078"
+      "sha256": "dec65397af5ed82954a90b00986585db50eb6a112039d063c09a832e671d8206"
     },
     "parser": {
       "path": "src/projects/helixos/elfrt/src/selinos_elfrt.c",
-      "sha256": "e6186ef01b4e8610cb199b4df6b1023d48d9990f1fb31a512a63bf6a20eea174"
+      "sha256": "7b1bdd24d6b3f6d7e69b9aafa30086fa1cc196bf3bfe2b3ebeea238d59697d71"
     },
     "fixture_source": {
       "path": "tests/elfrt_fixture.c",
@@ -35,7 +35,7 @@
     },
     "host_test": {
       "path": "tests/artifacts/elfrt_m1/elfrt_m1_test",
-      "sha256": "6c48f665fb7eb2e7386a2bf2ae397b9e81dda8f83a6f3eb70849dce386091b4f"
+      "sha256": "88fff9ee9e3669819b88e713be169281539fafaa20caae53b2d337dc15cc37b8"
     }
   },
   "accepted": [

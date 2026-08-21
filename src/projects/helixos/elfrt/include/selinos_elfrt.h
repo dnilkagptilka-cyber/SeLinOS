@@ -30,6 +30,9 @@ struct selinos_elfrt_summary {
     selinos_elfrt_u32 has_interp;
     selinos_elfrt_u32 has_rela;
     selinos_elfrt_u32 has_textrel;
+    selinos_elfrt_u64 rela_address;
+    selinos_elfrt_u64 rela_size;
+    selinos_elfrt_u64 rela_entry_size;
     selinos_elfrt_u32 has_gnu_stack;
     selinos_elfrt_u32 gnu_stack_flags;
     selinos_elfrt_u32 has_note;
@@ -53,7 +56,8 @@ enum selinos_elfrt_status {
 
 /* Accepts exactly ELF64 little-endian x86_64 ET_EXEC or ET_DYN. It validates
  * file bounds and PT_LOAD alignment/ranges, then parses bounded PT_INTERP,
- * PT_DYNAMIC, one fail-closed PT_GNU_STACK record and one bounded PT_NOTE record.
+ * PT_DYNAMIC including bounded relocation-table metadata, one fail-closed
+ * PT_GNU_STACK record and bounded PT_NOTE metadata. It maps and executes nothing.
  * `allow_interpreter` controls only acceptance of a
  * PT_INTERP record; no interpreter is opened or executed. */
 int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
@@ -61,9 +65,8 @@ int selinos_elfrt_parse_image(const selinos_elfrt_u8 *image,
                               int allow_interpreter,
                               struct selinos_elfrt_summary *summary);
 
-/* Initial mapping policy for a future loader. The current pinned x86_64 seL4
- * profile has no proven execute-disable control, so any text relocation or
- * writable-plus-executable segment is rejected before mapping is attempted. */
+/* Initial mapping policy for a future loader. Text relocations and
+ * writable-plus-executable segments are rejected before mapping is attempted. */
 int selinos_elfrt_validate_initial_load_policy(const struct selinos_elfrt_summary *summary);
 
 #endif

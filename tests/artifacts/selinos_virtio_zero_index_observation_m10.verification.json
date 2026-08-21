@@ -21,7 +21,7 @@
     },
     "root_image": {
       "path": "build-virtio-zero-index-observation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "70125d99337c73cf1dd0c0641bf56bbf05b6801e7afbb5ef27f2ebe4a8efbe15"
+      "sha256": "aa45712da5651ef1d4711b54b2b52f4f2f027a5956ba6cd21ddac732e4e2dcee"
     }
   },
   "implementation": {
@@ -35,7 +35,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "2a517da1353665c8430b0afc2fd20d4eb92cbf4dea4548be03ec6142e22eee47"
+      "sha256": "04145c868f631fe523fb1dc77672d84086956dc8c203adddaa3de45b68fb8fc9"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -43,7 +43,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "0376fb8b734c3baef5aa4ccc3a466ce1d82023ee67626bf540263cebecfc8aa1"
+      "sha256": "458aede2d175eb3caa8da45a4c806c053fddd936841fa4aab5b41b9f51428e83"
     },
     "phase_design_gate": {
       "path": "docs/phase48_virtio_blk_zero_index_observation_m10_gate.md",
@@ -57,7 +57,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_zero_index_observation_m10.boot.log",
-    "sha256": "852a7755d1fdb9c7b1d62ad014675439349415d1e9cd9edce1571f9458f87add",
+    "sha256": "a66dbd0c09f695201337950c2d1f5860880e96f5893b08c46c430be8fe1c2afe",
     "required_markers": [
       "SeLinOS storage M10: immediate avail/used zero-index observation passed.",
       "SeLinOS storage M10: no completion, IRQ, DMA claim, containment claim or block I/O.",

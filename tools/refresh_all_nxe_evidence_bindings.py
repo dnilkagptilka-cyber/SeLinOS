@@ -27,6 +27,7 @@ ALLOWED_PATHS = {
     "build-static-elf-two-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-two-rx-gnu-stack-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-static-elf-two-rx-note-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-controlled-et-dyn-relative-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 
