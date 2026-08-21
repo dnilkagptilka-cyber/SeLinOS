@@ -14,7 +14,7 @@
   },
   "image": {
     "path": "build-virtio-feature-stage-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "5e941e9e398a35f461f734400b1ef3e439ed62126e927df4c3fb7ba0c3df7dec"
+    "sha256": "d257bedb2a24562c51495d193840164e7f94a4df555e4d35cf9caffc8810b742"
   },
   "implementation": {
     "pci_helper": {
@@ -27,7 +27,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -35,7 +35,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     }
   },
   "fixture": {
@@ -45,7 +45,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_feature_stage_m3.boot.log",
-    "sha256": "fffd1f3a8d3222ffaf8d67698b049f3bfb9d6b2fbd89a61bc1305b7c5e18a6ab",
+    "sha256": "09bb9e33fb260ef21a752110ff0ffdb7d002d0875a87f1eb6a3f61dce0e9724e",
     "required_markers": [
       "SeLinOS storage M3: root-only zero-feature FEATURES_OK accepted then reset to zero.",
       "SeLinOS storage M3: no DRIVER_OK, queue, IRQ, DMA, bus mastering or block I/O."

@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-fresh-target-first-fetch-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "83aa54327a37f2e52baa0f2b9dac261fd532ca52a9485acf81f032c71129c8dd"
+      "sha256": "f51c0a7f701fd65aca5910c20eadfc0d1d057e8b14625feabf53568be986e938"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_fresh_target_first_fetch_m0.boot.log",
-    "sha256": "36a8d3b0e64307219499a4b53dce36713bac5c763a60e003e958ae6cef97cac2",
+    "sha256": "9edd98870c3687cfaf8c8fbb5fabfaa23a0026732091b55099dcd777696519ed",
     "required_markers": [
       "SeLinOS fresh target-bundle construction M0: one generation-2 inert TCB-CNode-PML4-notification-IPC-entry-stack bundle root-owned; no ASID, mapping, configuration or execution.",
       "SeLinOS fresh target-bundle configuration M0: one fresh self-IPC-badged-fault CSpace, ASID, IPC map and suspended TCB configuration; no registers, resume or execution.",
@@ -32,11 +32,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_first_fetch_m0_protocol.h",

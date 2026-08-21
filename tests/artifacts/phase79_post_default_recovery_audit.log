@@ -1,0 +1,3 @@
+ALL_BINDINGS=634
+ALL_BINDING_MISMATCHES=1
+STALE selinos_driver_runtime_m1.verification.json	runtime_evidence.baseline_log	tests/artifacts/selinos_m1_baseline.log

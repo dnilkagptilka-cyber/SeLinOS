@@ -1,0 +1,59 @@
+=== VERIFY tools/verify_driver_runtime_m1.py ===
+SeLinOS Driver-runtime M1 evidence verified.
+=== VERIFY tools/verify_elfrt_m1.py ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build
+ninja: no work to do.
+SeLinOS ELFRT M1 evidence verified.
+=== VERIFY tools/verify_iommu_availability_m0.py ===
+SeLinOS root-only x86 IOMMU bootinfo availability M0 evidence verified.
+=== VERIFY tools/verify_kabi_fixture_execution.py ===
+SeLinOS KABI controlled fixture-execution evidence verified.
+=== VERIFY tools/verify_kabi_relocation_stage.py ===
+SeLinOS KABI non-executing relocation-stage evidence verified.
+=== VERIFY tools/verify_kapi_m2_ioremap_failclosed.py ===
+SeLinOS KAPI M2 fail-closed ioremap evidence verified.
+=== VERIFY tools/verify_kapi_sync_m1.py ===
+SeLinOS KAPI synchronization M1 evidence verified.
+=== VERIFY tools/verify_linux_fcntl_getfl_m15.py ===
+SeLinOS Linux fcntl(F_GETFL) M15 evidence verified.
+=== VERIFY tools/verify_linux_fstat_record_m10.py ===
+SeLinOS Linux syscall ABI M10 evidence verified.
+=== VERIFY tools/verify_linux_getdents_rejection_m11.py ===
+SeLinOS Linux syscall ABI M11 getdents64 rejection evidence verified.
+=== VERIFY tools/verify_linux_syscall_abi_m1.py ===
+[1/9] Building C object projects/helixos/CMakeFiles/selinos-linux-syscall-probe.dir/drivers/linux_syscall_probe.c.obj
+[2/9] Linking C executable projects/helixos/selinos-linux-syscall-probe
+/usr/bin/ld: warning: /home/ubuntu/helixos/build/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/9] Generate CPIO archive selinos_services_archive.o
+[4/9] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[5/9] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[6/9] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[7/9] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+[31mFAILED: [0mprojects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj 
+/usr/bin/ccache /usr/bin/gcc --sysroot=/home/ubuntu/helixos/build  -I/home/ubuntu/helixos/src/projects/helixos/include -I/home/ubuntu/helixos/build/libsel4/autoconf -I/home/ubuntu/helixos/build/kernel/gen_config -I/home/ubuntu/helixos/build/libsel4/gen_config -I/home/ubuntu/helixos/src/kernel/libsel4/include -I/home/ubuntu/helixos/src/kernel/libsel4/arch_include/x86 -I/home/ubuntu/helixos/src/kernel/libsel4/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/kernel/libsel4/sel4_plat_include/pc99 -I/home/ubuntu/helixos/src/kernel/libsel4/mode_include/64 -I/home/ubuntu/helixos/build/libsel4/include -I/home/ubuntu/helixos/build/libsel4/arch_include/x86 -I/home/ubuntu/helixos/build/libsel4/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/projects/sel4runtime/include -I/home/ubuntu/helixos/src/projects/sel4runtime/include/mode/64 -I/home/ubuntu/helixos/src/projects/sel4runtime/include/arch/x86 -I/home/ubuntu/helixos/src/projects/sel4runtime/include/sel4_arch/x86_64 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/sel4_arch/x86_64 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/arch/x86 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4vka/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4vka/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4vka/arch_include/x86 -I/home/ubuntu/helixos/src/projects/util_libs/libutils/include -I/home/ubuntu/helixos/src/projects/util_libs/libutils/arch_include/x86 -I/home/ubuntu/helixos/build/projects/helixos/util_libs/libutils/gen_config -I/home/ubuntu/helixos/build/projects/helixos/seL4_libs/libsel4vka/gen_config -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4debug/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4debug/arch_include/x86 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4debug/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4utils/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4utils/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4utils/arch_include/x86 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4vspace/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4vspace/arch_include/x86 -I/home/ubuntu/helixos/build/projects/helixos/seL4_libs/libsel4utils/gen_config -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4simple/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4simple/arch_include/x86 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4platsupport/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4platsupport/arch_include/x86 -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4platsupport/plat_include/pc99 -I/home/ubuntu/helixos/src/projects/util_libs/libplatsupport/include -I/home/ubuntu/helixos/src/projects/util_libs/libplatsupport/plat_include/pc99 -I/home/ubuntu/helixos/src/projects/util_libs/libplatsupport/sel4_arch_include/x86_64 -I/home/ubuntu/helixos/src/projects/util_libs/libplatsupport/arch_include/x86 -I/home/ubuntu/helixos/src/projects/util_libs/libfdt/include -I/home/ubuntu/helixos/src/projects/util_libs/libfdt/. -I/home/ubuntu/helixos/build/projects/helixos/util_libs/libplatsupport/gen_config -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4simple-default/include -I/home/ubuntu/helixos/src/projects/util_libs/libelf/include -I/home/ubuntu/helixos/src/projects/util_libs/libcpio/include -I/home/ubuntu/helixos/src/projects/seL4_libs/libsel4muslcsys/include -I/home/ubuntu/helixos/build/projects/helixos/seL4_libs/libsel4muslcsys/gen_config -I/home/ubuntu/helixos/src/projects/helixos/kabi/include -I/home/ubuntu/helixos/build/projects/helixos/gen_config -isystem /home/ubuntu/helixos/build/projects/helixos/musllibc/build-temp/stage/include -m64  -D__KERNEL_64__ -march=nehalem -std=gnu11 -nostdinc -fno-pic -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables -ftls-model=local-exec -mtls-direct-seg-refs -Wall -Wextra -Wno-error=unused-parameter -Werror -g -MD -MT projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj -MF projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj.d -o projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj -c /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+/home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c: At top level:
+/home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:1695:13: error: ‘start_taskd_dynamic_alloc_m0_bundle’ defined but not used [-Werror=unused-function]
+ 1695 | static bool start_taskd_dynamic_alloc_m0_bundle(vka_t *vka, vspace_t *vspace)
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+ninja: build stopped: subcommand failed.
+Linux syscall ABI M1 verification failed: Command '['ninja']' returned non-zero exit status 1.

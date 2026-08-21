@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-ipc-buffer-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "3400a8083b2aeec050ba55139f8d70172ed7db182408e4666c7cf4783cfe6348"
+      "sha256": "be63d45a2bab3ff72e00b13fd05e37bf909b1a80661c88283a25fc861483a772"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_ipc_buffer_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_ipc_buffer_m0.boot.log",
-    "sha256": "f82ef8774b5501060f70847ef67a6fe7790235e12521710478e9e25a413167cc",
+    "sha256": "1b92e680331468751da253aef580818ca5e7b1ff9590af20a4862f4eff29ca10",
     "required_markers": [
       "SeLinOS taskd IPC buffer M0: mapping ownership witness issued; target not invoked.",
       "SeLinOS taskd IPC buffer M0: root rolled back rejected TCB/CNode/PML4/frame generation 1.",

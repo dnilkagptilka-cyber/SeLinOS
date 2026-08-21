@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-entry-stack-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "fac1e072032709a3e771d1cfcf4245082326f697e062a383c75bfd0c5b5ad069"
+      "sha256": "252209ac9bc6db5d67f120f52b3afb5270b5f4f66b3813809e0b4e104526e009"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_entry_stack_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_entry_stack_m0.boot.log",
-    "sha256": "32f779d1650868983b77f873080613b622c1664ccf2b8d8cd85abba1c20bc564",
+    "sha256": "868bc92e6ebb3dbf7913db5153abe3d43d0cf62c5dfd0c336ce920ee9c7055d5",
     "required_markers": [
       "SeLinOS taskd entry-stack M0: NX entry/stack provenance ownership issued; target not resumed.",
       "SeLinOS taskd entry-stack M0: canonical entry and 16-byte ABI-derived stack provenance read back.",

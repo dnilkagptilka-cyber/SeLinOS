@@ -25,7 +25,7 @@
     },
     "root_image": {
       "path": "build-virtio-zero-descriptor-notification-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "c287906e758ac9e00c7c130cf1001c8cb3d360e9dc19a29574a87f2d1bf19c7c"
+      "sha256": "81943a2e2b228da12010428063f77b2fb8027d92797f88c08598227126cc31fb"
     }
   },
   "implementation": {
@@ -39,7 +39,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -47,7 +47,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "phase_design_gate": {
       "path": "docs/phase47_virtio_blk_zero_descriptor_notification_m9_gate.md",
@@ -61,7 +61,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_zero_descriptor_notification_m9.boot.log",
-    "sha256": "c2616b39a07f70efcf2297e0b70e88b6d0aa9bb05dc3c3606a4df32aeecfe46f",
+    "sha256": "304a20f11e27629a4518f152259e1197b7de0ec3d461a8e884f8ac63ca7119cc",
     "required_markers": [
       "SeLinOS storage M9: one zero-descriptor queue-zero notification then reset passed.",
       "SeLinOS storage M9: no IRQ, DMA claim, containment claim or block I/O.",

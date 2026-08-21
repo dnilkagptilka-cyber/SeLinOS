@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-allocation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "d1ee76af0e0c10bf5e5f16fcc70e7919bee6d77dd43f000b373951fc72522c2d"
+      "sha256": "2a54c6293e0056fe214895766c8e9f4d81ef76019ded65166444c8993b3c620f"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_alloc_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_alloc_m0.boot.log",
-    "sha256": "e0214bc053543fac6da3d940877be9addc16a3db7b5498b42e8278e39d7d3182",
+    "sha256": "399c9d6a609c70a2614d47887c7ca2cf1e1ec3933a9aaf8201dc271782e9267b",
     "required_markers": [
       "SeLinOS taskd dynamic M0: allocator reserve/release prerequisite passed.",
       "SeLinOS taskd dynamic M0: no TCB/CSpace/VSpace or Linux process created.",

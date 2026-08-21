@@ -80,6 +80,9 @@
 #if CONFIG_SELINOS_CONTROLLED_PT_INTERP_HANDOFF_M0_PROBE
 #include "selinos_controlled_pt_interp_handoff_m0.h"
 #endif
+#if CONFIG_SELINOS_CONTROLLED_EXECVE_REPLACEMENT_M0_PROBE
+#include "selinos_controlled_execve_replacement_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4450,6 +4453,14 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS controlled PT_INTERP handoff M0: one self-authored interpreter witness entered with fixed aligned stack and bounded auxv metadata.\n");
     debug_puts("SeLinOS controlled PT_INTERP handoff M0: no host linker, dependency resolver, general dynamic linker, Linux ABI, Debian, dpkg or apt claim.\n");
+#endif
+#if CONFIG_SELINOS_CONTROLLED_EXECVE_REPLACEMENT_M0_PROBE
+    if (!selinos_controlled_execve_replacement_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS controlled execve replacement M0: fixed execve fault, replacement transition or interpreter terminal witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS controlled execve replacement M0: one fixed Linux execve-number fault transitioned non-returningly to a self-authored interpreter witness.\n");
+    debug_puts("SeLinOS controlled execve replacement M0: no general execve, fork, clone, process model, Linux ABI, Debian, dpkg or apt claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

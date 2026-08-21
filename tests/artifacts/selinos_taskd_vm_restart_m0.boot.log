@@ -1,8 +1,9 @@
-Script started on 2026-08-21 12:49:59+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/25" COLUMNS="-1" LINES="-1"]
+Script started on 2026-08-21 13:53:09+00:00 [COMMAND="timeout 12s qemu-system-x86_64 -cpu max -nographic -serial mon:stdio -m size=1G -kernel images/kernel-x86_64-pc99 -initrd images/selinos-root-image-x86_64-pc99" TERM="xterm-256color" TTY="/dev/pts/35" COLUMNS="-1" LINES="-1"]
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
-iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00[05;76HPress Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
 Booting from ROM..Boot config: debug_port = 0x3f8
@@ -102,8 +103,7 @@ SeLinOS root dispatch M0: exact fixed request accepted.
 SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
 SeLinOS M0: root task entering idle/yield loop.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SeLinOS modexec: isolated pinned fixture init_module entering.
-SeLinOS modexec: pinned fixture invoked curated _prinSeLinOS modld: integrity, KABI CRC and non-execSeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS modexec: isolated pinned fixture init_moSeLinOS modld: integrity, KABISeLinOS taskd TCB resume M2: one transferred child TCB resumed.
 SeLinOS TCB resume M2 child: one fixed completion sent.
 SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
 SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
@@ -116,11 +116,12 @@ SeLinOS taskd M1: fixed child TCB suspended and resumed.
 SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
 SeLinOS objectd M1: fixed inventory reservation-state proof passed.
 SeLinOS root dispatch M0 probe: fixed root status transaction passed.
-tk stub.
+dule entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
-uting relocation passed.
+ CRC and non-executing relocation passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS taskd TCB resume M2: exact one child completion validated.
 SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
@@ -138,6 +139,6 @@ SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 962241 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 983334 (timeout)
 
-Script done on 2026-08-21 12:50:11+00:00 [COMMAND_EXIT_CODE="124"]
+Script done on 2026-08-21 13:53:21+00:00 [COMMAND_EXIT_CODE="124"]

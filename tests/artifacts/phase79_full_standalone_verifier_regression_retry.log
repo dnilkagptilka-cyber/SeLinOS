@@ -1,0 +1,43 @@
+BEGIN verify_driver_runtime_m1.py
+SeLinOS Driver-runtime M1 evidence verified.
+PASS verify_driver_runtime_m1.py
+BEGIN verify_elfrt_m1.py
+ninja: no work to do.
+SeLinOS ELFRT M1 evidence verified.
+PASS verify_elfrt_m1.py
+BEGIN verify_fresh_target_bundle_configuration_m0.py
+SeLinOS fresh target-bundle configuration M0 evidence verified.
+PASS verify_fresh_target_bundle_configuration_m0.py
+BEGIN verify_fresh_target_bundle_construction_m0.py
+SeLinOS fresh target-bundle construction M0 evidence verified.
+PASS verify_fresh_target_bundle_construction_m0.py
+BEGIN verify_fresh_target_context_provenance_m0.py
+SeLinOS fresh target context provenance M0 evidence verified.
+PASS verify_fresh_target_context_provenance_m0.py
+BEGIN verify_fresh_target_fault_reply_restart_m0.py
+SeLinOS fresh target fault reply/restart M0 evidence verified.
+PASS verify_fresh_target_fault_reply_restart_m0.py
+BEGIN verify_fresh_target_first_fetch_m0.py
+SeLinOS fresh target first-fetch M0 evidence verified.
+PASS verify_fresh_target_first_fetch_m0.py
+BEGIN verify_fresh_target_mapping_provenance_m0.py
+verification passed: Phase 78 fresh target mapping provenance M0
+PASS verify_fresh_target_mapping_provenance_m0.py
+BEGIN verify_fresh_target_nxe_stack_revalidation_m3.py
+verification passed: Phase 78 x86 NXE fresh-stack revalidation M3 post-read terminal witness
+PASS verify_fresh_target_nxe_stack_revalidation_m3.py
+BEGIN verify_fresh_target_stack_data_access_m1.py
+verification passed: Phase 78 fresh target stack data-access M1 post_read_user_exception
+PASS verify_fresh_target_stack_data_access_m1.py
+BEGIN verify_iommu_availability_m0.py
+SeLinOS root-only x86 IOMMU bootinfo availability M0 evidence verified.
+PASS verify_iommu_availability_m0.py
+BEGIN verify_kabi_fixture_execution.py
+SeLinOS KABI controlled fixture-execution evidence verified.
+PASS verify_kabi_fixture_execution.py
+SKIP verify_kabi_module.py requires dedicated positional inputs
+BEGIN verify_kabi_relocation_stage.py
+SeLinOS KABI non-executing relocation-stage evidence verified.
+PASS verify_kabi_relocation_stage.py
+BEGIN verify_kapi_m2_ioremap_failclosed.py
+verification failed: missing required M2 marker: SeLinOS edu driver: KAPI M2 ioremap fails closed; no MMIO authority.

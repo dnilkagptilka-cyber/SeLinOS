@@ -1,0 +1,23 @@
+BEGIN build-virtio-discovery-probe selinos_virtio_blk_discovery_m0.verification.json
+PASS build-virtio-discovery-probe qemu_exit=124
+BEGIN build-virtio-capability-probe selinos_virtio_blk_common_cap_m1.verification.json
+PASS build-virtio-capability-probe qemu_exit=124
+BEGIN build-virtio-bar-feature-probe selinos_virtio_blk_bar_feature_m2.verification.json
+PASS build-virtio-bar-feature-probe qemu_exit=124
+BEGIN build-virtio-feature-stage-probe selinos_virtio_blk_feature_stage_m3.verification.json
+PASS build-virtio-feature-stage-probe qemu_exit=124
+BEGIN build-virtio-driver-ready-probe selinos_virtio_blk_driver_ready_m4.verification.json
+PASS build-virtio-driver-ready-probe qemu_exit=124
+BEGIN build-virtio-queue-zero-probe selinos_virtio_blk_queue_zero_m5.verification.json
+PASS build-virtio-queue-zero-probe qemu_exit=124
+BEGIN build-virtio-queue-layout-probe selinos_virtio_queue_layout_m6.verification.json
+PASS build-virtio-queue-layout-probe qemu_exit=124
+BEGIN build-virtio-queue-enable-probe selinos_virtio_queue_enable_m7.verification.json
+PASS build-virtio-queue-enable-probe qemu_exit=124
+BEGIN build-virtio-notification-observation-probe selinos_virtio_notification_observation_m8.verification.json
+PASS build-virtio-notification-observation-probe qemu_exit=124
+BEGIN build-virtio-zero-descriptor-notification-probe selinos_virtio_zero_descriptor_notification_m9.verification.json
+PASS build-virtio-zero-descriptor-notification-probe qemu_exit=124
+BEGIN build-virtio-zero-index-observation-probe selinos_virtio_zero_index_observation_m10.verification.json
+PASS build-virtio-zero-index-observation-probe qemu_exit=124
+MODERN_VIRTIO_REVALIDATION_PASS count=11

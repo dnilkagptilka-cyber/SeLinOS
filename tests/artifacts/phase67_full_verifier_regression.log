@@ -1,0 +1,978 @@
+==> verify_driver_runtime_m1.py
+SeLinOS Driver-runtime M1 evidence verified.
+==> verify_elfrt_m1.py
+ninja: no work to do.
+SeLinOS ELFRT M1 evidence verified.
+==> verify_iommu_availability_m0.py
+SeLinOS root-only x86 IOMMU bootinfo availability M0 evidence verified.
+==> verify_kabi_fixture_execution.py
+SeLinOS KABI controlled fixture-execution evidence verified.
+==> verify_kabi_relocation_stage.py
+SeLinOS KABI non-executing relocation-stage evidence verified.
+==> verify_kapi_m2_ioremap_failclosed.py
+SeLinOS KAPI M2 fail-closed ioremap evidence verified.
+==> verify_kapi_sync_m1.py
+SeLinOS KAPI synchronization M1 evidence verified.
+==> verify_linux_fcntl_getfl_m15.py
+SeLinOS Linux fcntl(F_GETFL) M15 evidence verified.
+==> verify_linux_fstat_record_m10.py
+SeLinOS Linux syscall ABI M10 evidence verified.
+==> verify_linux_getdents_rejection_m11.py
+SeLinOS Linux syscall ABI M11 getdents64 rejection evidence verified.
+==> verify_linux_syscall_abi_m1.py
+[1/5] Building C object projects/helixos/CMakeFiles/selinos-linux-syscall-probe.dir/drivers/linux_syscall_probe.c.obj
+[2/5] Linking C executable projects/helixos/selinos-linux-syscall-probe
+/usr/bin/ld: warning: /home/ubuntu/helixos/build/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/5] Generate CPIO archive selinos_services_archive.o
+[4/5] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[5/5] Generating ../../images/selinos-root-image-x86_64-pc99
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modld: SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+SeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+integrity, KABI CRC and non-executing relocation passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS taskd M1: child completion generation 2 validated.
+SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
+SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 595942 (timeout)
+SeLinOS Linux syscall ABI M1 evidence verified.
+==> verify_linux_syscall_abi_m2.py
+ninja: no work to do.
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOS modld: integrity, KABI CRC and non-executing reSeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child coSeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+location passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+nstructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS taskd M1: child completion generation 2 validated.
+SeLinOS taskdSeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+ M1: fixed child lifecycle completed without clone semantics.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 595958 (timeout)
+SeLinOS Linux syscall ABI M2 evidence verified.
+==> verify_linux_syscall_abi_m3.py
+ninja: no work to do.
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+SeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS tasSeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+kd M1: child completion generation 2 validated.
+SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 595974 (timeout)
+SeLinOS Linux syscall ABI M3 evidence verified.
+==> verify_linux_syscall_abi_m4.py
+ninja: no work to do.
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modexec: isolated pinnedSeLinOS modld: integrity, KABI CRC and non-exSeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+ fixture init_module entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+ecuting relocation passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS taskd M1: child completion generation 2 validated.
+SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
+SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 595990 (timeout)
+SeLinOS Linux syscall ABI M4 evidence verified.
+==> verify_linux_syscall_abi_m5.py
+SeLinOS Linux syscall ABI M5 evidence verified.
+==> verify_linux_syscall_abi_m6.py
+SeLinOS Linux syscall ABI M6 evidence verified.
+==> verify_linux_syscall_abi_m8.py
+SeLinOS Linux syscall ABI M8 evidence verified.
+==> verify_linux_tls_arch_get_fs_m13.py
+SeLinOS Linux TLS ARCH_GET_FS M13 evidence verified.
+==> verify_linux_tls_arch_prctl_m12.py
+SeLinOS Linux TLS ARCH_SET_FS M12 evidence verified.
+==> verify_linux_uname_m14.py
+SeLinOS Linux uname M14 evidence verified.
+==> verify_linux_vfs_version_bridge_m9.py
+SeLinOS immutable VFS M9 evidence verified.
+==> verify_linux_vfs_volatile_bridge_m7.py
+SeLinOS Linux-to-volatile-VFS bridge M7 evidence verified.
+==> verify_m3_two_edu.py
+SeLinOS M3 dual-QEMU-edu evidence verified.
+==> verify_memd_fixed_mapping_inventory_m1.py
+SeLinOS memd fixed mapping inventory M1 evidence verified.
+==> verify_network_e1000_bar_range_n1.py
+SeLinOS network e1000 BAR range N1 evidence verified.
+==> verify_network_e1000_discovery_n0.py
+SeLinOS network e1000 discovery N0 evidence verified.
+==> verify_objectd_fixed_inventory_m1.py
+SeLinOS objectd fixed inventory M1 evidence verified.
+==> verify_opaque_lease_cap_transfer_m1.py
+SeLinOS opaque lease capability transfer M1 evidence verified.
+==> verify_persistent_root_context_m0.py
+SeLinOS persistent root construction context M0 evidence verified.
+==> verify_romfs_cpio_m1.py
+SeLinOS ROMFS CPIO M1 evidence verified.
+==> verify_romfs_m1.py
+ninja: no work to do.
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modexec: isolated pinned fixture init_module enterSeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
+SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+ing.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS taskd M1: child completion generation 2 validated.
+SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
+SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 596076 (timeout)
+SeLinOS ROMFS M1 evidence verified.
+==> verify_romfs_packed_path_m1.py
+SeLinOS ROMFS packed-path M1 evidence verified.
+==> verify_romfs_syscall_bridge_m2.py
+ninja: no work to do.
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+
+
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from ROM..Boot config: debug_port = 0x3f8
+Boot config: disable_iommu = false
+Detected 1 boot module(s):
+  module #0: start=0xa14000 end=0xc55130 size=0x241130 name='images/selinos-root-image-x86_64-pc99'
+Parsing GRUB physical memory map
+	Physical Memory Region from 0 size 9fc00 type 1
+	Physical Memory Region from 9fc00 size 400 type 2
+	Physical Memory Region from f0000 size 10000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
+	Physical Memory Region from fffc0000 size 40000 type 2
+	Physical Memory Region from fd00000000 size 300000000 type 2
+Multiboot gave us no video information
+ACPI: RSDP paddr=0xf5290
+ACPI: RSDP vaddr=0xf5290
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+Warning: Your kernel was not compiled for the current microarchitecture.
+SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
+Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x1002f7
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
+ACPI: FADT flags=0x80a5
+ACPI: 0 IOMMUs detected
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
+ACPI: MADT apic_addr=0xfee00000
+ACPI: MADT flags=0x1
+ACPI: MADT_APIC apic_id=0x0
+ACPI: MADT_IOAPIC ioapic_id=0 ioapic_addr=0xfec00000 gsib=0
+ACPI: MADT_ISO bus=0 source=0 gsi=0x002 flags=0x0
+ACPI: MADT_ISO bus=0 source=5 gsi=0x005 flags=0xd
+ACPI: MADT_ISO bus=0 source=9 gsi=0x009 flags=0xd
+ACPI: MADT_ISO bus=0 source=10 gsi=0x00a flags=0xd
+ACPI: MADT_ISO bus=0 source=11 gsi=0x00b flags=0xd
+ACPI: 1 CPU(s) detected
+ELF-loading userland images from boot modules:
+size=0x33e000 v_entry=0x41483d v_start=0x400000 v_end=0x73e000 p_start=0xc56000 p_end=0xf94000
+Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=0x33e000
+Starting node #0 with APIC ID 0
+Mapping kernel window is done
+Available phys memory regions: 1
+  [100000..3ffe0000)
+Reserved virt address space regions: 1
+  [ffffff8000100000..ffffff8000d51000)
+Booting all finished, dropped to user space
+SeLinOS M0: seL4 root task started.
+SeLinOS M0: bootstrap capabilities present.
+SeLinOS M0: capability policy validation passed.
+SeLinOS M0: QEMU edu PCI function not present.
+SeLinOS TCB lease M1: dedicated child fixture configured and deliberately suspended.
+SeLinOS TCB resume M2: fresh child spawned suspended for one taskd resume.
+SeLinOS root dispatch M0: isolated request endpoint ready.
+SeLinOS ABI M3: mediated Linux write(1) userspace payload passed.
+SeLinOS M0 service online: abi-gated
+SeLinOS M0 service online: consoled
+SeLinOS romfsd: immutable release record service online.
+SeLinOS romfsd: immutable release and version records service online.
+SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
+SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
+SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
+SeLinOS modexec: isolated pinnSeLinOS modld: integrity, KABI CRC and non-SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
+SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
+SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
+SeLinOS taskd opaque lease M1: exact slot 1 request accepted.
+SeLinOS objectd opaque lease M1: one notification token transferred to taskd.
+SeLinOS taskd reservation M1: exact combined slot 1 request accepted.
+SeLinOS objectd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
+SeLinOS taskd M1: exact START(1) accepted.
+SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
+SeLinOS deviced: no PCI device record was issued; registry dormant.
+ed fixture init_module entering.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+executing relocation passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
+SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS TCB resume M2 child: one fixed completion sent.
+SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
+SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
+SeLinOS taskd reservation M1: objectd status-only reservation validated.
+SeLinOS memd reservation M2: status-only slot 1 reservation returned.
+SeLinOS memd M1: duplicate fixed-plan slot 1 reservation rejected with EBUSY.
+SeLinOS memd M1: fixed mapping-plan reservation-state proof passed.
+SeLinOS taskd M1: child completion generation 1 validated.
+SeLinOS taskd M1: fixed child TCB suspended and resumed.
+SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
+SeLinOS objectd M1: fixed inventory reservation-state proof passed.
+SeLinOS taskd TCB resume M2: exact one child completion validated.
+SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
+SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
+SeLinOS taskd reservation M1: memd status-only reservation validated.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
+SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
+SeLinOS taskd M1: child completion generation 2 validated.
+SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
+SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
+SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
+SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
+SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
+SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
+SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
+qemu-system-x86_64: terminating on signal 15 from pid 596096 (timeout)
+SeLinOS ROMFS syscall bridge M2 evidence verified.
+==> verify_root_construct_m1.py
+SeLinOS root-held fixed-child construction adapter M1 evidence verified.
+==> verify_root_construct_m2.py
+SeLinOS root-constructed child control-lease M2 evidence verified.
+==> verify_root_construct_m3.py
+SeLinOS root-constructed child single-resume M3 evidence verified.
+==> verify_root_construct_m4.py
+SeLinOS root-constructed child completion witness M4 evidence verified.
+==> verify_root_dispatch_m0.py
+SeLinOS root construction-request dispatch M0 evidence verified.
+==> verify_sealed_static_image_m0.py
+SeLinOS sealed static-image M0 evidence verified.
+==> verify_sealed_static_image_mapping_m0.py
+SeLinOS sealed static-image mapping M0 evidence verified.
+==> verify_static_image_teardown_authorization_m0.py
+SeLinOS static-image teardown authorization M0 evidence verified.
+==> verify_static_image_terminal_lifecycle_m0.py
+SeLinOS static-image terminal lifecycle M0 evidence verified.
+==> verify_taskd_combined_reservation_m1.py
+SeLinOS taskd combined reservation M1 evidence verified.
+==> verify_taskd_dynamic_alloc_m0.py
+SeLinOS taskd dynamic allocation prerequisite M0 evidence verified.
+==> verify_taskd_dynamic_cspace_m0.py
+SeLinOS taskd-owned dynamic CNode rollback and ownership M0 evidence verified.
+==> verify_taskd_dynamic_tcb_m0.py
+SeLinOS taskd-owned dynamic TCB allocation M0 evidence verified.
+==> verify_taskd_dynamic_vspace_m0.py
+SeLinOS taskd-owned dynamic VSpace-root rollback and ownership M0 evidence verified.
+==> verify_taskd_entry_stack_m0.py
+SeLinOS entry-point and stack provenance M0 evidence verified.
+==> verify_taskd_exec_fetch_m0.py
+SeLinOS executable instruction-fetch witness M0 evidence verified.
+==> verify_taskd_fault_witness_m0.py
+SeLinOS fault-mediated first-execution M0 evidence verified.
+==> verify_taskd_fixed_child_lifecycle_m1.py
+SeLinOS taskd fixed-child lifecycle M1 evidence verified.
+==> verify_taskd_inert_bundle_m0.py
+SeLinOS taskd-owned inert task-resource bundle rollback and ownership M0 evidence verified.
+==> verify_taskd_ipc_buffer_m0.py
+SeLinOS isolated IPC-buffer mapped suspended task M0 evidence verified.
+==> verify_taskd_populated_cspace_m0.py
+SeLinOS one-cap populated CSpace configured non-executing task M0 evidence verified.
+==> verify_taskd_self_rooted_cspace_m0.py
+SeLinOS self-rooted two-cap CSpace configured non-executing task M0 evidence verified.
+==> verify_taskd_suspended_linkage_m0.py
+SeLinOS configured but non-executing task linkage M0 evidence verified.
+==> verify_taskd_vm_restart_m0.py
+SeLinOS VM-fault reply restart M0 evidence verified.
+==> verify_taskd_zeroed_context_m0.py
+SeLinOS zero-request plus normalized-RFLAGS suspended task M0 evidence verified.
+==> verify_tcb_control_lease_m1.py
+SeLinOS suspended child TCB control lease M1 evidence verified.
+==> verify_tcb_resume_m2.py
+SeLinOS transferred child TCB single-resume M2 evidence verified.
+==> verify_vfs_volatile_m0.py
+SeLinOS volatile VFS M0 evidence verified.
+==> verify_virtio_blk_bar_feature_m2.py
+SeLinOS virtio-blk BAR/feature M2 evidence verified.
+==> verify_virtio_blk_common_cap_m1.py
+SeLinOS virtio-blk common-capability M1 evidence verified.
+==> verify_virtio_blk_discovery_m0.py
+SeLinOS virtio-blk discovery M0 evidence verified.
+==> verify_virtio_blk_driver_ready_m4.py
+SeLinOS virtio-blk root-only zero-feature driver-ready/reset M4 evidence verified.
+==> verify_virtio_blk_feature_stage_m3.py
+SeLinOS virtio-blk root-only zero-feature status-stage M3 evidence verified.
+==> verify_virtio_blk_notification_observation_m8.py
+SeLinOS virtio-blk root-only notification-capability/address observation M8 evidence verified.
+==> verify_virtio_blk_queue_enable_m7.py
+SeLinOS virtio-blk root-only queue-enable/read-back/reset M7 evidence verified.
+==> verify_virtio_blk_queue_layout_m6.py
+SeLinOS virtio-blk root-only disabled queue-memory-layout M6 evidence verified.
+==> verify_virtio_blk_queue_zero_m5.py
+SeLinOS virtio-blk root-only queue-zero metadata observation M5 evidence verified.
+==> verify_virtio_blk_zero_descriptor_notification_m9.py
+SeLinOS virtio-blk root-only zero-descriptor notification/reset M9 evidence verified.
+==> verify_virtio_blk_zero_index_observation_m10.py
+SeLinOS virtio-blk root-only post-notification zero-index observation M10 evidence verified.
+==> verify_x86_nx_mapping_m0.py
+SeLinOS x86_64 execute-disable fixed-page M0 evidence verified.
+standalone_verifier_count=73

@@ -1,0 +1,496 @@
+=== BUILD build ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-e1000-bar-range-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-e1000-bar-range-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-e1000-bar-range-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-e1000-discovery-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-e1000-discovery-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-e1000-discovery-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-pci-bar-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-pci-bar-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-pci-bar-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-discovery-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-discovery-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-discovery-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-capability-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-capability-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-capability-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-bar-feature-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-bar-feature-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-bar-feature-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-feature-stage-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-feature-stage-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-feature-stage-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-driver-ready-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-driver-ready-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-driver-ready-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-queue-zero-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-queue-zero-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-queue-zero-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-queue-layout-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-queue-layout-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-queue-layout-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-queue-enable-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-virtio-queue-enable-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-queue-enable-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-notification-observation-probe ===
+ninja: no work to do.
+=== BUILD build-root-construct-m1 ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-root-construct-m1
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m1/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m2 ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-root-construct-m2
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m2/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m3 ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-root-construct-m3
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m3/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m4 ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-root-construct-m4
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m4/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-wx-nx-probe ===
+[0/1] Re-running CMake...
+-- libmuslc architecture: 'x86_64' (from KernelSel4Arch 'x86_64')
+-- Detecting cached version of: musllibc
+--   No cache path given. Set SEL4_CACHE_DIR to a path to enable caching binary artifacts.
+-- Configuring done (1.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/ubuntu/helixos/build-wx-nx-probe
+[1/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/main.c.obj
+[2/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/root_construct_m1.c.obj
+[3/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/domain_manager.c.obj
+In file included from /home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/bootstrap.h:54,
+                 from /home/ubuntu/helixos/src/projects/helixos/src/domain_manager.c:2:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h: In function ‘_utspace_twinkle_paddr’:
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:54: warning: unused parameter ‘_twinkle’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                ~~~~~~^~~~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:74: warning: unused parameter ‘cookie’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                ~~~~~~~~~~^~~~~~
+/home/ubuntu/helixos/src/projects/seL4_libs/libsel4allocman/include/allocman/utspace/twinkle.h:36:89: warning: unused parameter ‘size_bits’ [-Wunused-parameter]
+   36 | static inline uintptr_t _utspace_twinkle_paddr(void *_twinkle, seL4_Word cookie, size_t size_bits) {
+      |                                                                                  ~~~~~~~^~~~~~~~~
+[4/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[5/7] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_edu_domain.c.obj
+[6/7] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-wx-nx-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[7/7] Generating ../../images/selinos-root-image-x86_64-pc99
+=== ALL 18 PROFILES BUILT ===

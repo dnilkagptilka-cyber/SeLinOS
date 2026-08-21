@@ -12,12 +12,12 @@
     },
     "root": {
       "path": "build-static-image-terminal-lifecycle-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "2ada21d97ad24615861933508d3599efe377e0b157dfe51d9691dbe67226deea"
+      "sha256": "4b8150b7fc53df4d0e8a057c1d510153fb2d2d34a6c3bfa2e6bdd35906ee685a"
     }
   },
   "runtime": {
     "path": "tests/artifacts/selinos_static_image_terminal_lifecycle_m0.boot.log",
-    "sha256": "d3cc137df932566e5f0656643d39d39cde069af064fb95979fff775702a04da4",
+    "sha256": "72f4638cb69345460a2edee320cce51a53f401cee675275c2c5de8063d914a5d",
     "required_markers": [
       "SeLinOS static-image terminal lifecycle M0: one terminal ownership record observed; no reply, resume, unmap, delete, reclaim or successor task.",
       "SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim."
@@ -30,11 +30,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_static_image_terminal_lifecycle_m0_protocol.h",

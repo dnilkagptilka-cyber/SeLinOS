@@ -13,22 +13,52 @@
     "resume_policy": "one target resume; unreplied terminal user exception"
   },
   "images": {
-    "kernel": {"path": "build-controlled-pt-interp-handoff-m0/images/kernel-x86_64-pc99", "sha256": "39bd9e138e6a4b7cf32a64bde601928678ca4bb2f5a9bb9cbd24e848ef8f7139"},
-    "root_image": {"path": "build-controlled-pt-interp-handoff-m0/images/selinos-root-image-x86_64-pc99", "sha256": "dbca8ae97cfb3451b021faa159e8651706c6682d302bcfb4a0f8e18843fd63da"}
+    "kernel": {
+      "path": "build-controlled-pt-interp-handoff-m0/images/kernel-x86_64-pc99",
+      "sha256": "39bd9e138e6a4b7cf32a64bde601928678ca4bb2f5a9bb9cbd24e848ef8f7139"
+    },
+    "root_image": {
+      "path": "build-controlled-pt-interp-handoff-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "be4758a886a01b54b9b84441f98be39d5dca271ff03d58116a592203bd1fece3"
+    }
   },
-  "generated_config": {"path": "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "031c0dc468322077e2999e22183dbbcaa83a261fb7a2feef55d3b3ccd20dc4a8"},
+  "generated_config": {
+    "path": "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "227069a6b4eafe630a7ebe51809b29309a185dad556c0bb8ed31707c6ee887f9"
+  },
   "implementation": {
-    "fixture": {"path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0.c", "sha256": "6cdc1e9a45bf953f151f35e8168bf7d569b32ec75b3a18cf69f180245b2369ea"},
-    "root_transaction": {"path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0_root.c", "sha256": "5bd60eb0ce6a982dd6ca77b44d3d2d5071b5515ecb8742101664c0e26f28d05d"},
-    "protocol": {"path": "src/projects/helixos/include/selinos_controlled_pt_interp_handoff_m0_protocol.h", "sha256": "15cff78f624d5549b93530fa5258429dc11d05ecc02a1af91b31ecaff755ddfd"},
-    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"},
-    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"},
-    "phase_gate": {"path": "docs/phase86_controlled_pt_interp_handoff_m0_gate.md", "sha256": "d2c091c6b6db62b07734f4ad3c17f303ce7816122ceee3fea72eca103eef919c"},
-    "independent_verifier": {"path": "tools/verify_controlled_pt_interp_handoff_m0.py", "sha256": "5aa021b54ac5e3c059d900c15d50272149ee11a2de2237206092f3bb7020abba"}
+    "fixture": {
+      "path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0.c",
+      "sha256": "6cdc1e9a45bf953f151f35e8168bf7d569b32ec75b3a18cf69f180245b2369ea"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/controlled_pt_interp_handoff_m0_root.c",
+      "sha256": "5bd60eb0ce6a982dd6ca77b44d3d2d5071b5515ecb8742101664c0e26f28d05d"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_controlled_pt_interp_handoff_m0_protocol.h",
+      "sha256": "15cff78f624d5549b93530fa5258429dc11d05ecc02a1af91b31ecaff755ddfd"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+    },
+    "phase_gate": {
+      "path": "docs/phase86_controlled_pt_interp_handoff_m0_gate.md",
+      "sha256": "d2c091c6b6db62b07734f4ad3c17f303ce7816122ceee3fea72eca103eef919c"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_controlled_pt_interp_handoff_m0.py",
+      "sha256": "5aa021b54ac5e3c059d900c15d50272149ee11a2de2237206092f3bb7020abba"
+    }
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_controlled_pt_interp_handoff_m0.boot.log",
-    "sha256": "c6d3b14da8ff0557774a6660d6cb30c982965d79e7e5d11dcff025f7f2caa499",
+    "sha256": "e7138bbe3393d1c571dd9fbeded8f0c9bf7918703cda09304265d0d5163d6adc",
     "required_markers": [
       "SeLinOS controlled PT_INTERP handoff M0: one self-authored interpreter witness entered with fixed aligned stack and bounded auxv metadata.",
       "SeLinOS controlled PT_INTERP handoff M0: no host linker, dependency resolver, general dynamic linker, Linux ABI, Debian, dpkg or apt claim.",

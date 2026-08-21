@@ -1,0 +1,97 @@
+=== BUILD build ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-e1000-bar-range-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-e1000-bar-range-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-e1000-discovery-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-e1000-discovery-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-pci-bar-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-pci-bar-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-discovery-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-discovery-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-capability-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-capability-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-bar-feature-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-bar-feature-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-feature-stage-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-feature-stage-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-driver-ready-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-driver-ready-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-queue-zero-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-queue-zero-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-virtio-queue-layout-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-virtio-queue-layout-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m1 ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m1/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m2 ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m2/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m3 ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m3/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-root-construct-m4 ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-root-construct-m4/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== BUILD build-wx-nx-probe ===
+[1/3] Building C object projects/helixos/CMakeFiles/selinos-root.dir/src/selinos_pci.c.obj
+[2/3] Linking C executable projects/helixos/selinos-root
+/usr/bin/ld: warning: /home/ubuntu/helixos/build-wx-nx-probe/lib/crtn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+[3/3] Generating ../../images/selinos-root-image-x86_64-pc99
+=== ALL 16 PROFILES BUILT ===

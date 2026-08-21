@@ -408,6 +408,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinControlledExecveReplacementM0
+    SELINOS_CONTROLLED_EXECVE_REPLACEMENT_M0_PROBE
+    "Enable one controlled native execve replacement proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -536,6 +543,12 @@ add_library(selinos-controlled-pt-interp-handoff-m0-fixture STATIC
 target_include_directories(selinos-controlled-pt-interp-handoff-m0-fixture PUBLIC include)
 target_link_libraries(selinos-controlled-pt-interp-handoff-m0-fixture PUBLIC selinos-elfrt)
 target_compile_options(selinos-controlled-pt-interp-handoff-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-controlled-execve-replacement-m0-fixture STATIC
+    src/controlled_execve_replacement_m0.c)
+target_include_directories(selinos-controlled-execve-replacement-m0-fixture PUBLIC include)
+target_link_libraries(selinos-controlled-execve-replacement-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-controlled-execve-replacement-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
 
 # Phase 64 validates a self-authored sealed static-image grammar only. It maps
 # nothing and is not an ELF or executable loader.
@@ -1134,6 +1147,10 @@ endif()
 if(SeLinControlledPtInterpHandoffM0)
     target_sources(selinos-root PRIVATE src/controlled_pt_interp_handoff_m0_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-controlled-pt-interp-handoff-m0-fixture)
+endif()
+if(SeLinControlledExecveReplacementM0)
+    target_sources(selinos-root PRIVATE src/controlled_execve_replacement_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-controlled-execve-replacement-m0-fixture)
 endif()
 
 include(rootserver)

@@ -1,0 +1,10 @@
+name=selinos_kabi_probe
+vermagic=6.18.44 SMP preempt mod_unload modversions 
+relocation_sections=9
+undefined_symbols=2
+modinfo_entries=8
+has_versions=1
+relocated_sections=17
+applied_relocations=17
+init_module=0x41cb6010
+cleanup_module=0x41cb6040

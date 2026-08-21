@@ -16,7 +16,7 @@
   },
   "image": {
     "path": "build-virtio-queue-zero-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "1ca85fb53c429c500d32fb9baac243fe316ecf391ee25b33aa14d674bbcde486"
+    "sha256": "6a58bb4eca6611eb23c1e9a129d865dfcbe5c571f81b46f4210d5d4527c59d38"
   },
   "implementation": {
     "pci_helper": {
@@ -29,7 +29,7 @@
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "312a7be28cbda196e8e93a9401ab77a0e8bfc69b231671e5ba58234bfa5535e7"
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
     },
     "root_main": {
       "path": "src/projects/helixos/src/main.c",
@@ -37,7 +37,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e23544107cdac3b0e87f4be5a2d551ee016a2ecba9a4493adc9ce5a2536c78ce"
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
     }
   },
   "fixture": {
@@ -47,7 +47,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_virtio_queue_zero_m5.boot.log",
-    "sha256": "77c5687c79b40956d23cc8b19c5cd18b253e4ab40335fef166f51f1e4d7e2590",
+    "sha256": "16ce3e86b0293aa3b09a606c718fcdc5bdafb9e930c9a087552fea24c1adf8fa",
     "required_markers": [
       "SeLinOS storage M5: root-only queue-zero size observed then reset to zero.",
       "SeLinOS storage M5: no queue enable/address/notify, IRQ, DMA, bus mastering or block I/O."

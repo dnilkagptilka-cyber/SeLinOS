@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS controlled execve replacement M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinControlledExecveReplacementM0=ON",
+    "default": "OFF",
+    "transition": "one fixed Linux execve(59) fault redirected to stack-independent RX interpreter UD2",
+    "reply_policy": "one complete 18-register unknown-syscall reply changes FaultIP and preserves the supplied stack pointer",
+    "terminal_policy": "one terminal UserException at the fixed self-authored interpreter entry; no reply"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-controlled-execve-replacement-m0/images/kernel-x86_64-pc99",
+      "sha256": "0fa8098b19824ee7840d0680c20043d5de1704c9f826ef0b8385e288dd853c43"
+    },
+    "root_image": {
+      "path": "build-controlled-execve-replacement-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "629481d0c5cf5f7b3bdb282a4bb32eef00cc3e79e56cf783a82972718088334d"
+    }
+  },
+  "generated_config": {
+    "path": "build-controlled-execve-replacement-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "4002b712e0c9f66a990eb74c3094da9cd91dc429b8feea6abc2b4dbbb5e8d2b3"
+  },
+  "implementation": {
+    "fixture": {
+      "path": "src/projects/helixos/src/controlled_execve_replacement_m0.c",
+      "sha256": "826390c592dc92372fd143c2576f1c65968d58703c13a7f3de0bf12c98723de2"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/controlled_execve_replacement_m0_root.c",
+      "sha256": "737da88598b1b0474b5a47e2293283b64d95f9ea2b6cb4aee17f2d56a794c470"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_controlled_execve_replacement_m0_protocol.h",
+      "sha256": "5504254ea80dcd31affdd71aff599203d8bf0d97b465b969298f113be9c72522"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+    },
+    "phase_gate": {
+      "path": "docs/phase87_controlled_execve_replacement_m0_gate.md",
+      "sha256": "653ef5a64a9016a17ce1c3ec968df99b8dbf19ee02b7e534eb9d4e059e4f8d33"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_controlled_execve_replacement_m0.py",
+      "sha256": "7aabc3c12c9f37486c622e2e6a062c68533ce1a89e0fc326d8e211afc7fa4074"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_controlled_execve_replacement_m0.boot.log",
+    "sha256": "2425be35919d9f6e7f02931b88758e4ac0d92c005082ab9e5d00163af7ce9761",
+    "required_markers": [
+      "SeLinOS controlled execve replacement M0: one fixed Linux execve-number fault transitioned non-returningly to a self-authored interpreter witness.",
+      "SeLinOS controlled execve replacement M0: no general execve, fork, clone, process model, Linux ABI, Debian, dpkg or apt claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "fixed execve fault, replacement transition or interpreter terminal witness failed",
+      "diagnostic:"
+    ]
+  },
+  "not_claimed": [
+    "general `execve`, arbitrary ELF loading, PT_INTERP resolution, dynamic linker, ld-linux, glibc, musl, DT_NEEDED, shared libraries, TLS or constructors",
+    "fork, clone, vfork, threads, process lifecycle, Linux ABI, Debian package execution, `dpkg` or `apt`",
+    "post-replacement initial stack or auxv preservation, Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}
