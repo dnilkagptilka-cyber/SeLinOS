@@ -18,12 +18,12 @@
     },
     "root_image": {
       "path": "build-controlled-execve-replacement-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "a8af9652fbbc35b57542cf81da7681451f40665266500882073d7e305991a562"
+      "sha256": "c07b181759364b38dff69df7d555818ce42e34fae31d720aa021fab6a9434074"
     }
   },
   "generated_config": {
     "path": "build-controlled-execve-replacement-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "ad5a78bafe45e83a905ee96a19f5d1dd38f742eb5408e63c9c2c01c6c8a0fbfc"
+    "sha256": "d58291240391bcbf5bb6bd11ae0a2478888e085a0cb00ab676b9c075ad18d217"
   },
   "implementation": {
     "fixture": {
@@ -40,11 +40,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "phase_gate": {
       "path": "docs/phase87_controlled_execve_replacement_m0_gate.md",
@@ -57,7 +57,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_controlled_execve_replacement_m0.boot.log",
-    "sha256": "5f3a85edd11cfa6be39691d6fb0c5bed2bdda3f42ff43ee35b076791fd1ae3e8",
+    "sha256": "1b987689022acfdbab7d124e2ca1ed9fa10558309647e4611237866b3732ba89",
     "required_markers": [
       "SeLinOS controlled execve replacement M0: one fixed Linux execve-number fault transitioned non-returningly to a self-authored interpreter witness.",
       "SeLinOS controlled execve replacement M0: no general execve, fork, clone, process model, Linux ABI, Debian, dpkg or apt claim.",

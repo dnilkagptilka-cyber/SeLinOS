@@ -14,17 +14,17 @@
     },
     "root_image": {
       "path": "build-taskd-dynamic-cspace-rollback-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f13ee27a7dcd025b3ec5c0927d9db3c943cf88d048631343720c72f870f27cb9"
+      "sha256": "1a0d42f13dd963d6b4f3bb86768bfe0a689da182f07ee7320e49c67aa47f7466"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_dynamic_cspace_m0_protocol.h",
@@ -45,7 +45,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_dynamic_cspace_m0.boot.log",
-    "sha256": "f148eeddf99a93dfa0023a5799c9f70aa3d5e771ec4e1a9a7901f660b3a59ae0",
+    "sha256": "6421fd2c4eb8124ec3a7ad166ebe3909b5f06a7dc86b038e58e99b47555c2560",
     "required_markers": [
       "SeLinOS taskd dynamic CSpace M0: taskd ownership witness issued; final CNode not invoked.",
       "SeLinOS taskd dynamic CSpace M0: root rolled back rejected CNode generation 1 before delegation.",

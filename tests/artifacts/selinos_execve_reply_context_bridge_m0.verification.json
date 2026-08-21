@@ -11,22 +11,52 @@
     "context": "root reads and writes one complete faulted context, changing only fixed RIP and RSP"
   },
   "images": {
-    "kernel": {"path": "build-execve-reply-context-bridge-m0/images/kernel-x86_64-pc99", "sha256": "13e91c194142f49d81b2d8c52cee30f5b6ac5c200767f79969367f939fbfa4fc"},
-    "root_image": {"path": "build-execve-reply-context-bridge-m0/images/selinos-root-image-x86_64-pc99", "sha256": "40cbcd44806b7aa8943d23e977f177c41dedac3c7a5415a8e29965b46ab9a72f"}
+    "kernel": {
+      "path": "build-execve-reply-context-bridge-m0/images/kernel-x86_64-pc99",
+      "sha256": "13e91c194142f49d81b2d8c52cee30f5b6ac5c200767f79969367f939fbfa4fc"
+    },
+    "root_image": {
+      "path": "build-execve-reply-context-bridge-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "8f9b57e98281f3e91edf0d6c240c256ccb86d35e9e4b469722df7b469d2b2504"
+    }
   },
-  "generated_config": {"path": "build-execve-reply-context-bridge-m0/projects/helixos/gen_config/selinos-root/gen_config.h", "sha256": "54211917c9c17e6e6b0f56f75e7b9c796af97c92dd341e79aabf8775364d0857"},
+  "generated_config": {
+    "path": "build-execve-reply-context-bridge-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "410bc72eaaf88909d992f6dbae2ea27a83eb8dc841a885968435c7fe0c967d2e"
+  },
   "implementation": {
-    "fixture": {"path": "src/projects/helixos/src/execve_reply_context_bridge_m0.c", "sha256": "ba80858731afdbaa88747383cbf05a9b229b0c98dc0df142e4097267ba51d23b"},
-    "root_transaction": {"path": "src/projects/helixos/src/execve_reply_context_bridge_m0_root.c", "sha256": "760fb971a0b1d3550d814c0e7d04be2e7182289df8bbc6f3d853f632d1090d08"},
-    "protocol": {"path": "src/projects/helixos/include/selinos_execve_reply_context_bridge_m0_protocol.h", "sha256": "38462ef7c69753d4698e5ce4cc0ba5a946a6fd0145de01aea73854935576c302"},
-    "build_gate": {"path": "src/projects/helixos/CMakeLists.txt", "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"},
-    "root_wiring": {"path": "src/projects/helixos/src/domain_manager.c", "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"},
-    "phase_gate": {"path": "docs/phase89_execve_reply_context_bridge_m0_gate.md", "sha256": "568dd9af91074d56ee15810a638776d50cee455000a0fabaf19f18097dae232b"},
-    "independent_verifier": {"path": "tools/verify_execve_reply_context_bridge_m0.py", "sha256": "184f5c52ed9f2269fd6214efa2663fc58180234eec3c4d07f111077433139c81"}
+    "fixture": {
+      "path": "src/projects/helixos/src/execve_reply_context_bridge_m0.c",
+      "sha256": "ba80858731afdbaa88747383cbf05a9b229b0c98dc0df142e4097267ba51d23b"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/execve_reply_context_bridge_m0_root.c",
+      "sha256": "760fb971a0b1d3550d814c0e7d04be2e7182289df8bbc6f3d853f632d1090d08"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_context_bridge_m0_protocol.h",
+      "sha256": "38462ef7c69753d4698e5ce4cc0ba5a946a6fd0145de01aea73854935576c302"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
+    },
+    "phase_gate": {
+      "path": "docs/phase89_execve_reply_context_bridge_m0_gate.md",
+      "sha256": "568dd9af91074d56ee15810a638776d50cee455000a0fabaf19f18097dae232b"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_execve_reply_context_bridge_m0.py",
+      "sha256": "184f5c52ed9f2269fd6214efa2663fc58180234eec3c4d07f111077433139c81"
+    }
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_execve_reply_context_bridge_m0.boot.log",
-    "sha256": "41ed4e692837257008c615dba3034b8fe6fe367e6f33af440c92380406d1af49",
+    "sha256": "6a3aff572212762c322aa4f17d8f40f032a051cea161a895656eb2b703650202",
     "required_markers": [
       "SeLinOS execve reply-context bridge M0: root fixed RIP/RSP context bridge plus one 16-word reply reached mov rax,[rsp] and terminal UD2.",
       "SeLinOS execve reply-context bridge M0: no normal 18-word reply-frame, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.",

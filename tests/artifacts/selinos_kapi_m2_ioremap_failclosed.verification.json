@@ -8,7 +8,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "fb4b103ace31d91ba4f34a3796d22ff13f46ddff0b3d96b2a19230ecfbf83084"
+    "sha256": "5197e2335ffb1e432017048081879c6d9b942efeb3c2dd787e857d130bc8ac24"
   },
   "implementation": {
     "io_contract": {
@@ -32,7 +32,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_kapi_m2_ioremap_failclosed.boot.log",
-    "sha256": "3bcd4da7b605af33bbe42d7ab046ccb1df50099fddd2750c0e28a16b0fb09c24",
+    "sha256": "4d30fae71dfb3b095781da492f66b45a2def8352c397cbc584375b51e988eac7",
     "required_markers": [
       "SeLinOS edu driver: KAPI M2 ioremap fails closed; no MMIO authority.",
       "SeLinOS edu driver: KAPI request_irq and dma_alloc_coherent passed."

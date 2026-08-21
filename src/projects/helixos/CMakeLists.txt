@@ -429,6 +429,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinExecveReplyArgv0PointerM0
+    SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_PROBE
+    "Enable one controlled execve reply-context bridge argv0-pointer read proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -575,6 +582,12 @@ add_library(selinos-execve-reply-context-bridge-m0-fixture STATIC
 target_include_directories(selinos-execve-reply-context-bridge-m0-fixture PUBLIC include)
 target_link_libraries(selinos-execve-reply-context-bridge-m0-fixture PUBLIC selinos-elfrt)
 target_compile_options(selinos-execve-reply-context-bridge-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-execve-reply-argv0-pointer-m0-fixture STATIC
+    src/execve_reply_argv0_pointer_m0.c)
+target_include_directories(selinos-execve-reply-argv0-pointer-m0-fixture PUBLIC include)
+target_link_libraries(selinos-execve-reply-argv0-pointer-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-execve-reply-argv0-pointer-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
 
 # Phase 64 validates a self-authored sealed static-image grammar only. It maps
 # nothing and is not an ELF or executable loader.
@@ -1185,6 +1198,10 @@ endif()
 if(SeLinExecveReplyContextBridgeM0)
     target_sources(selinos-root PRIVATE src/execve_reply_context_bridge_m0_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-execve-reply-context-bridge-m0-fixture)
+endif()
+if(SeLinExecveReplyArgv0PointerM0)
+    target_sources(selinos-root PRIVATE src/execve_reply_argv0_pointer_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
 endif()
 
 include(rootserver)

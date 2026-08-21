@@ -23,12 +23,12 @@
     },
     "root_image": {
       "path": "build-static-elf-two-rx-note-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "d1f9e69b9e6f8212f08788ab852c0b369b0f003925cfee510d4ed71e8b266d12"
+      "sha256": "0c2eb25d0b981cd889a20ffd1d9419ca02b877e5dfb8a2409097925686c51005"
     }
   },
   "generated_config": {
     "path": "build-static-elf-two-rx-note-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "c278aa777d9069a89db7f1f4966b75bb4a29ada4b4242c1b71e5002023b5bcc0"
+    "sha256": "0aece85bbd9dd9525a1d902900befbd8410c942c44d089ecacc0fae81a8a7381"
   },
   "implementation": {
     "elfrt_parser": {
@@ -53,11 +53,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "phase_gate": {
       "path": "docs/phase84_static_elf_two_rx_note_m0_gate.md",
@@ -70,7 +70,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_static_elf_two_rx_note_m0.boot.log",
-    "sha256": "03dfa5697754e9b5ffcc783915842959668f21713af24216117e777595ac69d0",
+    "sha256": "5c96b48e88ef7dba284289f8f5280fe3c8ca1ad06a69652b6e58431f84819b1c",
     "required_markers": [
       "SeLinOS static ELF two-RX NOTE M0: fixed readable four-byte PT_NOTE metadata was parser-validated and intentionally never mapped into the target.",
       "SeLinOS static ELF two-RX NOTE M0: PT_GNU_STACK, two RX pages, RO+NX and RW+BSS+NX mappings reached second-RX terminal UD2 without reply, repair, retry or second resume.",

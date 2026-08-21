@@ -89,6 +89,9 @@
 #if CONFIG_SELINOS_EXECVE_REPLY_CONTEXT_BRIDGE_M0_PROBE
 #include "selinos_execve_reply_context_bridge_m0.h"
 #endif
+#if CONFIG_SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_PROBE
+#include "selinos_execve_reply_argv0_pointer_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4483,6 +4486,14 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS execve reply-context bridge M0: root fixed RIP/RSP context bridge plus one 16-word reply reached mov rax,[rsp] and terminal UD2.\n");
     debug_puts("SeLinOS execve reply-context bridge M0: no normal 18-word reply-frame, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.\n");
+#endif
+#if CONFIG_SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_PROBE
+    if (!selinos_execve_reply_argv0_pointer_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS execve reply argv0-pointer M0: context bridge, 16-word reply or argv0 pointer read witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS execve reply argv0-pointer M0: root fixed RIP/RSP context bridge plus one 16-word reply reached mov rax,[rsp+8] and terminal UD2.\n");
+    debug_puts("SeLinOS execve reply argv0-pointer M0: no normal 18-word reply-frame, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

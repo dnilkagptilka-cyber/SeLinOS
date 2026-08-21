@@ -1,39 +1,39 @@
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
-iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1EFCADB0+1EF0ADB0 CA00
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCADB0+3EF0ADB0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
 Booting from ROM..Boot config: debug_port = 0x3f8
 Boot config: disable_iommu = false
 Detected 1 boot module(s):
-  module #0: start=0xa14000 end=0xc55140 size=0x241140 name='images/selinos-root-image-x86_64-pc99'
+  module #0: start=0xa14000 end=0xc55140 size=0x241140 name='build/images/selinos-root-image-x86_64-pc99'
 Parsing GRUB physical memory map
 	Physical Memory Region from 0 size 9fc00 type 1
 	Physical Memory Region from 9fc00 size 400 type 2
 	Physical Memory Region from f0000 size 10000 type 2
-	Physical Memory Region from 100000 size 1fee0000 type 1
-Adding physical memory region 0x100000-0x1ffe0000
-	Physical Memory Region from 1ffe0000 size 20000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
 	Physical Memory Region from fffc0000 size 40000 type 2
 	Physical Memory Region from fd00000000 size 300000000 type 2
 Multiboot gave us no video information
 ACPI: RSDP paddr=0xf5280
 ACPI: RSDP vaddr=0xf5280
-ACPI: RSDT paddr=0x1ffe1c58
-ACPI: RSDT vaddr=0x1ffe1c58
+ACPI: RSDT paddr=0x3ffe1c58
+ACPI: RSDT vaddr=0x3ffe1c58
 Warning: Your kernel was not compiled for the current microarchitecture.
 SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
 Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x100362
-ACPI: RSDT paddr=0x1ffe1c58
-ACPI: RSDT vaddr=0x1ffe1c58
-ACPI: FADT paddr=0x1ffe1b0c
-ACPI: FADT vaddr=0x1ffe1b0c
+ACPI: RSDT paddr=0x3ffe1c58
+ACPI: RSDT vaddr=0x3ffe1c58
+ACPI: FADT paddr=0x3ffe1b0c
+ACPI: FADT vaddr=0x3ffe1b0c
 ACPI: FADT flags=0x80a5
 ACPI: 0 IOMMUs detected
-ACPI: MADT paddr=0x1ffe1b80
-ACPI: MADT vaddr=0x1ffe1b80
+ACPI: MADT paddr=0x3ffe1b80
+ACPI: MADT vaddr=0x3ffe1b80
 ACPI: MADT apic_addr=0xfee00000
 ACPI: MADT flags=0x1
 ACPI: MADT_APIC apic_id=0x0
@@ -50,7 +50,7 @@ Moving loaded userland images to final location: from=0xc56000 to=0xa13000 size=
 Starting node #0 with APIC ID 0
 Mapping kernel window is done
 Available phys memory regions: 1
-  [100000..1ffe0000)
+  [100000..3ffe0000)
 Reserved virt address space regions: 1
   [ffffff8000100000..ffffff8000d51000)
 Booting all finished, dropped to user space
@@ -69,21 +69,6 @@ SeLinOS romfsd: immutable release record service online.
 SeLinOS romfsd: immutable release and version records service online.
 SeLinOS romfsd: embedded newc CPIO multi-file parser ready.
 SeLinOS vfs M0: one fixed volatile state record is server-owned and non-persistent.
-SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
-SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
-SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
-SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
-SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
-SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
-SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
-SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
-SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
-SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
-SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
-SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
-SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
-SeLinOS modexec: isolated pinned fixture init_module entering.
-SeLinOS modexec: pSeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
 SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
 SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
 SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
@@ -99,15 +84,22 @@ SeLinOS irqd: mediated QEMU edu IRQ service online.
 SeLinOS dmad: QEMU edu DMA lifecycle service online.
 SeLinOS deviced: mediated QEMU edu PCI registry online.
 SeLinOS deviced: QEMU edu PCI ID matched; driver-local probe authorised.
+SeLinOS ABI M15: fixed immutable FD F_GETFL mediated without VFS IPC.
+SeLinOS ABI M14: fixed 390-byte x86_64 utsname-layout record mediated.
+SeLinOS ABI M13: root-tracked ARCH_GET_FS mapped TLS base returned.
+SeLinOS ABI M12: ARCH_SET_FS mapped-page TLS base and fs:0 load/store mediated.
+SeLinOS ABI M11: getdents64(FD 6) rejected with ENOTDIR; no directory service.
+SeLinOS ABI M10: FD 6 probe-local two-word fstat record mediated; not Linux struct stat.
+SeLinOS ABI M9: exact immutable /selinos-version open/read/close bridge mediated.
+SeLinOS ABI M8: mapped-page mprotect acknowledgement, zero-origin lseek and fixed-offset volatile pread64 mediated.
+SeLinOS ABI M7: fixed volatile VFS open/read/write/read-back/close bridge mediated.
+SeLinOS ABI M6: deterministic clock_gettime/getrlimit and non-blocking futex mismatch/wake mediated.
+SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address mediated.
+SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
+SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
 SeLinOS root dispatch M0: exact fixed request accepted.
-SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
-SeLinOS M0: root task entering idle/yield loop.
-inned fixture invoked curated _printk stub.
-SeLinOS modexec: pinned fixture invoked curated _printk stub.
-SeLinOS modexec: init_module and cleanup_module completed.
-SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
-SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
-SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
+SeLinOS root dispatch M0: fixeSeLinOS modexec: isolated pinned fixture init_module entering.
+SeLinOSeLinOS modld: integrity, KABSeLinOS taskd TCB resume M2: one transferred child TCB resumed.
 SeLinOS TCB resume M2 child: one fixed completion sent.
 SeLinOS taskd TCB lease M1: suspended child TCB cap received and not exercised.
 SeLinOS taskd opaque lease M1: opaque notification token received; no resource created.
@@ -121,6 +113,14 @@ SeLinOS objectd M1: duplicate slot 1 reservation rejected with EBUSY.
 SeLinOS objectd M1: fixed inventory reservation-state proof passed.
 SeLinOS edu driver: KAPI M2 ioremap fails closed; no MMIO authority.
 SeLinOS root dispatch M0 probe: fixed root status transaction passed.
+d status reply issued; no child constructed.
+SeLinOS M0: root task entering idle/yield loop.
+S modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: pinned fixture invoked curated _printk stub.
+SeLinOS modexec: init_module and cleanup_module completed.
+SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
+I CRC and non-executing relocation passed.
+SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS taskd TCB resume M2: exact one child completion validated.
 SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
 SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
@@ -150,5 +150,5 @@ SeLinOS edu driver: DMA revocation guard passed.
 SeLinOS KAPI 6.18: deviced matched QEMU edu; local probe completed.
 SeLinOS irqd: driver notification revoked and registration released.
 SeLinOS KAPI 6.18: deviced-driven QEMU edu remove completed.
-qemu-system-x86_64: terminating on signal 15 from pid 963651 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 1050162 (timeout)
 COMMAND_EXIT_CODE="124"

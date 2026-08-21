@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-vm-restart-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "db66f92ad27a9ff3a9d32adbaff9d6d24da917b2bd0f697c5d543223cbdfce0b"
+      "sha256": "bd73ebe6a4f6badbe1ef00fd479cbcf8bae735629ffd9e9f902439a834f0102d"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_vm_restart_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_vm_restart_m0.boot.log",
-    "sha256": "8c0e600b10844d64866ad2527452c722a79d829a5067c51c05a378ebe9ce0bef",
+    "sha256": "41601c134a6b4973201354cfa77585e60a28d72bd88d47c9cfb986d54b110e45",
     "required_markers": [
       "SeLinOS taskd VM-restart M0: one repaired VM fault then terminal user exception ownership issued; target blocked.",
       "SeLinOS taskd VM-restart M0: one initial VM fault was repaired by executable entry mapping and one zero-label reply.",

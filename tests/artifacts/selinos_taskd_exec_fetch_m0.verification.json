@@ -13,17 +13,17 @@
     },
     "root_image": {
       "path": "build-taskd-exec-fetch-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "da35885b5e177817f5d92a02ff9b1517061b53dae4c40978b07a8e50b1700528"
+      "sha256": "c1799ea8addb67eb13cf473d428b7791718ccc419266306f7a17bfce86aa8026"
     }
   },
   "implementation": {
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_taskd_exec_fetch_m0_protocol.h",
@@ -44,7 +44,7 @@
   },
   "runtime": {
     "path": "tests/artifacts/selinos_taskd_exec_fetch_m0.boot.log",
-    "sha256": "df543e6403d91c1b75a866b565198d54cbc0f5800801f3d33728cceeac66dd69",
+    "sha256": "99aace3d5bc5b8211853aef648f40e4a594936d46cf2a70a8a0573bc1a8c17d2",
     "required_markers": [
       "SeLinOS taskd exec-fetch M0: post-NOP target ownership issued; target not resumed.",
       "SeLinOS taskd exec-fetch M0: root observed one invalid-opcode fault at entry plus one, after NOP.",

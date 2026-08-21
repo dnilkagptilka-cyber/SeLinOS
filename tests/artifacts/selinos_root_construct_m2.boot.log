@@ -1,7 +1,7 @@
 c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
 
 
-iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1EFCAE00+1EF0AE00 CA00
+iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+3EFCAE00+3EF0AE00 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
@@ -13,27 +13,27 @@ Parsing GRUB physical memory map
 	Physical Memory Region from 0 size 9fc00 type 1
 	Physical Memory Region from 9fc00 size 400 type 2
 	Physical Memory Region from f0000 size 10000 type 2
-	Physical Memory Region from 100000 size 1fee0000 type 1
-Adding physical memory region 0x100000-0x1ffe0000
-	Physical Memory Region from 1ffe0000 size 20000 type 2
+	Physical Memory Region from 100000 size 3fee0000 type 1
+Adding physical memory region 0x100000-0x3ffe0000
+	Physical Memory Region from 3ffe0000 size 20000 type 2
 	Physical Memory Region from fffc0000 size 40000 type 2
 	Physical Memory Region from fd00000000 size 300000000 type 2
 Multiboot gave us no video information
 ACPI: RSDP paddr=0xf5290
 ACPI: RSDP vaddr=0xf5290
-ACPI: RSDT paddr=0x1ffe1c52
-ACPI: RSDT vaddr=0x1ffe1c52
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
 Warning: Your kernel was not compiled for the current microarchitecture.
 SKIM window for mitigating Meltdown (https://www.meltdownattack.com) not necessary for AMD and performance is being needlessly affected, consider disabling
 Kernel loaded to: start=0x100000 end=0xa13000 size=0x913000 entry=0x100362
-ACPI: RSDT paddr=0x1ffe1c52
-ACPI: RSDT vaddr=0x1ffe1c52
-ACPI: FADT paddr=0x1ffe1b06
-ACPI: FADT vaddr=0x1ffe1b06
+ACPI: RSDT paddr=0x3ffe1c52
+ACPI: RSDT vaddr=0x3ffe1c52
+ACPI: FADT paddr=0x3ffe1b06
+ACPI: FADT vaddr=0x3ffe1b06
 ACPI: FADT flags=0x80a5
 ACPI: 0 IOMMUs detected
-ACPI: MADT paddr=0x1ffe1b7a
-ACPI: MADT vaddr=0x1ffe1b7a
+ACPI: MADT paddr=0x3ffe1b7a
+ACPI: MADT vaddr=0x3ffe1b7a
 ACPI: MADT apic_addr=0xfee00000
 ACPI: MADT flags=0x1
 ACPI: MADT_APIC apic_id=0x0
@@ -50,7 +50,7 @@ Moving loaded userland images to final location: from=0xc63000 to=0xa13000 size=
 Starting node #0 with APIC ID 0
 Mapping kernel window is done
 Available phys memory regions: 1
-  [100000..1ffe0000)
+  [100000..3ffe0000)
 Reserved virt address space regions: 1
   [ffffff8000100000..ffffff8000d5d000)
 Booting all finished, dropped to user space
@@ -83,7 +83,7 @@ SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read a
 SeLinOS root construction M1: thirty runnable isolated service domains and one pre-existing suspended child fixture configured.
 SeLinOS root construction M1: root entering dedicated blocking construction loop.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
+SeLinOS modld: integrity, KABI CRC and nonSeLinOS taskd TCB resume M2: exact slot 1 request accepted.
 SeLinOS objectd TCB resume M2: suspended child TCB cap transferred to taskd.
 SeLinOS taskd TCB lease M1: exact slot 1 request accepted.
 SeLinOS objectd TCB lease M1: suspended child TCB cap transferred to taskd.
@@ -100,7 +100,7 @@ SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
-SeLinOS modld: integrity, KABI CRC and non-executing relocation passed.
+-executing relocation passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS root construction M1: exact fixed request accepted; root constructing.
 SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
@@ -120,21 +120,21 @@ SeLinOS taskd TCB resume M2: exact one child completion validated.
 SeLinOS taskd TCB lease M1 probe: suspended child TCB transfer passed.
 SeLinOS taskd opaque lease M1 probe: fixed token transfer passed.
 SeLinOS taskd reservation M1: memd status-only reservation validated.
-SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
 SeLinOS memd M1 probe: one-slot fixed-plan reserve then EBUSY passed.
 SeLinOS taskd M1: child completion generation 2 validated.
 SeLinOS taskd M1: fixed child lifecycle completed without clone semantics.
 SeLinOS objectd M1 probe: one-slot reserve then EBUSY passed.
 SeLinOS root construction M1: malformed or duplicate request rejected; no allocation.
 SeLinOS taskd TCB resume M2 probe: one transferred child resume passed.
-SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
+SeLinOS taskd reservation M1: both status-only reservations pending; no task created.
 SeLinOS task lifecycle M1 probe: fixed child taskd lifecycle passed.
 SeLinOS root construction M2: one constructed-child TCB control cap delivered; child remains suspended.
+SeLinOS taskd reservation M1 probe: combined status-only reservation passed.
 SeLinOS root construction M2: malformed, unavailable or duplicate lease rejected; no cap delivered.
 SeLinOS root construction M2 taskd client: one provenance TCB cap received and not exercised; duplicate refused.
 SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 986350 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 1052002 (timeout)
 COMMAND_EXIT_CODE="124"

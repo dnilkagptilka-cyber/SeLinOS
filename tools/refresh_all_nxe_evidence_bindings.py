@@ -32,6 +32,7 @@ ALLOWED_PATHS = {
     "build-controlled-execve-replacement-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-execve-reply-stack-read-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-execve-reply-context-bridge-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-execve-reply-argv0-pointer-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 

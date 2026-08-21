@@ -19,12 +19,12 @@
     },
     "root_image": {
       "path": "build-controlled-pt-interp-handoff-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "79e7bce063b81e9c603faf42a01ef297efe91f660da85bcb301d7cf6c90af146"
+      "sha256": "d7ec1d67c10dc42fb965827fc1c8f6474aa6c69433a599d76088486fce11d9d6"
     }
   },
   "generated_config": {
     "path": "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "5f72aa31929abe7419bb3f7c04903ba341c24e661604f33e3875091856705043"
+    "sha256": "1c70736d388cadbd740c33b58ce6774881718d37a9d36f82601d790b8709d44d"
   },
   "implementation": {
     "fixture": {
@@ -41,11 +41,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
     },
     "phase_gate": {
       "path": "docs/phase86_controlled_pt_interp_handoff_m0_gate.md",
@@ -58,7 +58,7 @@
   },
   "runtime_evidence": {
     "path": "tests/artifacts/selinos_controlled_pt_interp_handoff_m0.boot.log",
-    "sha256": "e7138bbe3393d1c571dd9fbeded8f0c9bf7918703cda09304265d0d5163d6adc",
+    "sha256": "c63ca8be7c3ea1bec2d4656aab07b6df80eaf4469e808b7cde9037c9782381c9",
     "required_markers": [
       "SeLinOS controlled PT_INTERP handoff M0: one self-authored interpreter witness entered with fixed aligned stack and bounded auxv metadata.",
       "SeLinOS controlled PT_INTERP handoff M0: no host linker, dependency resolver, general dynamic linker, Linux ABI, Debian, dpkg or apt claim.",

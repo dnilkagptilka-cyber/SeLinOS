@@ -9,7 +9,7 @@
   },
   "image": {
     "path": "build/images/selinos-root-image-x86_64-pc99",
-    "sha256": "fb4b103ace31d91ba4f34a3796d22ff13f46ddff0b3d96b2a19230ecfbf83084"
+    "sha256": "5197e2335ffb1e432017048081879c6d9b942efeb3c2dd787e857d130bc8ac24"
   },
   "implementation": {
     "romfs_server": {

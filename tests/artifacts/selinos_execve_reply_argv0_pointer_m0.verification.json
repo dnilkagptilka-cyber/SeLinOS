@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS execve reply argv0-pointer M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "cmake_option": "SeLinExecveReplyArgv0PointerM0=ON",
+    "default": "OFF",
+    "reply": "one label-zero 16-word reply through FaultIP; SP and FLAGS excluded",
+    "context": "root reads and writes one complete faulted context, changing only fixed RIP and RSP",
+    "witness": "one RX mov rax,[rsp+8]; ud2 reads exactly the fixed self-authored argv0 pointer"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-execve-reply-argv0-pointer-m0/images/kernel-x86_64-pc99",
+      "sha256": "afd0781e4d346de55468759b917227517c43d927b1e08a3193f7fad891fc90b4"
+    },
+    "root_image": {
+      "path": "build-execve-reply-argv0-pointer-m0/images/selinos-root-image-x86_64-pc99",
+      "sha256": "97ec1133ff648f9198232e7a590c352699ce4eb5d00500cb34f4f6b63d4610b5"
+    }
+  },
+  "generated_config": {
+    "path": "build-execve-reply-argv0-pointer-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "e7be51360e7302e41b992bddf5729ccbbfdd952842321f61fb3f253eaedcfc30"
+  },
+  "implementation": {
+    "public_header": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_pointer_m0.h",
+      "sha256": "06995278bc4b395100c8b4f185e673d87ce826dfc7e4600d099fd3761b2289c7"
+    },
+    "fixture_header": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_pointer_m0_fixture.h",
+      "sha256": "eff44ac87e0f80b2568342ab88ea841b1b05ca285d57c6699e241a40a549f87f"
+    },
+    "fixture": {
+      "path": "src/projects/helixos/src/execve_reply_argv0_pointer_m0.c",
+      "sha256": "2525f766b9b1e274d26cf4ca480745bf68bb70926d1cb449787c772c2ea7f02b"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/execve_reply_argv0_pointer_m0_root.c",
+      "sha256": "5d44316fa8639018cf90f5e7af721daa85af63c07eff0da32277be1960dfc646"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_pointer_m0_protocol.h",
+      "sha256": "36bc79993c8eca2348471a2cf6c4a8c372c03f727739414e0722c5a9bc8042e4"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "93a80716006ed1148e21ffc1ba518b1a2505c3c7492ca10bf495184000875eaa"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "7fb8a8ad7e31b5f1f3bcd66444ff6957ddc989f309b9b5ac4262ec6e33ed1ab2"
+    },
+    "phase_gate": {
+      "path": "docs/phase90_execve_reply_argv0_pointer_m0_gate.md",
+      "sha256": "acb84c8728c1d3b4ac042699feeb6dbc019621f144ed6a7a2c4b5ee340881031"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_execve_reply_argv0_pointer_m0.py",
+      "sha256": "b37eb9f9eabcf84faa6ab4df2b9ddd5dfffa5cfb6185765c1437fdb17def5bf6"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_execve_reply_argv0_pointer_m0.boot.log",
+    "sha256": "16acab7852a6c57dfd29b9803d50acbf46093efc52ca10af612d75988bf1dbc8",
+    "required_markers": [
+      "SeLinOS execve reply argv0-pointer M0: root fixed RIP/RSP context bridge plus one 16-word reply reached mov rax,[rsp+8] and terminal UD2.",
+      "SeLinOS execve reply argv0-pointer M0: no normal 18-word reply-frame, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS execve reply argv0-pointer M0: context bridge, 16-word reply or argv0 pointer read witness failed.",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "not_claimed": [
+    "normal 18-word reply-frame restoration, full initial stack, argv, envp or auxv preservation",
+    "general `execve`, fork, clone, process lifecycle, dynamic linker, ELF loading, Linux ABI, Debian package execution, `dpkg` or `apt`",
+    "Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}
