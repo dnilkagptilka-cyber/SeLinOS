@@ -415,6 +415,20 @@ config_option(
     OFF
 )
 config_option(
+    SeLinExecveReplyStackReadM0
+    SELINOS_EXECVE_REPLY_STACK_READ_M0_PROBE
+    "Enable one controlled post-execve-reply initial-stack word read proof"
+    DEFAULT
+    OFF
+)
+config_option(
+    SeLinExecveReplyContextBridgeM0
+    SELINOS_EXECVE_REPLY_CONTEXT_BRIDGE_M0_PROBE
+    "Enable one controlled execve reply-context bridge stack-read proof"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -549,6 +563,18 @@ add_library(selinos-controlled-execve-replacement-m0-fixture STATIC
 target_include_directories(selinos-controlled-execve-replacement-m0-fixture PUBLIC include)
 target_link_libraries(selinos-controlled-execve-replacement-m0-fixture PUBLIC selinos-elfrt)
 target_compile_options(selinos-controlled-execve-replacement-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-execve-reply-stack-read-m0-fixture STATIC
+    src/execve_reply_stack_read_m0.c)
+target_include_directories(selinos-execve-reply-stack-read-m0-fixture PUBLIC include)
+target_link_libraries(selinos-execve-reply-stack-read-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-execve-reply-stack-read-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
+
+add_library(selinos-execve-reply-context-bridge-m0-fixture STATIC
+    src/execve_reply_context_bridge_m0.c)
+target_include_directories(selinos-execve-reply-context-bridge-m0-fixture PUBLIC include)
+target_link_libraries(selinos-execve-reply-context-bridge-m0-fixture PUBLIC selinos-elfrt)
+target_compile_options(selinos-execve-reply-context-bridge-m0-fixture PRIVATE -Wall -Wextra -Werror -g)
 
 # Phase 64 validates a self-authored sealed static-image grammar only. It maps
 # nothing and is not an ELF or executable loader.
@@ -1151,6 +1177,14 @@ endif()
 if(SeLinControlledExecveReplacementM0)
     target_sources(selinos-root PRIVATE src/controlled_execve_replacement_m0_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-controlled-execve-replacement-m0-fixture)
+endif()
+if(SeLinExecveReplyStackReadM0)
+    target_sources(selinos-root PRIVATE src/execve_reply_stack_read_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-execve-reply-stack-read-m0-fixture)
+endif()
+if(SeLinExecveReplyContextBridgeM0)
+    target_sources(selinos-root PRIVATE src/execve_reply_context_bridge_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-execve-reply-context-bridge-m0-fixture)
 endif()
 
 include(rootserver)

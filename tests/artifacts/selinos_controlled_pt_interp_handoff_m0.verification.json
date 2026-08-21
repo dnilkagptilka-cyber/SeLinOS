@@ -19,12 +19,12 @@
     },
     "root_image": {
       "path": "build-controlled-pt-interp-handoff-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "be4758a886a01b54b9b84441f98be39d5dca271ff03d58116a592203bd1fece3"
+      "sha256": "79e7bce063b81e9c603faf42a01ef297efe91f660da85bcb301d7cf6c90af146"
     }
   },
   "generated_config": {
     "path": "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "227069a6b4eafe630a7ebe51809b29309a185dad556c0bb8ed31707c6ee887f9"
+    "sha256": "5f72aa31929abe7419bb3f7c04903ba341c24e661604f33e3875091856705043"
   },
   "implementation": {
     "fixture": {
@@ -41,11 +41,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "phase_gate": {
       "path": "docs/phase86_controlled_pt_interp_handoff_m0_gate.md",

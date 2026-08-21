@@ -22,12 +22,12 @@
     },
     "root_image": {
       "path": "build-static-elf-two-rx-ro-rw-bss-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "faa6940758864bed8d4b5d653d24b483c6492912610fd48101a1f49abd3bb625"
+      "sha256": "f88b0e16b3263a3d15ca5b16ecb163d2cc545312267871f67a7255f90aa666aa"
     }
   },
   "generated_config": {
     "path": "build-static-elf-two-rx-ro-rw-bss-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "5a7018e1223a1ec6b3f5b16168e5037716e9a7e3eb5c82b5a60ade2633069aaa"
+    "sha256": "c2f173e9e70950a1b312930dbba6ae348fc2aafcae0c0c37847f45ee76f6caa1"
   },
   "implementation": {
     "fixture": {
@@ -44,11 +44,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "phase_gate": {
       "path": "docs/phase82_static_elf_two_rx_ro_rw_bss_m0_gate.md",

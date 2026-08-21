@@ -14,7 +14,7 @@
     "disabled_peer_option": "SeLinX86NxMappingProbe=OFF",
     "generated_config": {
       "path": "build-x86-nx-raw-fsr-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
-      "sha256": "9c5de79ff991ac9fe0a6076e24da4ab238357cae9cd68998542da8cdb0acb72b"
+      "sha256": "89ca174a11f666609de645f1a9cd141320ae672cdf8fb11556d4ca9beae350b5"
     }
   },
   "images": {
@@ -24,7 +24,7 @@
     },
     "root_image": {
       "path": "build-x86-nx-raw-fsr-revalidation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "8caaf8953de3952542ace464b97cd179644388784f89be3d0219a6cdf66eaadc"
+      "sha256": "14aefdcb7e472b739b6bbae322de9f4c10a57f0285b7a1295f0814096530e238"
     }
   },
   "runtime": {
@@ -54,11 +54,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "root_probe": {
       "path": "src/projects/helixos/src/x86_nx_mapping_probe.c",

@@ -84,7 +84,7 @@ SeLinOS ABI M5: getuid/getgid/geteuid/getegid/gettid and mapped set_tid_address 
 SeLinOS ABI gateway: getpid, write, mmap, brk, ROMFS open/read/close, EOF read and exit(0) mediated.
 SeLinOS M0: thirty runnable isolated service domains and one suspended child fixture configured.
 SeLinOS KAPI 6.18: QEMU edu absent; PCI probe domain dormant.
-SeLinOS modexec: isolated pinned fixturSeLinOS modld: integrity,SeLinOS root dispatch M0: exact fixed request accepted.
+SeLinOS modld: integrity, KABI CRC and non-eSeLinOS root dispatch M0: exact fixed request accepted.
 SeLinOS root dispatch M0: fixed status reply issued; no child constructed.
 SeLinOS M0: root task entering idle/yield loop.
 SeLinOS taskd TCB resume M2: exact slot 1 request accepted.
@@ -99,12 +99,12 @@ SeLinOS memd M1: fixed mapping-plan slot 1 reserved without mapping.
 SeLinOS taskd M1: exact START(1) accepted.
 SeLinOS objectd M1: fixed inventory slot 1 reserved without object allocation.
 SeLinOS deviced: no PCI device record was issued; registry dormant.
-e init_module entering.
+SeLinOS modexec: isolated pinned fixture init_module entering.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: pinned fixture invoked curated _printk stub.
 SeLinOS modexec: init_module and cleanup_module completed.
 SeLinOS modexec: no device capability granted; NX-enforced W^X remains unproven.
- KABI CRC and non-executing relocation passed.
+xecuting relocation passed.
 SeLinOS modld: module entrypoints discovered; execution intentionally disabled.
 SeLinOS root dispatch M0 probe: fixed root status transaction passed.
 SeLinOS taskd TCB resume M2: one transferred child TCB resumed.
@@ -135,5 +135,5 @@ SeLinOS ROMFS probe: open/read/close and invalid-FD guard passed.
 SeLinOS ROMFS probe: CPIO pathname multi-file lookup passed.
 SeLinOS ROMFS probe: bounded packed client pathname lookup passed.
 SeLinOS VFS M0 probe: bounded volatile write/read/close lifecycle passed.
-qemu-system-x86_64: terminating on signal 15 from pid 984168 (timeout)
+qemu-system-x86_64: terminating on signal 15 from pid 1010894 (timeout)
 COMMAND_EXIT_CODE="124"

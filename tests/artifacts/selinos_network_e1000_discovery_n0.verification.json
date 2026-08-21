@@ -13,7 +13,7 @@
   },
   "image": {
     "path": "build-e1000-discovery-probe/images/selinos-root-image-x86_64-pc99",
-    "sha256": "10bd64443195a306a3ed5da531e931c22258370cf45fcad21a1d74497f647e28"
+    "sha256": "ad8f66e222456e74bb88c0ed6cc4206546417bdbfb324c4f8c575724d5546cfc"
   },
   "implementation": {
     "pci_source": {
@@ -26,11 +26,11 @@
     },
     "root_hook": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "cmake_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     }
   },
   "identity": {

@@ -83,6 +83,12 @@
 #if CONFIG_SELINOS_CONTROLLED_EXECVE_REPLACEMENT_M0_PROBE
 #include "selinos_controlled_execve_replacement_m0.h"
 #endif
+#if CONFIG_SELINOS_EXECVE_REPLY_STACK_READ_M0_PROBE
+#include "selinos_execve_reply_stack_read_m0.h"
+#endif
+#if CONFIG_SELINOS_EXECVE_REPLY_CONTEXT_BRIDGE_M0_PROBE
+#include "selinos_execve_reply_context_bridge_m0.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4461,6 +4467,22 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS controlled execve replacement M0: one fixed Linux execve-number fault transitioned non-returningly to a self-authored interpreter witness.\n");
     debug_puts("SeLinOS controlled execve replacement M0: no general execve, fork, clone, process model, Linux ABI, Debian, dpkg or apt claim.\n");
+#endif
+#if CONFIG_SELINOS_EXECVE_REPLY_STACK_READ_M0_PROBE
+    if (!selinos_execve_reply_stack_read_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS execve reply stack-read M0: fixed execve reply, first-stack-word read or terminal witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS execve reply stack-read M0: one fixed post-reply mov rax,[rsp] read argc=1 then reached terminal UD2.\n");
+    debug_puts("SeLinOS execve reply stack-read M0: no full initial stack, auxv, general execve, dynamic linker, Linux ABI, Debian, dpkg or apt claim.\n");
+#endif
+#if CONFIG_SELINOS_EXECVE_REPLY_CONTEXT_BRIDGE_M0_PROBE
+    if (!selinos_execve_reply_context_bridge_m0_start(vka, vspace)) {
+        debug_puts("SeLinOS execve reply-context bridge M0: fixed context bridge, 16-word reply or terminal stack-read witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS execve reply-context bridge M0: root fixed RIP/RSP context bridge plus one 16-word reply reached mov rax,[rsp] and terminal UD2.\n");
+    debug_puts("SeLinOS execve reply-context bridge M0: no normal 18-word reply-frame, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

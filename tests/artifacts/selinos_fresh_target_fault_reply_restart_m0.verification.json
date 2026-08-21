@@ -12,7 +12,7 @@
     },
     "root": {
       "path": "build-fresh-target-fault-reply-restart-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "f955e072433fc3f34052d5939f6e04d954bf81de57584f6871326d4c579593e9"
+      "sha256": "579e9d63d817be9ef95a066a9af9f1a70377755efb13d9bec8e0142f8e040e20"
     }
   },
   "runtime": {
@@ -31,11 +31,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "root": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_fault_reply_restart_m0_protocol.h",

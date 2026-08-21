@@ -14,7 +14,7 @@
     "disabled_peer_option": "SeLinFreshTargetStackVmfaultFsrProbe=OFF",
     "generated_config": {
       "path": "build-fresh-target-nxe-stack-revalidation-probe/projects/helixos/gen_config/selinos-root/gen_config.h",
-      "sha256": "3c02c3398813cccb823228f29bf605fe01fddfb2ea5fe8bdc1fb21bd397d9416"
+      "sha256": "bd55e26d982d185c8b94d7e668486ed4671c6b338f27fb403a72c74b91480501"
     }
   },
   "images": {
@@ -24,7 +24,7 @@
     },
     "root_image": {
       "path": "build-fresh-target-nxe-stack-revalidation-probe/images/selinos-root-image-x86_64-pc99",
-      "sha256": "1528ae35aab0726615cc49c5774a9f1e18410f9d22dcdb91aff2ad28bb36337b"
+      "sha256": "52288541828878824e701d26289b3cfa746b55cdf4589c4e41593d5bcc9121d4"
     }
   },
   "runtime": {
@@ -53,11 +53,11 @@
     },
     "cmake": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "domain_manager": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "3c09e0542e50020a6cba2439ca5b3b470f463f87fd7eb5bab2bfedb62c02bf8a"
+      "sha256": "de1d68c895c6f0b21b30701f219d3c12f713f7fb782f5af115c609fbed9eda42"
     },
     "protocol": {
       "path": "src/projects/helixos/include/selinos_fresh_target_stack_vmfault_fsr_m2_protocol.h",

@@ -17,12 +17,12 @@
     },
     "root_image": {
       "path": "build-static-elf-rx-load-m0/images/selinos-root-image-x86_64-pc99",
-      "sha256": "39f1b84b721e74332df6f9bdb9465d5333a38fea255d8ffa3853daf7f5b4c17b"
+      "sha256": "e8bc1192add98431da6d307df21e18866b3db1d9e5f4fc82ed955fbc294bd4e1"
     }
   },
   "generated_config": {
     "path": "build-static-elf-rx-load-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
-    "sha256": "55268fa6df5ccf87676ae2b8e79bb644889025a9ec1af543e85b0cc00e0d6c28"
+    "sha256": "4dd21af27340d95e0e1b8b566efdc80953b96bf5e38f21ad8468d612ad29390d"
   },
   "implementation": {
     "fixture": {
@@ -39,7 +39,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "e25cd33578bd6b44bfcf49faad618e0ceb07ba78ab472ddeab178e15e4b5f465"
+      "sha256": "b3d78456740a7814d3dc2baef154fe98fd8a62faff5232f7f932029079e380b6"
     },
     "phase_gate": {
       "path": "docs/phase79_static_elf_rx_load_m0_gate.md",

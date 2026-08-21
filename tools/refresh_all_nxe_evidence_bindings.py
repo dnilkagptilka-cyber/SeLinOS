@@ -30,6 +30,8 @@ ALLOWED_PATHS = {
     "build-controlled-et-dyn-relative-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-controlled-pt-interp-handoff-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
     "build-controlled-execve-replacement-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-execve-reply-stack-read-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "build-execve-reply-context-bridge-m0/projects/helixos/gen_config/selinos-root/gen_config.h",
 }
 
 
