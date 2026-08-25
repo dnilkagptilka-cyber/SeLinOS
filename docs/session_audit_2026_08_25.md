@@ -10,8 +10,8 @@ SeLinOS is an evidence-gated, experimental x86_64/PC99 multi-server system in wh
 | Repository | Audited branch / revision | Result |
 |---|---|---|
 | `SeLinOS` | `main` at `1c72ab7`; active line `phase63-reply-terminal-fault` at `af58255` | `main` is materially behind the active proof line. Despite its historical name, the active line includes Phase 51 through Phase 90 work. |
-| `SeLinOS` | `phase91-reproducible-nx-dependencies` at `641d982` | New published continuation branch. It pins the required seL4 forks and stages a non-promoted Phase 92 candidate. |
-| `seL4` | `selinos-x86-nx` at `c7b5e55ec8cdddb506d69d96fdc69dc981088571` | One commit over upstream baseline `1326364...`; introduces the x86 execute-disable attribute plumbing. |
+| `SeLinOS` | `phase91-reproducible-nx-dependencies` | Published continuation branch; its post-Phase-91 commits pin NXE activation and verify Phase 92 M0. |
+| `seL4` | `selinos-x86-nxe` at `5387ba9f0b01481fc7027e0883f1c4587c64fd27` | Two commits over upstream baseline `1326364...`; adds execute-disable plumbing and CPUID-gated `EFER.NXE` activation. |
 | `seL4_libs` | `selinos-x86-nx` at `37b55704c1480ca6a8234cf962d01c099d20e7a1` | One commit over upstream baseline `d8abd95...`; adds the attribute-aware mapping helper. |
 
 ## Architecture and present boundary
@@ -24,7 +24,7 @@ This does not repair the earlier normal 18-word `UnknownSyscall` reply-frame lim
 
 Phase 91 corrects a reproducibility defect. The prior bootstrap selected upstream `seL4` and `seL4_libs` revisions even though the x86 W^X profiles compile against interfaces supplied only by the dedicated forks. `bootstrap_sources.sh` and `sources.lock` now pin the two reviewed fork commits explicitly. `tools/verify_phase91_reproducible_nx_dependencies.py` independently checks the exact repository URLs, commit IDs, full lock tuple, and SHA-bound bootstrap/lock files.
 
-Phase 92 is intentionally labelled an **implemented candidate**, not a verified milestone. Its default-OFF CMake profile reuses the Phase 90 self-authored fixture and context bridge, then changes the terminal RX sequence to `mov rax,[rsp+8]; movzx eax,byte ptr [rax]; ud2`. It expects only the fixed first `argv[0]` byte (`0x73`) and contains one target resume. The static checker validates that narrow contract and rejects any claim that the normal reply frame restores `SP`.
+Phase 92 is now a **verified M0 milestone**. Its default-OFF CMake profile reuses the Phase 90 self-authored fixture and context bridge, then reaches `mov rax,[rsp+8]; movzx eax,byte ptr [rax]; ud2`. It accepts only the fixed first self-authored `argv[0]` byte (`RAX=0x73`) and contains one target resume. The initial runtime VMFault (`FSR=0x0c`) exposed that the execute-disable fork emitted XD leaf bits without enabling `EFER.NXE`; the new reviewed seL4 pin adds a CPUID-gated NXE activation before paging. The Phase 92 manifest independently binds this implementation, the kernel source, clean build outputs, QEMU transcript, and its explicit non-claims.
 
 | Check | Result |
 |---|---|
@@ -33,11 +33,9 @@ Phase 92 is intentionally labelled an **implemented candidate**, not a verified 
 | `SeLinX86NxMappingProbe=ON` configure/build | Passed. |
 | `SeLinExecveReplyArgv0StringByteM0=ON` configure/build | Passed. |
 | Phase 91 independent verifier | Passed. |
-| Phase 92 static candidate verifier | Passed. |
-| Phase 92 QEMU TCG runtime witness | Inconclusive. The 90-second run reached seL4 startup but no rootserver marker before timeout. It is not counted as a pass. |
+| Phase 92 static contract verifier | Passed. |
+| Phase 92 clean QEMU 8.2.2 TCG runtime witness (`cpu=max`, 128 MiB, no KVM) | Passed; terminal `ud2` readback proves `RAX=0x73`. |
 
 ## Next required work
 
-The immediate task is to obtain a deterministic Phase 92 runtime transcript. The QEMU profile needs a bounded, observable rootserver start procedure or a sufficiently provisioned reproducible runtime window. Only after its exact terminal marker, target `RAX=0x73` readback, SHA-bound transcript, manifest, independent runtime verifier, and regression results are recorded may Phase 92 be promoted from candidate to verified.
-
-After that, the next compatibility steps should remain vertical and evidence-bound: initial-stack string bounds and NUL policy, a deliberately defined `execve` state transition, executable/loader lifetime and teardown, then process/FD/signal primitives needed by a selected static workload. Persistent storage and package management should not be promoted ahead of the DMA-containment and crash-consistency prerequisites described in the project roadmap.
+The next compatibility steps should remain vertical and evidence-bound: initial-stack string bounds and NUL policy, a deliberately defined `execve` state transition, executable/loader lifetime and teardown, then process/FD/signal primitives needed by a selected static workload. Persistent storage and package management should not be promoted ahead of the DMA-containment and crash-consistency prerequisites described in the project roadmap.

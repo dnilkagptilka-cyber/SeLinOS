@@ -1,10 +1,10 @@
 # HelixOS source lock
 # Baseline: seL4/sel4test-manifest default.xml, retrieved 2026-08-13
-# SeLinOS seL4 and seL4_libs forks are pinned for the x86_64 execute-disable API
+# SeLinOS seL4 and seL4_libs forks are pinned for x86_64 execute-disable and EFER.NXE activation
 37b55704c1480ca6a8234cf962d01c099d20e7a1  projects/seL4_libs
+5387ba9f0b01481fc7027e0883f1c4587c64fd27  kernel/seL4
 5b3c81127b191232489df09a59b22edead1c9db7  projects/sel4_projects_libs
 6e55b3c62687779692150e1de411ce61b9d2919a  projects/util_libs
 7dd5ba144b1fecf1358a12d2bef3eb365aab35c7  tools/seL4_tools
 86489cf6efab9f314964e79468c036e9035394c7  projects/sel4runtime
 b0005f86fecbd6d0257b15363a5b013446914265  projects/musllibc
-c7b5e55ec8cdddb506d69d96fdc69dc981088571  kernel/seL4

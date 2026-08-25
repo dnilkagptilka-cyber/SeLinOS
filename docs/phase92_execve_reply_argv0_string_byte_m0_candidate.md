@@ -1,6 +1,6 @@
-# Phase 92 — Execve Reply `argv[0]` First-Byte M0 Candidate
+# Phase 92 — Execve Reply `argv[0]` First-Byte M0 Candidate (Historical)
 
-**Status:** IMPLEMENTED CANDIDATE — the isolated profile compiles from a clean build. It is **not verified**: the bounded QEMU TCG run reached seL4 kernel startup but did not reach rootserver runtime markers before its 90-second limit. No Phase 92 runtime behavior claim may be promoted until a complete deterministic transcript and independent runtime verifier are added.
+> **Superseded:** Phase 92 completed runtime verification after the seL4 NXE activation fix. The current contract, evidence, and non-claims are recorded in [`phase92_execve_reply_argv0_string_byte_m0_gate.md`](phase92_execve_reply_argv0_string_byte_m0_gate.md). This file preserves the pre-fix candidate state and must not be treated as the current status.
 
 ## Proposed narrow contract
 

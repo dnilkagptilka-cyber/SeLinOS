@@ -9,6 +9,21 @@
 #include "selinos_execve_reply_argv0_pointer_m0_fixture.h"
 #include "selinos_execve_reply_argv0_pointer_m0_protocol.h"
 
+static void debug_puts(const char *text)
+{
+    seL4_DebugPutString((char *)text);
+}
+
+static void debug_put_word(seL4_Word value)
+{
+    char text[] = "0x0000000000000000\n";
+    const char digits[] = "0123456789abcdef";
+    for (unsigned int index = 0u; index < 16u; ++index) {
+        text[2u + index] = digits[(value >> ((15u - index) * 4u)) & 0xfu];
+    }
+    debug_puts(text);
+}
+
 bool selinos_execve_reply_argv0_string_byte_m0_start(vka_t *vka, vspace_t *vspace)
 {
     vka_object_t fault_endpoint;
@@ -421,17 +436,43 @@ bool selinos_execve_reply_argv0_string_byte_m0_start(vka_t *vka, vspace_t *vspac
     fault_badge = 0u;
     fault_message = seL4_Recv(fault_endpoint.cptr, &fault_badge);
     if (seL4_MessageInfo_get_label(fault_message) != seL4_Fault_UserException ||
-        fault_badge != SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_FAULT_BADGE ||
-        seL4_GetMR(seL4_UserException_FaultIP) !=
-            SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_FIXED_INTERPRETER_VADDR +
-                SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_POST_READ_UD2_OFFSET ||
-        seL4_GetMR(seL4_UserException_Number) !=
-            SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_INVALID_OPCODE_VECTOR ||
-        seL4_TCB_ReadRegisters(target_tcb.cptr, 0u, 0u,
+        fault_badge != SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_FAULT_BADGE) {
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: terminal label or badge mismatch. label=");
+        debug_put_word(seL4_MessageInfo_get_label(fault_message));
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: terminal badge=");
+        debug_put_word(fault_badge);
+        if (seL4_MessageInfo_get_label(fault_message) == seL4_Fault_VMFault) {
+            debug_puts("SeLinOS execve reply argv0 string-byte M0: VMFault IP=");
+            debug_put_word(seL4_GetMR(seL4_VMFault_IP));
+            debug_puts("SeLinOS execve reply argv0 string-byte M0: VMFault address=");
+            debug_put_word(seL4_GetMR(seL4_VMFault_Addr));
+            debug_puts("SeLinOS execve reply argv0 string-byte M0: VMFault FSR=");
+            debug_put_word(seL4_GetMR(seL4_VMFault_FSR));
+            debug_puts("SeLinOS execve reply argv0 string-byte M0: VMFault prefetch=");
+            debug_put_word(seL4_GetMR(seL4_VMFault_PrefetchFault));
+        }
+        return false;
+    }
+    if (seL4_GetMR(seL4_UserException_FaultIP) !=
+        SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_FIXED_INTERPRETER_VADDR +
+            SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_POST_READ_UD2_OFFSET) {
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: terminal fault IP mismatch.\n");
+        return false;
+    }
+    if (seL4_GetMR(seL4_UserException_Number) !=
+        SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_INVALID_OPCODE_VECTOR) {
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: terminal exception vector mismatch.\n");
+        return false;
+    }
+    if (seL4_TCB_ReadRegisters(target_tcb.cptr, 0u, 0u,
                                SELINOS_EXECVE_REPLY_ARGV0_POINTER_M0_X86_64_CONTEXT_WORDS,
-                               &observed_context) != seL4_NoError ||
-        observed_context.rax !=
-            SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_EXPECTED_ARGV0_FIRST_BYTE) {
+                               &observed_context) != seL4_NoError) {
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: terminal context read failed.\n");
+        return false;
+    }
+    if (observed_context.rax !=
+        SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_EXPECTED_ARGV0_FIRST_BYTE) {
+        debug_puts("SeLinOS execve reply argv0 string-byte M0: first-byte readback mismatch.\n");
         return false;
     }
     return true;

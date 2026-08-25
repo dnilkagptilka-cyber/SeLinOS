@@ -59,10 +59,11 @@ fetch_worktree() {
 }
 
 rm -f "$ROOT/.sources.lock.tmp"
-# The x86_64 execute-disable API used by SeLinOS W^X profiles comes from
-# reviewed SeLinOS forks based on the upstream sel4test-manifest baseline
-# retrieved on 2026-08-13. All remaining projects stay at that baseline.
-fetch "kernel/seL4" "https://github.com/dnilkagptilka-cyber/seL4.git" "c7b5e55ec8cdddb506d69d96fdc69dc981088571" "$SRC/kernel"
+# The x86_64 execute-disable API and the matching EFER.NXE activation used by
+# SeLinOS W^X profiles come from reviewed SeLinOS forks based on the upstream
+# sel4test-manifest baseline retrieved on 2026-08-13. All remaining projects
+# stay at that baseline.
+fetch "kernel/seL4" "https://github.com/dnilkagptilka-cyber/seL4.git" "5387ba9f0b01481fc7027e0883f1c4587c64fd27" "$SRC/kernel"
 fetch "tools/seL4_tools" "https://github.com/seL4/seL4_tools.git" "7dd5ba144b1fecf1358a12d2bef3eb365aab35c7" "$SRC/tools/seL4"
 fetch_worktree "projects/musllibc" "https://github.com/seL4/musllibc.git" "b0005f86fecbd6d0257b15363a5b013446914265" "$SRC/projects/musllibc"
 fetch "projects/seL4_libs" "https://github.com/dnilkagptilka-cyber/seL4_libs.git" "37b55704c1480ca6a8234cf962d01c099d20e7a1" "$SRC/projects/seL4_libs"
@@ -73,7 +74,7 @@ fetch "projects/sel4_projects_libs" "https://github.com/seL4/sel4_projects_libs.
 {
   echo "# HelixOS source lock"
   echo "# Baseline: seL4/sel4test-manifest default.xml, retrieved 2026-08-13"
-  echo "# SeLinOS seL4 and seL4_libs forks are pinned for the x86_64 execute-disable API"
+  echo "# SeLinOS seL4 and seL4_libs forks are pinned for x86_64 execute-disable and EFER.NXE activation"
   sort "$ROOT/.sources.lock.tmp"
 } > "$ROOT/sources.lock"
 rm -f "$ROOT/.sources.lock.tmp"

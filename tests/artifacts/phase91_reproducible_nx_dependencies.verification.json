@@ -1,21 +1,21 @@
 {
   "schema": 1,
-  "scope": "reproducible x86_64 execute-disable dependency pinning",
+  "scope": "reproducible x86_64 execute-disable and NXE dependency pinning",
   "implementation": {
     "bootstrap": {
       "path": "bootstrap_sources.sh",
-      "sha256": "c7e020cc493199906195e126a4dfd174907a603dc4574098301b854b8cf187c5"
+      "sha256": "862b48106e1a8576a42dadb1cf6fdb3eae1661abd9b7a17a03e406d17a2a8d90"
     },
     "lockfile": {
       "path": "sources.lock",
-      "sha256": "fb0afc846c8a11922ac6bc2d5e9176dd0cd8f8f4a32565a8b427ad8246d164ba"
+      "sha256": "150f89a86672272a121c9ef81b2b8d78799142d795168d0ee4762e4c7847a7b2"
     }
   },
   "forks": {
     "kernel/seL4": {
       "repository": "https://github.com/dnilkagptilka-cyber/seL4.git",
-      "branch": "selinos-x86-nx",
-      "commit": "c7b5e55ec8cdddb506d69d96fdc69dc981088571",
+      "branch": "selinos-x86-nxe",
+      "commit": "5387ba9f0b01481fc7027e0883f1c4587c64fd27",
       "upstream_base": "1326364bc9135d9445d936ebc01e38a402c1f4c6"
     },
     "projects/seL4_libs": {
@@ -26,7 +26,7 @@
     }
   },
   "not_claimed": [
-    "new execute-disable runtime behavior",
+    "general execute-disable or NX policy behavior",
     "ELF or execve compatibility",
     "Linux ABI compatibility",
     "Debian package compatibility",

@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 EXPECTED_SOURCES = {
-    "kernel/seL4": "c7b5e55ec8cdddb506d69d96fdc69dc981088571",
+    "kernel/seL4": "5387ba9f0b01481fc7027e0883f1c4587c64fd27",
     "projects/seL4_libs": "37b55704c1480ca6a8234cf962d01c099d20e7a1",
     "projects/musllibc": "b0005f86fecbd6d0257b15363a5b013446914265",
     "projects/sel4runtime": "86489cf6efab9f314964e79468c036e9035394c7",
@@ -62,7 +62,7 @@ def main() -> int:
     )
     require(evidence["schema"] == 1, "unexpected Phase 91 evidence schema")
     require(
-        evidence["scope"] == "reproducible x86_64 execute-disable dependency pinning",
+        evidence["scope"] == "reproducible x86_64 execute-disable and NXE dependency pinning",
         "unexpected Phase 91 scope",
     )
 
@@ -76,7 +76,7 @@ def main() -> int:
         EXPECTED_SOURCES["kernel/seL4"],
         "https://github.com/dnilkagptilka-cyber/seL4_libs.git",
         EXPECTED_SOURCES["projects/seL4_libs"],
-        "x86_64 execute-disable API",
+        "x86_64 execute-disable API and the matching EFER.NXE activation",
         "SeLinOS seL4 and seL4_libs forks are pinned",
     )
     for fragment in required_bootstrap_fragments:
@@ -99,7 +99,7 @@ def main() -> int:
     require(positions == sorted(positions), "fork dependency bootstrap order changed unexpectedly")
 
     require(
-        "# SeLinOS seL4 and seL4_libs forks are pinned for the x86_64 execute-disable API"
+        "# SeLinOS seL4 and seL4_libs forks are pinned for x86_64 execute-disable and EFER.NXE activation"
         in lock_text,
         "source lock does not declare the forked x86 execute-disable interface",
     )

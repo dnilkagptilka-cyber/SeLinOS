@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS execve reply argv0 string-byte M0",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "runtime_profile": "TCG cpu=max, memory=128M, no KVM, bounded 150-second run",
+    "cmake_option": "SeLinExecveReplyArgv0StringByteM0=ON",
+    "default": "OFF",
+    "reply": "one label-zero 16-word reply through FaultIP; SP and FLAGS excluded",
+    "context": "root reads and writes one complete faulted context, changing only fixed RIP and RSP",
+    "witness": "one RX mov rax,[rsp+8]; movzx eax,byte ptr [rax]; ud2 reads exactly the first fixed self-authored argv0 byte"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-phase92-nxe/images/kernel-x86_64-pc99",
+      "sha256": "ebd63a5cdcd55d1e73cf95bf19087c710e2d89021c0d889194fad375e38f4195"
+    },
+    "root_image": {
+      "path": "build-phase92-nxe/images/selinos-root-image-x86_64-pc99",
+      "sha256": "185960045a331a8b67a59307c536094881fa85f93a12b97a65f4a09edf91ba87"
+    }
+  },
+  "generated_config": {
+    "path": "build-phase92-nxe/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "ab7cd86132dc3d1f055d0f462d11552a3887872a9a49f4516b895f4d7abdc2ef"
+  },
+  "implementation": {
+    "bootstrap": {
+      "path": "bootstrap_sources.sh",
+      "sha256": "862b48106e1a8576a42dadb1cf6fdb3eae1661abd9b7a17a03e406d17a2a8d90"
+    },
+    "lockfile": {
+      "path": "sources.lock",
+      "sha256": "150f89a86672272a121c9ef81b2b8d78799142d795168d0ee4762e4c7847a7b2"
+    },
+    "kernel_nxe": {
+      "path": "src/kernel/src/arch/x86/64/head.S",
+      "sha256": "f8dcf9529e3b028643889c58781da03e1a62657d323829ac7a6eec735f2cbc70"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "271859fb0925b3c84da8b97bc3a29e046f79085bb2314650b132b84c9c8a9d68"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "e2ac789b91c2ea2217f10595309b609917bd2266e7fce37cbf020790ebbe44db"
+    },
+    "public_header": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_string_byte_m0.h",
+      "sha256": "47cbcd0530fe74ab12da0db22703db15b9d47baf75d4273e95037937eb46c19f"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/execve_reply_argv0_string_byte_m0_root.c",
+      "sha256": "f5f1158bff22873d5d90fdb1bf2380617757dee1ad2926473f70ded359d9b5b7"
+    },
+    "fixture_header": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_pointer_m0_fixture.h",
+      "sha256": "eff44ac87e0f80b2568342ab88ea841b1b05ca285d57c6699e241a40a549f87f"
+    },
+    "fixture": {
+      "path": "src/projects/helixos/src/execve_reply_argv0_pointer_m0.c",
+      "sha256": "2525f766b9b1e274d26cf4ca480745bf68bb70926d1cb449787c772c2ea7f02b"
+    },
+    "protocol": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_pointer_m0_protocol.h",
+      "sha256": "36bc79993c8eca2348471a2cf6c4a8c372c03f727739414e0722c5a9bc8042e4"
+    },
+    "phase_gate": {
+      "path": "docs/phase92_execve_reply_argv0_string_byte_m0_gate.md",
+      "sha256": "e0cb7eb3049819f0dfab062c61cc7d7205ad9b511b306720e2ed1947a50be91c"
+    },
+    "independent_verifier": {
+      "path": "tools/verify_execve_reply_argv0_string_byte_m0.py",
+      "sha256": "922a823441f042ace9a17aebc2ea33b9eaf84ff1f317b3fcb3fa2ddc08f27de4"
+    }
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_execve_reply_argv0_string_byte_m0.boot.log",
+    "sha256": "37d175769df6d602597ed6751651032d8c7a5872eb4773584c048185582b3030",
+    "required_markers": [
+      "COMMAND=\"./simulate --mem-size=128M --cpu=max --cpu-opt= --extra-qemu-args=-no-reboot\"",
+      "SeLinOS execve reply argv0 string-byte M0: one self-authored movzx eax,byte ptr [rax] read the first argv0 byte after fixed [rsp+8] pointer load and reached terminal UD2.",
+      "SeLinOS execve reply argv0 string-byte M0: no normal 18-word reply-frame, argv traversal, arbitrary dereference, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.",
+      "SeLinOS M0: root task entering idle/yield loop.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS execve reply argv0 string-byte M0: context bridge, one argv0 byte read or terminal witness failed.",
+      "SeLinOS execve reply argv0 string-byte M0: terminal label or badge mismatch.",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "not_claimed": [
+    "normal 18-word reply-frame restoration, full initial stack, arbitrary argv, envp or auxv parsing",
+    "general `execve`, process replacement, fork, clone, ELF loading, dynamic linker, libc, POSIX or Linux ABI compatibility",
+    "Debian binary execution, Debian package compatibility, `dpkg` or `apt`",
+    "general W^X, page-fault recovery, a general NX policy, Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}
