@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: MIT
-# Fetch only the official, commit-pinned seL4 sources required by HelixOS.
+# Fetch only commit-pinned seL4 sources required by HelixOS.
 # This script does not build or execute upstream code.
 set -euo pipefail
 
@@ -59,18 +59,21 @@ fetch_worktree() {
 }
 
 rm -f "$ROOT/.sources.lock.tmp"
-# Pinned commits from seL4/sel4test-manifest default.xml retrieved 2026-08-13.
-fetch "kernel/seL4" "https://github.com/seL4/seL4.git" "1326364bc9135d9445d936ebc01e38a402c1f4c6" "$SRC/kernel"
+# The x86_64 execute-disable API used by SeLinOS W^X profiles comes from
+# reviewed SeLinOS forks based on the upstream sel4test-manifest baseline
+# retrieved on 2026-08-13. All remaining projects stay at that baseline.
+fetch "kernel/seL4" "https://github.com/dnilkagptilka-cyber/seL4.git" "c7b5e55ec8cdddb506d69d96fdc69dc981088571" "$SRC/kernel"
 fetch "tools/seL4_tools" "https://github.com/seL4/seL4_tools.git" "7dd5ba144b1fecf1358a12d2bef3eb365aab35c7" "$SRC/tools/seL4"
 fetch_worktree "projects/musllibc" "https://github.com/seL4/musllibc.git" "b0005f86fecbd6d0257b15363a5b013446914265" "$SRC/projects/musllibc"
-fetch "projects/seL4_libs" "https://github.com/seL4/seL4_libs.git" "d8abd95e7114c852f6636e3084eb1f66091a75ee" "$SRC/projects/seL4_libs"
+fetch "projects/seL4_libs" "https://github.com/dnilkagptilka-cyber/seL4_libs.git" "37b55704c1480ca6a8234cf962d01c099d20e7a1" "$SRC/projects/seL4_libs"
 fetch "projects/sel4runtime" "https://github.com/seL4/sel4runtime.git" "86489cf6efab9f314964e79468c036e9035394c7" "$SRC/projects/sel4runtime"
 fetch "projects/util_libs" "https://github.com/seL4/util_libs.git" "6e55b3c62687779692150e1de411ce61b9d2919a" "$SRC/projects/util_libs"
 fetch "projects/sel4_projects_libs" "https://github.com/seL4/sel4_projects_libs.git" "5b3c81127b191232489df09a59b22edead1c9db7" "$SRC/projects/sel4_projects_libs"
 
 {
-  echo "# HelixOS official source lock"
-  echo "# Source manifest: seL4/sel4test-manifest default.xml, retrieved 2026-08-13"
+  echo "# HelixOS source lock"
+  echo "# Baseline: seL4/sel4test-manifest default.xml, retrieved 2026-08-13"
+  echo "# SeLinOS seL4 and seL4_libs forks are pinned for the x86_64 execute-disable API"
   sort "$ROOT/.sources.lock.tmp"
 } > "$ROOT/sources.lock"
 rm -f "$ROOT/.sources.lock.tmp"

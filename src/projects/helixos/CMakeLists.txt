@@ -436,6 +436,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinExecveReplyArgv0StringByteM0
+    SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_PROBE
+    "Enable one controlled execve reply-context bridge argv0 first-byte read candidate"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -1201,6 +1208,10 @@ if(SeLinExecveReplyContextBridgeM0)
 endif()
 if(SeLinExecveReplyArgv0PointerM0)
     target_sources(selinos-root PRIVATE src/execve_reply_argv0_pointer_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
+endif()
+if(SeLinExecveReplyArgv0StringByteM0)
+    target_sources(selinos-root PRIVATE src/execve_reply_argv0_string_byte_m0_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
 endif()
 
