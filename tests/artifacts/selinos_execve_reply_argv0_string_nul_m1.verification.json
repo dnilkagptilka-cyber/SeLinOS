@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "milestone": "SeLinOS execve reply argv0 string-NUL M1",
+  "status": "verified",
+  "profile": {
+    "architecture": "x86_64/PC99",
+    "emulator": "QEMU 8.2.2 TCG",
+    "runtime_profile": "TCG cpu=max, memory=128M, no KVM, bounded 150-second run",
+    "cmake_option": "SeLinExecveReplyArgv0StringNulM1=ON",
+    "default": "OFF",
+    "witness": "mov rax,[rsp+8]; movzx ecx,byte ptr [rax]; movzx edx,byte ptr [rax+7]; ud2",
+    "readback": "RAX=0x70002f00 pointer, RCX=0x73 first byte, RDX=0x00 fixed NUL sentinel",
+    "reply": "one label-zero 16-word reply through FaultIP; SP and FLAGS excluded"
+  },
+  "images": {
+    "kernel": {
+      "path": "build-phase93-m1/images/kernel-x86_64-pc99",
+      "sha256": "6868292389e0dcb554b4ca262ef29f81414c50c46a6d430552c9bc9558e1ca2d"
+    },
+    "root_image": {
+      "path": "build-phase93-m1/images/selinos-root-image-x86_64-pc99",
+      "sha256": "222f783b10a0df94dd3e1967c4f0440949b3d8a716e0352daf0d27cea9bba3ba"
+    }
+  },
+  "generated_config": {
+    "path": "build-phase93-m1/projects/helixos/gen_config/selinos-root/gen_config.h",
+    "sha256": "414cb02134e209320660ff6b36f804828e7c82b01224763568dc22edbaaec337"
+  },
+  "implementation": {
+    "bootstrap": {
+      "path": "bootstrap_sources.sh",
+      "sha256": "862b48106e1a8576a42dadb1cf6fdb3eae1661abd9b7a17a03e406d17a2a8d90"
+    },
+    "lockfile": {
+      "path": "sources.lock",
+      "sha256": "150f89a86672272a121c9ef81b2b8d78799142d795168d0ee4762e4c7847a7b2"
+    },
+    "build_gate": {
+      "path": "src/projects/helixos/CMakeLists.txt",
+      "sha256": "011656e145d69cf5e4ffcaf62befc22ca854356a4de2bc0c7a7f27b0ee8a7a07"
+    },
+    "root_wiring": {
+      "path": "src/projects/helixos/src/domain_manager.c",
+      "sha256": "df870c0c0654f69e890cca8462dffb09d2babab6f2678e2f03c89c9603429c6a"
+    },
+    "public_header": {
+      "path": "src/projects/helixos/include/selinos_execve_reply_argv0_string_nul_m1.h",
+      "sha256": "e592d7e8b22b1b83d62a9ae1db071bbe2d27cb24d662a855817cbaae89c49fb3"
+    },
+    "root_transaction": {
+      "path": "src/projects/helixos/src/execve_reply_argv0_string_nul_m1_root.c",
+      "sha256": "39dab9d4131ca433cb720ddf61ae1a7a8389c2ec4acc20097142212fd0c57f40"
+    }
+  },
+  "phase_gate": {
+    "path": "docs/phase93_execve_reply_argv0_string_nul_m1_gate.md",
+    "sha256": "b557bbaa32d3d7fe883ec4993e657e4ed60391329cf2d89d825ded5fa4af03fd"
+  },
+  "independent_verifier": {
+    "path": "tools/verify_execve_reply_argv0_string_nul_m1.py",
+    "sha256": "db24e7b1e63acebc754dd919a7bc35196ee723e9ada2fc0d308f70970dd42fe6"
+  },
+  "runtime_evidence": {
+    "path": "tests/artifacts/selinos_execve_reply_argv0_string_nul_m1.boot.log",
+    "sha256": "ef1bc1cd7cfeee7f8fc30d1159cd8a2472324c6d80fba42acaa82a1c0e756537",
+    "required_markers": [
+      "COMMAND=\"./simulate --mem-size=128M --cpu=max --cpu-opt= --extra-qemu-args=-no-reboot\"",
+      "SeLinOS execve reply argv0 string-NUL M1: fixed [rsp+8] argv0 pointer, first byte and one fixed NUL sentinel at argv0+7 reached terminal UD2.",
+      "SeLinOS execve reply argv0 string-NUL M1: no string walk, normal 18-word reply-frame, arbitrary dereference, general execve, Linux ABI or Debian claim.",
+      "SeLinOS M0: root task entering idle/yield loop.",
+      "COMMAND_EXIT_CODE=\"124\""
+    ],
+    "forbidden_markers": [
+      "SeLinOS execve reply argv0 string-NUL M1: context bridge, fixed argv0 byte or NUL sentinel witness failed.",
+      "SeLinOS execve reply argv0 string-NUL M1: terminal label or badge mismatch.",
+      "SeLinOS M0: isolated domain bootstrap FAILED."
+    ]
+  },
+  "not_claimed": [
+    "normal 18-word reply-frame restoration, full initial stack, arbitrary argv, envp or auxv parsing",
+    "string walk, NUL search loop, bounded copy, length calculation or arbitrary dereference",
+    "general execve, process replacement, fork, clone, ELF loading, dynamic linker, libc, POSIX or Linux ABI compatibility",
+    "Debian binary execution, Debian package compatibility, dpkg or apt",
+    "general W^X, page-fault recovery, Linux kernel, Linux VM, container, chroot or compatibility mode"
+  ]
+}

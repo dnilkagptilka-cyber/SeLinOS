@@ -443,6 +443,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinExecveReplyArgv0StringNulM1
+    SELINOS_EXECVE_REPLY_ARGV0_STRING_NUL_M1_PROBE
+    "Enable one controlled argv0 fixed-length NUL sentinel read witness"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -1212,6 +1219,10 @@ if(SeLinExecveReplyArgv0PointerM0)
 endif()
 if(SeLinExecveReplyArgv0StringByteM0)
     target_sources(selinos-root PRIVATE src/execve_reply_argv0_string_byte_m0_root.c)
+    target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
+endif()
+if(SeLinExecveReplyArgv0StringNulM1)
+    target_sources(selinos-root PRIVATE src/execve_reply_argv0_string_nul_m1_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
 endif()
 

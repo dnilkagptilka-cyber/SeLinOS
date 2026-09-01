@@ -95,6 +95,9 @@
 #if CONFIG_SELINOS_EXECVE_REPLY_ARGV0_STRING_BYTE_M0_PROBE
 #include "selinos_execve_reply_argv0_string_byte_m0.h"
 #endif
+#if CONFIG_SELINOS_EXECVE_REPLY_ARGV0_STRING_NUL_M1_PROBE
+#include "selinos_execve_reply_argv0_string_nul_m1.h"
+#endif
 #if CONFIG_SELINOS_X86_NX_MAPPING_PROBE || \
     CONFIG_SELINOS_X86_NX_RAW_FSR_REVALIDATION_PROBE
 #include "selinos_x86_nx_probe.h"
@@ -4505,6 +4508,14 @@ bool selinos_domain_manager_start(void)
     }
     debug_puts("SeLinOS execve reply argv0 string-byte M0: one self-authored movzx eax,byte ptr [rax] read the first argv0 byte after fixed [rsp+8] pointer load and reached terminal UD2.\n");
     debug_puts("SeLinOS execve reply argv0 string-byte M0: no normal 18-word reply-frame, argv traversal, arbitrary dereference, full initial stack, auxv, general execve, Linux ABI, Debian, dpkg or apt claim.\n");
+#endif
+#if CONFIG_SELINOS_EXECVE_REPLY_ARGV0_STRING_NUL_M1_PROBE
+    if (!selinos_execve_reply_argv0_string_nul_m1_start(vka, vspace)) {
+        debug_puts("SeLinOS execve reply argv0 string-NUL M1: context bridge, fixed argv0 byte or NUL sentinel witness failed.\n");
+        return false;
+    }
+    debug_puts("SeLinOS execve reply argv0 string-NUL M1: fixed [rsp+8] argv0 pointer, first byte and one fixed NUL sentinel at argv0+7 reached terminal UD2.\n");
+    debug_puts("SeLinOS execve reply argv0 string-NUL M1: no string walk, normal 18-word reply-frame, arbitrary dereference, general execve, Linux ABI or Debian claim.\n");
 #endif
 #if CONFIG_SELINOS_STATIC_IMAGE_TERMINAL_LIFECYCLE_PROBE
     debug_puts("SeLinOS static-image terminal lifecycle M0: terminal ownership observation only; no exit, cleanup, reuse or Linux process claim.\n");

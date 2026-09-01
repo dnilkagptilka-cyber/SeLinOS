@@ -39,3 +39,18 @@ Phase 92 is now a **verified M0 milestone**. Its default-OFF CMake profile reuse
 ## Next required work
 
 The next compatibility steps should remain vertical and evidence-bound: initial-stack string bounds and NUL policy, a deliberately defined `execve` state transition, executable/loader lifetime and teardown, then process/FD/signal primitives needed by a selected static workload. Persistent storage and package management should not be promoted ahead of the DMA-containment and crash-consistency prerequisites described in the project roadmap.
+
+## Phase 93 M1 continuation
+
+Phase 93 M1 is verified on top of Phase 92 M0. The default-OFF profile adds exactly one fixed NUL-sentinel byte read at `argv[0] + 7`, while preserving the pointer in `RAX`, placing the first byte in `RCX`, and requiring `RDX=0` at the terminal `ud2`. The initial implementation exposed a register-clobber issue: `movzx eax, byte ptr [rax]` destroyed the pointer before the second read and produced a VMFault at address `0x7a`. The corrected witness uses `movzx ecx, byte ptr [rax]` and passed the bounded runtime test.
+
+| Phase 93 M1 check | Result |
+|---|---|
+| Clean `SeLinExecveReplyArgv0StringNulM1=ON` build | Passed. |
+| Default-OFF isolation | Passed; M1 is not enabled in default configuration. |
+| QEMU 8.2.2 TCG runtime (`cpu=max`, 128 MiB, bounded 150 seconds) | Passed; terminal marker reached and root readback required `RAX=0x70002f00`, `RCX=0x73`, `RDX=0x00`. |
+| M0, Phase 91 and M1 independent verifiers | Passed. |
+
+M1 remains a fixed self-authored sentinel proof. It does not establish a string-walk loop, NUL search, bounded copy, general `argv`/`envp`/`auxv` handling, normal reply-frame restoration, general `execve`, ELF execution, Linux ABI compatibility, or Debian 13.6 compatibility.
+
+The current working branch contains the full M1 evidence gate, SHA-bound manifest and canonical runtime transcript. The next technical increment should be selected only after reviewing whether the project wants a bounded fixed-length copy proof or a separately specified initial-stack policy; neither should be promoted as general `execve` without a new contract.

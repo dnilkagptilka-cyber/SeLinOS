@@ -41,11 +41,11 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "271859fb0925b3c84da8b97bc3a29e046f79085bb2314650b132b84c9c8a9d68"
+      "sha256": "011656e145d69cf5e4ffcaf62befc22ca854356a4de2bc0c7a7f27b0ee8a7a07"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",
-      "sha256": "e2ac789b91c2ea2217f10595309b609917bd2266e7fce37cbf020790ebbe44db"
+      "sha256": "df870c0c0654f69e890cca8462dffb09d2babab6f2678e2f03c89c9603429c6a"
     },
     "public_header": {
       "path": "src/projects/helixos/include/selinos_execve_reply_argv0_string_byte_m0.h",
