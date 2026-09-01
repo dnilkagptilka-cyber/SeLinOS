@@ -450,6 +450,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinInitialStackArgvNulM2
+    SELINOS_INITIAL_STACK_ARGV_NUL_M2_PROBE
+    "Enable bounded pure-C initial-stack argv NUL validation module"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -1224,6 +1231,9 @@ endif()
 if(SeLinExecveReplyArgv0StringNulM1)
     target_sources(selinos-root PRIVATE src/execve_reply_argv0_string_nul_m1_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
+endif()
+if(SeLinInitialStackArgvNulM2)
+    target_sources(selinos-root PRIVATE src/selinos_initial_stack_argv.c)
 endif()
 
 include(rootserver)
