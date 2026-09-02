@@ -37,7 +37,7 @@
     },
     "build_gate": {
       "path": "src/projects/helixos/CMakeLists.txt",
-      "sha256": "011656e145d69cf5e4ffcaf62befc22ca854356a4de2bc0c7a7f27b0ee8a7a07"
+      "sha256": "1a39acd5260a95e991603bab715c7bc3818d521aaec068233cc154b546fc7b22"
     },
     "root_wiring": {
       "path": "src/projects/helixos/src/domain_manager.c",

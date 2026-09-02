@@ -36,6 +36,9 @@ def main() -> int:
         "struct selinos_initial_stack_argv_table_result",
         "selinos_initial_stack_argv_parse_table",
         "selinos_initial_stack_argv_read_byte_fn",
+        "struct selinos_initial_stack_envp_table_result",
+        "selinos_initial_stack_envp_parse_table",
+        "max_envc",
         "selinos_initial_stack_policy_validate",
         "selinos_initial_stack_argv_find_nul",
         "max_string_bytes",
@@ -65,9 +68,11 @@ def main() -> int:
     require("SeLinInitialStackArgvNulM2" in cmake, "missing M2 CMake option")
     require("SeLinInitialStackArgvTableM3" in cmake, "missing M3 CMake option")
     require("SELINOS_INITIAL_STACK_ARGV_TABLE_M3_PROBE" in cmake, "missing M3 selector")
+    require("SeLinInitialStackEnvpM4" in cmake, "missing M4 envp CMake option")
+    require("SELINOS_INITIAL_STACK_ENVP_M4_PROBE" in cmake, "missing M4 envp selector")
     require(cmake.count("DEFAULT\n    OFF") >= 2, "initial-stack options are not default OFF")
-    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3" in cmake,
-            "checker is not build-integrated for M2/M3")
+    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4" in cmake,
+            "checker is not build-integrated for M2/M3/M4")
 
     for token in (
         "sizeof(terminated)",
@@ -82,6 +87,9 @@ def main() -> int:
         "SELINOS_INITIAL_STACK_ARGV_CROSS_PAGE_DISABLED",
         "SELINOS_INITIAL_STACK_ARGV_TABLE_NOT_TERMINATED",
         "test_read_byte",
+        "selinos_initial_stack_envp_parse_table",
+        "envp_result.envc",
+        "valid_policy.max_envc = 1u",
     ):
         require(token in test, f"missing unit-test case: {token}")
 

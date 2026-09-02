@@ -56,8 +56,10 @@ int main(void)
         .size = sizeof(memory.bytes),
     };
     struct selinos_initial_stack_argv_table_result table_result;
-    const uintptr_t first_string = 0x1026u;
-    const uintptr_t second_string = 0x1030u;
+    const uintptr_t first_string = 0x103eu;
+    const uintptr_t second_string = 0x1048u;
+    const uintptr_t env_string = 0x1050u;
+    struct selinos_initial_stack_envp_table_result envp_result;
 
     assert(selinos_initial_stack_policy_validate(&valid_policy));
     invalid_policy.max_argc = 0u;
@@ -99,6 +101,10 @@ int main(void)
     test_write_word(&memory, 0u, first_string);
     test_write_word(&memory, sizeof(uintptr_t), second_string);
     test_write_word(&memory, 2u * sizeof(uintptr_t), 0u);
+    memcpy(&memory.bytes[env_string - memory.base], "K=V", 3u);
+    memory.bytes[env_string - memory.base + 3u] = 0u;
+    test_write_word(&memory, 3u * sizeof(uintptr_t), env_string);
+    test_write_word(&memory, 4u * sizeof(uintptr_t), 0u);
 
     assert(selinos_initial_stack_argv_parse_table(memory.base, 3u * sizeof(uintptr_t), 2u,
                                                   &valid_policy, test_read_byte, &memory,
@@ -115,6 +121,23 @@ int main(void)
                                                   &table_result) ==
            SELINOS_INITIAL_STACK_ARGV_CROSS_PAGE_DISABLED);
     assert(table_result.failure_index == 0u);
+
+    valid_policy.allow_cross_page_strings = true;
+    assert(selinos_initial_stack_envp_parse_table(memory.base + 3u * sizeof(uintptr_t),
+                                                  2u * sizeof(uintptr_t), 1u,
+                                                  &valid_policy, test_read_byte, &memory,
+                                                  &envp_result) ==
+           SELINOS_INITIAL_STACK_ARGV_TABLE_VALIDATED);
+    assert(envp_result.envc == 1u);
+    assert(envp_result.strings_checked == 1u);
+    assert(envp_result.total_bytes_read == 4u);
+    assert(selinos_initial_stack_argv_status_is_success(envp_result.status));
+    valid_policy.max_envc = 1u;
+    assert(selinos_initial_stack_envp_parse_table(memory.base + 3u * sizeof(uintptr_t),
+                                                  2u * sizeof(uintptr_t), 2u,
+                                                  &valid_policy, test_read_byte, &memory,
+                                                  &envp_result) ==
+           SELINOS_INITIAL_STACK_ARGV_COUNT_LIMIT_EXCEEDED);
 
     test_write_word(&memory, 2u * sizeof(uintptr_t), second_string);
     valid_policy.allow_cross_page_strings = true;

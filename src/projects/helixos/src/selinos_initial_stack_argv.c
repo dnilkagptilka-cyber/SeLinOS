@@ -120,11 +120,12 @@ bool selinos_initial_stack_policy_validate(
     return true;
 }
 
-enum selinos_initial_stack_argv_status
-selinos_initial_stack_argv_parse_table(uintptr_t table_base,
-                                       size_t table_region_bytes,
-                                       size_t argc,
-                                       const struct selinos_initial_stack_policy *policy,
+static enum selinos_initial_stack_argv_status
+parse_table_bounded(uintptr_t table_base,
+                    size_t table_region_bytes,
+                    size_t argc,
+                    size_t count_limit,
+                    const struct selinos_initial_stack_policy *policy,
                                        selinos_initial_stack_argv_read_byte_fn reader,
                                        void *reader_context,
                                        struct selinos_initial_stack_argv_table_result *result)
@@ -142,7 +143,7 @@ selinos_initial_stack_argv_parse_table(uintptr_t table_base,
         !selinos_initial_stack_policy_validate(policy)) {
         return result->status;
     }
-    if (argc > policy->max_argc) {
+    if (argc > count_limit) {
         result->status = SELINOS_INITIAL_STACK_ARGV_COUNT_LIMIT_EXCEEDED;
         return result->status;
     }
@@ -233,6 +234,47 @@ selinos_initial_stack_argv_parse_table(uintptr_t table_base,
     result->status = SELINOS_INITIAL_STACK_ARGV_TABLE_NOT_TERMINATED;
     result->failure_index = argc;
     return result->status;
+}
+
+enum selinos_initial_stack_argv_status
+selinos_initial_stack_argv_parse_table(uintptr_t table_base,
+                                       size_t table_region_bytes,
+                                       size_t argc,
+                                       const struct selinos_initial_stack_policy *policy,
+                                       selinos_initial_stack_argv_read_byte_fn reader,
+                                       void *reader_context,
+                                       struct selinos_initial_stack_argv_table_result *result)
+{
+    const size_t count_limit = policy == NULL ? 0u : policy->max_argc;
+
+    return parse_table_bounded(table_base, table_region_bytes, argc, count_limit,
+                               policy, reader, reader_context, result);
+}
+
+enum selinos_initial_stack_argv_status
+selinos_initial_stack_envp_parse_table(uintptr_t table_base,
+                                       size_t table_region_bytes,
+                                       size_t envc,
+                                       const struct selinos_initial_stack_policy *policy,
+                                       selinos_initial_stack_argv_read_byte_fn reader,
+                                       void *reader_context,
+                                       struct selinos_initial_stack_envp_table_result *result)
+{
+    struct selinos_initial_stack_argv_table_result table_result;
+    const size_t count_limit = policy == NULL ? 0u : policy->max_envc;
+    const enum selinos_initial_stack_argv_status status =
+        parse_table_bounded(table_base, table_region_bytes, envc, count_limit,
+                            policy, reader, reader_context, &table_result);
+
+    if (result == NULL) {
+        return SELINOS_INITIAL_STACK_ARGV_INVALID_ARGUMENT;
+    }
+    result->status = status;
+    result->envc = table_result.argc;
+    result->strings_checked = table_result.strings_checked;
+    result->total_bytes_read = table_result.total_bytes_read;
+    result->failure_index = table_result.failure_index;
+    return status;
 }
 
 bool selinos_initial_stack_argv_status_is_success(

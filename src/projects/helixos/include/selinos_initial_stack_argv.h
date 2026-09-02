@@ -49,6 +49,14 @@ struct selinos_initial_stack_argv_table_result {
     size_t failure_index;
 };
 
+struct selinos_initial_stack_envp_table_result {
+    enum selinos_initial_stack_argv_status status;
+    size_t envc;
+    size_t strings_checked;
+    size_t total_bytes_read;
+    size_t failure_index;
+};
+
 /* Reader owns the authority boundary and may map/validate one byte at a time. */
 typedef bool (*selinos_initial_stack_argv_read_byte_fn)(void *context,
                                                         uintptr_t address,
@@ -75,6 +83,16 @@ selinos_initial_stack_argv_parse_table(uintptr_t table_base,
                                        selinos_initial_stack_argv_read_byte_fn reader,
                                        void *reader_context,
                                        struct selinos_initial_stack_argv_table_result *result);
+
+/* Parse envc pointer entries plus envp[envc] == NULL using max_envc. */
+enum selinos_initial_stack_argv_status
+selinos_initial_stack_envp_parse_table(uintptr_t table_base,
+                                       size_t table_region_bytes,
+                                       size_t envc,
+                                       const struct selinos_initial_stack_policy *policy,
+                                       selinos_initial_stack_argv_read_byte_fn reader,
+                                       void *reader_context,
+                                       struct selinos_initial_stack_envp_table_result *result);
 
 bool selinos_initial_stack_policy_validate(
     const struct selinos_initial_stack_policy *policy);
