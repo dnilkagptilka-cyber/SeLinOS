@@ -17,7 +17,12 @@ enum selinos_initial_stack_argv_status {
     SELINOS_INITIAL_STACK_ARGV_INVALID_POINTER,
     SELINOS_INITIAL_STACK_ARGV_ARITHMETIC_OVERFLOW,
     SELINOS_INITIAL_STACK_ARGV_REGION_EXHAUSTED,
-    SELINOS_INITIAL_STACK_ARGV_INVALID_ARGUMENT
+    SELINOS_INITIAL_STACK_ARGV_INVALID_ARGUMENT,
+    SELINOS_INITIAL_STACK_ARGV_TABLE_NOT_TERMINATED,
+    SELINOS_INITIAL_STACK_ARGV_COUNT_LIMIT_EXCEEDED,
+    SELINOS_INITIAL_STACK_ARGV_READER_FAULT,
+    SELINOS_INITIAL_STACK_ARGV_CROSS_PAGE_DISABLED,
+    SELINOS_INITIAL_STACK_ARGV_TABLE_VALIDATED
 };
 
 struct selinos_initial_stack_policy {
@@ -26,6 +31,8 @@ struct selinos_initial_stack_policy {
     size_t max_argc;
     size_t max_envc;
     size_t max_string_bytes;
+    size_t page_bytes;
+    bool allow_cross_page_strings;
 };
 
 struct selinos_initial_stack_argv_result {
@@ -34,21 +41,40 @@ struct selinos_initial_stack_argv_result {
     size_t bytes_read;
 };
 
-/*
- * Scan one already-authorized argv string for NUL.
- *
- * The caller supplies the authorized mapped region containing argv0. The
- * function never dereferences outside that region or beyond max_string_bytes.
- * A nonzero region_bytes is required; region_bytes and max_string_bytes are
- * independently bounded. If the authorized region ends before the NUL,
- * REGION_EXHAUSTED is returned. The function does not catch hardware page
- * faults.
- */
+struct selinos_initial_stack_argv_table_result {
+    enum selinos_initial_stack_argv_status status;
+    size_t argc;
+    size_t strings_checked;
+    size_t total_bytes_read;
+    size_t failure_index;
+};
+
+/* Reader owns the authority boundary and may map/validate one byte at a time. */
+typedef bool (*selinos_initial_stack_argv_read_byte_fn)(void *context,
+                                                        uintptr_t address,
+                                                        uint8_t *value);
+
+/* Scan one already-authorized argv string for NUL. */
 enum selinos_initial_stack_argv_status
 selinos_initial_stack_argv_find_nul(const uint8_t *argv0,
                                     size_t region_bytes,
                                     size_t max_string_bytes,
                                     struct selinos_initial_stack_argv_result *result);
+
+/*
+ * Parse argc pointer entries plus argv[argc] == NULL through an authorized
+ * reader. The reader is used for both the pointer table and all string bytes,
+ * so strings may cross pages without unchecked host dereferences. The parser
+ * never remaps pages and does not catch hardware faults in an unsafe reader.
+ */
+enum selinos_initial_stack_argv_status
+selinos_initial_stack_argv_parse_table(uintptr_t table_base,
+                                       size_t table_region_bytes,
+                                       size_t argc,
+                                       const struct selinos_initial_stack_policy *policy,
+                                       selinos_initial_stack_argv_read_byte_fn reader,
+                                       void *reader_context,
+                                       struct selinos_initial_stack_argv_table_result *result);
 
 bool selinos_initial_stack_policy_validate(
     const struct selinos_initial_stack_policy *policy);
