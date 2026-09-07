@@ -106,15 +106,16 @@ bool selinos_initial_stack_policy_validate(
     const struct selinos_initial_stack_policy *policy)
 {
     if (policy == NULL || policy->stack_bytes == 0u || policy->max_argc == 0u ||
-        policy->max_envc == 0u || policy->max_string_bytes == 0u ||
-        policy->page_bytes == 0u) {
+        policy->max_envc == 0u || policy->max_auxv == 0u ||
+        policy->max_string_bytes == 0u || policy->page_bytes == 0u) {
         return false;
     }
     if (policy->stack_bytes > (size_t)(UINTPTR_MAX - policy->stack_base)) {
         return false;
     }
     if (policy->max_argc > SIZE_MAX / sizeof(uintptr_t) ||
-        policy->max_envc > SIZE_MAX / sizeof(uintptr_t)) {
+        policy->max_envc > SIZE_MAX / sizeof(uintptr_t) ||
+        policy->max_auxv > SIZE_MAX / 2u) {
         return false;
     }
     return true;
@@ -277,9 +278,84 @@ selinos_initial_stack_envp_parse_table(uintptr_t table_base,
     return status;
 }
 
+static void auxv_result_reset(struct selinos_initial_stack_auxv_result *result)
+{
+    result->status = SELINOS_INITIAL_STACK_ARGV_INVALID_ARGUMENT;
+    result->entries_checked = 0u;
+    result->total_bytes_read = 0u;
+    result->failure_index = 0u;
+    result->has_type = false;
+    result->last_type = 0u;
+    result->last_value = 0u;
+}
+
+enum selinos_initial_stack_argv_status
+selinos_initial_stack_auxv_parse(uintptr_t table_base,
+                                 size_t table_region_bytes,
+                                 const struct selinos_initial_stack_policy *policy,
+                                 selinos_initial_stack_argv_read_byte_fn reader,
+                                 void *reader_context,
+                                 struct selinos_initial_stack_auxv_result *result)
+{
+    size_t entry_index;
+    const size_t pair_bytes = 2u * sizeof(uintptr_t);
+
+    if (result == NULL) {
+        return SELINOS_INITIAL_STACK_ARGV_INVALID_ARGUMENT;
+    }
+    auxv_result_reset(result);
+    if (policy == NULL || reader == NULL || table_base == 0u ||
+        !selinos_initial_stack_policy_validate(policy)) {
+        return result->status;
+    }
+    if (table_region_bytes < pair_bytes ||
+        pair_bytes > (size_t)(UINTPTR_MAX - table_base)) {
+        result->status = SELINOS_INITIAL_STACK_ARGV_REGION_EXHAUSTED;
+        return result->status;
+    }
+
+    for (entry_index = 0u; entry_index < policy->max_auxv; ++entry_index) {
+        uintptr_t entry_address;
+        uintptr_t type;
+        uintptr_t value;
+        uintptr_t value_address;
+        size_t offset;
+
+        if (entry_index > SIZE_MAX / pair_bytes) {
+            result->status = SELINOS_INITIAL_STACK_ARGV_ARITHMETIC_OVERFLOW;
+            result->failure_index = entry_index;
+            return result->status;
+        }
+        offset = entry_index * pair_bytes;
+        if (offset > table_region_bytes - pair_bytes ||
+            !address_add(table_base, offset, &entry_address) ||
+            !address_add(entry_address, sizeof(uintptr_t), &value_address) ||
+            !reader_read_word(reader, reader_context, entry_address, &type) ||
+            !reader_read_word(reader, reader_context, value_address, &value)) {
+            result->status = SELINOS_INITIAL_STACK_ARGV_AUXV_READER_FAULT;
+            result->failure_index = entry_index;
+            return result->status;
+        }
+        result->entries_checked = entry_index + 1u;
+        result->total_bytes_read = result->entries_checked * pair_bytes;
+        result->has_type = true;
+        result->last_type = type;
+        result->last_value = value;
+        if (type == 0u) {
+            result->status = SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED;
+            return result->status;
+        }
+    }
+
+    result->status = SELINOS_INITIAL_STACK_ARGV_AUXV_LIMIT_EXCEEDED;
+    result->failure_index = policy->max_auxv;
+    return result->status;
+}
+
 bool selinos_initial_stack_argv_status_is_success(
     enum selinos_initial_stack_argv_status status)
 {
     return status == SELINOS_INITIAL_STACK_ARGV_FOUND_NUL ||
-           status == SELINOS_INITIAL_STACK_ARGV_TABLE_VALIDATED;
+           status == SELINOS_INITIAL_STACK_ARGV_TABLE_VALIDATED ||
+           status == SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED;
 }

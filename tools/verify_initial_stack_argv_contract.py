@@ -32,6 +32,10 @@ def main() -> int:
         "SELINOS_INITIAL_STACK_ARGV_READER_FAULT",
         "SELINOS_INITIAL_STACK_ARGV_CROSS_PAGE_DISABLED",
         "SELINOS_INITIAL_STACK_ARGV_TABLE_VALIDATED",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_NOT_TERMINATED",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_LIMIT_EXCEEDED",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_READER_FAULT",
         "struct selinos_initial_stack_policy",
         "struct selinos_initial_stack_argv_table_result",
         "selinos_initial_stack_argv_parse_table",
@@ -60,6 +64,11 @@ def main() -> int:
         "table_bytes = entry_count * sizeof(uintptr_t)",
         "string_address == 0u",
         "policy->allow_cross_page_strings",
+        "policy->max_auxv",
+        "selinos_initial_stack_auxv_parse",
+        "pair_bytes = 2u * sizeof(uintptr_t)",
+        "type == 0u",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED",
         "SELINOS_INITIAL_STACK_ARGV_TABLE_NOT_TERMINATED",
         "SELINOS_INITIAL_STACK_ARGV_FOUND_NUL",
     ):
@@ -69,10 +78,12 @@ def main() -> int:
     require("SeLinInitialStackArgvTableM3" in cmake, "missing M3 CMake option")
     require("SELINOS_INITIAL_STACK_ARGV_TABLE_M3_PROBE" in cmake, "missing M3 selector")
     require("SeLinInitialStackEnvpM4" in cmake, "missing M4 envp CMake option")
+    require("SeLinInitialStackAuxvM5" in cmake, "missing M5 auxv CMake option")
+    require("SELINOS_INITIAL_STACK_AUXV_M5_PROBE" in cmake, "missing M5 auxv selector")
     require("SELINOS_INITIAL_STACK_ENVP_M4_PROBE" in cmake, "missing M4 envp selector")
-    require(cmake.count("DEFAULT\n    OFF") >= 2, "initial-stack options are not default OFF")
-    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4" in cmake,
-            "checker is not build-integrated for M2/M3/M4")
+    require(cmake.count("DEFAULT\n    OFF") >= 4, "initial-stack options are not default OFF")
+    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4 OR SeLinInitialStackAuxvM5" in cmake,
+            "checker is not build-integrated for M2/M3/M4/M5")
 
     for token in (
         "sizeof(terminated)",
@@ -90,6 +101,10 @@ def main() -> int:
         "selinos_initial_stack_envp_parse_table",
         "envp_result.envc",
         "valid_policy.max_envc = 1u",
+        ".max_auxv = 4u",
+        "struct selinos_initial_stack_auxv_result",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED",
+        "SELINOS_INITIAL_STACK_ARGV_AUXV_LIMIT_EXCEEDED",
     ):
         require(token in test, f"missing unit-test case: {token}")
 

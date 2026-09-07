@@ -8,7 +8,7 @@
 
 struct test_memory {
     uintptr_t base;
-    uint8_t bytes[96];
+    uint8_t bytes[160];
     size_t size;
 };
 
@@ -46,6 +46,7 @@ int main(void)
         .stack_bytes = 0x10000u,
         .max_argc = 16u,
         .max_envc = 16u,
+        .max_auxv = 4u,
         .max_string_bytes = 16u,
         .page_bytes = 8u,
         .allow_cross_page_strings = true,
@@ -60,6 +61,7 @@ int main(void)
     const uintptr_t second_string = 0x1048u;
     const uintptr_t env_string = 0x1050u;
     struct selinos_initial_stack_envp_table_result envp_result;
+    struct selinos_initial_stack_auxv_result auxv_result;
 
     assert(selinos_initial_stack_policy_validate(&valid_policy));
     invalid_policy.max_argc = 0u;
@@ -105,6 +107,10 @@ int main(void)
     memory.bytes[env_string - memory.base + 3u] = 0u;
     test_write_word(&memory, 3u * sizeof(uintptr_t), env_string);
     test_write_word(&memory, 4u * sizeof(uintptr_t), 0u);
+    test_write_word(&memory, 12u * sizeof(uintptr_t), 6u);
+    test_write_word(&memory, 13u * sizeof(uintptr_t), 0x1234u);
+    test_write_word(&memory, 14u * sizeof(uintptr_t), 0u);
+    test_write_word(&memory, 15u * sizeof(uintptr_t), 0u);
 
     assert(selinos_initial_stack_argv_parse_table(memory.base, 3u * sizeof(uintptr_t), 2u,
                                                   &valid_policy, test_read_byte, &memory,
@@ -138,6 +144,29 @@ int main(void)
                                                   &valid_policy, test_read_byte, &memory,
                                                   &envp_result) ==
            SELINOS_INITIAL_STACK_ARGV_COUNT_LIMIT_EXCEEDED);
+
+    valid_policy.max_auxv = 4u;
+    assert(selinos_initial_stack_auxv_parse(0x1000u + 12u * sizeof(uintptr_t),
+                                            8u * sizeof(uintptr_t), &valid_policy,
+                                            test_read_byte, &memory, &auxv_result) ==
+           SELINOS_INITIAL_STACK_ARGV_AUXV_VALIDATED);
+    assert(auxv_result.entries_checked == 2u);
+    assert(auxv_result.total_bytes_read == 4u * sizeof(uintptr_t));
+    assert(auxv_result.has_type && auxv_result.last_type == 0u &&
+           auxv_result.last_value == 0u);
+    assert(selinos_initial_stack_argv_status_is_success(auxv_result.status));
+
+    valid_policy.max_auxv = 1u;
+    assert(selinos_initial_stack_auxv_parse(0x1000u + 12u * sizeof(uintptr_t),
+                                            8u * sizeof(uintptr_t), &valid_policy,
+                                            test_read_byte, &memory, &auxv_result) ==
+           SELINOS_INITIAL_STACK_ARGV_AUXV_LIMIT_EXCEEDED);
+    valid_policy.max_auxv = 4u;
+    test_write_word(&memory, 14u * sizeof(uintptr_t), 9u);
+    assert(selinos_initial_stack_auxv_parse(0x1000u + 12u * sizeof(uintptr_t),
+                                            8u * sizeof(uintptr_t), &valid_policy,
+                                            test_read_byte, &memory, &auxv_result) ==
+           SELINOS_INITIAL_STACK_ARGV_AUXV_LIMIT_EXCEEDED);
 
     test_write_word(&memory, 2u * sizeof(uintptr_t), second_string);
     valid_policy.allow_cross_page_strings = true;
