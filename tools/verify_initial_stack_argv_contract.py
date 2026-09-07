@@ -80,10 +80,12 @@ def main() -> int:
     require("SeLinInitialStackEnvpM4" in cmake, "missing M4 envp CMake option")
     require("SeLinInitialStackAuxvM5" in cmake, "missing M5 auxv CMake option")
     require("SELINOS_INITIAL_STACK_AUXV_M5_PROBE" in cmake, "missing M5 auxv selector")
+    require("SeLinInitialStackAuxvRuntimeM6" in cmake, "missing M6 runtime CMake option")
+    require("SELINOS_INITIAL_STACK_AUXV_RUNTIME_M6_PROBE" in cmake, "missing M6 runtime selector")
     require("SELINOS_INITIAL_STACK_ENVP_M4_PROBE" in cmake, "missing M4 envp selector")
-    require(cmake.count("DEFAULT\n    OFF") >= 4, "initial-stack options are not default OFF")
-    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4 OR SeLinInitialStackAuxvM5" in cmake,
-            "checker is not build-integrated for M2/M3/M4/M5")
+    require(cmake.count("DEFAULT\n    OFF") >= 5, "initial-stack options are not default OFF")
+    require("SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4 OR SeLinInitialStackAuxvM5 OR SeLinInitialStackAuxvRuntimeM6" in cmake,
+            "checker is not build-integrated for M2/M3/M4/M5/M6")
 
     for token in (
         "sizeof(terminated)",

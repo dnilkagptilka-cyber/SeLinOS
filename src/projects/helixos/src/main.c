@@ -4,6 +4,9 @@
 #include <selinos-root/gen_config.h>
 
 #include "selinos_bootstrap.h"
+#ifdef CONFIG_SELINOS_INITIAL_STACK_AUXV_RUNTIME_M6_PROBE
+#include "selinos_initial_stack_auxv_runtime_m6.h"
+#endif
 
 static void debug_puts(const char *text)
 {
@@ -38,6 +41,13 @@ int main(void)
 
     debug_puts("SeLinOS M0: bootstrap capabilities present.\n");
     debug_puts("SeLinOS M0: capability policy validation passed.\n");
+
+#ifdef CONFIG_SELINOS_INITIAL_STACK_AUXV_RUNTIME_M6_PROBE
+    if (!selinos_initial_stack_auxv_runtime_m6_witness()) {
+        debug_puts("SeLinOS Phase 98 M6: root runtime auxv witness FAILED.\n");
+        selinos_exit(5);
+    }
+#endif
 
     if (!selinos_domain_manager_start()) {
         debug_puts("SeLinOS M0: isolated domain bootstrap FAILED.\n");

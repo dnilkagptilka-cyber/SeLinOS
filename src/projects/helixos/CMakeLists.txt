@@ -478,6 +478,13 @@ config_option(
     OFF
 )
 config_option(
+    SeLinInitialStackAuxvRuntimeM6
+    SELINOS_INITIAL_STACK_AUXV_RUNTIME_M6_PROBE
+    "Enable runtime evidence witness for bounded initial-stack auxiliary vector parser"
+    DEFAULT
+    OFF
+)
+config_option(
     SeLinRootIommuAvailabilityProbe
     SELINOS_ROOT_IOMMU_AVAILABILITY_PROBE
     "Enable root-only x86 IOMMU bootinfo availability observation"
@@ -1253,8 +1260,11 @@ if(SeLinExecveReplyArgv0StringNulM1)
     target_sources(selinos-root PRIVATE src/execve_reply_argv0_string_nul_m1_root.c)
     target_link_libraries(selinos-root PUBLIC selinos-execve-reply-argv0-pointer-m0-fixture)
 endif()
-if(SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4 OR SeLinInitialStackAuxvM5)
+if(SeLinInitialStackArgvNulM2 OR SeLinInitialStackArgvTableM3 OR SeLinInitialStackEnvpM4 OR SeLinInitialStackAuxvM5 OR SeLinInitialStackAuxvRuntimeM6)
     target_sources(selinos-root PRIVATE src/selinos_initial_stack_argv.c)
+endif()
+if(SeLinInitialStackAuxvRuntimeM6)
+    target_sources(selinos-root PRIVATE src/selinos_initial_stack_auxv_runtime_m6.c)
 endif()
 
 include(rootserver)
